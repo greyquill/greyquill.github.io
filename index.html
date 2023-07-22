@@ -13,7 +13,59 @@
     <!-- on load operations  -->
     <script>
         window.onload = function() {
-            console.log('this is the test of the function of the window load')
+            console.log('this is the test of the function of the window load');
+
+
+            function logVisit() {
+                // Get the current date and time
+                var date = new Date();
+                var time = date.toLocaleString();
+
+                // Get the user's IP address
+                var ip = window.location.hostname;
+
+                // Get the user agent
+                var userAgent = window.navigator.userAgent;
+
+                // Get the referrer
+                var referrer = window.location.href;
+
+                // Get the cookies
+                var cookies = document.cookie;
+
+                // Get the device ID
+                var deviceId = window.deviceId;
+
+                // Get the geolocation
+                var geolocation = navigator.geolocation.getCurrentPosition();
+
+                var visit = {
+                    date: date,
+                    time: time,
+                    ip: ip,
+                    userAgent: userAgent,
+                    referrer: referrer,
+                    cookies: cookies,
+                    deviceId: deviceId,
+                    geolocation: geolocation
+                };
+
+                // Convert the JSON object to a string
+                var visitStr = JSON.stringify(visit);
+
+                // Create a fetch object
+                var fetchObj = new XMLHttpRequest();
+
+                // Set the request method and URL
+                fetchObj.open("POST", "http://127.0.0.1:1880/track-visit");
+
+                // Set the request headers
+                fetchObj.setRequestHeader("Content-Type", "application/json");
+
+                // Send the request
+                fetchObj.send(visitStr);
+            }
+
         }
     </script>
 
