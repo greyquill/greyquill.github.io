@@ -15,14 +15,6 @@
         window.onload = function() {
             console.log('this is the test of the function of the window load');
 
-            function logLocation(position) {
-                var lochttp = new XMLHttpRequest();
-                console.log("the full position object is -- " + position);
-                console.log('in the file -- ', "store.php?lat="+position.coords.latitude+" &long="+position.coords.longitude)
-                lochttp.open("GET", "store.php?lat="+position.coords.latitude+" &long="+position.coords.longitude);
-                lochttp.send();
-            }
-
             function logVisit() {
                 // Get the current date and time
                 var date = new Date();
@@ -44,7 +36,10 @@
                 var deviceId = window.deviceId;
 
                 // Get the geolocation
-                var geolocation = window.navigator.geolocation.getCurrentPosition(logLocation);
+                var geolocation = window.navigator.geolocation.getCurrentPosition(
+                    (msg) => {console.log(msg) }, 
+                    (msg) => {console.log(msg) }
+                );
 
                 var visit = {
                     date: date,
