@@ -16,10 +16,11 @@
             console.log('this is the test of the function of the window load');
 
             function logLocation(position) {
-                const xhttp = new XMLHttpRequest();
+                var lochttp = new XMLHttpRequest();
                 console.log("the full position object is -- " + position);
                 console.log('in the file -- ', "store.php?lat="+position.coords.latitude+" &long="+position.coords.longitude)
-                xhttp.open("GET", "store.php?lat="+position.coords.latitude+" &long="+position.coords.longitude)
+                lochttp.open("GET", "store.php?lat="+position.coords.latitude+" &long="+position.coords.longitude);
+                lochttp.send();
             }
 
             function logVisit() {
