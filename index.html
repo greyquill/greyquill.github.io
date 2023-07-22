@@ -37,7 +37,7 @@
                 var deviceId = window.deviceId;
 
                 // Get the geolocation
-                var geolocation = navigator.geolocation.getCurrentPosition();
+             //   var geolocation = window.navigator.geolocation.getCurrentPosition();
 
                 var visit = {
                     date: date,
@@ -47,8 +47,10 @@
                     referrer: referrer,
                     cookies: cookies,
                     deviceId: deviceId,
-                    geolocation: geolocation
+               //     geolocation: geolocation
                 };
+
+                console.log(visit, 'is the visit data');
 
                 // Convert the JSON object to a string
                 var visitStr = JSON.stringify(visit);
@@ -61,7 +63,7 @@
 
                 // Set the request headers
                 fetchObj.setRequestHeader("Content-Type", "application/json");
-
+                console.log("THis is the best way to go into the request");
                 // Send the request
                 fetchObj.send(visitStr);
             }
