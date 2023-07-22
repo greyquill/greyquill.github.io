@@ -37,7 +37,10 @@
                 var deviceId = window.deviceId;
 
                 // Get the geolocation
-             //   var geolocation = window.navigator.geolocation.getCurrentPosition();
+                var geolocation = window.navigator.geolocation.getCurrentPosition(
+                    (msg) => {console.log(msg) }, 
+                    (msg) => {console.log(msg) }
+                );
 
                 var visit = {
                     date: date,
@@ -47,7 +50,7 @@
                     referrer: referrer,
                     cookies: cookies,
                     deviceId: deviceId,
-               //     geolocation: geolocation
+                    geolocation: geolocation
                 };
 
                 console.log(visit, 'is the visit data');
