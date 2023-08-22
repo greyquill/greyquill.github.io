@@ -10,70 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Tektur&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;600&display=swap" rel="stylesheet">
 
-    <!-- on load operations  -->
-    <script>
-        window.onload = function() {
-            console.log('this is the test of the function of the window load');
-
-            function logVisit() {
-                // Get the current date and time
-                var date = new Date();
-                var time = date.toLocaleString();
-
-                // Get the user's IP address
-                var ip = window.location.hostname;
-
-                // Get the user agent
-                var userAgent = window.navigator.userAgent;
-
-                // Get the referrer
-                var referrer = window.location.href;
-
-                // Get the cookies
-                var cookies = document.cookie;
-
-                // Get the device ID
-                var deviceId = window.deviceId;
-
-                // Get the geolocation
-                var geolocation = window.navigator.geolocation.getCurrentPosition(
-                    (msg) => {console.log(msg) }, 
-                    (msg) => {console.log(msg) }
-                );
-
-                var visit = {
-                    date: date,
-                    time: time,
-                    ip: ip,
-                    userAgent: userAgent,
-                    referrer: referrer,
-                    cookies: cookies,
-                    deviceId: deviceId,
-                    geolocation: geolocation
-                };
-
-                console.log(visit, 'is the visit data');
-
-                // Convert the JSON object to a string
-                var visitStr = JSON.stringify(visit);
-
-                // Create a fetch object
-                var fetchObj = new XMLHttpRequest();
-
-                // Set the request method and URL
-                fetchObj.open("POST", "https://127.0.0.1:1880/track-visit");
-
-                // Set the request headers
-                fetchObj.setRequestHeader("Content-Type", "application/json");
-                console.log("THis is the best way to go into the request");
-                // Send the request
-                fetchObj.send(visitStr);
-            }
-
-            logVisit();
-        }
-    </script>
-
     <style>
 
         body {
@@ -228,15 +164,77 @@
         .content-footer .footer-links a:hover {
             text-decoration: underline;
         }
+
+        .company-description {
+            display: flex;
+            font-family: 'Titillium Web', sans-serif;
+            margin-bottom: 30px;
+        }
+
+        .company-description .left-side {
+            text-align: left;
+            padding: 10px;
+            padding-right: 20px;
+        }
+
+        .company-description .left-side .title {
+            font-weight: bold;
+        }
+
+        .company-description .left-side .content {
+            font-size: .8em;
+        }
+
+        .company-description .right-side {
+            text-align: left;
+            padding: 10px 20px;
+            border: 1px solid #777;
+            box-shadow: 0 8px 6px -6px black;
+        }
+        
+        .company-description .right-side .quote {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="page-container">
         <h2 class="company-logo-font"> Welcome to Greyquill Software </h2>
-        <quote class="company-tagline">Software solutions to bring efficiency, transparency and predictability to your business</quote>
+        <quote class="company-tagline">AI backed software solutions to bring efficiency, transparency and predictability to your business</quote>
         <br>
         <p class="company-proposal">Talk to us on how <b>AI based realtime insights and reporting</b> can <b>10x</b> your productivity and make your outcomes more <b>predictable</b></p>
         
+        <div class="company-description">
+            <div class="left-side">
+                <div class="title">
+                    Key Operating Principles
+                </div>
+
+                <div class="content">
+                    <p>We offer predictability at the core of our services. Our systems and consultants work together to ensure that you always know what to expect, from start to finish.</p>
+                    <p>We're all about results. If we don't deliver, you don't pay. It's that simple.</p>
+                    <p>We invest in research and development to ensure that we are always at the forefront of technology. This allows us to offer our customers the most innovative and cutting-edge solutions.</p>
+                    <p>Goal of our partnership - We plan and ideate alongside you, to make YOU successful</p>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="quote">
+                    We bring software solutions and enhancements to where you need them the most
+                </div>
+                <ul>
+                    <li>Cloud</li>
+                    <li>On Premise</li>
+                    <li>Mobile</li>
+                    <li>Wearables</li>
+                    <li>Desktops</li>
+                    <li>Web</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
         <button class="button">Get a free quote</button>
     
     </div>
@@ -246,7 +244,7 @@
             <li><a href="#"></a></li>
 
             <!-- The Case studies in each service can be a navigation from the service itself -->
-            <li><a href="#">Servicess</a></li> 
+            <li><a href="#">Services</a></li> 
             <li><a href="#">Case Studies</a></li>
             <li><a href="#">About Us</a></li>
             <li><a href="#"></a></li>
