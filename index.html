@@ -52,6 +52,26 @@
             font-weight:bold;
         }
 
+        .page-container .workload-links {
+            border: 1px dashed #aaa;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5em;
+        }
+
+        .page-container .workload-links a {
+            white-space: nowrap;
+            margin: 0px 10px;
+            text-decoration: none;
+            font-family: 'Courier New', Courier, monospace;
+            color: #3A3A3A;
+        }
+
+        .page-container .workload-links a:hover {
+            text-decoration: underline;
+        }
+
         .button {
             position: relative;
             background-color: black;
@@ -182,7 +202,7 @@
         }
 
         .company-description .left-side .content {
-            font-size: .8em;
+            font-size: .85em;
         }
 
         .company-description .right-side {
@@ -200,9 +220,19 @@
 <body>
     <div class="page-container">
         <h2 class="company-logo-font"> Welcome to Greyquill Software </h2>
-        <quote class="company-tagline">AI backed software solutions to bring efficiency, transparency and predictability to your business</quote>
-        <br>
-        <p class="company-proposal">Talk to us on how <b>AI based realtime insights and reporting</b> can <b>10x</b> your productivity and make your outcomes more <b>predictable</b></p>
+        <quote class="company-tagline">AI backed enterprise grade software solutions to bring efficiency, transparency and predictability, to your business</quote>
+        <br/>
+        <br/>
+        <div class="workload-links">
+            <a href="#">New Application Development</a>
+            <a href="#">Cloud Deployments & Migrations</a>
+            <a href="#">Database Optimizations & Migrations</a>
+            <a href="#">Legacy Application Modernization</a>
+            <a href="#">Application Re-architecture</a>
+            <a href="#">Scale & Performance Analysis</a>
+        </div>
+        <br/>
+        <p class="company-proposal">Talk to us on how <b>AI based realtime insights and reporting</b> can <b>10x</b> your productivity and make your business outcomes more <b>predictable</b></p>
         
         <div class="company-description">
             <div class="left-side">
@@ -222,12 +252,12 @@
                     We bring software solutions and enhancements to where you need them the most
                 </div>
                 <ul>
-                    <li>Cloud</li>
-                    <li>On Premise</li>
+                    <li>Web</li>
                     <li>Mobile</li>
                     <li>Wearables</li>
+                    <li>Secure On Premise</li>
                     <li>Desktops</li>
-                    <li>Web</li>
+                    <li>Cloud</li>
                 </ul>
 
             </div>
