@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,14 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;600&display=swap" rel="stylesheet">
 
     <style>
-
         body {
-            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .page-container {
             margin: 0px auto;
-            width: 35%;
+            width: 55%;
             text-align: center;
             color: #555;
             animation: fade 1s linear;
@@ -32,8 +32,13 @@
         }
 
         @keyframes fade {
-            0% { opacity: 0 }
-            100% { opacity: 1 }
+            0% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
         }
 
         .page-container .company-logo-font {
@@ -41,7 +46,7 @@
             color: #333;
         }
 
-        .page-container .company-tagline, 
+        .page-container .company-tagline,
         .page-container .company-proposal {
             font-family: 'Titillium Web', sans-serif;
             font-size: 1.1em;
@@ -49,23 +54,75 @@
 
         .page-container .company-proposal b {
             font-family: 'Titillium Web', sans-serif;
-            font-weight:bold;
+            font-weight: bold;
         }
 
         .page-container .workload-links {
             border: 1px dashed #aaa;
-            padding: 10px;
+            padding-top: 10px;
+            padding-right: 10px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             line-height: 1.5em;
         }
 
+        .page-container .workload-links div {
+            float: left;
+            width: inherit;
+
+        }
+
+        .page-container .workload-links .right {
+            float: right;
+            margin-left: 10px;
+        }
+
+        .page-container .workload-links .services-link {
+            background-image: var(--background);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: right;
+            padding: 5px 75px 0px 20px;
+            text-align: left;
+            line-height: normal;
+            margin-bottom: 25px;
+            height: 45px;
+            align-self: center;
+        }
+
+        @media only screen and (max-width: 480px) {
+            .page-container .workload-links .services-link {
+                width: 75%;
+            }
+
+            .page-container .workload-links {
+                flex-direction: column;
+            }
+
+            .page-container .workload-links .right {
+                margin-left: 0px;
+            }
+        }
+
+        @media only screen and (max-width: 1024px) {
+            .page-container .workload-links .services-link {
+                width: 75%;
+            }
+
+            .page-container .workload-links {
+                flex-direction: column;
+            }
+
+            .page-container .workload-links .right {
+                margin-left: 0px;
+            }
+        }
+
         .page-container .workload-links a {
-            white-space: nowrap;
-            margin: 0px 10px;
             text-decoration: none;
             font-family: 'Courier New', Courier, monospace;
             color: #3A3A3A;
+            font-size: 1em;
         }
 
         .page-container .workload-links a:hover {
@@ -79,13 +136,14 @@
             font-size: 16px;
             color: white;
             padding: 0.8em 1.8em;
-            cursor:pointer;
-            user-select:none;
+            cursor: pointer;
+            user-select: none;
             text-align: center;
             text-decoration: none;
             cursor: pointer;
             transition-duration: 0.4s;
-            -webkit-transition-duration: 0.4s; /* Safari */
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
         }
 
         .button:hover {
@@ -99,7 +157,7 @@
             position: absolute;
             border-radius: 4em;
             left: 0;
-            top:0;
+            top: 0;
             width: 100%;
             height: 100%;
             opacity: 0;
@@ -112,7 +170,7 @@
             position: absolute;
             border-radius: 4em;
             left: 0;
-            top:0;
+            top: 0;
             opacity: 1;
             transition: 0s;
         }
@@ -139,18 +197,19 @@
             font: 120% system-ui;
             text-align: center;
             padding: 2rem 1rem;
-            
+
         }
+
         .page-links ul li {
             text-align: center;
         }
 
-        .page-links ul li a{
+        .page-links ul li a {
             color: #555;
             text-decoration: none;
         }
 
-        .page-links ul li a.active{
+        .page-links ul li a.active {
             font-weight: 600;
         }
 
@@ -171,7 +230,7 @@
         }
 
         .content-footer .footer-links {
-            margin-left: auto;  
+            margin-left: auto;
             margin-right: 10px;
         }
 
@@ -211,29 +270,94 @@
             border: 1px solid #777;
             box-shadow: 0 8px 6px -6px black;
         }
-        
+
         .company-description .right-side .quote {
             font-weight: bold;
         }
+
+        .page-container .header {
+            padding: 10px 0px;
+            border-bottom: 1px solid #aaaaaa;
+            display: flex;
+            width: 100%;
+            vertical-align: middle;
+        }
+
+        .page-container .header .logo {
+            float: left;
+        }
+
+        .page-container .header .login {
+            float: right;
+            margin-left: auto;
+            vertical-align: middle;
+        }
+
+        .page-container .header .login a {
+            color: #13538a;
+            text-decoration: none;
+            font-size: 1em;
+            vertical-align: middle;
+        }
+
+        .page-container .header .login a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
+
 <body>
     <div class="page-container">
-        <h2 class="company-logo-font"> Welcome to Greyquill Software </h2>
-        <quote class="company-tagline">AI backed enterprise grade software solutions to bring efficiency, transparency and predictability, to your business</quote>
-        <br/>
-        <br/>
-        <div class="workload-links">
-            <a href="#">New Application Development</a>
-            <a href="#">Cloud Deployments & Migrations</a>
-            <a href="#">Database Optimizations & Migrations</a>
-            <a href="#">Legacy Application Modernization</a>
-            <a href="#">Application Re-architecture</a>
-            <a href="#">Scale & Performance Analysis</a>
+        <div class="header">
+            <div class="logo">
+                <img src="assets/CompanyLogo.png" alt="Greyquill Software" height="30">
+            </div>
+            <div class="login">
+                <a href="#">Customer Login</a>
+            </div>
         </div>
-        <br/>
-        <p class="company-proposal">Talk to us on how <b>AI based realtime insights and reporting</b> can <b>10x</b> your productivity and make your business outcomes more <b>predictable</b></p>
-        
+        <h2 class="company-logo-font"> Welcome to Greyquill Software </h2>
+        <quote class="company-tagline">AI backed enterprise grade software solutions to bring efficiency, transparency
+            and predictability, to your business</quote>
+        <br />
+        <br />
+        <div class="workload-links">
+            <div class="left">
+                <div class="services-link" style="--background: url('assets/serv1.png')"><a href="#">
+                        <span>Outdated or inefficient
+                            software
+                            applications</span></a></div>
+                <div class="services-link" style="--background: url('assets/serv2.png')"><a href="#"><span>Lack of
+                            proper
+                            documentation and
+                            testing </span></a></div>
+                <div class="services-link" style="--background: url('assets/serv3.png')"><a href="#"><span>Legacy
+                            applications
+                            that need
+                            modernization</span></a></div>
+            </div>
+            <div class="right">
+                <div class="services-link" style="--background: url('assets/serv4.png')"><a href="#"><span>Inability to
+                            leverage
+                            the benefits
+                            of API
+                            gateways</span></a></div>
+                <div class="services-link" style="--background: url('assets/serv5.png')"><a href="#"><span>Need for
+                            cloud
+                            migration or
+                            optimization</span></a></div>
+                <div class="services-link" style="--background: url('assets/serv6.png')"><a href="#"><span>Seeking
+                            guidance
+                            on
+                            adopting new
+                            technologies</span></a></div>
+            </div>
+        </div>
+
+        <br />
+        <p class="company-proposal">Talk to us on how <b>AI based realtime insights and reporting</b> can <b>10x</b>
+            your productivity and make your business outcomes more <b>predictable</b></p>
+
         <div class="company-description">
             <div class="left-side">
                 <div class="title">
@@ -241,9 +365,12 @@
                 </div>
 
                 <div class="content">
-                    <p>We offer predictability at the core of our services. Our systems and consultants work together to ensure that you always know what to expect, from start to finish.</p>
+                    <p>We offer predictability at the core of our services. Our systems and consultants work together to
+                        ensure that you always know what to expect, from start to finish.</p>
                     <p>We're all about results. If we don't deliver, you don't pay. It's that simple.</p>
-                    <p>We invest in research and development to ensure that we are always at the forefront of technology. This allows us to offer our customers the most innovative and cutting-edge solutions.</p>
+                    <p>We invest in research and development to ensure that we are always at the forefront of
+                        technology. This allows us to offer our customers the most innovative and cutting-edge
+                        solutions.</p>
                     <p>Goal of our partnership - We plan and ideate alongside you, to make YOU successful</p>
                 </div>
             </div>
@@ -266,7 +393,7 @@
 
 
         <button class="button">Get a free quote</button>
-    
+
     </div>
 
     <div class="page-links">
@@ -274,7 +401,7 @@
             <li><a href="#"></a></li>
 
             <!-- The Case studies in each service can be a navigation from the service itself -->
-            <li><a href="#">Services</a></li> 
+            <li><a href="#">Services</a></li>
             <li><a href="#">Case Studies</a></li>
             <li><a href="#">About Us</a></li>
             <li><a href="#"></a></li>
@@ -288,18 +415,19 @@
 
     <!-- Footer -->
     <footer class="content-footer">
-          <div class="copy-right">
+        <div class="copy-right">
             ©
             <script>
-              document.write(new Date().getFullYear());
+                document.write(new Date().getFullYear());
             </script> Greyquill
-          </div>
-          <div class="footer-links">
-            <a href="https://www.greyquill.io/news" target="_blank" class="footer-link me-4" >News</a>
+        </div>
+        <div class="footer-links">
+            <a href="https://www.greyquill.io/news" target="_blank" class="footer-link me-4">News</a>
             <a href="https://www.greyquill.io/policies" target="_blank" class="footer-link me-4">Policies</a>
             <a href="https://www.greyquill.io/support" target="_blank" class="footer-link me-4">Support</a>
         </div>
-      </footer>
-      <!-- / Footer -->
+    </footer>
+    <!-- / Footer -->
 </body>
+
 </html>
