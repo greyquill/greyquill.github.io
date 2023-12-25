@@ -71,6 +71,17 @@
             line-height: 1.5em;
         }
 
+        .page-container .workload-heading {
+            font-family: 'Titillium Web', sans-serif;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .page-container .workload-heading a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
         .page-container .workload-links div {
             float: left;
             width: inherit;
@@ -261,32 +272,44 @@
         .company-description {
             display: flex;
             font-family: 'Titillium Web', sans-serif;
-            margin-bottom: 30px;
-        }
-
-        .company-description .left-side {
+            margin: 30px 0px;
+            padding: 30px 15px;
             text-align: left;
-            padding: 10px;
-            padding-right: 20px;
+            flex-direction: column;
+            background-color: #0B4F88;
+            color: #eefbff
         }
 
-        .company-description .left-side .title {
-            font-weight: bold;
+        .company-description p {
+            margin: 0;
+            margin-bottom: 15px;
         }
 
-        .company-description .left-side .content {
-            font-size: .85em;
-        }
-
+        .company-description .left-side,
         .company-description .right-side {
-            text-align: left;
-            padding: 10px 20px;
-            border: 1px solid #777;
-            box-shadow: 0 8px 6px -6px black;
+            padding: 0px 5px;
+            width: 50%;
+
+            @media only screen and (max-width: 480px) {
+                width: 100%;
+            }
         }
 
-        .company-description .right-side .quote {
+        .company-description .title {
+            margin-bottom: 15px;
             font-weight: bold;
+            width: 100%;
+            text-align: center;
+        }
+
+        .company-description .content {
+            display: flex;
+            flex-direction: row;
+            font-size: .85em;
+
+            @media only screen and (max-width: 480px) {
+                flex-direction: column;
+            }
         }
 
         .page-container .header {
@@ -392,6 +415,7 @@
             and predictability, to your business</quote>
         <br />
         <br />
+        <div class="workload-heading">Our Team of Industry Veterans help customers with...</div>
         <div class="workload-links">
             <div class="left">
                 <div class="services-link" style="--background: url('assets/serv1.png')"><a href="#">
@@ -424,47 +448,46 @@
                             technologies</span></a></div>
             </div>
         </div>
+        <br />
+        <div class="workload-heading"># We also build sleek, snappy and highly reliable <a href="#">custom software</a>
+            <br />For web, mobile and everything else on the planet
+        </div>
 
         <br />
-        <p class="company-proposal">Talk to us on how <b>AI based realtime insights and reporting</b> can <b>10x</b>
-            your productivity and make your business outcomes more <b>predictable</b></p>
+        <p class="company-proposal">Share your business challenges or goals with us, and relax while our expert team
+            transforms them into success stories</b></b></p>
+        <button class="button">Take the Survey</button>
+
 
         <div class="company-description">
-            <div class="left-side">
-                <div class="title">
-                    Key Operating Principles
-                </div>
 
-                <div class="content">
-                    <p>We offer predictability at the core of our services. Our systems and consultants work together to
+            <div class="title">
+                Key Operating Principles
+            </div>
+            <div class="content">
+                <div class="left-side">
+
+                    <p><b> # </b>&nbsp;&nbsp; We offer predictability at the core of our services. Our systems and
+                        consultants work
+                        together
+                        to
                         ensure that you always know what to expect, from start to finish.</p>
-                    <p>We're all about results. If we don't deliver, you don't pay. It's that simple.</p>
-                    <p>We invest in research and development to ensure that we are always at the forefront of
+                    <p><b> # </b>&nbsp;&nbsp; We're all about results. If we don't deliver, you don't pay. It's that
+                        simple.</p>
+
+                </div>
+                <div class="right-side">
+                    <p><b> # </b>&nbsp;&nbsp; We invest in research and development to ensure that we are always at the
+                        forefront of
                         technology. This allows us to offer our customers the most innovative and cutting-edge
                         solutions.</p>
-                    <p>Goal of our partnership - We plan and ideate alongside you, to make YOU successful</p>
-                </div>
-            </div>
-            <div class="right-side">
-                <div class="quote">
-                    We bring software solutions and enhancements to where you need them the most
-                </div>
-                <ul>
-                    <li>Web</li>
-                    <li>Mobile</li>
-                    <li>Wearables</li>
-                    <li>Secure On Premise</li>
-                    <li>Desktops</li>
-                    <li>Cloud</li>
-                </ul>
+                    <p><b> # </b>&nbsp;&nbsp; Goal of our partnership - We plan and ideate alongside you, to make YOU
+                        successful</p>
 
+                </div>
             </div>
 
         </div>
-
-
-        <button class="button">Get a free quote</button>
-
     </div>
 
     <div class="page-links">
