@@ -456,7 +456,8 @@
         <br />
         <p class="company-proposal">Share your business challenges or goals with us, and relax while our expert team
             transforms them into success stories</b></b></p>
-        <button class="button">Take the Survey</button>
+
+        <button class="button" id="get_quote_button">Contact Us</button>
 
 
         <div class="company-description">
@@ -523,5 +524,11 @@
     </footer>
     <!-- / Footer -->
 </body>
+
+<script>
+    document.getElementById("get_quote_button").addEventListener('click', () => {
+        window.location.href = 'http://localhost:3004/request_quote';
+    });
+</script>
 
 </html>
