@@ -13,8 +13,7 @@ function App() {
       <Banner />
       <h2 className="text-3xl font-tektur text-gray-800 text-center mt-8">Welcome to Greyquill Software</h2>
       <p className="text-xl font-titillium text-center mt-4">
-        Data and Process backed enterprise grade software solutions to bring efficiency, transparency
-        and predictability, to your business
+      Enterprise software solutions that boost efficiency, transparency, and predictability
       </p>
       <Services />
       <p className="text-xl font-titillium text-center mt-8">
