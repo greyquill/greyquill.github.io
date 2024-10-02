@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Tektur&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;600&display=swap');
+
+.font-tektur {
+  font-family: 'Tektur', cursive;
+}
+
+.font-titillium {
+  font-family: 'Titillium Web', sans-serif;
+}
+
+@keyframes fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.fade-in {
+  animation: fade 1s linear;
+}
+
+// Add any other custom styles here
