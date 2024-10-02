@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greyquill Software</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tektur&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .page-container {
+            margin: 0px auto;
+            width: 55%;
+            text-align: center;
+            color: #555;
+            animation: fade 1s linear;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .page-container {
+                width: 80%;
+            }
+        }
+
+        @media only screen and (max-width: 720px) {
+            .page-container {
+                width: 100%;
+            }
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        .page-container .company-logo-font {
+            font-family: 'Tektur', cursive;
+            color: #333;
+        }
+
+        .page-container .company-tagline,
+        .page-container .company-proposal {
+            font-family: 'Titillium Web', sans-serif;
+            font-size: 1.2em;
+        }
+
+        .page-container .company-proposal b {
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: bold;
+        }
+
+        .page-container .workload-links {
+            border: 1px dashed #aaa;
+            padding-top: 10px;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: row;
+            line-height: 1.5em;
+        }
+
+        .page-container .workload-heading {
+            font-family: 'Titillium Web', sans-serif;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .page-container .workload-heading a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        .page-container .workload-links div {
+            float: left;
+            width: inherit;
+            margin-right: 10px;
+        }
+
+        .page-container .workload-links .right {
+            float: right;
+        }
+
+        .page-container .workload-links .services-link {
+            background-image: var(--background);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: right;
+            padding: 5px 75px 0px 20px;
+            text-align: left;
+            line-height: normal;
+            margin-bottom: 25px;
+            height: 45px;
+            align-self: center;
+        }
+
+        @media only screen and (max-width: 480px) {
+            .page-container .workload-links .services-link {
+                width: 100%;
+            }
+
+            .page-container .workload-links {
+                flex-direction: column;
+            }
+
+            .page-container .workload-links .right {
+                margin-left: 0px;
+            }
+
+            .company-description {
+                flex-direction: column;
+            }
+        }
+
+        @media only screen and (max-width: 1024px) {
+            .page-container .workload-links .services-link {
+                width: 100%;
+            }
+
+            .page-container .workload-links {
+                flex-direction: column;
+            }
+
+            .page-container .workload-links .right {
+                margin-left: 0px;
+            }
+        }
+
+        .page-container .workload-links a {
+            text-decoration: none;
+            font-family: 'Courier New', Courier, monospace;
+            color: #3A3A3A;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .page-container .workload-links a:hover {
+            text-decoration: underline;
+        }
+
+        .button {
+            position: relative;
+            background-color: black;
+            border-radius: 4em;
+            font-size: 16px;
+            color: white;
+            padding: 0.8em 1.8em;
+            cursor: pointer;
+            user-select: none;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition-duration: 0.4s;
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
+        }
+
+        .button:hover {
+            transition-duration: 0.1s;
+            background-color: #3A3A3A;
+        }
+
+        .button:after {
+            content: "";
+            display: block;
+            position: absolute;
+            border-radius: 4em;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: all 0.5s;
+            box-shadow: 0 0 10px 40px white;
+        }
+
+        .button:active:after {
+            box-shadow: 0 0 0 0 #555;
+            position: absolute;
+            border-radius: 4em;
+            left: 0;
+            top: 0;
+            opacity: 1;
+            transition: 0s;
+        }
+
+        .button:active {
+            top: 1px;
+        }
+
+        .page-links {
+            margin: 0px auto;
+            animation: fade 1s linear;
+        }
+
+        .page-links ul {
+            padding: 0px 30px;
+            list-style: none;
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            /* 
+            if we did this instead of the template it would be a problem:
+            grid-auto-flow: column;
+            */
+            font: 120% system-ui;
+            text-align: center;
+            padding: 2rem 1rem;
+
+            @media only screen and (max-width: 480px) {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+
+        }
+
+        .page-links ul li {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .page-links ul li a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        .page-links ul li a.active {
+            font-weight: 600;
+        }
+
+        .page-links ul li a:hover {
+            font-weight: 600;
+        }
+
+        .content-holder {
+            height: 200px;
+            background-color: #eefbff;
+        }
+
+        footer {
+            display: flex;
+            padding-top: 30px;
+            color: #888;
+            animation: fade 1s linear;
+        }
+
+        .content-footer .footer-links {
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+        .content-footer .footer-links a {
+            margin-left: 20px;
+            color: #888;
+            text-decoration: none;
+        }
+
+        .content-footer .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .company-description {
+            display: flex;
+            font-family: 'Titillium Web', sans-serif;
+            margin: 30px 0px;
+            padding: 30px 15px;
+            text-align: left;
+            flex-direction: column;
+            background-color: #0B4F88;
+            color: #eefbff
+        }
+
+        .company-description p {
+            margin: 0;
+            margin-bottom: 15px;
+        }
+
+        .company-description .left-side,
+        .company-description .right-side {
+            padding: 0px 5px;
+            width: 50%;
+
+            @media only screen and (max-width: 480px) {
+                width: 100%;
+            }
+        }
+
+        .company-description .title {
+            margin-bottom: 15px;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+        }
+
+        .company-description .content {
+            display: flex;
+            flex-direction: row;
+            font-size: .85em;
+
+            @media only screen and (max-width: 480px) {
+                flex-direction: column;
+            }
+        }
+
+        .page-container .header {
+            padding: 10px 0px;
+            border-bottom: 1px solid #aaaaaa;
+            display: flex;
+            width: 100%;
+            vertical-align: middle;
+        }
+
+        .page-container .header .logo {
+            float: left;
+        }
+
+        .page-container .header .login {
+            float: right;
+            margin-left: auto;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .page-container .header .login a {
+            color: #13538a;
+            text-decoration: none;
+            font-size: 1em;
+            vertical-align: middle;
+        }
+
+        .page-container .header .login a:hover {
+            text-decoration: underline;
+        }
+
+        .page-container .site-banner {
+            display: flex;
+            vertical-align: middle;
+            align-items: center;
+            font-size: 1rem;
+
+            @media only screen and (max-width: 480px) {
+                flex-direction: column;
+                font-size: 0.75em;
+            }
+
+            @media only screen and (max-width: 320px) {
+                flex-direction: column;
+                font-size: 0.5em;
+            }
+        }
+
+        .page-container .site-banner .tag-line {
+            vertical-align: middle;
+            font-size: 2.5em;
+            font-weight: bold;
+            padding: 10px;
+            width: 50%;
+            color: #0B4F88;
+
+            @media only screen and (max-width: 480px) {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+
+        .page-container .site-banner .tag-line .under-margin {
+            border-bottom: 1px solid;
+        }
+
+        .page-container .site-banner .banner-image {
+            margin-left: auto;
+        }
+
+        .page-container .site-banner .banner-image img {
+            max-width: 100%;
+            height: auto;
+            width: auto\9;
+            /* ie8 */
+        }
+
+        .services-link {
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Light shadow */
+            transition: transform 0.3s; /* Smooth animation */
+            overflow: hidden; /* Ensure background image fits */
+            padding: 20px; /* Padding for content */
+            text-align: center; /* Center text */
+            width: 100%;
+        }
+        .services-link:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+            cursor: pointer;
+        }
+
+        .workload-links {
+            display: flex;
+            margin-top: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        .left, .right {
+            flex: 1; /* Equal width for both columns */
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Space between cards */
+            align-items: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="header">
+            <div class="logo">
+                <img src="assets/CompanyLogo.png" alt="Greyquill Software" height="30">
+            </div>
+            <div class="login">
+                <a href="http://localhost:3004/login">Customer Login</a>
+            </div>
+        </div>
+
+        <div class="site-banner">
+            <div class="tag-line">
+                Digital Solutions and Outcomes <br /><span class="under-margin">Simplified</span>
+            </div>
+            <div class="banner-image">
+                <img src="assets/banner-pic.jpeg" alt="Digital Solutions and Outcomes - Simplified" />
+            </div>
+        </div>
+        <h2 class="company-logo-font"> Welcome to Greyquill Software </h2>
+        <quote class="company-tagline">Data and Process backed enterprise grade software solutions to bring efficiency, transparency
+            and predictability, to your business</quote>
+        <br />
+        <br />
+        <div class="workload-links">
+            <div class="left">
+                <div class="services-link"><a href="#"><span>Custom Applications</span></a></div>
+                <div class="services-link"><a href="#"><span>Documentation and Testing</span></a></div>
+                <div class="services-link"><a href="#"><span>Legacy Applications Modernization</span></a></div>
+            </div>
+            <div class="right">
+                <div class="services-link"><a href="#"><span>API Gateways</span></a></div>
+                <div class="services-link"><a href="#"><span>Cloud Migration</span></a></div>
+                <div class="services-link"><a href="#"><span>Technologies Consulting</span></a></div>
+            </div>
+        </div>
+        <br />
+        <div class="workload-heading"># We also build sleek, snappy and highly reliable <a href="#">custom software</a>
+            <br />For web, mobile and everything else on the planet
+        </div>
+
+        <br />
+        <p class="company-proposal">Share your business challenges or goals with us, and relax while our expert team
+            transforms them into success stories</b></b></p>
+
+        <button class="button" id="get_quote_button">Contact Us</button>
+
+
+        <div class="company-description">
+
+            <div class="title">
+                Key Operating Principles
+            </div>
+            <div class="content">
+                <div class="left-side">
+
+                    <p><b> # </b>&nbsp;&nbsp; We offer predictability at the core of our services. Our systems and
+                        consultants work
+                        together
+                        to
+                        ensure that you always know what to expect, from start to finish.</p>
+                    <p><b> # </b>&nbsp;&nbsp; We're all about results. If we don't deliver, you don't pay. It's that
+                        simple.</p>
+
+                </div>
+                <div class="right-side">
+                    <p><b> # </b>&nbsp;&nbsp; We invest in research and development to ensure that we are always at the
+                        forefront of
+                        technology. This allows us to offer our customers the most innovative and cutting-edge
+                        solutions.</p>
+                    <p><b> # </b>&nbsp;&nbsp; Goal of our partnership - We plan and ideate alongside you, to make YOU
+                        successful</p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="page-links">
+        <ul>
+            <li><a href="#"></a></li>
+
+            <!-- The Case studies in each service can be a navigation from the service itself -->
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Case Studies</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#"></a></li>
+
+        </ul>
+    </div>
+
+    <div class="content-holder">
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="content-footer">
+        <div class="copy-right">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script> Greyquill
+        </div>
+        <div class="footer-links">
+            <a href="https://www.greyquill.io/news" target="_blank" class="footer-link me-4">News</a>
+            <a href="https://www.greyquill.io/policies" target="_blank" class="footer-link me-4">Policies</a>
+            <a href="https://www.greyquill.io/support" target="_blank" class="footer-link me-4">Support</a>
+        </div>
+    </footer>
+    <!-- / Footer -->
+</body>
+
+<script>
+    document.getElementById("get_quote_button").addEventListener('click', () => {
+        window.location.href = 'http://localhost:3004/request_quote';
+    });
+</script>
+
+</html>
