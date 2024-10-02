@@ -107,7 +107,7 @@
 
         @media only screen and (max-width: 480px) {
             .page-container .workload-links .services-link {
-                width: 75%;
+                width: 100%;
             }
 
             .page-container .workload-links {
@@ -125,7 +125,7 @@
 
         @media only screen and (max-width: 1024px) {
             .page-container .workload-links .services-link {
-                width: 75%;
+                width: 100%;
             }
 
             .page-container .workload-links {
@@ -388,6 +388,35 @@
             width: auto\9;
             /* ie8 */
         }
+
+        .services-link {
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Light shadow */
+            transition: transform 0.3s; /* Smooth animation */
+            overflow: hidden; /* Ensure background image fits */
+            padding: 20px; /* Padding for content */
+            text-align: center; /* Center text */
+            width: 100%;
+        }
+        .services-link:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+            cursor: pointer;
+        }
+
+        .workload-links {
+            display: flex;
+            margin-top: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        .left, .right {
+            flex: 1; /* Equal width for both columns */
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Space between cards */
+            align-items: center;
+        }
+
     </style>
 </head>
 
@@ -415,30 +444,16 @@
             and predictability, to your business</quote>
         <br />
         <br />
-        <div class="workload-heading">Our Team of Industry Veterans help customers with...</div>
         <div class="workload-links">
             <div class="left">
-                <div class="services-link" style="--background: url('assets/serv1.png')"><a href="#">
-                        <span>Software
-                            applications Upgrade</span></a></div>
-                <div class="services-link" style="--background: url('assets/serv2.png')"><a href="#"><span>
-                            Documentation and
-                            Testing </span></a></div>
-                <div class="services-link" style="--background: url('assets/serv3.png')"><a href="#"><span>Legacy
-                            Applications
-                            Modernization</span></a></div>
+                <div class="services-link"><a href="#"><span>Custom Applications</span></a></div>
+                <div class="services-link"><a href="#"><span>Documentation and Testing</span></a></div>
+                <div class="services-link"><a href="#"><span>Legacy Applications Modernization</span></a></div>
             </div>
             <div class="right">
-                <div class="services-link" style="--background: url('assets/serv4.png')"><a href="#"><span>
-                            Leverage
-                            API
-                            Gateways</span></a></div>
-                <div class="services-link" style="--background: url('assets/serv5.png')"><a href="#"><span>
-                            Cloud
-                            Migration or
-                            Cost Optimization</span></a></div>
-                <div class="services-link" style="--background: url('assets/serv6.png')"><a href="#"><span>
-                            Technologies Consulting and Decisions</span></a></div>
+                <div class="services-link"><a href="#"><span>API Gateways</span></a></div>
+                <div class="services-link"><a href="#"><span>Cloud Migration</span></a></div>
+                <div class="services-link"><a href="#"><span>Technologies Consulting</span></a></div>
             </div>
         </div>
         <br />
