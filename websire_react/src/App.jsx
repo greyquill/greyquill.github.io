@@ -22,7 +22,7 @@ function App() {
       </p>
       <div className="text-center mt-6">
         <button className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition duration-300">
-          Contact Us
+          Book a free discovery session with Us
         </button>
       </div>
       <Description />
