@@ -12,6 +12,7 @@ import AboutUs from './pages/AboutUs';
 import Login from './pages/Login';
 import LoginAssistance from './pages/LoginAssistance';
 import BusinessProcessOptimization from './pages/BusinessProcessOptimization';
+import CustomSoftwareDevelopment from './pages/CustomSoftwareDevelopment';
 
 // Create a ScrollToTop component that will handle scrolling on navigation
 function ScrollToTop() {
@@ -63,6 +64,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/login-assistance" element={<LoginAssistance />} />
           <Route path="/business-process-optimization" element={<BusinessProcessOptimization />} />
+          <Route path="/custom-software-development" element={<CustomSoftwareDevelopment />} />
         </Routes>
         <Footer />
       </div>
