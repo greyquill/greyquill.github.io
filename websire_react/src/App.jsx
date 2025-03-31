@@ -5,6 +5,7 @@ import Services from './components/Services';
 import Description from './components/Description';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import BookDiscoveryCallButton from './components/BookDiscoveryCallButton';
 
 function App() {
   return (
@@ -18,18 +19,16 @@ function App() {
       <p className="text-xl font-titillium text-center mt-4">
         We increase productivity, lower costs, and improve customer satisfaction by automating business processes
       </p>
-      <Services />
       <p className="text-xl font-titillium text-center mt-8">
         Share your business challenges or goals with us, and let our expert team
-        transform them into success stories
+        transform them into success stories <br/> <a className="text-blue-500 font-bold hover:underline" href="https://calendly.com/greyquill/30min" target="_blank" rel="noopener noreferrer">Learn about our discovery process</a>
       </p>
-      <div className="text-center mt-6">
-        <button className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition duration-300">
-          Book a free discovery session with Us
-        </button>
-      </div>
+      <BookDiscoveryCallButton />
+      <Services />
+
       <Description />
       <Navigation />
+      <BookDiscoveryCallButton />
       <div className="h-48 bg-blue-50 mt-8"></div>
       <Footer />
     </div>
