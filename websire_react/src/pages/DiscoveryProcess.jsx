@@ -9,65 +9,7 @@ const DiscoveryProcess = () => {
   const intervalRef = useRef(null);
   const STEP_DURATION = 10000; // 10 seconds per step
 
-  // Reset and start progress timer
-  const resetAndStartTimer = () => {
-    // Clear any existing interval
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-
-    // Reset progress
-    setProgress(0);
-
-    // If we're at the last step, don't set up a new timer
-    if (activeStep === steps.length - 1) {
-      return;
-    }
-
-    // Start new interval
-    const startTime = Date.now();
-    intervalRef.current = setInterval(() => {
-      const elapsedTime = Date.now() - startTime;
-      const newProgress = Math.min(100, (elapsedTime / STEP_DURATION) * 100);
-
-      setProgress(newProgress);
-
-      if (newProgress >= 100) {
-        // Move to next step when progress completes
-        // But only if we're not at the last step
-        if (activeStep < steps.length - 1) {
-          setActiveStep(activeStep + 1);
-        }
-      }
-    }, 50); // Update progress every 50ms for smooth animation
-  };
-
-  // Initialize and clean up timer
-  useEffect(() => {
-    resetAndStartTimer();
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [activeStep]);
-
-  // Create functions for manual navigation
-  const goToNextStep = () => {
-    // Only go to next step if we're not at the last step
-    if (activeStep < steps.length - 1) {
-      setActiveStep(activeStep + 1);
-    }
-  };
-
-  const goToPreviousStep = () => {
-    // Only go to previous step if we're not at the first step
-    if (activeStep > 0) {
-      setActiveStep(activeStep - 1);
-    }
-  };
-
+  // Define steps array before using it
   const steps = [
     {
       title: "1. Initial Engagement & Discovery Kickoff",
@@ -162,6 +104,60 @@ const DiscoveryProcess = () => {
       callToAction: true
     }
   ];
+
+  // Initialize and clean up timer
+  useEffect(() => {
+    // Now steps is defined before being used here
+    // Define resetAndStartTimer inside useEffect to avoid dependency issues
+    const resetAndStartTimer = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+
+      setProgress(0);
+
+      if (activeStep === steps.length - 1) {
+        return;
+      }
+
+      const startTime = Date.now();
+      intervalRef.current = setInterval(() => {
+        const elapsedTime = Date.now() - startTime;
+        const newProgress = Math.min(100, (elapsedTime / STEP_DURATION) * 100);
+
+        setProgress(newProgress);
+
+        if (newProgress >= 100) {
+          if (activeStep < steps.length - 1) {
+            setActiveStep(prevStep => prevStep + 1);
+          }
+        }
+      }, 50);
+    };
+
+    resetAndStartTimer();
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [activeStep, steps.length, STEP_DURATION]);
+
+  // Create functions for manual navigation
+  const goToNextStep = () => {
+    // Only go to next step if we're not at the last step
+    if (activeStep < steps.length - 1) {
+      setActiveStep(activeStep + 1);
+    }
+  };
+
+  const goToPreviousStep = () => {
+    // Only go to previous step if we're not at the first step
+    if (activeStep > 0) {
+      setActiveStep(activeStep - 1);
+    }
+  };
 
   return (
     <div className="py-10">

@@ -9,6 +9,8 @@ import Footer from './components/Footer';
 import BookDiscoveryCallButton from './components/BookDiscoveryCallButton';
 import DiscoveryProcess from './pages/DiscoveryProcess';
 import AboutUs from './pages/AboutUs';
+import Login from './pages/Login';
+import LoginAssistance from './pages/LoginAssistance';
 
 // Create a ScrollToTop component that will handle scrolling on navigation
 function ScrollToTop() {
@@ -57,6 +59,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/discovery-process" element={<DiscoveryProcess />} />
           <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/login-assistance" element={<LoginAssistance />} />
         </Routes>
         <Footer />
       </div>
