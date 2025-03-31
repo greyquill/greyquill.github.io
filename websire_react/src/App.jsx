@@ -15,6 +15,7 @@ import BusinessProcessOptimization from './pages/BusinessProcessOptimization';
 import CustomSoftwareDevelopment from './pages/CustomSoftwareDevelopment';
 import LegacyApplicationModernization from './pages/LegacyApplicationModernization';
 import DistributedSystemsCloudConsulting from './pages/DistributedSystemsCloudConsulting';
+import OverallProcess from './pages/OverallProcess';
 
 // Create a ScrollToTop component that will handle scrolling on navigation
 function ScrollToTop() {
@@ -40,7 +41,7 @@ function HomePage() {
       </p>
       <p className="text-xl font-titillium text-center mt-8">
         Share your business challenges or goals with us, and let our expert team
-        transform them into success stories <br/> <Link className="text-blue-500 font-bold hover:underline" to="/discovery-process">Learn about our discovery process</Link>
+        transform them into success stories <br/> <Link className="text-blue-500 font-bold hover:underline" to="/overall-process">Learn about our comprehensive approach</Link>
       </p>
       <BookDiscoveryCallButton />
       <Services />
@@ -69,6 +70,7 @@ function App() {
           <Route path="/custom-software-development" element={<CustomSoftwareDevelopment />} />
           <Route path="/legacy-application-modernization" element={<LegacyApplicationModernization />} />
           <Route path="/distributed-systems-cloud-consulting" element={<DistributedSystemsCloudConsulting />} />
+          <Route path="/overall-process" element={<OverallProcess />} />
         </Routes>
         <Footer />
       </div>
