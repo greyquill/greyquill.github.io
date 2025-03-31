@@ -14,16 +14,19 @@ const ServiceLink = ({ title }) => (
 
 function Services() {
   const services = [
-    "Custom Applications",
-    "Documentation and Testing",
+    "Business Process Optimization",
+    "Custom Software Development",
     "Legacy Applications Modernization",
-    "API Gateways",
+    "SAASifying your business",
     "Cloud Migration",
     "Technologies Consulting"
   ];
 
   return (
     <div className="mt-8">
+      <p className="text-xl font-bold font-titillium text-center m-4">
+        A peek at our services
+      </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {services.map((service, index) => (
           <ServiceLink key={index} title={service} />
@@ -31,9 +34,9 @@ function Services() {
       </div>
       <div className="mt-8 text-center">
         <p className="text-lg">
-        
+
           <span className="text-gray-800 text-xl font-titillium">
-            We prioritize <b>clarity in our code</b> and emphasize <b>thorough documentation</b> and <b>quality assurance</b>.
+            We prioritize <b>clarity in our implementation</b> and emphasize <b>thorough documentation</b> and <b>quality assurance</b>.
           </span>
           <div className="mt-8">
             <div className="flex justify-around">
