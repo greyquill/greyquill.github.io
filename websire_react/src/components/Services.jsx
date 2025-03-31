@@ -1,25 +1,34 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const handleClick = () => {
-  window.location.href = 'http://localhost:3004/request_quote';
+const ServiceLink = ({ title, path }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (path) {
+      navigate(path);
+    } else {
+      window.location.href = '/';
+    }
+  };
+
+  return (
+    <div className="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105 cursor-pointer text-center w-full">
+      <button className="text-gray-800 font-semibold" onClick={handleClick}>
+        {title}
+      </button>
+    </div>
+  );
 };
-
-const ServiceLink = ({ title }) => (
-  <div className=" bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105 cursor-pointer text-center w-full">
-    <button className="text-gray-800 font-semibold" onClick={handleClick}>
-      {title}
-    </button>
-  </div>
-);
 
 function Services() {
   const services = [
-    "Business Process Optimization",
-    "Custom Software Development",
-    "Legacy Applications Modernization",
-    "SAASifying your business",
-    "Cloud Migration",
-    "Technologies Consulting"
+    { title: "Business Process Optimization", path: "/business-process-optimization" },
+    { title: "Custom Software Development", path: null },
+    { title: "Legacy Applications Modernization", path: null },
+    { title: "SAASifying your business", path: null },
+    { title: "Cloud Migration", path: null },
+    { title: "Technologies Consulting", path: null }
   ];
 
   return (
@@ -29,12 +38,11 @@ function Services() {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {services.map((service, index) => (
-          <ServiceLink key={index} title={service} />
+          <ServiceLink key={index} title={service.title} path={service.path} />
         ))}
       </div>
       <div className="mt-8 text-center">
         <p className="text-lg">
-
           <span className="text-gray-800 text-xl font-titillium">
             We prioritize <b>clarity in our implementation</b> and emphasize <b>thorough documentation</b> and <b>quality assurance</b>.
           </span>
