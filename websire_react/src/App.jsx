@@ -19,6 +19,7 @@ import OverallProcess from './pages/OverallProcess';
 import Policies from './pages/Policies';
 import News from './pages/News';
 import Support from './pages/Support';
+import Contact from './pages/Contact';
 // Create a ScrollToTop component that will handle scrolling on navigation
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -76,6 +77,7 @@ function App() {
           <Route path="/policies" element={<Policies />} />
           <Route path="/news" element={<News />} />
           <Route path="/support" element={<Support />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
       </div>

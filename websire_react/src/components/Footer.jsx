@@ -7,9 +7,11 @@ function Footer() {
       <div className="flex justify-between items-center mb-4">
         <span>© {new Date().getFullYear()} Greyquill</span>
         <div className="space-x-6">
+          <Link to="/about-us" className="hover:underline">About</Link>
           <Link to="/news" className="hover:underline">News</Link>
           <Link to="/policies" className="hover:underline">Policies</Link>
           <Link to="/support" className="hover:underline">Support</Link>
+          <Link to="/contact" className="hover:underline">Contact</Link>
         </div>
       </div>
     </footer>
