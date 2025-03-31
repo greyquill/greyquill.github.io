@@ -5,7 +5,7 @@ import BookDiscoveryCallButton from '../components/BookDiscoveryCallButton';
 import {
   FaChartLine, FaUsers, FaCogs, FaLightbulb, FaCheckCircle,
   FaRocket, FaHandshake, FaLaptopCode, FaExchangeAlt, FaShieldAlt,
-  FaUniversity, FaSitemap, FaTools
+  FaUniversity, FaSitemap, FaTools, FaDatabase
 } from 'react-icons/fa';
 
 const OverallProcess = () => {
@@ -355,11 +355,24 @@ const OverallProcess = () => {
             className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md"
           >
             <div className="flex items-center mb-4">
+              <FaDatabase className="text-blue-600 text-2xl mr-3" />
+              <h3 className="text-xl font-tektur text-blue-700">Data-Driven Decision Making</h3>
+            </div>
+            <p className="text-gray-700">Strategic use of analytics and metrics to guide project direction and measure success.</p>
+          </motion.div>
+
+          <motion.div
+            variants={itemVariants}
+            className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md"
+          >
+            <div className="flex items-center mb-4">
               <FaRocket className="text-blue-600 text-2xl mr-3" />
               <h3 className="text-xl font-tektur text-blue-700">Future-Proofing</h3>
             </div>
             <p className="text-gray-700">Modern standards with ongoing assessments and agile enhancement cycles.</p>
           </motion.div>
+
+
         </div>
       </motion.section>
 

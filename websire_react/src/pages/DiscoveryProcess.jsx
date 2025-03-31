@@ -162,8 +162,8 @@ const DiscoveryProcess = () => {
   return (
     <div className="py-10">
       <div className="text-left mb-10 left-0">
-        <Link to="/" className="text-blue-500 hover:underline">
-          <i className="fas fa-arrow-left"></i> Back to Home
+        <Link to="/overall-process" className="text-blue-500 hover:underline">
+          <i className="fas fa-arrow-left"></i> Back to Methodology
         </Link>
       </div>
       <motion.div
