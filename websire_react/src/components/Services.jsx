@@ -24,7 +24,7 @@ const ServiceLink = ({ title, path }) => {
 function Services() {
   const services = [
     { title: "Business Process Optimization", path: "/business-process-optimization" },
-    { title: "Custom Software Development", path: null },
+    { title: "Custom Software Development", path: "/custom-software-development" },
     { title: "Legacy Applications Modernization", path: null },
     { title: "SAASifying your business", path: null },
     { title: "Cloud Migration", path: null },
