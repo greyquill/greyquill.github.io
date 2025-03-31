@@ -15,6 +15,9 @@ function App() {
       <p className="text-xl font-titillium text-center mt-4">
       Enterprise software solutions that boost efficiency, transparency, and predictability
       </p>
+      <p className="text-xl font-titillium text-center mt-4">
+        We increase productivity, lower costs, and improve customer satisfaction by automating business processes
+      </p>
       <Services />
       <p className="text-xl font-titillium text-center mt-8">
         Share your business challenges or goals with us, and let our expert team
