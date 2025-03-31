@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa';
 
 const ServiceLink = ({ title, path }) => {
   const navigate = useNavigate();
@@ -14,8 +15,11 @@ const ServiceLink = ({ title, path }) => {
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105 cursor-pointer text-center w-full">
-      <button className="text-gray-800 font-semibold" onClick={handleClick}>
-        {title}
+      <button className="w-full flex items-center justify-between" onClick={handleClick}>
+        <span className="text-gray-800 font-semibold">{title}</span>
+        <span className="bg-gray-200 p-2 rounded-lg ml-2">
+          <FaArrowRight className="text-gray-600" style={{ width: '.6em', height: '1em' }} />
+        </span>
       </button>
     </div>
   );
@@ -31,8 +35,9 @@ function Services() {
 
   return (
     <div className="mt-8">
-      <p className="text-xl font-bold font-titillium text-center m-4">
-        A peek at our services
+      <h1 className="text-2xl font-tektur text-gray-800 text-center mt-15">Our Services</h1>
+      <p className="text-gray-600 text-center mb-8">
+        Click on a service to learn more
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {services.map((service, index) => (
