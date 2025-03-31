@@ -73,9 +73,9 @@ function App() {
           <Route path="/legacy-application-modernization" element={<LegacyApplicationModernization />} />
           <Route path="/distributed-systems-cloud-consulting" element={<DistributedSystemsCloudConsulting />} />
           <Route path="/overall-process" element={<OverallProcess />} />
-          <Route path="/policies" element={<Policies />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/support" element={<Support />} />
+          <Route path="/policies-page" element={<Policies />} />
+          <Route path="/news-page" element={<News />} />
+          <Route path="/support-page" element={<Support />} />
         </Routes>
         <Footer />
       </div>

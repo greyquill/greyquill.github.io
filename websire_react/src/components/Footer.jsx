@@ -7,9 +7,9 @@ function Footer() {
         © {new Date().getFullYear()} Greyquill
       </div>
       <div className="space-x-6">
-        <a href="/news" target="_blank" rel="noopener noreferrer" className="hover:underline">News</a>
-        <a href="/policies" target="_blank" rel="noopener noreferrer" className="hover:underline">Policies</a>
-        <a href="/support" target="_blank" rel="noopener noreferrer" className="hover:underline">Support</a>
+        <a href="/news-page" target="_blank" rel="noopener noreferrer" className="hover:underline">News</a>
+        <a href="/policies-page" target="_blank" rel="noopener noreferrer" className="hover:underline">Policies</a>
+        <a href="/support-page" target="_blank" rel="noopener noreferrer" className="hover:underline">Support</a>
       </div>
     </footer>
   );
