@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Banner from './components/Banner';
 import Services from './components/Services';
@@ -8,6 +8,18 @@ import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import BookDiscoveryCallButton from './components/BookDiscoveryCallButton';
 import DiscoveryProcess from './pages/DiscoveryProcess';
+import AboutUs from './pages/AboutUs';
+
+// Create a ScrollToTop component that will handle scrolling on navigation
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function HomePage() {
   return (
@@ -38,11 +50,13 @@ function HomePage() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="container mx-auto px-4 md:px-0 max-w-3xl text-gray-600">
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/discovery-process" element={<DiscoveryProcess />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Routes>
         <Footer />
       </div>
