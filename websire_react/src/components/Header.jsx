@@ -6,7 +6,9 @@ function Header() {
   return (
     <header className="flex justify-between items-center py-4 border-b border-gray-300">
       <div>
+        <Link to="/">
         <img src={logo} alt="Greyquill Software" className="h-8" />
+        </Link>
       </div>
       <div>
         <Link to="/login" className="text-blue-800 hover:underline">Customer Login</Link>
