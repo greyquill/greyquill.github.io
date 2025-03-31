@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../assets/CompanyLogo.png';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
@@ -8,7 +9,7 @@ function Header() {
         <img src={logo} alt="Greyquill Software" className="h-8" />
       </div>
       <div>
-        <a href="http://localhost:3004/login" className="text-blue-800 hover:underline">Customer Login</a>
+        <Link to="/login" className="text-blue-800 hover:underline">Customer Login</Link>
       </div>
     </header>
   );
