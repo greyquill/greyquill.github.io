@@ -25,10 +25,8 @@ function Services() {
   const services = [
     { title: "Business Process Optimization", path: "/business-process-optimization" },
     { title: "Custom Software Development", path: "/custom-software-development" },
-    { title: "Legacy Applications Modernization", path: null },
-    { title: "SAASifying your business", path: null },
-    { title: "Cloud Migration", path: null },
-    { title: "Technologies Consulting", path: null }
+    { title: "Legacy Applications Modernization", path: "/legacy-application-modernization" },
+    { title: "Distributed Systems & Cloud Consulting", path: "/distributed-systems-cloud-consulting" }
   ];
 
   return (
