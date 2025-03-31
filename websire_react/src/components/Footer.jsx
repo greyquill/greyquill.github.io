@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <footer className="flex justify-between items-center py-6 mt-8 text-gray-500">
-      <div>
-        © {new Date().getFullYear()} Greyquill
-      </div>
-      <div className="space-x-6">
-        <a href="/news-page" target="_blank" rel="noopener noreferrer" className="hover:underline">News</a>
-        <a href="/policies-page" target="_blank" rel="noopener noreferrer" className="hover:underline">Policies</a>
-        <a href="/support-page" target="_blank" rel="noopener noreferrer" className="hover:underline">Support</a>
+    <footer className="bg-gray-100 text-black text-center py-6 px-4">
+      <div className="flex justify-between items-center mb-4">
+        <span>© {new Date().getFullYear()} Greyquill</span>
+        <div className="space-x-6">
+          <Link to="/news" className="hover:underline">News</Link>
+          <Link to="/policies" className="hover:underline">Policies</Link>
+          <Link to="/support" className="hover:underline">Support</Link>
+        </div>
       </div>
     </footer>
   );
