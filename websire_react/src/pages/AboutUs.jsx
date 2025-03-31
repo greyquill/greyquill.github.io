@@ -27,32 +27,32 @@ const AboutUs = () => {
   // Team members data
   const teamMembers = [
     {
-      name: "Jane Smith",
+      name: "Amarnath",
       role: "Chief Technology Officer",
       expertise: "Enterprise Architecture, Cloud Solutions",
-      experience: "20+ years in software architecture",
-      image: "/team/jane-smith.jpg" // Add actual image path
+      experience: "15+ years in software architecture",
+      image: "/team/amarnath-bagineni.jpg" // Add actual image path
     },
     {
-      name: "Michael Chen",
+      name: "Srinivas Reddy",
       role: "Lead Business Analyst",
       expertise: "Process Optimization, Requirements Engineering",
-      experience: "15+ years optimizing business workflows",
-      image: "/team/michael-chen.jpg" // Add actual image path
+      experience: "10+ years optimizing business workflows",
+      image: "/team/srinivas-reddy.jpg" // Add actual image path
     },
     {
-      name: "Sarah Johnson",
-      role: "Senior Software Engineer",
-      expertise: "Backend Systems, Database Design",
+      name: "Charan Sreedhar",
+      role: "Senior Infrastructure Engineer",
+      expertise: "Infrastructure, Cloud Solutions",
       experience: "12+ years building scalable applications",
-      image: "/team/sarah-johnson.jpg" // Add actual image path
+      image: "/team/charan-sreedhar.jpg" // Add actual image path
     },
     {
-      name: "David Rodriguez",
+      name: "Anusha K",
       role: "UX/UI Design Lead",
       expertise: "User-Centered Design, Interface Architecture",
-      experience: "10+ years creating intuitive interfaces",
-      image: "/team/david-rodriguez.jpg" // Add actual image path
+      experience: "12+ years creating intuitive interfaces",
+      image: "/team/anusha-k.jpg" // Add actual image path
     }
   ];
 

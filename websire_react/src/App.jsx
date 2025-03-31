@@ -16,7 +16,9 @@ import CustomSoftwareDevelopment from './pages/CustomSoftwareDevelopment';
 import LegacyApplicationModernization from './pages/LegacyApplicationModernization';
 import DistributedSystemsCloudConsulting from './pages/DistributedSystemsCloudConsulting';
 import OverallProcess from './pages/OverallProcess';
-
+import Policies from './pages/Policies';
+import News from './pages/News';
+import Support from './pages/Support';
 // Create a ScrollToTop component that will handle scrolling on navigation
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -71,6 +73,9 @@ function App() {
           <Route path="/legacy-application-modernization" element={<LegacyApplicationModernization />} />
           <Route path="/distributed-systems-cloud-consulting" element={<DistributedSystemsCloudConsulting />} />
           <Route path="/overall-process" element={<OverallProcess />} />
+          <Route path="/policies" element={<Policies />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/support" element={<Support />} />
         </Routes>
         <Footer />
       </div>
