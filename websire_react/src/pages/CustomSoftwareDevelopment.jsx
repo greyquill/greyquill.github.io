@@ -48,7 +48,7 @@ const CustomSoftwareDevelopment = () => {
         </p>
         <div className="flex justify-center mb-8">
           <motion.img
-            src="/images/custom_software.png"
+            src="/images/custom_software_development.png"
             alt="Custom Software Development"
             className="max-w-xs rounded-lg shadow-lg"
             initial={{ opacity: 0, scale: 0.8 }}
