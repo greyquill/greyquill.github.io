@@ -19,6 +19,11 @@ const DiscoveryProcess = () => {
     // Reset progress
     setProgress(0);
 
+    // If we're at the last step, don't set up a new timer
+    if (activeStep === steps.length - 1) {
+      return;
+    }
+
     // Start new interval
     const startTime = Date.now();
     intervalRef.current = setInterval(() => {
@@ -29,7 +34,10 @@ const DiscoveryProcess = () => {
 
       if (newProgress >= 100) {
         // Move to next step when progress completes
-        setActiveStep((current) => (current + 1) % steps.length);
+        // But only if we're not at the last step
+        if (activeStep < steps.length - 1) {
+          setActiveStep(activeStep + 1);
+        }
       }
     }, 50); // Update progress every 50ms for smooth animation
   };
@@ -45,13 +53,19 @@ const DiscoveryProcess = () => {
     };
   }, [activeStep]);
 
-  // Create functions for manual navigation that will reset the timer
+  // Create functions for manual navigation
   const goToNextStep = () => {
-    setActiveStep((current) => (current + 1) % steps.length);
+    // Only go to next step if we're not at the last step
+    if (activeStep < steps.length - 1) {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const goToPreviousStep = () => {
-    setActiveStep((current) => (current === 0 ? steps.length - 1 : current - 1));
+    // Only go to previous step if we're not at the first step
+    if (activeStep > 0) {
+      setActiveStep(activeStep - 1);
+    }
   };
 
   const steps = [
@@ -298,13 +312,15 @@ const DiscoveryProcess = () => {
       <div className="text-center mt-8">
         <button
           onClick={goToPreviousStep}
-          className="bg-blue-500 text-white px-4 py-2 rounded-l-lg hover:bg-blue-600 transition-colors"
+          className={`bg-blue-500 text-white px-4 py-2 rounded-l-lg hover:bg-blue-600 transition-colors ${activeStep === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+          disabled={activeStep === 0}
         >
           Previous Step
         </button>
         <button
           onClick={goToNextStep}
-          className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition-colors ml-1"
+          className={`bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition-colors ml-1 ${activeStep === steps.length - 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+          disabled={activeStep === steps.length - 1}
         >
           Next Step
         </button>
