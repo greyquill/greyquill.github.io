@@ -29,6 +29,7 @@ const Industries = lazy(() => import('./pages/Industries'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
+const DiscoveryWorkshop = lazy(() => import('./pages/DiscoveryWorkshop'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -120,6 +121,7 @@ function App() {
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/discovery-workshop" element={<DiscoveryWorkshop />} />
           </Routes>
         </Suspense>
         <Footer />

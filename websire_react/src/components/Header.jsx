@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/CompanyLogo.png';
-import { FaChevronDown, FaRobot, FaCogs, FaCode, FaServer, FaCloud, FaBars, FaTimes } from 'react-icons/fa';
+import { FaChevronDown, FaRobot, FaCogs, FaCode, FaServer, FaCloud, FaBars, FaTimes, FaCompass } from 'react-icons/fa';
 
 function Header() {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -9,6 +9,13 @@ function Header() {
   const dropdownRef = useRef(null);
 
   const services = [
+    {
+      title: "Discovery Workshop",
+      description: "Start here—clarity before code",
+      path: "/discovery-workshop",
+      icon: <FaCompass />,
+      featured: true
+    },
     {
       title: "Enterprise AI Enablement",
       description: "Safe, compliant AI transformation",
@@ -142,22 +149,33 @@ function Header() {
                 style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.1)' }}
               >
                 {services.map((service, index) => (
-                  <Link
-                    key={index}
-                    to={service.path}
-                    onClick={closeDropdown}
-                    className="flex items-start gap-3 px-4 py-3 hover:bg-[#0B4F88]/5 transition-colors group"
-                  >
-                    <span className="text-[#0B4F88] mt-0.5 group-hover:scale-110 transition-transform">
-                      {service.icon}
-                    </span>
-                    <div>
-                      <p className="text-sm font-medium text-gray-800 group-hover:text-[#0B4F88]">
-                        {service.title}
-                      </p>
-                      <p className="text-xs text-gray-500">{service.description}</p>
-                    </div>
-                  </Link>
+                  <React.Fragment key={index}>
+                    <Link
+                      to={service.path}
+                      onClick={closeDropdown}
+                      className={`flex items-start gap-3 px-4 py-3 hover:bg-[#0B4F88]/5 transition-colors group ${
+                        service.featured ? 'bg-[#0B4F88]/5' : ''
+                      }`}
+                    >
+                      <span className="text-[#0B4F88] mt-0.5 group-hover:scale-110 transition-transform">
+                        {service.icon}
+                      </span>
+                      <div>
+                        <p className={`text-sm font-medium group-hover:text-[#0B4F88] ${
+                          service.featured ? 'text-[#0B4F88]' : 'text-gray-800'
+                        }`}>
+                          {service.title}
+                          {service.featured && (
+                            <span className="ml-2 text-xs bg-[#0B4F88] text-white px-1.5 py-0.5 rounded">
+                              Start Here
+                            </span>
+                          )}
+                        </p>
+                        <p className="text-xs text-gray-500">{service.description}</p>
+                      </div>
+                    </Link>
+                    {service.featured && <div className="border-b border-gray-100 mx-4"></div>}
+                  </React.Fragment>
                 ))}
               </div>
             )}
@@ -249,9 +267,14 @@ function Header() {
                       key={index}
                       to={service.path}
                       onClick={closeDropdown}
-                      className="block px-3 py-2 text-sm text-gray-600 hover:text-[#0B4F88] rounded-lg"
+                      className={`block px-3 py-2 text-sm rounded-lg ${
+                        service.featured
+                          ? 'text-[#0B4F88] font-medium bg-[#0B4F88]/5'
+                          : 'text-gray-600 hover:text-[#0B4F88]'
+                      }`}
                     >
                       {service.title}
+                      {service.featured && <span className="text-xs ml-1">(Start Here)</span>}
                     </Link>
                   ))}
                 </div>
