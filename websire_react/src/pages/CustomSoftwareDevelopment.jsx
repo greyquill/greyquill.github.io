@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import BookDiscoveryCallButton from '../components/BookDiscoveryCallButton';
 import { FaChartLine, FaUsers, FaCogs, FaLightbulb, FaCheckCircle, FaArrowRight, FaArrowLeft,
   FaCode, FaRocket, FaHandshake, FaClipboardCheck, FaComments, FaLaptopCode, FaTools,
@@ -679,25 +680,32 @@ const CustomSoftwareDevelopment = () => {
   };
 
   return (
-    <div className="py-10">
-      <div className="text-left mb-6">
-        <Link to="/" className="text-blue-500 hover:underline">
-          <i className="fas fa-arrow-left"></i> Back to Home
-        </Link>
-      </div>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="py-10"
+    >
+      <Helmet>
+        <title>Custom Software Development - Greyquill Software</title>
+        <meta name="description" content="Transform your business challenges into powerful digital solutions. Collaborative, client-centered custom software development with comprehensive documentation and ongoing support." />
+        <link rel="canonical" href="https://greyquill.io/custom-software-development" />
+      </Helmet>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <nav aria-label="Breadcrumb" className="text-left mb-6">
+        <Link to="/" className="text-blue-500 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+          <i className="fas fa-arrow-left" aria-hidden="true"></i> Back to Home
+        </Link>
+      </nav>
+
+      <header>
         <h1 className="text-4xl font-tektur text-gray-800 text-center mb-6">
           Custom Software Development
         </h1>
         <p className="text-xl font-titillium text-center mb-10">
           Turning Your Business Challenges into Powerful Digital Solutions
         </p>
-      </motion.div>
+      </header>
 
       {/* Section Navigation */}
       <div className="mb-8">
@@ -794,7 +802,7 @@ const CustomSoftwareDevelopment = () => {
           </div>
         </motion.div>
       </div>
-    </div>
+    </motion.main>
   );
 };
 

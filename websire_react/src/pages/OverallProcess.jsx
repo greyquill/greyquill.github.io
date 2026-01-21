@@ -1,209 +1,132 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import BookDiscoveryCallButton from '../components/BookDiscoveryCallButton';
 import {
   FaChartLine, FaUsers, FaCogs, FaLightbulb, FaCheckCircle,
   FaRocket, FaHandshake, FaLaptopCode, FaExchangeAlt, FaShieldAlt,
-  FaUniversity, FaSitemap, FaTools, FaDatabase
+  FaUniversity, FaSitemap, FaDatabase
 } from 'react-icons/fa';
 
 const OverallProcess = () => {
-  // Animation variants
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.7 }
-    }
-  };
-
   return (
-    <div className="py-10">
-      <div className="text-left mb-10 left-0">
-        <Link to="/" className="text-blue-500 hover:underline">
-          <i className="fas fa-arrow-left"></i> Back to Home
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="py-10"
+    >
+      <Helmet>
+        <title>Our Methodology - Greyquill Software | Process-First Approach</title>
+        <meta name="description" content="Discover the Greyquill methodology for transforming business challenges into effective solutions. Our process-first approach ensures technology serves your business goals." />
+        <link rel="canonical" href="https://greyquill.io/overall-process" />
+      </Helmet>
+
+      <nav aria-label="Breadcrumb" className="text-left mb-10">
+        <Link to="/" className="text-blue-500 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+          <i className="fas fa-arrow-left" aria-hidden="true"></i> Back to Home
         </Link>
-      </div>
+      </nav>
 
       {/* Hero Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h1 className="text-4xl font-tektur text-gray-800 text-center mb-6">The Greyquill Methodology</h1>
-        <p className="text-xl font-titillium text-center mb-10">
+      <header className="text-center mb-12">
+        <h1 className="text-4xl font-tektur text-gray-800 mb-6">The Greyquill Methodology</h1>
+        <p className="text-xl font-titillium max-w-2xl mx-auto">
           How we transform your business challenges into effective solutions through
           our comprehensive, client-centered approach.
         </p>
-      </motion.div>
+      </header>
 
       {/* Core Philosophy Section */}
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mb-16"
-      >
-        <motion.h2
-          variants={itemVariants}
-          className="text-3xl font-tektur text-gray-800 mb-8 text-center"
-        >
+      <section className="mb-16" aria-labelledby="philosophy-heading">
+        <h2 id="philosophy-heading" className="text-3xl font-tektur text-gray-800 mb-8 text-center">
           Our Core Philosophy
-        </motion.h2>
+        </h2>
 
         <div className="grid md:grid-cols-3 gap-6">
-          <motion.div
-            variants={itemVariants}
-            className="bg-blue-50 rounded-lg shadow-md p-6 border-l-4 border-blue-500"
-          >
+          <article className="bg-blue-50 rounded-lg shadow-md p-6 border-l-4 border-blue-500">
             <h3 className="text-xl font-tektur text-blue-700 mb-3 flex items-center">
-              <FaLightbulb className="mr-2 text-blue-600" /> Process-First Approach
+              <FaLightbulb className="mr-2 text-blue-600" aria-hidden="true" /> Process-First Approach
             </h3>
             <p className="text-gray-600">We understand and optimize your business processes before implementing technology solutions.</p>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-blue-50 rounded-lg shadow-md p-6 border-l-4 border-blue-500"
-          >
+          <article className="bg-blue-50 rounded-lg shadow-md p-6 border-l-4 border-blue-500">
             <h3 className="text-xl font-tektur text-blue-700 mb-3 flex items-center">
-              <FaHandshake className="mr-2 text-blue-600" /> Long-term Partnership
+              <FaHandshake className="mr-2 text-blue-600" aria-hidden="true" /> Long-term Partnership
             </h3>
             <p className="text-gray-600">We walk alongside you throughout your entire journey, providing ongoing support as your business evolves.</p>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-blue-50 rounded-lg shadow-md p-6 border-l-4 border-blue-500"
-          >
+          <article className="bg-blue-50 rounded-lg shadow-md p-6 border-l-4 border-blue-500">
             <h3 className="text-xl font-tektur text-blue-700 mb-3 flex items-center">
-              <FaCheckCircle className="mr-2 text-blue-600" /> Ownership & Accountability
+              <FaCheckCircle className="mr-2 text-blue-600" aria-hidden="true" /> Ownership & Accountability
             </h3>
             <p className="text-gray-600">We take full responsibility for the solutions we deliver, standing behind our work with confidence.</p>
-          </motion.div>
+          </article>
         </div>
-      </motion.section>
+      </section>
 
       {/* Process Overview Section */}
-      <motion.section
-        className="mb-16"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className="text-3xl font-tektur text-gray-800 mb-8 text-center">Our End-to-End Process</h2>
+      <section className="mb-16" aria-labelledby="process-heading">
+        <h2 id="process-heading" className="text-3xl font-tektur text-gray-800 mb-8 text-center">Our End-to-End Process</h2>
 
         <div className="relative pb-12 mb-6">
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-200"></div>
-          <div className="relative z-10">
-            <motion.div
-              className="flex items-center mb-8"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <div className="bg-blue-500 rounded-full p-3 text-white mr-4">
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-200" aria-hidden="true"></div>
+          <div className="relative z-10 space-y-8">
+            <article className="flex items-center">
+              <div className="bg-blue-500 rounded-full p-3 text-white mr-4" aria-hidden="true">
                 <FaUniversity />
               </div>
               <div className="bg-white p-4 rounded-lg shadow-md flex-1">
-                <h4 className="font-tektur text-blue-700">Discovery Phase</h4>
+                <h3 className="font-tektur text-blue-700">Discovery Phase</h3>
                 <p>We begin with a structured discovery process to understand your business goals, challenges, and requirements.</p>
-                <Link to="/discovery-process" className="text-blue-500 hover:underline text-sm">Learn more about our discovery process</Link>
+                <Link to="/discovery-process" className="text-blue-500 hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">Learn more about our discovery process</Link>
               </div>
-            </motion.div>
+            </article>
 
-            <motion.div
-              className="flex items-center mb-8 flex-row-reverse"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <div className="bg-blue-500 rounded-full p-3 text-white ml-4">
+            <article className="flex items-center flex-row-reverse">
+              <div className="bg-blue-500 rounded-full p-3 text-white ml-4" aria-hidden="true">
                 <FaSitemap />
               </div>
               <div className="bg-white p-4 rounded-lg shadow-md flex-1">
-                <h4 className="font-tektur text-blue-700">Solution Design</h4>
+                <h3 className="font-tektur text-blue-700">Solution Design</h3>
                 <p>We craft tailored solutions based on your unique business needs and technical requirements.</p>
               </div>
-            </motion.div>
+            </article>
 
-            <motion.div
-              className="flex items-center mb-8"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <div className="bg-blue-500 rounded-full p-3 text-white mr-4">
+            <article className="flex items-center">
+              <div className="bg-blue-500 rounded-full p-3 text-white mr-4" aria-hidden="true">
                 <FaLaptopCode />
               </div>
               <div className="bg-white p-4 rounded-lg shadow-md flex-1">
-                <h4 className="font-tektur text-blue-700">Implementation</h4>
+                <h3 className="font-tektur text-blue-700">Implementation</h3>
                 <p>We implement solutions with careful planning, quality assurance, and ongoing communication.</p>
               </div>
-            </motion.div>
+            </article>
 
-            <motion.div
-              className="flex items-center flex-row-reverse"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className="bg-blue-500 rounded-full p-3 text-white ml-4">
+            <article className="flex items-center flex-row-reverse">
+              <div className="bg-blue-500 rounded-full p-3 text-white ml-4" aria-hidden="true">
                 <FaRocket />
               </div>
               <div className="bg-white p-4 rounded-lg shadow-md flex-1">
-                <h4 className="font-tektur text-blue-700">Continuous Support & Evolution</h4>
+                <h3 className="font-tektur text-blue-700">Continuous Support & Evolution</h3>
                 <p>We provide ongoing support and ensure your solution evolves with your changing business needs.</p>
               </div>
-            </motion.div>
+            </article>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Services Overview Section */}
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mb-16"
-      >
-        <motion.h2
-          variants={itemVariants}
-          className="text-3xl font-tektur text-gray-800 mb-8 text-center"
-        >
+      <section className="mb-16" aria-labelledby="services-heading">
+        <h2 id="services-heading" className="text-3xl font-tektur text-gray-800 mb-8 text-center">
           Our Service Areas
-        </motion.h2>
+        </h2>
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <motion.div
-            variants={itemVariants}
-            className="bg-white rounded-lg shadow-md overflow-hidden"
-          >
+          <article className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="bg-blue-500 px-6 py-3">
               <h3 className="text-xl font-tektur text-white">Business Process Optimization</h3>
             </div>
@@ -215,17 +138,14 @@ const OverallProcess = () => {
                 <li>Identify and eliminate bottlenecks</li>
               </ul>
               <div className="mt-4">
-                <Link to="/business-process-optimization" className="text-blue-500 hover:underline flex items-center">
-                  Learn more <FaChartLine className="ml-1" />
+                <Link to="/business-process-optimization" className="text-blue-500 hover:underline flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+                  Learn more <FaChartLine className="ml-1" aria-hidden="true" />
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-white rounded-lg shadow-md overflow-hidden"
-          >
+          <article className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="bg-blue-500 px-6 py-3">
               <h3 className="text-xl font-tektur text-white">Custom Software Development</h3>
             </div>
@@ -237,17 +157,14 @@ const OverallProcess = () => {
                 <li>Ongoing maintenance and improvement</li>
               </ul>
               <div className="mt-4">
-                <Link to="/custom-software-development" className="text-blue-500 hover:underline flex items-center">
-                  Learn more <FaLaptopCode className="ml-1" />
+                <Link to="/custom-software-development" className="text-blue-500 hover:underline flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+                  Learn more <FaLaptopCode className="ml-1" aria-hidden="true" />
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-white rounded-lg shadow-md overflow-hidden"
-          >
+          <article className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="bg-blue-500 px-6 py-3">
               <h3 className="text-xl font-tektur text-white">Legacy Application Modernization</h3>
             </div>
@@ -259,17 +176,14 @@ const OverallProcess = () => {
                 <li>Future-proofing with modern architectures</li>
               </ul>
               <div className="mt-4">
-                <Link to="/legacy-application-modernization" className="text-blue-500 hover:underline flex items-center">
-                  Learn more <FaExchangeAlt className="ml-1" />
+                <Link to="/legacy-application-modernization" className="text-blue-500 hover:underline flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+                  Learn more <FaExchangeAlt className="ml-1" aria-hidden="true" />
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-white rounded-lg shadow-md overflow-hidden"
-          >
+          <article className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="bg-blue-500 px-6 py-3">
               <h3 className="text-xl font-tektur text-white">Distributed Systems & Cloud Consulting</h3>
             </div>
@@ -281,121 +195,80 @@ const OverallProcess = () => {
                 <li>Automation and operational excellence</li>
               </ul>
               <div className="mt-4">
-                <Link to="/distributed-systems-cloud-consulting" className="text-blue-500 hover:underline flex items-center">
-                  Learn more <FaTools className="ml-1" />
+                <Link to="/distributed-systems-cloud-consulting" className="text-blue-500 hover:underline flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+                  Learn more <FaCogs className="ml-1" aria-hidden="true" />
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </article>
         </div>
-      </motion.section>
+      </section>
 
       {/* Implementation Best Practices */}
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mb-16"
-      >
-        <motion.h2
-          variants={itemVariants}
-          className="text-3xl font-tektur text-gray-800 mb-8 text-center"
-        >
+      <section className="mb-16" aria-labelledby="practices-heading">
+        <h2 id="practices-heading" className="text-3xl font-tektur text-gray-800 mb-8 text-center">
           Our Implementation Best Practices
-        </motion.h2>
+        </h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <motion.div
-            variants={itemVariants}
-            className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md"
-          >
+          <article className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md">
             <div className="flex items-center mb-4">
-              <FaSitemap className="text-blue-600 text-2xl mr-3" />
+              <FaSitemap className="text-blue-600 text-2xl mr-3" aria-hidden="true" />
               <h3 className="text-xl font-tektur text-blue-700">Architecture & Design</h3>
             </div>
             <p className="text-gray-700">Business-aligned system design with comprehensive documentation and balanced innovation.</p>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md"
-          >
+          <article className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md">
             <div className="flex items-center mb-4">
-              <FaCogs className="text-blue-600 text-2xl mr-3" />
+              <FaCogs className="text-blue-600 text-2xl mr-3" aria-hidden="true" />
               <h3 className="text-xl font-tektur text-blue-700">Automation</h3>
             </div>
             <p className="text-gray-700">Smart automation with self-healing systems, CI/CD pipelines, and zero-downtime deployments.</p>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md"
-          >
+          <article className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md">
             <div className="flex items-center mb-4">
-              <FaShieldAlt className="text-blue-600 text-2xl mr-3" />
+              <FaShieldAlt className="text-blue-600 text-2xl mr-3" aria-hidden="true" />
               <h3 className="text-xl font-tektur text-blue-700">Security</h3>
             </div>
             <p className="text-gray-700">Security by design with comprehensive controls, encryption, and ongoing testing.</p>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md"
-          >
+          <article className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md">
             <div className="flex items-center mb-4">
-              <FaUsers className="text-blue-600 text-2xl mr-3" />
+              <FaUsers className="text-blue-600 text-2xl mr-3" aria-hidden="true" />
               <h3 className="text-xl font-tektur text-blue-700">Change Management</h3>
             </div>
             <p className="text-gray-700">People-centered approach to technological change with comprehensive risk mitigation.</p>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md"
-          >
+          <article className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md">
             <div className="flex items-center mb-4">
-              <FaDatabase className="text-blue-600 text-2xl mr-3" />
+              <FaDatabase className="text-blue-600 text-2xl mr-3" aria-hidden="true" />
               <h3 className="text-xl font-tektur text-blue-700">Data-Driven Decision Making</h3>
             </div>
             <p className="text-gray-700">Strategic use of analytics and metrics to guide project direction and measure success.</p>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md"
-          >
+          <article className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-md">
             <div className="flex items-center mb-4">
-              <FaRocket className="text-blue-600 text-2xl mr-3" />
+              <FaRocket className="text-blue-600 text-2xl mr-3" aria-hidden="true" />
               <h3 className="text-xl font-tektur text-blue-700">Future-Proofing</h3>
             </div>
             <p className="text-gray-700">Modern standards with ongoing assessments and agile enhancement cycles.</p>
-          </motion.div>
-
-
+          </article>
         </div>
-      </motion.section>
+      </section>
 
       {/* Outcomes & Benefits Section */}
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mb-16"
-      >
-        <motion.h2
-          variants={itemVariants}
-          className="text-3xl font-tektur text-gray-800 mb-8 text-center"
-        >
+      <section className="mb-16" aria-labelledby="outcomes-heading">
+        <h2 id="outcomes-heading" className="text-3xl font-tektur text-gray-800 mb-8 text-center">
           Outcomes & Benefits
-        </motion.h2>
+        </h2>
 
         <div className="grid md:grid-cols-3 gap-6">
-          <motion.div
-            variants={itemVariants}
-            className="bg-white p-6 rounded-lg shadow-md"
-          >
+          <article className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-tektur text-blue-700 mb-4">Business Impact</h3>
             <ul className="list-disc pl-5 space-y-2">
               <li>Improved operational efficiency</li>
@@ -404,12 +277,9 @@ const OverallProcess = () => {
               <li>Increased market agility</li>
               <li>Better business-technology alignment</li>
             </ul>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-white p-6 rounded-lg shadow-md"
-          >
+          <article className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-tektur text-blue-700 mb-4">Technical Advantages</h3>
             <ul className="list-disc pl-5 space-y-2">
               <li>Scalable, future-proof systems</li>
@@ -418,12 +288,9 @@ const OverallProcess = () => {
               <li>Reduced technical debt</li>
               <li>Easier system integration</li>
             </ul>
-          </motion.div>
+          </article>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-white p-6 rounded-lg shadow-md"
-          >
+          <article className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-tektur text-blue-700 mb-4">Organizational Benefits</h3>
             <ul className="list-disc pl-5 space-y-2">
               <li>Better team collaboration</li>
@@ -432,39 +299,27 @@ const OverallProcess = () => {
               <li>Greater operational visibility</li>
               <li>Increased innovation capabilities</li>
             </ul>
-          </motion.div>
+          </article>
         </div>
-      </motion.section>
+      </section>
 
       {/* Call to Action */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-10 px-6 rounded-lg shadow-lg text-center mb-12"
-      >
-        <h2 className="text-2xl font-tektur mb-4">Ready to Transform Your Business Challenges?</h2>
+      <section className="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-10 px-6 rounded-lg shadow-lg text-center mb-12" aria-labelledby="cta-heading">
+        <h2 id="cta-heading" className="text-2xl font-tektur mb-4">Ready to Transform Your Business Challenges?</h2>
         <p className="mb-6 text-lg">
           Schedule a discovery call to discuss how Greyquill can help you achieve your business goals.
         </p>
         <BookDiscoveryCallButton />
-      </motion.div>
+      </section>
 
       {/* Testimonial */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="border-l-4 border-blue-500 pl-6 italic text-gray-600 mb-10"
-      >
+      <blockquote className="border-l-4 border-blue-500 pl-6 italic text-gray-600 mb-10">
         <p className="text-lg">
           "Greyquill's approach to our digital transformation was refreshing. They started by understanding our business processes and challenges before proposing solutions. The result was technology that truly supported our strategic goals, not just a technical upgrade."
         </p>
-        <p className="mt-2 font-semibold">— Financial Services Client</p>
-      </motion.div>
-    </div>
+        <footer className="mt-2 font-semibold not-italic">— Financial Services Client</footer>
+      </blockquote>
+    </motion.main>
   );
 };
 

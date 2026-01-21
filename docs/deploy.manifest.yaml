@@ -1,0 +1,299 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# GREYQUILL DEPLOYMENT MANIFEST
+# ═══════════════════════════════════════════════════════════════════════════════
+# This manifest defines all deployment configuration for this project.
+# Every project must have this file at the repository root.
+#
+# Documentation: https://docs.greyquill.io/deployment/manifest
+# ═══════════════════════════════════════════════════════════════════════════════
+
+version: "1.0"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROJECT INFORMATION
+# ─────────────────────────────────────────────────────────────────────────────
+project:
+  name: "project-name"                    # Unique project identifier
+  client: "client-name"                   # Client organization
+  type: "fullstack"                       # web | mobile | fullstack | api
+  description: "Brief project description"
+  repository: "https://github.com/greyquill/project-name"
+  
+  # Team contacts for deployment notifications
+  contacts:
+    tech_lead: "tech-lead@greyquill.io"
+    project_manager: "pm@greyquill.io"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# APPLICATION COMPONENTS
+# ─────────────────────────────────────────────────────────────────────────────
+components:
+  # Next.js Web Application
+  web:
+    enabled: true
+    framework: "nextjs"
+    version: "14.x"
+    path: "apps/web"
+    port: 3000
+    
+    # Health check configuration
+    healthcheck:
+      path: "/api/health"
+      interval: 30
+      timeout: 10
+      retries: 3
+    
+    # Build configuration
+    build:
+      command: "npm run build"
+      output: ".next"
+      dockerfile: "Dockerfile"
+      
+    # Deployment settings
+    deploy:
+      replicas:
+        development: 1
+        staging: 2
+        production: 3
+      resources:
+        cpu:
+          request: "250m"
+          limit: "500m"
+        memory:
+          request: "256Mi"
+          limit: "512Mi"
+          
+  # Flutter Mobile Application
+  mobile:
+    enabled: true
+    framework: "flutter"
+    version: "3.x"
+    path: "apps/mobile"
+    
+    platforms:
+      - android
+      - ios
+      
+    build:
+      android:
+        command: "flutter build appbundle --release"
+        output: "build/app/outputs/bundle/release"
+      ios:
+        command: "flutter build ipa --release"
+        output: "build/ios/ipa"
+        
+    # App store configuration
+    distribution:
+      android:
+        track: "internal"                 # internal | alpha | beta | production
+        package: "io.greyquill.projectname"
+      ios:
+        method: "app-store"               # app-store | ad-hoc | enterprise
+        bundle_id: "io.greyquill.projectname"
+
+  # Backend API Service
+  api:
+    enabled: true
+    runtime: "node"
+    version: "20"
+    path: "services/api"
+    port: 4000
+    
+    healthcheck:
+      path: "/health"
+      interval: 30
+      timeout: 10
+      
+    build:
+      command: "npm run build"
+      dockerfile: "Dockerfile"
+      
+    deploy:
+      replicas:
+        development: 1
+        staging: 2
+        production: 3
+      resources:
+        cpu:
+          request: "250m"
+          limit: "1000m"
+        memory:
+          request: "256Mi"
+          limit: "1Gi"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DATABASE CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────
+database:
+  type: "postgresql"
+  version: "16"
+  
+  # Migration configuration
+  migrations:
+    tool: "prisma"                        # prisma | typeorm | raw
+    path: "prisma/migrations"
+    command: "npx prisma migrate deploy"
+    
+  # Backup configuration
+  backup:
+    enabled: true
+    schedule: "0 2 * * *"                 # Daily at 2 AM
+    retention: 30                         # Days to keep backups
+    storage: "s3"                         # s3 | gcs | azure
+    
+  # Connection pool settings
+  pool:
+    min: 2
+    max: 20
+    idle_timeout: 10000
+
+# ─────────────────────────────────────────────────────────────────────────────
+# INFRASTRUCTURE SERVICES
+# ─────────────────────────────────────────────────────────────────────────────
+services:
+  # Redis Cache
+  redis:
+    enabled: true
+    version: "7"
+    persistence: true
+    
+    # Memory limits by environment
+    memory:
+      development: "128Mi"
+      staging: "256Mi"
+      production: "1Gi"
+      
+  # Apache Kafka
+  kafka:
+    enabled: false                        # Enable when needed
+    version: "3.6"
+    
+    # Kafka topics to create
+    topics:
+      - name: "events"
+        partitions: 3
+        replication: 3
+      - name: "notifications"
+        partitions: 1
+        replication: 3
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ENVIRONMENT VARIABLES
+# ─────────────────────────────────────────────────────────────────────────────
+environment:
+  # Required variables - deployment will fail if missing
+  required:
+    - DATABASE_URL
+    - REDIS_URL
+    - JWT_SECRET
+    - API_BASE_URL
+    - NEXT_PUBLIC_API_URL
+    
+  # Optional variables - deployment will warn if missing
+  optional:
+    - SENTRY_DSN
+    - ANALYTICS_KEY
+    - SMTP_HOST
+    - SMTP_PORT
+    - AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DEPLOYMENT CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────
+deployment:
+  # Deployment strategy
+  strategy: "blue-green"                  # blue-green | rolling | canary
+  
+  # Maximum deployment time before timeout
+  timeout: 600                            # seconds
+  
+  # Approval requirements by environment
+  approval_required:
+    development: false
+    staging: false
+    uat: true
+    production: true
+    
+  # Required reviewers for production
+  reviewers:
+    production:
+      min_approvals: 2
+      teams:
+        - "tech-leads"
+        - "devops"
+        
+  # Deployment windows (production only)
+  windows:
+    production:
+      allowed_days:
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+      allowed_hours:
+        start: "09:00"
+        end: "17:00"
+      timezone: "Asia/Kolkata"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NOTIFICATIONS
+# ─────────────────────────────────────────────────────────────────────────────
+notifications:
+  slack:
+    channel: "#deployments"
+    events:
+      - deployment_started
+      - deployment_completed
+      - deployment_failed
+      - rollback_initiated
+      
+  email:
+    recipients:
+      - "tech-lead@greyquill.io"
+      - "devops@greyquill.io"
+    events:
+      - deployment_failed
+      - rollback_initiated
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ROLLBACK CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────
+rollback:
+  # Automatic rollback triggers
+  automatic: true
+  
+  # Thresholds that trigger automatic rollback
+  threshold:
+    error_rate: 5                         # Percentage
+    latency_p99: 2000                     # Milliseconds
+    health_check_failures: 3              # Consecutive failures
+    
+  # Rollback notification
+  notify:
+    - "tech-lead@greyquill.io"
+    - "devops@greyquill.io"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MONITORING & OBSERVABILITY
+# ─────────────────────────────────────────────────────────────────────────────
+monitoring:
+  # Application Performance Monitoring
+  apm:
+    enabled: true
+    provider: "datadog"                   # datadog | newrelic | elastic
+    
+  # Logging
+  logging:
+    level:
+      development: "debug"
+      staging: "info"
+      production: "warn"
+    format: "json"
+    
+  # Alerting
+  alerts:
+    enabled: true
+    channels:
+      - slack
+      - email

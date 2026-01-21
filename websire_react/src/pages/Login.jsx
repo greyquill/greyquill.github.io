@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
   const [loginStep, setLoginStep] = useState(1);
@@ -31,48 +32,43 @@ const Login = () => {
     e.preventDefault();
 
     if (loginStep === 1 && validateEmail()) {
-      // Here you would make an API call to send verification code
-      // For now, we'll simulate sending the code
       setLoginStep(2);
     } else if (loginStep === 2) {
       if (!credentials.verificationCode) {
         setError('Please enter the verification code');
         return;
       }
-      // Here you would verify the code
-      // For now, we'll just log the attempt
       console.log('Login attempted with:', credentials);
     }
   };
 
   return (
-    <div className="pt-10 min-h-screen flex flex-col">
-      <div className="text-left mb-6">
-        <Link to="/" className="text-blue-500 hover:underline">
-          <i className="fas fa-arrow-left"></i> Back to Home
-        </Link>
-      </div>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="pt-10 min-h-screen flex flex-col"
+    >
+      <Helmet>
+        <title>Customer Login - Greyquill Software</title>
+        <meta name="description" content="Login to your Greyquill Software customer portal to access your projects and support." />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="flex-grow mt-10 flex flex-col items-center justify-start"
-      >
+      <nav aria-label="Breadcrumb" className="text-left mb-6">
+        <Link to="/" className="text-blue-500 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+          <i className="fas fa-arrow-left" aria-hidden="true"></i> Back to Home
+        </Link>
+      </nav>
+
+      <div className="flex-grow mt-10 flex flex-col items-center justify-start">
         <div className="w-full max-w-md">
           <h1 className="text-4xl font-tektur text-gray-800 text-center mb-8">
             Customer Login
           </h1>
 
-          <motion.div
-            key={loginStep}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.5 }}
-            className="bg-white rounded-lg shadow-lg p-8"
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="bg-white rounded-lg shadow-lg p-8">
+            <form onSubmit={handleSubmit} className="space-y-6" aria-label="Login form">
               {loginStep === 1 ? (
                 <>
                   <div>
@@ -87,11 +83,14 @@ const Login = () => {
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
                       placeholder="Enter your email"
+                      autoComplete="email"
+                      aria-required="true"
+                      aria-describedby="email-help"
                     />
+                    <p id="email-help" className="text-gray-600 text-sm mt-2">
+                      We'll send you a verification code to login securely.
+                    </p>
                   </div>
-                  <p className="text-gray-600 text-sm">
-                    We'll send you a verification code to login securely.
-                  </p>
                 </>
               ) : (
                 <div>
@@ -101,19 +100,25 @@ const Login = () => {
                   <p className="text-gray-600 mb-4">
                     We've sent a verification code to {credentials.email}
                   </p>
+                  <label className="sr-only" htmlFor="verificationCode">Verification Code</label>
                   <input
                     type="text"
+                    id="verificationCode"
                     name="verificationCode"
                     value={credentials.verificationCode}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter verification code"
                     maxLength="6"
+                    autoComplete="one-time-code"
+                    aria-required="true"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                   />
                   <button
                     type="button"
                     onClick={() => setLoginStep(1)}
-                    className="text-blue-500 hover:underline text-sm mt-2"
+                    className="text-blue-500 hover:underline text-sm mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
                   >
                     Change email address
                   </button>
@@ -121,18 +126,14 @@ const Login = () => {
               )}
 
               {error && (
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-red-500 text-sm mt-2"
-                >
+                <p className="text-red-500 text-sm mt-2" role="alert" aria-live="polite">
                   {error}
-                </motion.p>
+                </p>
               )}
 
               <button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
+                className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 {loginStep === 1 ? 'Send Code' : 'Login'}
               </button>
@@ -140,15 +141,15 @@ const Login = () => {
 
             {loginStep === 1 && (
               <div className="mt-6 text-center">
-                <Link to="/login-assistance" className="text-blue-500 hover:underline text-sm">
+                <Link to="/login-assistance" className="text-blue-500 hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
                   Having trouble logging in?
                 </Link>
               </div>
             )}
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </motion.main>
   );
 };
 
