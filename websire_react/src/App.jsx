@@ -19,6 +19,7 @@ const BusinessProcessOptimization = lazy(() => import('./pages/BusinessProcessOp
 const CustomSoftwareDevelopment = lazy(() => import('./pages/CustomSoftwareDevelopment'));
 const LegacyApplicationModernization = lazy(() => import('./pages/LegacyApplicationModernization'));
 const DistributedSystemsCloudConsulting = lazy(() => import('./pages/DistributedSystemsCloudConsulting'));
+const EnterpriseAIEnablement = lazy(() => import('./pages/EnterpriseAIEnablement'));
 const OverallProcess = lazy(() => import('./pages/OverallProcess'));
 const Policies = lazy(() => import('./pages/Policies'));
 const News = lazy(() => import('./pages/News'));
@@ -105,6 +106,7 @@ function App() {
             <Route path="/custom-software-development" element={<CustomSoftwareDevelopment />} />
             <Route path="/legacy-application-modernization" element={<LegacyApplicationModernization />} />
             <Route path="/distributed-systems-cloud-consulting" element={<DistributedSystemsCloudConsulting />} />
+            <Route path="/enterprise-ai-enablement" element={<EnterpriseAIEnablement />} />
             <Route path="/overall-process" element={<OverallProcess />} />
             <Route path="/policies" element={<Policies />} />
             <Route path="/news" element={<News />} />
