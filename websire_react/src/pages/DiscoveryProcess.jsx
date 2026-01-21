@@ -231,7 +231,7 @@ const DiscoveryProcess = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="mt-12 text-center bg-gradient-to-r from-blue-50 to-[#0B4F88]/20 rounded-xl p-8">
+      <section className="mt-12 text-center rounded-xl p-8" style={{ background: 'linear-gradient(135deg, rgba(11, 79, 136, 0.08) 0%, rgba(11, 79, 136, 0.02) 100%)', boxShadow: 'inset 0 0 0 1px rgba(11, 79, 136, 0.1)' }}>
         <h2 className="text-2xl font-tektur text-gray-800 mb-4">Ready to Start Your Discovery?</h2>
         <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
           The Greyquill Method™ typically takes 4 weeks and results in a comprehensive project blueprint

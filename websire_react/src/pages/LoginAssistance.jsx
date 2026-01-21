@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
@@ -25,12 +24,7 @@ const LoginAssistance = () => {
   };
 
   return (
-    <motion.main
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="pt-10 min-h-screen flex flex-col"
-    >
+    <main className="pt-10 min-h-screen flex flex-col">
       <Helmet>
         <title>Login Assistance - Greyquill Software</title>
         <meta name="description" content="Get help accessing your Greyquill Software customer account. Our team will assist you with account recovery." />
@@ -38,7 +32,7 @@ const LoginAssistance = () => {
       </Helmet>
 
       <nav aria-label="Breadcrumb" className="text-left mb-6">
-        <Link to="/login" className="text-blue-500 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+        <Link to="/login" className="text-[#0B4F88] hover:underline">
           <i className="fas fa-arrow-left" aria-hidden="true"></i> Back to Login
         </Link>
       </nav>
@@ -50,7 +44,15 @@ const LoginAssistance = () => {
           </h1>
 
           {isSubmitted ? (
-            <div className="bg-white rounded-lg shadow-lg p-8 text-center" role="status" aria-live="polite">
+            <div
+              className="rounded-xl p-8 text-center"
+              style={{
+                background: 'linear-gradient(180deg, rgba(11, 79, 136, 0.04) 0%, rgba(255, 255, 255, 0) 100%)',
+                boxShadow: 'inset 0 0 0 1px rgba(11, 79, 136, 0.1)'
+              }}
+              role="status"
+              aria-live="polite"
+            >
               <div className="text-green-600 text-xl mb-4">
                 <i className="fas fa-check-circle text-3xl mb-4" aria-hidden="true"></i>
                 <p>Request Received!</p>
@@ -64,7 +66,13 @@ const LoginAssistance = () => {
               </p>
             </div>
           ) : (
-            <div className="bg-white rounded-lg shadow-lg p-8">
+            <div
+              className="rounded-xl p-8"
+              style={{
+                background: 'linear-gradient(180deg, rgba(11, 79, 136, 0.04) 0%, rgba(255, 255, 255, 0) 100%)',
+                boxShadow: 'inset 0 0 0 1px rgba(11, 79, 136, 0.1)'
+              }}
+            >
               <p className="text-gray-600 mb-6">
                 Enter your email address and our team will get in touch with you to assist with your account access.
               </p>
@@ -82,7 +90,7 @@ const LoginAssistance = () => {
                       setEmail(e.target.value);
                       setError('');
                     }}
-                    className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#0B4F88]"
                     placeholder="Enter your email"
                     autoComplete="email"
                     aria-required="true"
@@ -97,7 +105,7 @@ const LoginAssistance = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="w-full bg-[#0B4F88] text-white py-2 rounded-lg hover:bg-[#083d6a] transition-colors"
                 >
                   Request Login Assistance
                 </button>
@@ -106,7 +114,7 @@ const LoginAssistance = () => {
           )}
         </div>
       </div>
-    </motion.main>
+    </main>
   );
 };
 

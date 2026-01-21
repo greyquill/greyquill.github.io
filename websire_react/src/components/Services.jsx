@@ -1,81 +1,157 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaArrowRight } from 'react-icons/fa';
-
-const ServiceLink = ({ title, path }) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    if (path) {
-      navigate(path);
-    } else {
-      window.location.href = '/';
-    }
-  };
-
-  return (
-    <div className="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105 cursor-pointer text-center w-full">
-      <button className="w-full flex items-center justify-between" onClick={handleClick}>
-        <span className="text-gray-800 font-semibold">{title}</span>
-        <span className="bg-gray-200 p-2 rounded-lg ml-2">
-          <FaArrowRight className="text-gray-600" style={{ width: '.6em', height: '1em' }} />
-        </span>
-      </button>
-    </div>
-  );
-};
+import { Link } from 'react-router-dom';
+import { FaArrowRight, FaRobot, FaBolt, FaChartLine } from 'react-icons/fa';
+import serv1 from '../assets/serv1.png';
+import serv2 from '../assets/serv2.png';
+import serv3 from '../assets/serv3.png';
+import serv4 from '../assets/serv4.png';
 
 function Services() {
   const services = [
-    { title: "Business Process Optimization", path: "/business-process-optimization" },
-    { title: "Custom Software Development", path: "/custom-software-development" },
-    { title: "Legacy Applications Modernization", path: "/legacy-application-modernization" },
-    { title: "Distributed Systems & Cloud Consulting", path: "/distributed-systems-cloud-consulting" }
+    {
+      title: "Business Process Optimization",
+      description: "Streamline operations and eliminate inefficiencies with AI-powered process analysis and automation.",
+      path: "/business-process-optimization",
+      image: serv1
+    },
+    {
+      title: "Custom Software Development",
+      description: "Purpose-built solutions designed for your unique challenges, leveraging modern AI capabilities.",
+      path: "/custom-software-development",
+      image: serv2
+    },
+    {
+      title: "Legacy Application Modernization",
+      description: "Transform outdated systems into modern, AI-ready platforms without disrupting operations.",
+      path: "/legacy-application-modernization",
+      image: serv3
+    },
+    {
+      title: "Distributed Systems & Cloud",
+      description: "Scalable cloud architectures with intelligent resource optimization and AI integration.",
+      path: "/distributed-systems-cloud-consulting",
+      image: serv4
+    }
   ];
 
   return (
-    <div className="mt-8">
-      <h1 className="text-2xl font-tektur text-gray-800 text-center mt-15">Our Services</h1>
-      <p className="text-gray-600 text-center mb-8">
-        Click on a service to learn more
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {services.map((service, index) => (
-          <ServiceLink key={index} title={service.title} path={service.path} />
-        ))}
-      </div>
-      <div className="mt-8 text-center">
-        <p className="text-lg">
-          <span className="text-gray-800 text-xl font-titillium">
-            We prioritize <b>clarity in our implementation</b> and emphasize <b>thorough documentation</b> and <b>quality assurance</b>.
-          </span>
-          <div className="mt-8">
-            <div className="flex justify-around">
-              <div className="text-center">
-                <i className="fas fa-globe w-8 h-8"></i>
-                <p>Web</p>
-              </div>
-              <div className="text-center">
-                <i className="fas fa-mobile-alt w-8 h-8"></i>
-                <p>Mobile</p>
-              </div>
-              <div className="text-center">
-                <i className="fab fa-apple w-8 h-8"></i>
-                <p>Apple</p>
-              </div>
-              <div className="text-center">
-                <i className="fab fa-android w-8 h-8"></i>
-                <p>Android</p>
-              </div>
-              <div className="text-center">
-                <i className="fas fa-desktop w-8 h-8"></i>
-                <p>Desktop</p>
-              </div>
+    <section className="py-12">
+      {/* AI-First Banner */}
+      <div
+        className="rounded-2xl p-6 mb-10"
+        style={{
+          background: 'linear-gradient(135deg, rgba(11, 79, 136, 0.08) 0%, rgba(11, 79, 136, 0.02) 100%)',
+          boxShadow: 'inset 0 0 0 1px rgba(11, 79, 136, 0.1)'
+        }}
+      >
+        <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="flex-shrink-0">
+            <div className="w-16 h-16 rounded-full bg-[#0B4F88]/10 flex items-center justify-center">
+              <FaRobot className="text-3xl text-[#0B4F88]" />
             </div>
           </div>
-        </p>
+          <div className="flex-1 text-center md:text-left">
+            <h3 className="text-xl font-tektur text-gray-800 mb-2">
+              AI-First Development Approach
+            </h3>
+            <p className="text-gray-600">
+              We integrate artificial intelligence at every stage of development. The Greyquill Method™
+              combines rigorous discovery with AI-accelerated delivery, consistently producing results
+              that outperform traditional approaches.
+            </p>
+          </div>
+          <div className="flex gap-4 text-center">
+            <div>
+              <FaBolt className="text-2xl text-[#0B4F88] mx-auto mb-1" />
+              <p className="text-xs text-gray-500">Faster Delivery</p>
+            </div>
+            <div>
+              <FaChartLine className="text-2xl text-[#0B4F88] mx-auto mb-1" />
+              <p className="text-xs text-gray-500">Better Outcomes</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+
+      {/* Section Header */}
+      <div className="text-center mb-8">
+        <p className="text-[#0B4F88] font-semibold uppercase tracking-wide text-sm mb-2">What We Build</p>
+        <h2 className="text-3xl font-tektur text-gray-800 mb-4">Our Services</h2>
+      </div>
+
+      {/* Service Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {services.map((service, index) => (
+          <Link
+            key={index}
+            to={service.path}
+            className="group block"
+          >
+            <div
+              className="rounded-xl p-5 h-full transition-all duration-300 hover:shadow-lg"
+              style={{
+                background: 'linear-gradient(180deg, rgba(11, 79, 136, 0.03) 0%, rgba(255, 255, 255, 0) 100%)',
+                boxShadow: 'inset 0 0 0 1px rgba(11, 79, 136, 0.08)'
+              }}
+            >
+              <div className="flex items-start gap-4">
+                {/* Service Image */}
+                <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-white">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+
+                {/* Service Content */}
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-tektur text-gray-800 text-lg mb-2 group-hover:text-[#0B4F88] transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed mb-3">
+                    {service.description}
+                  </p>
+                  <span className="inline-flex items-center gap-1 text-sm text-[#0B4F88] font-medium">
+                    Learn more
+                    <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {/* Platform Icons */}
+      <div className="mt-10 text-center">
+        <p className="text-gray-600 mb-4">
+          We build for <span className="font-semibold text-gray-800">every platform</span>
+        </p>
+        <div className="flex justify-center gap-8 text-gray-400">
+          <div className="text-center">
+            <i className="fas fa-globe text-2xl mb-1"></i>
+            <p className="text-xs">Web</p>
+          </div>
+          <div className="text-center">
+            <i className="fas fa-mobile-alt text-2xl mb-1"></i>
+            <p className="text-xs">Mobile</p>
+          </div>
+          <div className="text-center">
+            <i className="fab fa-apple text-2xl mb-1"></i>
+            <p className="text-xs">iOS</p>
+          </div>
+          <div className="text-center">
+            <i className="fab fa-android text-2xl mb-1"></i>
+            <p className="text-xs">Android</p>
+          </div>
+          <div className="text-center">
+            <i className="fas fa-desktop text-2xl mb-1"></i>
+            <p className="text-xs">Desktop</p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
