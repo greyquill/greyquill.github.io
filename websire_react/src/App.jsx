@@ -25,6 +25,10 @@ const Policies = lazy(() => import('./pages/Policies'));
 const News = lazy(() => import('./pages/News'));
 const Support = lazy(() => import('./pages/Support'));
 const Contact = lazy(() => import('./pages/Contact'));
+const Industries = lazy(() => import('./pages/Industries'));
+const CaseStudies = lazy(() => import('./pages/CaseStudies'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -112,6 +116,10 @@ function App() {
             <Route path="/news" element={<News />} />
             <Route path="/support" element={<Support />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/industries" element={<Industries />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
           </Routes>
         </Suspense>
         <Footer />
