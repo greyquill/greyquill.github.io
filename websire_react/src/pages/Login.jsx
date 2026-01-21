@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
@@ -43,12 +42,7 @@ const Login = () => {
   };
 
   return (
-    <motion.main
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="pt-10 min-h-screen flex flex-col"
-    >
+    <main className="pt-10 min-h-screen flex flex-col">
       <Helmet>
         <title>Customer Login - Greyquill Software</title>
         <meta name="description" content="Login to your Greyquill Software customer portal to access your projects and support." />
@@ -56,7 +50,7 @@ const Login = () => {
       </Helmet>
 
       <nav aria-label="Breadcrumb" className="text-left mb-6">
-        <Link to="/" className="text-blue-500 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+        <Link to="/" className="text-[#0B4F88] hover:underline">
           <i className="fas fa-arrow-left" aria-hidden="true"></i> Back to Home
         </Link>
       </nav>
@@ -67,7 +61,13 @@ const Login = () => {
             Customer Login
           </h1>
 
-          <div className="bg-white rounded-lg shadow-lg p-8">
+          <div
+            className="rounded-xl p-8"
+            style={{
+              background: 'linear-gradient(180deg, rgba(11, 79, 136, 0.04) 0%, rgba(255, 255, 255, 0) 100%)',
+              boxShadow: 'inset 0 0 0 1px rgba(11, 79, 136, 0.1)'
+            }}
+          >
             <form onSubmit={handleSubmit} className="space-y-6" aria-label="Login form">
               {loginStep === 1 ? (
                 <>
@@ -81,7 +81,7 @@ const Login = () => {
                       name="email"
                       value={credentials.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#0B4F88]"
                       placeholder="Enter your email"
                       autoComplete="email"
                       aria-required="true"
@@ -107,7 +107,7 @@ const Login = () => {
                     name="verificationCode"
                     value={credentials.verificationCode}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#0B4F88]"
                     placeholder="Enter verification code"
                     maxLength="6"
                     autoComplete="one-time-code"
@@ -118,7 +118,7 @@ const Login = () => {
                   <button
                     type="button"
                     onClick={() => setLoginStep(1)}
-                    className="text-blue-500 hover:underline text-sm mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+                    className="text-[#0B4F88] hover:underline text-sm mt-2"
                   >
                     Change email address
                   </button>
@@ -133,7 +133,7 @@ const Login = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="w-full bg-[#0B4F88] text-white py-2 rounded-lg hover:bg-[#083d6a] transition-colors"
               >
                 {loginStep === 1 ? 'Send Code' : 'Login'}
               </button>
@@ -141,7 +141,7 @@ const Login = () => {
 
             {loginStep === 1 && (
               <div className="mt-6 text-center">
-                <Link to="/login-assistance" className="text-blue-500 hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+                <Link to="/login-assistance" className="text-[#0B4F88] hover:underline text-sm">
                   Having trouble logging in?
                 </Link>
               </div>
@@ -149,7 +149,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </motion.main>
+    </main>
   );
 };
 

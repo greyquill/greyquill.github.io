@@ -64,17 +64,8 @@ function HomePage() {
       {/* Secondary CTA */}
       <BookDiscoveryCallButton />
 
-      {/* Services Overview */}
-      <section className="py-12">
-        <div className="text-center mb-8">
-          <p className="text-[#0B4F88] font-semibold uppercase tracking-wide text-sm mb-2">What We Build</p>
-          <h2 className="text-3xl font-tektur text-gray-800 mb-4">Our Services</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            From process optimization to custom development, we transform business challenges into success stories.
-          </p>
-        </div>
-        <Services />
-      </section>
+      {/* Services */}
+      <Services />
 
       {/* Description and Navigation */}
       <Description />
