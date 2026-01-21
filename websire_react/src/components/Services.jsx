@@ -5,9 +5,17 @@ import serv1 from '../assets/serv1.png';
 import serv2 from '../assets/serv2.png';
 import serv3 from '../assets/serv3.png';
 import serv4 from '../assets/serv4.png';
+import serv5 from '../assets/serv5.png';
 
 function Services() {
   const services = [
+    {
+      title: "Enterprise AI Enablement",
+      description: "Transform your organization with safe, compliant AI—from model selection to governance and deployment.",
+      path: "/enterprise-ai-enablement",
+      image: serv5,
+      featured: true
+    },
     {
       title: "Business Process Optimization",
       description: "Streamline operations and eliminate inefficiencies with AI-powered process analysis and automation.",
@@ -79,9 +87,67 @@ function Services() {
         <h2 className="text-3xl font-tektur text-gray-800 mb-4">Our Services</h2>
       </div>
 
+      {/* Featured Service (AI Enablement) */}
+      {services.filter(s => s.featured).map((service, index) => (
+        <Link
+          key={`featured-${index}`}
+          to={service.path}
+          className="group block mb-6"
+        >
+          <div
+            className="rounded-xl p-6 transition-all duration-300 hover:shadow-lg"
+            style={{
+              background: 'linear-gradient(135deg, rgba(11, 79, 136, 0.08) 0%, rgba(11, 79, 136, 0.02) 100%)',
+              boxShadow: 'inset 0 0 0 1px rgba(11, 79, 136, 0.12)'
+            }}
+          >
+            <div className="flex flex-col md:flex-row items-start gap-5">
+              {/* Service Image */}
+              <div className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-white">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+
+              {/* Service Content */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="bg-[#0B4F88] text-white text-xs font-bold px-2 py-1 rounded-full uppercase">
+                    New
+                  </span>
+                  <h3 className="font-tektur text-gray-800 text-xl group-hover:text-[#0B4F88] transition-colors">
+                    {service.title}
+                  </h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed mb-3">
+                  {service.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(11, 79, 136, 0.1)', color: '#0B4F88' }}>
+                    Cloud & On-Premise
+                  </span>
+                  <span className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(11, 79, 136, 0.1)', color: '#0B4F88' }}>
+                    EU AI Act Ready
+                  </span>
+                  <span className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(11, 79, 136, 0.1)', color: '#0B4F88' }}>
+                    SOC 2 & HIPAA
+                  </span>
+                </div>
+                <span className="inline-flex items-center gap-1 text-sm text-[#0B4F88] font-medium">
+                  Learn more
+                  <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </Link>
+      ))}
+
       {/* Service Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {services.map((service, index) => (
+        {services.filter(s => !s.featured).map((service, index) => (
           <Link
             key={index}
             to={service.path}
