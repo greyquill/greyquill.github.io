@@ -38,7 +38,7 @@ function BookDiscoveryCallButton() {
     <div className="text-center mt-6">
       <button
         onClick={openCalendly}
-        className="bg-gray-800 text-white px-6 py-3 rounded-full active:bg-gray-800 active:shadow-lg transition duration-300 active:translate-y-1 hover:bg-black hover:shadow-md"
+        className="bg-[#0B4F88] text-white px-6 py-3 rounded-full active:bg-[#083d6a] active:shadow-lg transition duration-300 active:translate-y-1 hover:bg-[#0a4577] hover:shadow-md"
       >
         Book a free discovery session with Us
       </button>

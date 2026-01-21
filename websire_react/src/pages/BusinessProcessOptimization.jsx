@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import BookDiscoveryCallButton from '../components/BookDiscoveryCallButton';
 import { FaChartLine, FaUsers, FaCogs, FaLightbulb, FaCheckCircle, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 
@@ -495,25 +496,32 @@ const BusinessProcessOptimization = () => {
   };
 
   return (
-    <div className="py-10">
-      <div className="text-left mb-6">
-        <Link to="/" className="text-blue-500 hover:underline">
-          <i className="fas fa-arrow-left"></i> Back to Home
-        </Link>
-      </div>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="py-10"
+    >
+      <Helmet>
+        <title>Business Process Optimization - Greyquill Software</title>
+        <meta name="description" content="Transform your business with proven process optimization strategies. Streamline workflows, enhance team performance, and drive measurable results with Greyquill Software." />
+        <link rel="canonical" href="https://greyquill.io/business-process-optimization" />
+      </Helmet>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <nav aria-label="Breadcrumb" className="text-left mb-6">
+        <Link to="/" className="text-blue-500 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+          <i className="fas fa-arrow-left" aria-hidden="true"></i> Back to Home
+        </Link>
+      </nav>
+
+      <header>
         <h1 className="text-4xl font-tektur text-gray-800 text-center mb-6">
           Business Process Optimization
         </h1>
         <p className="text-xl font-titillium text-center mb-10">
           Unlock Your Business Potential with Proven Strategies
         </p>
-      </motion.div>
+      </header>
 
       {/* Section Navigation */}
       <div className="mb-8">
@@ -599,7 +607,7 @@ const BusinessProcessOptimization = () => {
           {sectionContent['conclusion']}
         </motion.div>
       </div>
-    </div>
+    </motion.main>
   );
 };
 

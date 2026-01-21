@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const LoginAssistance = () => {
   const [email, setEmail] = useState('');
@@ -16,43 +17,42 @@ const LoginAssistance = () => {
       return;
     }
 
-    // Here you would typically make an API call to trigger password reset
-    // For now, we'll simulate success
     setIsSubmitted(true);
 
-    // Redirect to login page after 5 seconds
     setTimeout(() => {
       navigate('/login');
     }, 5000);
   };
 
   return (
-    <div className="pt-10 min-h-screen flex flex-col">
-      <div className="text-left mb-6">
-        <Link to="/login" className="text-blue-500 hover:underline">
-          <i className="fas fa-arrow-left"></i> Back to Login
-        </Link>
-      </div>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="pt-10 min-h-screen flex flex-col"
+    >
+      <Helmet>
+        <title>Login Assistance - Greyquill Software</title>
+        <meta name="description" content="Get help accessing your Greyquill Software customer account. Our team will assist you with account recovery." />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="flex-grow mt-10 flex flex-col items-center justify-start"
-      >
+      <nav aria-label="Breadcrumb" className="text-left mb-6">
+        <Link to="/login" className="text-blue-500 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+          <i className="fas fa-arrow-left" aria-hidden="true"></i> Back to Login
+        </Link>
+      </nav>
+
+      <div className="flex-grow mt-10 flex flex-col items-center justify-start">
         <div className="w-full max-w-md">
           <h1 className="text-4xl font-tektur text-gray-800 text-center mb-8">
             Login Assistance
           </h1>
 
           {isSubmitted ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="bg-white rounded-lg shadow-lg p-8 text-center"
-            >
+            <div className="bg-white rounded-lg shadow-lg p-8 text-center" role="status" aria-live="polite">
               <div className="text-green-600 text-xl mb-4">
-                <i className="fas fa-check-circle text-3xl mb-4"></i>
+                <i className="fas fa-check-circle text-3xl mb-4" aria-hidden="true"></i>
                 <p>Request Received!</p>
               </div>
               <p className="text-gray-600 mb-4">
@@ -62,26 +62,21 @@ const LoginAssistance = () => {
               <p className="text-gray-500 text-sm">
                 Redirecting to login page in a few seconds...
               </p>
-            </motion.div>
+            </div>
           ) : (
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white rounded-lg shadow-lg p-8"
-            >
+            <div className="bg-white rounded-lg shadow-lg p-8">
               <p className="text-gray-600 mb-6">
                 Enter your email address and our team will get in touch with you to assist with your account access.
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" aria-label="Login assistance form">
                 <div>
-                  <label className="block text-gray-700 mb-2" htmlFor="email">
+                  <label className="block text-gray-700 mb-2" htmlFor="assistance-email">
                     Email Address
                   </label>
                   <input
                     type="email"
-                    id="email"
+                    id="assistance-email"
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
@@ -89,31 +84,29 @@ const LoginAssistance = () => {
                     }}
                     className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter your email"
+                    autoComplete="email"
+                    aria-required="true"
                   />
                 </div>
 
                 {error && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-red-500 text-sm"
-                  >
+                  <p className="text-red-500 text-sm" role="alert" aria-live="polite">
                     {error}
-                  </motion.p>
+                  </p>
                 )}
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
+                  className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
                   Request Login Assistance
                 </button>
               </form>
-            </motion.div>
+            </div>
           )}
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </motion.main>
   );
 };
 

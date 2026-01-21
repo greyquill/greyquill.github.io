@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import BookDiscoveryCallButton from '../components/BookDiscoveryCallButton';
 import {
   FaChartLine, FaUsers, FaCogs, FaLightbulb, FaCheckCircle, FaArrowRight, FaArrowLeft,
@@ -1211,25 +1212,32 @@ const DistributedSystemsCloudConsulting = () => {
   };
 
   return (
-    <div className="py-10">
-      <div className="text-left mb-6">
-        <Link to="/" className="text-blue-500 hover:underline">
-          <i className="fas fa-arrow-left"></i> Back to Home
-        </Link>
-      </div>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="py-10"
+    >
+      <Helmet>
+        <title>Distributed Systems & Cloud Consulting - Greyquill Software</title>
+        <meta name="description" content="Build scalable, resilient systems with Greyquill. Cloud strategy, migration, architecture design, security by design, and operational excellence across AWS, Azure, and GCP." />
+        <link rel="canonical" href="https://greyquill.io/distributed-systems-cloud-consulting" />
+      </Helmet>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <nav aria-label="Breadcrumb" className="text-left mb-6">
+        <Link to="/" className="text-blue-500 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded">
+          <i className="fas fa-arrow-left" aria-hidden="true"></i> Back to Home
+        </Link>
+      </nav>
+
+      <header>
         <h1 className="text-4xl font-tektur text-gray-800 text-center mb-6">
           Distributed Systems & Cloud Consulting
         </h1>
         <p className="text-xl font-titillium text-center mb-10">
           Building scalable, resilient systems that power your business transformation
         </p>
-      </motion.div>
+      </header>
 
       {/* Section Navigation */}
       <div className="mb-8">
@@ -1326,7 +1334,7 @@ const DistributedSystemsCloudConsulting = () => {
           </div>
         </motion.div>
       </div>
-    </div>
+    </motion.main>
   );
 };
 

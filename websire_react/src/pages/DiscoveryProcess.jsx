@@ -1,327 +1,248 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { FaLightbulb, FaUsers, FaBrain, FaSearch, FaLaptopCode, FaFileAlt, FaRocket } from 'react-icons/fa';
 import BookDiscoveryCallButton from '../components/BookDiscoveryCallButton';
 
 const DiscoveryProcess = () => {
-  const [activeStep, setActiveStep] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const intervalRef = useRef(null);
-  const STEP_DURATION = 10000; // 10 seconds per step
-
-  // Define steps array before using it
-  const steps = [
+  const phases = [
     {
-      title: "1. Initial Engagement & Discovery Kickoff",
+      number: 1,
+      name: "Illuminate",
+      icon: <FaLightbulb className="text-2xl" />,
+      tagline: "Understand your world",
+      description: "We map your business context, goals, and challenges. No assumptions—just deep understanding of what success looks like for you.",
       inputs: [
         "High-level business goals and pain points",
         "Existing market insights or preliminary ideas",
-        "Stakeholder list and available documentation",
+        "Stakeholder list and available documentation"
       ],
       outputs: [
-        "A project brief outlining objectives, challenges, and the discovery approach",
+        "Business Context Map outlining objectives and challenges",
         "Alignment on key outcomes and success criteria",
-        "A preliminary roadmap and engagement plan",
-      ]
+        "Preliminary roadmap and engagement plan"
+      ],
+      duration: "Week 1"
     },
     {
-      title: "2. Stakeholder Interviews & Requirements Elicitation",
+      number: 2,
+      name: "Interview",
+      icon: <FaUsers className="text-2xl" />,
+      tagline: "Hear every voice",
+      description: "We conduct structured interviews with key stakeholders to capture needs, pain points, and aspirations from every perspective that matters.",
       inputs: [
         "Participation from key stakeholders (executives, product owners, end users)",
-        "Existing process documents, system reports, and business metrics",
+        "Existing process documents, system reports, and business metrics"
       ],
       outputs: [
-        "A consolidated list of business needs and user pain points",
+        "Consolidated list of business needs and user pain points",
         "Draft user personas and process maps",
-        "An initial set of requirements that set the stage for further analysis",
-      ]
+        "Initial set of requirements for further analysis"
+      ],
+      duration: "Week 1-2"
     },
     {
-      title: "3. Collaborative Workshops & Brainstorming Sessions",
+      number: 3,
+      name: "Ideate",
+      icon: <FaBrain className="text-2xl" />,
+      tagline: "Explore possibilities",
+      description: "Collaborative workshops where we brainstorm solutions, challenge assumptions, and identify the approaches most likely to succeed.",
       inputs: [
-        "The draft requirements and user personas from interviews",
-        "Market research findings and competitor analysis insights",
+        "Draft requirements and user personas from interviews",
+        "Market research findings and competitor analysis insights"
       ],
       outputs: [
-        "A refined and validated Business Requirements Document (BRD)",
-        "Detailed use cases, process flow diagrams, and prioritization of features",
-        "Stakeholder consensus and a common language for success",
-      ]
+        "Refined and validated Business Requirements Document (BRD)",
+        "Detailed use cases, process flow diagrams, and feature prioritization",
+        "Stakeholder consensus and common language for success"
+      ],
+      duration: "Week 2"
     },
     {
-      title: "4. Business & Technical Analysis",
+      number: 4,
+      name: "Investigate",
+      icon: <FaSearch className="text-2xl" />,
+      tagline: "Validate feasibility",
+      description: "Technical deep-dive to assess feasibility, identify risks, and evaluate technology options against your constraints and goals.",
       inputs: [
         "Finalized BRD and workshop outcomes",
         "Client's current technical environment details and constraints",
-        "Industry standards and risk assessment data",
+        "Industry standards and risk assessment data"
       ],
       outputs: [
-        "A Technical Feasibility Report with recommended technology stacks",
-        "A risk assessment and mitigation plan",
-        "A high-level System Architecture document",
-      ]
+        "Technical Feasibility Report with recommended technology stacks",
+        "Risk assessment and mitigation plan",
+        "High-level System Architecture document"
+      ],
+      duration: "Week 2-3"
     },
     {
-      title: "5. Proof of Concept (POC) / Prototyping",
-      subtitle: "(Optional, Based on Project Scope)",
+      number: 5,
+      name: "Illustrate",
+      icon: <FaLaptopCode className="text-2xl" />,
+      tagline: "Show, don't tell",
+      description: "When appropriate, we build a working prototype to validate critical assumptions and give you something tangible to react to.",
       inputs: [
         "Refined requirements and technical analysis outcomes",
-        "Key scenarios and prioritized features for validation",
+        "Key scenarios and prioritized features for validation"
       ],
       outputs: [
-        "A working prototype or POC demo to illustrate critical features",
+        "Working prototype or POC demo illustrating critical features",
         "User feedback and validation of technical approach",
-        "A clear demonstration of concept viability to de-risk the project",
-      ]
+        "Clear demonstration of concept viability to de-risk the project"
+      ],
+      duration: "Week 3-4",
+      optional: true
     },
     {
-      title: "6. Comprehensive Documentation & Project Roadmap",
+      number: 6,
+      name: "Integrate",
+      icon: <FaFileAlt className="text-2xl" />,
+      tagline: "Blueprint for success",
+      description: "Everything comes together in comprehensive documentation: requirements, architecture, timeline, and budget—with no surprises.",
       inputs: [
         "Combined findings from business and technical assessments",
-        "POC feedback (if applicable) and stakeholder approvals",
+        "POC feedback (if applicable) and stakeholder approvals"
       ],
       outputs: [
-        "A full Project Requirements Document (PRD) detailing functional and non-functional needs",
-        "A detailed Project Roadmap with milestones, time estimates, and budget outlines",
-        "System design documents, including UI/UX wireframes and technical specifications",
-      ]
+        "Full Project Requirements Document (PRD) with functional and non-functional needs",
+        "Detailed Project Roadmap with milestones, estimates, and budget",
+        "System design documents including UI/UX wireframes and technical specifications"
+      ],
+      duration: "Week 4"
     },
     {
-      title: "7. Presentation, Review & Client Sign-Off",
+      number: 7,
+      name: "Initiate",
+      icon: <FaRocket className="text-2xl" />,
+      tagline: "Launch with confidence",
+      description: "Final review, sign-off, and project kickoff. You'll have absolute clarity on what we're building, why, and how.",
       inputs: [
-        "All finalized documentation (BRD, PRD, Technical Report, Roadmap, etc.)",
-        "Feedback from the discovery phase sessions and POC outcomes",
+        "All finalized documentation (BRD, PRD, Technical Report, Roadmap)",
+        "Feedback from discovery sessions and POC outcomes"
       ],
       outputs: [
-        "A comprehensive presentation that clearly articulates the project vision, solution strategy, and roadmap",
-        "Final client approval and sign-off to move into the development phase",
-        "An agreed-upon plan for continuous communication and change management",
-      ]
-    },
-    {
-      title: "Ready to Start Your Journey?",
-      description: "Our discovery process blends business requirements gathering, collaborative workshops, technical assessment, and optional prototyping to create a strategic and risk-mitigated project roadmap.",
-      callToAction: true
+        "Comprehensive presentation of project vision, solution strategy, and roadmap",
+        "Final client approval and sign-off to proceed to development",
+        "Agreed plan for continuous communication and change management"
+      ],
+      duration: "Week 4"
     }
   ];
 
-  // Initialize and clean up timer
-  useEffect(() => {
-    // Now steps is defined before being used here
-    // Define resetAndStartTimer inside useEffect to avoid dependency issues
-    const resetAndStartTimer = () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-
-      setProgress(0);
-
-      if (activeStep === steps.length - 1) {
-        return;
-      }
-
-      const startTime = Date.now();
-      intervalRef.current = setInterval(() => {
-        const elapsedTime = Date.now() - startTime;
-        const newProgress = Math.min(100, (elapsedTime / STEP_DURATION) * 100);
-
-        setProgress(newProgress);
-
-        if (newProgress >= 100) {
-          if (activeStep < steps.length - 1) {
-            setActiveStep(prevStep => prevStep + 1);
-          }
-        }
-      }, 50);
-    };
-
-    resetAndStartTimer();
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [activeStep, steps.length, STEP_DURATION]);
-
-  // Create functions for manual navigation
-  const goToNextStep = () => {
-    // Only go to next step if we're not at the last step
-    if (activeStep < steps.length - 1) {
-      setActiveStep(activeStep + 1);
-    }
-  };
-
-  const goToPreviousStep = () => {
-    // Only go to previous step if we're not at the first step
-    if (activeStep > 0) {
-      setActiveStep(activeStep - 1);
-    }
-  };
-
   return (
-    <div className="py-10">
-      <div className="text-left mb-10 left-0">
-        <Link to="/overall-process" className="text-blue-500 hover:underline">
-          <i className="fas fa-arrow-left"></i> Back to Methodology
+    <main className="py-10">
+      <Helmet>
+        <title>The Greyquill Method™ - Our Discovery Process | Greyquill Software</title>
+        <meta name="description" content="Learn about The Greyquill Method™ - our 7-phase discovery process that eliminates uncertainty before development begins. Illuminate, Interview, Ideate, Investigate, Illustrate, Integrate, Initiate." />
+        <link rel="canonical" href="https://greyquill.io/discovery-process" />
+      </Helmet>
+
+      <nav aria-label="Breadcrumb" className="text-left mb-8">
+        <Link to="/" className="text-[#0B4F88] hover:underline">
+          <i className="fas fa-arrow-left" aria-hidden="true"></i> Back to Home
         </Link>
-      </div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h1 className="text-4xl font-tektur text-gray-800 text-center mb-6">Our Discovery Process</h1>
-        <p className="text-xl font-titillium text-center mb-10">
-          The process blends business requirements gathering, collaborative workshops, technical assessment,
-          and optional prototyping (POC) to create a strategic and risk‐mitigated project roadmap.
+      </nav>
+
+      <header className="text-center mb-12">
+        <p className="text-[#0B4F88] font-semibold uppercase tracking-wide text-sm mb-2">Our Proprietary Framework</p>
+        <h1 className="text-4xl font-tektur text-gray-800 mb-4">
+          The Greyquill Method<sup className="text-lg">™</sup>
+        </h1>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          A rigorous 7-phase discovery process that guarantees clarity on requirements, feasibility,
+          and roadmap before a single line of code is written.
         </p>
-      </motion.div>
+      </header>
 
-      {/* Process timeline visualization */}
-      <div className="relative mb-12">
-        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-200"></div>
-        <div className="flex justify-center space-x-4 mb-8">
-          {steps.map((_, index) => (
-            <motion.div
-              key={index}
-              className="relative"
-              whileHover={{ scale: 1.1 }}
-            >
-              {/* SVG Circle Progress */}
-              <svg width="40" height="40" viewBox="0 0 40 40">
-                {/* Background circle */}
-                <circle
-                  cx="20"
-                  cy="20"
-                  r="18"
-                  fill="transparent"
-                  stroke="#e6f0ff"
-                  strokeWidth="3"
-                />
+      {/* Why This Matters */}
+      <section className="bg-[#0B4F88]/10 rounded-xl p-6 mb-12">
+        <h2 className="text-xl font-tektur text-gray-800 mb-3">Why This Matters</h2>
+        <p className="text-gray-600 leading-relaxed">
+          70% of software projects fail due to unclear requirements—not bad coding. The Greyquill Method™
+          eliminates this risk by ensuring complete alignment between your business needs and our technical
+          approach before development begins. Every phase delivers concrete outputs that build toward a
+          comprehensive project blueprint.
+        </p>
+      </section>
 
-                {/* Progress circle - only show for active step */}
-                {index === activeStep && (
-                  <circle
-                    cx="20"
-                    cy="20"
-                    r="18"
-                    fill="transparent"
-                    stroke="#3b82f6"
-                    strokeWidth="3"
-                    strokeDasharray={`${2 * Math.PI * 18}`}
-                    strokeDashoffset={`${2 * Math.PI * 18 * (1 - progress / 100)}`}
-                    transform="rotate(-90 20 20)"
-                    strokeLinecap="round"
-                  />
-                )}
-
-                {/* Step number */}
-                <text
-                  x="20"
-                  y="20"
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fontSize="14"
-                  fontWeight="bold"
-                  fill={index === activeStep ? "#3b82f6" : "#3b82f6"}
-                >
-                  {index + 1}
-                </text>
-              </svg>
-
-              {/* Clickable button overlay */}
-              <button
-                className="absolute inset-0 w-full h-full rounded-full cursor-pointer"
-                onClick={() => setActiveStep(index)}
-                aria-label={`Go to step ${index + 1}`}
-              />
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Current step content */}
-      <motion.div
-        key={activeStep}
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -50 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white rounded-lg shadow-lg p-8 mb-8"
-      >
-        {steps[activeStep].callToAction ? (
-          <div className="text-center py-10">
-            <h2 className="text-3xl font-tektur text-blue-700 mb-6">{steps[activeStep].title}</h2>
-            <p className="text-xl mb-8">{steps[activeStep].description}</p>
-            <BookDiscoveryCallButton />
-            <p className="mt-6">
-              <Link to="/" className="text-blue-500 hover:underline">Back to Home</Link>
-            </p>
-          </div>
-        ) : (
-          <>
-            <h2 className="text-2xl font-tektur text-blue-700 mb-2">
-              {steps[activeStep].title}
-            </h2>
-            {steps[activeStep].subtitle && (
-              <p className="text-lg text-blue-500 italic mb-4">{steps[activeStep].subtitle}</p>
-            )}
-
-            <div className="grid md:grid-cols-2 gap-8 mt-6">
-              <div className="bg-blue-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-4 text-blue-600">Input:</h3>
-                <ul className="list-disc pl-5 space-y-2">
-                  {steps[activeStep].inputs?.map((input, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                    >
-                      {input}
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="bg-green-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-4 text-green-600">Output:</h3>
-                <ul className="list-disc pl-5 space-y-2">
-                  {steps[activeStep].outputs?.map((output, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.1 + 0.3 }}
-                    >
-                      {output}
-                    </motion.li>
-                  ))}
-                </ul>
+      {/* Phases */}
+      <section className="space-y-8">
+        {phases.map((phase) => (
+          <div key={phase.number} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            {/* Phase Header */}
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <div className="flex items-center gap-4">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#0B4F88] text-white flex items-center justify-center font-bold text-lg">
+                  {phase.number}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <span className="text-[#0B4F88]">{phase.icon}</span>
+                    <h3 className="text-2xl font-tektur text-gray-800">{phase.name}</h3>
+                    {phase.optional && (
+                      <span className="bg-gray-200 text-gray-600 text-xs font-medium px-2 py-1 rounded-full">
+                        Optional
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[#0B4F88] italic">"{phase.tagline}"</p>
+                </div>
+                <div className="text-right text-sm text-gray-500">
+                  {phase.duration}
+                </div>
               </div>
             </div>
-          </>
-        )}
-      </motion.div>
 
-      <div className="text-center mt-8">
-        <button
-          onClick={goToPreviousStep}
-          className={`bg-blue-500 text-white px-4 py-2 rounded-l-lg hover:bg-blue-600 transition-colors ${activeStep === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
-          disabled={activeStep === 0}
-        >
-          Previous Step
-        </button>
-        <button
-          onClick={goToNextStep}
-          className={`bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition-colors ml-1 ${activeStep === steps.length - 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
-          disabled={activeStep === steps.length - 1}
-        >
-          Next Step
-        </button>
-      </div>
-    </div>
+            {/* Phase Content */}
+            <div className="p-6">
+              <p className="text-gray-600 mb-6">{phase.description}</p>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Inputs */}
+                <div className="bg-[#0B4F88]/10 rounded-lg p-5">
+                  <h4 className="text-lg font-semibold text-[#0B4F88] mb-3">What We Need</h4>
+                  <ul className="space-y-2">
+                    {phase.inputs.map((input, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-gray-600 text-sm">
+                        <span className="text-[#0B4F88] mt-1">•</span>
+                        <span>{input}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Outputs */}
+                <div className="bg-green-50 rounded-lg p-5">
+                  <h4 className="text-lg font-semibold text-green-700 mb-3">What You Get</h4>
+                  <ul className="space-y-2">
+                    {phase.outputs.map((output, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-gray-600 text-sm">
+                        <span className="text-green-500 mt-1">•</span>
+                        <span>{output}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* CTA Section */}
+      <section className="mt-12 text-center bg-gradient-to-r from-blue-50 to-[#0B4F88]/20 rounded-xl p-8">
+        <h2 className="text-2xl font-tektur text-gray-800 mb-4">Ready to Start Your Discovery?</h2>
+        <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+          The Greyquill Method™ typically takes 4 weeks and results in a comprehensive project blueprint
+          with no surprises. Let's discuss how we can de-risk your next software investment.
+        </p>
+        <BookDiscoveryCallButton />
+        <p className="mt-6">
+          <Link to="/" className="text-[#0B4F88] hover:underline">Back to Home</Link>
+        </p>
+      </section>
+    </main>
   );
 };
 
