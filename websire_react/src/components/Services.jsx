@@ -64,7 +64,7 @@ function Services() {
             </h3>
             <p className="text-gray-600">
               We integrate artificial intelligence at every stage of development. The Greyquill Method™
-              combines rigorous discovery with AI-accelerated delivery, consistently producing results
+              combines rigorous discovery with <b>tried and tested reliable AI-accelerated delivery</b>, consistently producing results
               that outperform traditional approaches.
             </p>
           </div>
