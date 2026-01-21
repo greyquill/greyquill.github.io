@@ -59,7 +59,7 @@ const AboutUs = () => {
     <main className="py-10">
       <Helmet>
         <title>About Us - Greyquill Software | Our Team & Values</title>
-        <meta name="description" content="Meet the Greyquill Software team - industry veterans dedicated to transforming business processes through enterprise software solutions." />
+        <meta name="description" content="Founded by engineers who got tired of watching projects fail. We built Greyquill around one idea: clarity before code. Meet our team and learn our story." />
         <link rel="canonical" href="https://greyquill.io/about-us" />
       </Helmet>
 
@@ -72,9 +72,12 @@ const AboutUs = () => {
       {/* Header */}
       <header className="text-center mb-12">
         <p className="text-[#0B4F88] font-semibold uppercase tracking-wide text-sm mb-2">Who We Are</p>
-        <h1 className="text-4xl font-tektur text-gray-800 mb-4">About Greyquill Software</h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          A team of industry veterans dedicated to transforming business processes through thoughtful, well-crafted enterprise software solutions.
+        <h1 className="text-4xl font-tektur text-gray-800 mb-4">
+          Founded by Engineers Who Got Tired of Watching Projects Fail
+        </h1>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          After decades in enterprise software, we noticed a pattern: the best-coded projects still
+          failed when requirements were unclear. So we built a company around fixing that problem first.
         </p>
       </header>
 
@@ -89,13 +92,25 @@ const AboutUs = () => {
         >
           <h2 className="text-2xl font-tektur text-gray-800 mb-4">Our Story</h2>
           <p className="text-gray-600 mb-4">
-            Greyquill Software was founded by enterprise software veterans who shared a vision: to create business software that actually works the way businesses do.
+            We've spent our careers building software for enterprises—financial services, healthcare,
+            manufacturing, logistics. Along the way, we watched project after project fail. Not because
+            the code was bad, but because nobody truly understood what needed to be built.
           </p>
           <p className="text-gray-600 mb-4">
-            After years of witnessing companies struggle with rigid, poorly-designed systems that hindered rather than helped their operations, we decided to take a different approach.
+            Teams would dive into development with vague requirements, misaligned stakeholders, and
+            assumptions instead of facts. Six months later, they'd deliver something that technically
+            worked but didn't solve the actual problem.
+          </p>
+          <p className="text-gray-600 mb-4">
+            We founded Greyquill to do things differently. Our answer is{' '}
+            <Link to="/discovery-process" className="text-[#0B4F88] hover:underline font-medium">
+              The Greyquill Method™
+            </Link>
+            —a rigorous process that maps your business reality before we write a single line of code.
           </p>
           <p className="text-gray-600">
-            Today, we partner with forward-thinking organizations to design, build, and support software solutions that drive real business value.
+            The result? Projects that deliver what you actually need, on time, with no surprises.
+            We're not the cheapest option, but we might be the only one that guarantees clarity.
           </p>
         </div>
       </section>
@@ -160,12 +175,16 @@ const AboutUs = () => {
           boxShadow: 'inset 0 0 0 1px rgba(11, 79, 136, 0.1)'
         }}
       >
-        <h2 className="text-2xl font-tektur text-gray-800 mb-4">Our Commitment to You</h2>
+        <h2 className="text-2xl font-tektur text-gray-800 mb-4">Our Commitment: The Clarity Guarantee</h2>
         <p className="text-gray-600 mb-4 max-w-2xl mx-auto">
-          When you partner with Greyquill Software, we don't just deliver code and walk away. We stand behind our solutions with a commitment to excellence and ongoing support.
+          We're so confident in our process that we back it with a guarantee: complete our{' '}
+          <Link to="/discovery-workshop" className="text-[#0B4F88] hover:underline">Discovery Workshop</Link>
+          {' '}and if you don't have absolute clarity on what should be built, why it matters, and how
+          we'll build it—we'll refund the workshop fee. No questions asked.
         </p>
-        <p className="text-[#0B4F88] italic mb-6">
-          "We take full responsibility for the software we create, ensuring it continues to drive value for your business year after year."
+        <p className="text-gray-500 text-sm mb-6 max-w-xl mx-auto">
+          We take full responsibility for the software we create, standing behind our work from
+          the first conversation through years of operation.
         </p>
         <BookDiscoveryCallButton />
         <p className="mt-6">
