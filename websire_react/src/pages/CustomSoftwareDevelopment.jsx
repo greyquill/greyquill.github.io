@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import BookDiscoveryCallButton from '../components/BookDiscoveryCallButton';
 import {
   FaHandshake, FaClipboardCheck, FaUsers, FaBrain, FaSearch,
-  FaLaptopCode, FaRocket, FaCheckCircle, FaCode, FaCogs, FaChartLine
+  FaLaptopCode, FaRocket, FaCheckCircle
 } from 'react-icons/fa';
 
 const CustomSoftwareDevelopment = () => {
