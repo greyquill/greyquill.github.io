@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/websire_react"
+    schedule:
+      interval: "monthly"  # Only check monthly instead of constantly
+    open-pull-requests-limit: 5
+    ignore:
+      # Ignore react-scripts updates (requires manual upgrade)
+      - dependency-name: "react-scripts"
+        update-types: ["version-update:semver-major"]
