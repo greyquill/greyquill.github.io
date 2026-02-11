@@ -5,7 +5,7 @@ import BookDiscoveryCallButton from '../components/BookDiscoveryCallButton';
 import {
   FaCloud, FaServer, FaNetworkWired, FaLayerGroup, FaCogs, FaShieldAlt,
   FaRocket, FaCheckCircle, FaLightbulb, FaUsers, FaCode, FaDatabase,
-  FaSitemap, FaHandshake, FaBrain, FaLaptopCode, FaChartLine
+  FaSitemap, FaHandshake, FaLaptopCode, FaChartLine
 } from 'react-icons/fa';
 
 const DistributedSystemsCloudConsulting = () => {
