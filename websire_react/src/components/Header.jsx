@@ -50,9 +50,28 @@ function Header() {
 
   const industries = [
     { name: "Financial Services", path: "/industries#financial-services" },
-    { name: "Healthcare", path: "/industries#healthcare" },
+    {
+      name: "Healthcare",
+      path: "/industries#healthcare",
+      hasSubMenu: true,
+      products: [
+        {
+          name: "Umami TLabs",
+          url: "https://umami.greyquill.io/",
+          description: "AI-powered healthcare management platform for medical practices"
+        }
+      ]
+    },
     { name: "Manufacturing", path: "/industries#manufacturing" },
     { name: "Logistics & Supply Chain", path: "/industries#logistics" }
+  ];
+
+  const products = [
+    {
+      name: "ClarityAI",
+      url: "https://clarity.greyquill.io/",
+      description: "AI-powered requirements analysis"
+    }
   ];
 
   // Close dropdown when clicking outside
@@ -91,6 +110,46 @@ function Header() {
           className="hidden md:flex items-center gap-1"
           aria-label="Main navigation"
         >
+          {/* Products */}
+          <div className="relative">
+            <button
+              onClick={() => toggleDropdown('products')}
+              className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                activeDropdown === 'products'
+                  ? 'text-[#0B4F88] bg-[#0B4F88]/5'
+                  : 'text-gray-700 hover:text-[#0B4F88] hover:bg-[#0B4F88]/5'
+              }`}
+              aria-expanded={activeDropdown === 'products'}
+              aria-haspopup="true"
+            >
+              Products
+              <FaChevronDown className={`text-xs transition-transform ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
+            </button>
+
+            {activeDropdown === 'products' && (
+              <div
+                className="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50"
+                style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.1)' }}
+              >
+                {products.map((product, index) => (
+                  <a
+                    key={index}
+                    href={product.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={closeDropdown}
+                    className="block px-4 py-3 hover:bg-[#0B4F88]/5 transition-colors"
+                  >
+                    <p className="text-sm font-medium text-gray-800 hover:text-[#0B4F88]">
+                      {product.name}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-0.5">{product.description}</p>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Industries */}
           <div className="relative">
             <button
@@ -109,18 +168,53 @@ function Header() {
 
             {activeDropdown === 'industries' && (
               <div
-                className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50"
+                className="absolute top-full left-0 mt-1 w-80 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50"
                 style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.1)' }}
               >
                 {industries.map((industry, index) => (
-                  <Link
-                    key={index}
-                    to={industry.path}
-                    onClick={closeDropdown}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#0B4F88]/5 hover:text-[#0B4F88] transition-colors"
-                  >
-                    {industry.name}
-                  </Link>
+                  <React.Fragment key={index}>
+                    {industry.hasSubMenu ? (
+                      <div>
+                        <Link
+                          to={industry.path}
+                          onClick={closeDropdown}
+                          className="block px-4 py-2 text-sm font-medium text-gray-800 hover:bg-[#0B4F88]/5 hover:text-[#0B4F88] transition-colors"
+                        >
+                          {industry.name}
+                        </Link>
+                        {industry.products && (
+                          <div className="pl-4 pr-4 pb-2">
+                            {industry.products.map((product, prodIndex) => (
+                              <a
+                                key={prodIndex}
+                                href={product.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={closeDropdown}
+                                className="block px-4 py-2 rounded-lg bg-gray-50 hover:bg-[#0B4F88]/5 transition-colors relative mt-3"
+                              >
+                                <span className="absolute -top-2 right-2 bg-gray-100 text-gray-600 text-xs font-medium px-2 py-0.5 rounded-full border border-gray-200">
+                                  Featured Solution
+                                </span>
+                                <p className="text-sm font-medium text-gray-800 hover:text-[#0B4F88]">
+                                  {product.name}
+                                </p>
+                                <p className="text-xs text-gray-500 mt-0.5">{product.description}</p>
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <Link
+                        to={industry.path}
+                        onClick={closeDropdown}
+                        className="block px-4 py-2 text-sm font-medium text-gray-800 hover:bg-[#0B4F88]/5 hover:text-[#0B4F88] transition-colors"
+                      >
+                        {industry.name}
+                      </Link>
+                    )}
+                  </React.Fragment>
                 ))}
 
               </div>
@@ -226,6 +320,34 @@ function Header() {
       {mobileMenuOpen && (
         <nav className="md:hidden mt-4 pt-4 border-t border-gray-200" aria-label="Mobile navigation">
           <div className="space-y-1">
+            {/* Products Mobile */}
+            <div>
+              <button
+                onClick={() => toggleDropdown('products-mobile')}
+                className="flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#0B4F88] hover:bg-[#0B4F88]/5 rounded-lg"
+              >
+                Products
+                <FaChevronDown className={`text-xs transition-transform ${activeDropdown === 'products-mobile' ? 'rotate-180' : ''}`} />
+              </button>
+              {activeDropdown === 'products-mobile' && (
+                <div className="pl-4 mt-1 space-y-1">
+                  {products.map((product, index) => (
+                    <a
+                      key={index}
+                      href={product.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={closeDropdown}
+                      className="block px-3 py-2 text-sm text-gray-600 hover:text-[#0B4F88] rounded-lg"
+                    >
+                      <div className="font-medium">{product.name}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">{product.description}</div>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Industries Mobile */}
             <div>
               <button
@@ -238,14 +360,35 @@ function Header() {
               {activeDropdown === 'industries-mobile' && (
                 <div className="pl-4 mt-1 space-y-1">
                   {industries.map((industry, index) => (
-                    <Link
-                      key={index}
-                      to={industry.path}
-                      onClick={closeDropdown}
-                      className="block px-3 py-2 text-sm text-gray-600 hover:text-[#0B4F88] rounded-lg"
-                    >
-                      {industry.name}
-                    </Link>
+                    <React.Fragment key={index}>
+                      <Link
+                        to={industry.path}
+                        onClick={closeDropdown}
+                        className="block px-3 py-2 text-sm font-medium text-gray-800 hover:text-[#0B4F88] rounded-lg"
+                      >
+                        {industry.name}
+                      </Link>
+                      {industry.hasSubMenu && industry.products && (
+                        <div className="pl-3 space-y-1 mt-2">
+                          {industry.products.map((product, prodIndex) => (
+                            <a
+                              key={prodIndex}
+                              href={product.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={closeDropdown}
+                              className="block px-3 py-2 text-sm text-gray-600 hover:text-[#0B4F88] rounded-lg bg-gray-50 relative mt-3"
+                            >
+                              <span className="absolute -top-2 right-2 bg-gray-100 text-gray-600 text-xs font-medium px-2 py-0.5 rounded-full border border-gray-200">
+                                Featured Solution
+                              </span>
+                              <div className="font-medium">{product.name}</div>
+                              <div className="text-xs text-gray-500 mt-0.5">{product.description}</div>
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </React.Fragment>
                   ))}
                 </div>
               )}
