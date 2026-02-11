@@ -1,0 +1,19 @@
+# Build outputs (old manual deployment files)
+/index.html
+/asset-manifest.json
+/robots.txt
+/sitemap.xml
+/404.html
+/static/
+/_redirects
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
