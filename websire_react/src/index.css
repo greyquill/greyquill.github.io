@@ -16,3 +16,28 @@
 .animate-fadeIn {
   animation: fadeIn 0.3s ease-out;
 }
+
+/* Marching ants animation for flow arrows */
+@keyframes marchRight {
+  to { stroke-dashoffset: -20; }
+}
+
+@keyframes marchLeft {
+  to { stroke-dashoffset: 20; }
+}
+
+@keyframes marchDown {
+  to { stroke-dashoffset: -20; }
+}
+
+.marching-ants-right line {
+  animation: marchRight 0.8s linear infinite;
+}
+
+.marching-ants-left line {
+  animation: marchLeft 0.8s linear infinite;
+}
+
+.marching-ants-down line {
+  animation: marchDown 0.8s linear infinite;
+}

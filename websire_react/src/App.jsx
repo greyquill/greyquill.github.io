@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import Header from './components/Header';
 import Banner from './components/Banner';
 import GreyquillMethod from './components/GreyquillMethod';
+import UseCases from './components/UseCases';
 import Services from './components/Services';
 import Description from './components/Description';
 import Navigation from './components/Navigation';
@@ -64,7 +65,10 @@ function HomePage() {
       {/* Primary CTA */}
       <BookDiscoveryCallButton />
 
-      {/* The Greyquill Method Section with ICP */}
+      {/* Use Cases - What We Deliver */}
+      <UseCases />
+
+      {/* The Greyquill Method - How We Build */}
       <GreyquillMethod />
 
       {/* Secondary CTA */}
