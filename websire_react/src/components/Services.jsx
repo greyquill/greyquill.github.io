@@ -83,8 +83,9 @@ function Services() {
 
       {/* Section Header */}
       <div className="text-center mb-8">
-        <p className="text-[#0B4F88] font-semibold uppercase tracking-wide text-sm mb-2">What We Build</p>
-        <h2 className="text-3xl font-tektur text-gray-800 mb-4">Our Services</h2>
+        <p className="text-[#0B4F88] font-semibold uppercase tracking-wide text-sm mb-2">Areas of Expertise</p>
+        <h2 className="text-3xl font-tektur text-gray-800 mb-3">Deep-Dive Into Our Capabilities</h2>
+        <p className="text-gray-500 max-w-xl mx-auto">Select any service to explore scope, approach, and what you can expect.</p>
       </div>
 
       {/* Featured Service (AI Enablement) */}
