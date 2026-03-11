@@ -62,20 +62,20 @@ const Login = () => {
   const roleLabel = selectedRole === 'customer' ? 'Customer' : 'Employee';
 
   return (
-    <main className="pt-10 min-h-screen flex flex-col">
+    <main className="pt-4 min-h-screen flex flex-col">
       <Helmet>
         <title>Login - Greyquill Software</title>
         <meta name="description" content="Login to your Greyquill Software portal to access your projects and support." />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      <nav aria-label="Breadcrumb" className="text-left mb-6">
+      <nav aria-label="Breadcrumb" className="text-left mb-2">
         <Link to="/" className="text-[#0B4F88] hover:underline">
           <i className="fas fa-arrow-left" aria-hidden="true"></i> Back to Home
         </Link>
       </nav>
 
-      <div className="flex-grow flex items-center justify-center">
+      <div className="flex-grow flex items-start justify-center mt-6 md:mt-10">
         <div className="w-full max-w-4xl flex flex-col md:flex-row rounded-2xl overflow-hidden shadow-lg min-h-[500px]">
 
           {/* Left Side - Graphic */}
