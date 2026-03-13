@@ -132,10 +132,11 @@ const Login = () => {
                   </p>
                 </button>
 
-                <button
-                  onClick={() => setSelectedRole('employee')}
-                  className="w-full text-left border-2 border-gray-200 rounded-xl p-6 hover:border-[#0B4F88] hover:shadow-md transition-all group"
+                <a
+                  href="https://portal.greyquill.io/"
+                  className="w-full text-left border-2 border-gray-200 rounded-xl p-6 hover:border-[#0B4F88] hover:shadow-md transition-all group block"
                   aria-label="Login as an Employee"
+                  rel="noopener noreferrer"
                 >
                   <h2 className="text-lg font-tektur text-gray-800 group-hover:text-[#0B4F88] transition-colors">
                     Employee Login
@@ -143,7 +144,7 @@ const Login = () => {
                   <p className="text-gray-500 text-sm mt-1">
                     For Greyquill team members. Access internal tools and workspaces.
                   </p>
-                </button>
+                </a>
               </div>
             )}
 
