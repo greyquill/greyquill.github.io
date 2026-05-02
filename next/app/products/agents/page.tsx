@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Section from '@/components/Section';
 import ProductSiblingChips from '@/components/ProductSiblingChips';
-import ProductBackLink from '@/components/ProductBackLink';
+import ProductSubnav from '@/components/ProductSubnav';
 
 export const metadata: Metadata = {
   title: 'GQ Agents · Multi-agent orchestration with audit trails',
@@ -135,6 +135,8 @@ function PacketFlowVisual() {
 export default function GQAgentsPage() {
   return (
     <>
+      <ProductSubnav currentHref="/products/agents" />
+
       {/* HERO */}
       <section className="relative overflow-hidden isolate">
         <div aria-hidden className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f4fbff 60%, #eaf6fc 100%)' }} />
@@ -149,11 +151,7 @@ export default function GQAgentsPage() {
           }}
         />
 
-        <div className="relative">
-          <ProductBackLink currentName="GQ Agents" />
-        </div>
-
-        <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-10 md:pt-14 pb-16 md:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-16 md:pt-20 pb-16 md:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue mb-5">
               <span className="h-px w-7 bg-brand-blue/60" aria-hidden />

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Section from '@/components/Section';
 import ProductSiblingChips from '@/components/ProductSiblingChips';
-import ProductBackLink from '@/components/ProductBackLink';
+import ProductSubnav from '@/components/ProductSubnav';
 
 export const metadata: Metadata = {
   title: 'ClarityAI · Score the clarity and risk of any initiative',
@@ -100,6 +100,8 @@ function ScorePreview() {
 export default function ClarityAIPage() {
   return (
     <>
+      <ProductSubnav currentHref="/products/clarity-ai" />
+
       {/* HERO */}
       <section className="relative overflow-hidden isolate">
         <div
@@ -123,11 +125,7 @@ export default function ClarityAIPage() {
           }}
         />
 
-        <div className="relative">
-          <ProductBackLink currentName="ClarityAI" />
-        </div>
-
-        <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-10 md:pt-14 pb-16 md:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-16 md:pt-20 pb-16 md:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue mb-5">
               <span className="h-px w-7 bg-brand-blue/60" aria-hidden />
