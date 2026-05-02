@@ -16,12 +16,18 @@ Two trees coexist on the `redesign/aligne-style-relaunch` branch until cutover:
 | `/` | **Phase 1 complete** | `app/page.tsx` | 8 sections, in order: Hero · Dilemma · JourneyTiers · Method · RoleTargeting · Platform · Testimonials · FinalCTA. |
 | `/login` | redirect | `next.config.mjs` | 307 → `https://portal.greyquill.io/login` |
 
-> Routes below are planned and tracked in `REDESIGN_PLAN.md` Phase 1–3. They will be added to this table as they are built.
+| `/products` | **Phase 2** | `app/products/page.tsx` | Index page. Hero ("Four products, one continuous AI pipeline") + 4 product cards. |
+| `/products/clarity-ai` | **Phase 2** | `app/products/clarity-ai/page.tsx` | Hero with mocked score-card preview, dilemma stats, 4 capabilities, 3 use cases, dark CTA. External link CTAs to `https://clarity.greyquill.io`. |
+| `/products/gqdata` | **Phase 2** | `app/products/gqdata/page.tsx` | Hero with master-data unification visual (3 source records → golden entity), dilemma stats, 4 capabilities, 3 user roles, "where it fits" cross-links, dark CTA. |
+| `/products/agents` | **Phase 2** | `app/products/agents/page.tsx` | Hero with work-packet flow visual (Agent A → packet → B → packet → C → result + event log), dilemma stats, 4 protocol capabilities, 3 user roles, cross-links, dark CTA. Drawn from the Champ swarm framework. |
+| `/products/gst-copilot` | **Phase 2** | `app/products/gst-copilot/page.tsx` | Hero with reconciliation summary visual (matched/exceptions/missing + ledger rows), dilemma stats, 4 domain agents (Ingestion/Extraction/Reconciliation/Resolution), 3 user roles, cross-links, dark CTA. Drawn from the IBM-GST project (vendor-neutral copy on this page; IBM only on /partnerships). |
+
+> Remaining Phase 2/3 routes (`/partnerships`, `/case-studies`, `/industries`, plus the keep-as-is ports) tracked in `REDESIGN_PLAN.md`.
 
 ### Components
 | File | Purpose |
 |---|---|
-| `components/Header.tsx` | Sticky nav, logo, primary nav links, "Book a discovery call" CTA. Animated underline on hover, lift-on-hover CTA. |
+| `components/Header.tsx` | Sticky nav, logo. Products dropdown (CSS-only hover + focus-within reveal) lists ClarityAI/GQData/GQ Agents/GST Co-Pilot with tier badges + sub-text. Primary nav links (Industries, Case studies, About). "Book a call" CTA. |
 | `components/Footer.tsx` | 4-column footer (Platform, Company, Resources + brand) and copyright bar. |
 | `components/Hero.tsx` | Homepage hero. Choreographed staggered entrance: eyebrow → headline → highlight bar draw-in → sub → CTAs → image card → caption. Uses existing `banner-pic.jpeg`. |
 | `components/Section.tsx` | Reusable section wrapper. Eyebrow + title + intro + content slots. Three tones: default / mist / ink. Used by every Phase 1 section so spacing and rhythm stay identical. |
