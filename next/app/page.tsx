@@ -1,11 +1,23 @@
 import Hero from '@/components/Hero';
+import Dilemma from '@/components/Dilemma';
+import RoleTargeting from '@/components/RoleTargeting';
+import JourneyTiers from '@/components/JourneyTiers';
+import Platform from '@/components/Platform';
+import Testimonials from '@/components/Testimonials';
+import Method from '@/components/Method';
+import FinalCTA from '@/components/FinalCTA';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      {/* Phase 1 sections (Dilemma, Role targeting, Journey tiers, Products,
-          Testimonials, Method, Final CTA) land here in subsequent commits. */}
+      <Dilemma />
+      <RoleTargeting />
+      <JourneyTiers />
+      <Platform />
+      <Testimonials />
+      <Method />
+      <FinalCTA />
     </>
   );
 }

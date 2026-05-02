@@ -13,7 +13,7 @@ Two trees coexist on the `redesign/aligne-style-relaunch` branch until cutover:
 ### Routes
 | Route | Status | Source | Notes |
 |---|---|---|---|
-| `/` | **scaffolded** | `app/page.tsx` | Hero only. Phase 1 sections still to land. |
+| `/` | **Phase 1 complete** | `app/page.tsx` | All 8 narrative sections live (see component table). |
 | `/login` | redirect | `next.config.mjs` | 307 → `https://portal.greyquill.io/login` |
 
 > Routes below are planned and tracked in `REDESIGN_PLAN.md` Phase 1–3. They will be added to this table as they are built.
@@ -24,6 +24,14 @@ Two trees coexist on the `redesign/aligne-style-relaunch` branch until cutover:
 | `components/Header.tsx` | Sticky nav, logo, primary nav links, "Book a discovery call" CTA. Animated underline on hover, lift-on-hover CTA. |
 | `components/Footer.tsx` | 4-column footer (Platform, Company, Resources + brand) and copyright bar. |
 | `components/Hero.tsx` | Homepage hero. Choreographed staggered entrance: eyebrow → headline → highlight bar draw-in → sub → CTAs → image card → caption. Uses existing `banner-pic.jpeg`. |
+| `components/Section.tsx` | Reusable section wrapper. Eyebrow + title + intro + content slots. Three tones: default / mist / ink. Used by every Phase 1 section so spacing and rhythm stay identical. |
+| `components/Dilemma.tsx` | "AI is accelerating. Trust isn't." Hand-drawn-feeling SVG line chart with two animated stroke-draw paths (adoption steep, governance shallow), shaded gap between them, and a callout label. Triggers on scroll-into-view. Three pain bullets at right. |
+| `components/RoleTargeting.tsx` | "If you are a Head of AI / CDO / CRO / CIO…" — left column: 4 roles with animated arrow microinteraction. Right column: 4 pain bullets in mist cards. |
+| `components/JourneyTiers.tsx` | Three-step approach: Diagnose → Govern → Activate. **Scroll-linked progress spine** (`useScroll` + `useTransform`) fills a vertical line as the user scrolls through the section. Each tier card has a spring-bounce number badge that scales in. |
+| `components/Platform.tsx` | Four product cards (ClarityAI, GQData, GQ Agents, GST Co-Pilot). Tier badge + Live badge. Lift-on-hover with shadow + ring color shift. Links to `/products/...` (Phase 2). |
+| `components/Testimonials.tsx` | Three anonymized quotes (telecom, retail, payment gateway). Decorative quote glyph in brand blue. |
+| `components/Method.tsx` | Slimmed Greyquill Method — 7 phases as a horizontal grid (collapses 2-col on mobile). Subtle hover lift. |
+| `components/FinalCTA.tsx` | Dark-tone closing section. Two animated background orbs (one drifts in a slow loop — animation only on `transform`, GPU-cheap). Primary "Book a discovery call" + secondary case-studies link. |
 
 ### Shared infrastructure
 | File | Purpose |
