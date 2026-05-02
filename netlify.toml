@@ -1,0 +1,15 @@
+# Netlify config — points at the Next.js app under next/ during the
+# parity migration. Once we cut over and remove the old CRA tree, this
+# stays as-is.
+
+[build]
+  base = "next"
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NPM_VERSION = "11"
