@@ -7,11 +7,11 @@ import './globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL('https://greyquill.io'),
   title: {
-    default: 'Greyquill — Compliant AI on a foundation you can prove',
+    default: 'Greyquill. Compliant AI on a foundation you can prove.',
     template: '%s · Greyquill',
   },
   description:
-    'We help regulated enterprises ship trusted, governed AI — by fixing the data foundation first. Products, accelerators, and senior advisors for Heads of AI, CDOs, and Chief Risk Officers.',
+    'We help regulated enterprises ship trusted, governed AI by fixing the data foundation first. Products, accelerators, and senior advisors for Heads of AI, CDOs, and Chief Risk Officers.',
   openGraph: {
     type: 'website',
     siteName: 'Greyquill',

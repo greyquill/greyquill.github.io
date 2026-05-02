@@ -5,10 +5,37 @@ import { useRef } from 'react';
 import Section from './Section';
 import { easings } from '@/lib/motion';
 
+const DiagnoseIcon = () => (
+  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <circle cx="28" cy="28" r="14" />
+    <path d="M38 38l10 10" />
+    <path d="M22 28h12M28 22v12" opacity=".55" />
+    <circle cx="28" cy="28" r="4" fill="currentColor" opacity=".15" />
+  </svg>
+);
+
+const GovernIcon = () => (
+  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M32 8l20 8v14c0 12-8 22-20 26-12-4-20-14-20-26V16l20-8z" />
+    <path d="M22 32l7 7 13-14" />
+    <path d="M12 22h40" opacity=".35" />
+  </svg>
+);
+
+const ActivateIcon = () => (
+  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M14 38l8-22 22 8-22 14z" />
+    <path d="M22 16l4 14 14 4" opacity=".55" />
+    <circle cx="44" cy="22" r="3" fill="currentColor" />
+    <path d="M14 50l10-4M14 56l16-6" opacity=".7" />
+  </svg>
+);
+
 const TIERS = [
   {
     n: '01',
     name: 'Diagnose',
+    Icon: DiagnoseIcon,
     headline: 'See your AI risk and readiness clearly.',
     body: 'Maturity assessments, model inventories, regulatory gap analyses, and a board-ready risk picture. Nothing built until we know what to build.',
     bullets: [
@@ -20,6 +47,7 @@ const TIERS = [
   {
     n: '02',
     name: 'Govern',
+    Icon: GovernIcon,
     headline: 'Put trusted data and runtime controls in place.',
     body: 'Master data, lineage, sensitive-data classification, model lifecycle controls, real-time monitoring. The foundation under every use case.',
     bullets: [
@@ -31,7 +59,8 @@ const TIERS = [
   {
     n: '03',
     name: 'Activate',
-    headline: 'Ship governed AI use cases — with oversight that scales.',
+    Icon: ActivateIcon,
+    headline: 'Ship governed AI use cases with oversight that scales.',
     body: 'Productionised generative and agentic workloads, audit-ready by default. Activation that you can keep shipping after we leave.',
     bullets: [
       'Governed agentic workflows (with audit trails)',
@@ -59,7 +88,7 @@ export default function JourneyTiers() {
           A three-step journey,<br />not a menu of services.
         </>
       }
-      intro="Diagnose what's actually broken. Govern the data and the model lifecycle. Activate use cases that pass an audit on day one — not day ninety."
+      intro="Diagnose what's actually broken. Govern the data and the model lifecycle. Activate use cases that pass an audit on day one, not day ninety."
     >
       <div ref={ref} className="relative">
         {/* Connector spine — animates only height (transform), but using percent to align with content */}
@@ -80,14 +109,19 @@ export default function JourneyTiers() {
               transition={{ delay: 0.05 + i * 0.05, duration: 0.7, ease: easings.outExpo }}
               className="relative pl-16 md:pl-24"
             >
-              <div className="absolute left-0 top-0 flex flex-col items-center">
+              <div className="absolute left-0 top-0 flex flex-col items-center gap-3">
                 <motion.div
                   whileInView={{ scale: [0.6, 1.08, 1] }}
                   viewport={{ once: true, amount: 0.5 }}
                   transition={{ duration: 0.6, ease: easings.springSoft }}
-                  className="h-14 w-14 md:h-[72px] md:w-[72px] rounded-full bg-white ring-2 ring-brand-blue flex items-center justify-center font-display text-brand-blue text-lg md:text-xl"
+                  className="relative h-14 w-14 md:h-[72px] md:w-[72px] rounded-full bg-white ring-2 ring-brand-blue flex items-center justify-center text-brand-blue"
                 >
-                  {tier.n}
+                  <span className="absolute -top-2 -right-2 bg-brand-blue text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full font-body tracking-wide">
+                    {tier.n}
+                  </span>
+                  <span className="h-7 w-7 md:h-9 md:w-9 block">
+                    <tier.Icon />
+                  </span>
                 </motion.div>
               </div>
 

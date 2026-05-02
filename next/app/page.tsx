@@ -14,9 +14,9 @@ export default function HomePage() {
       <Dilemma />
       <RoleTargeting />
       <JourneyTiers />
+      <Method />
       <Platform />
       <Testimonials />
-      <Method />
       <FinalCTA />
     </>
   );
