@@ -1,9 +1,4 @@
-'use client';
-
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
 import Section from './Section';
-import { easings } from '@/lib/motion';
 
 const DiagnoseIcon = () => (
   <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -71,58 +66,34 @@ const TIERS = [
 ];
 
 export default function JourneyTiers() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-  // Scroll-linked: progress fills the connector line as the user scrolls through
-  const progressHeight = useTransform(scrollYProgress, [0.05, 0.85], ['0%', '100%']);
-
   return (
     <Section
       id="approach"
       eyebrow="Our approach"
       title={
         <>
-          A three-step journey,<br />not a menu of services.
+          A three-step approach,<br />
+          <span className="text-brand-blue">for your success in your AI journey.</span>
         </>
       }
       intro="Diagnose what's actually broken. Govern the data and the model lifecycle. Activate use cases that pass an audit on day one, not day ninety."
     >
-      <div ref={ref} className="relative">
-        {/* Connector spine — animates only height (transform), but using percent to align with content */}
-        <div className="absolute left-[27px] md:left-[35px] top-3 bottom-3 w-px bg-black/[0.08]" aria-hidden />
-        <motion.div
-          aria-hidden
-          style={{ height: progressHeight }}
-          className="absolute left-[27px] md:left-[35px] top-3 w-px bg-brand-blue origin-top"
-        />
+      <div className="relative">
+        {/* Static connector spine */}
+        <div className="absolute left-[27px] md:left-[35px] top-3 bottom-3 w-px bg-brand-blue/30" aria-hidden />
 
         <ol className="space-y-12 md:space-y-16">
-          {TIERS.map((tier, i) => (
-            <motion.li
-              key={tier.n}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ delay: 0.05 + i * 0.05, duration: 0.7, ease: easings.outExpo }}
-              className="relative pl-16 md:pl-24"
-            >
+          {TIERS.map((tier) => (
+            <li key={tier.n} className="relative pl-16 md:pl-24">
               <div className="absolute left-0 top-0 flex flex-col items-center gap-3">
-                <motion.div
-                  whileInView={{ scale: [0.6, 1.08, 1] }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.6, ease: easings.springSoft }}
-                  className="relative h-14 w-14 md:h-[72px] md:w-[72px] rounded-full bg-white ring-2 ring-brand-blue flex items-center justify-center text-brand-blue"
-                >
+                <div className="relative h-14 w-14 md:h-[72px] md:w-[72px] rounded-full bg-white ring-2 ring-brand-blue flex items-center justify-center text-brand-blue">
                   <span className="absolute -top-2 -right-2 bg-brand-blue text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full font-body tracking-wide">
                     {tier.n}
                   </span>
                   <span className="h-7 w-7 md:h-9 md:w-9 block">
                     <tier.Icon />
                   </span>
-                </motion.div>
+                </div>
               </div>
 
               <div className="grid md:grid-cols-12 gap-6 md:gap-10">
@@ -146,7 +117,7 @@ export default function JourneyTiers() {
                   </ul>
                 </div>
               </div>
-            </motion.li>
+            </li>
           ))}
         </ol>
       </div>

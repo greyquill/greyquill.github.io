@@ -12,9 +12,9 @@ export default function HomePage() {
     <>
       <Hero />
       <Dilemma />
-      <RoleTargeting />
       <JourneyTiers />
       <Method />
+      <RoleTargeting />
       <Platform />
       <Testimonials />
       <FinalCTA />

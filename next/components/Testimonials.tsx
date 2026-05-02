@@ -1,8 +1,4 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import Section from './Section';
-import { easings } from '@/lib/motion';
 
 const TESTIMONIALS = [
   {
@@ -37,13 +33,9 @@ export default function Testimonials() {
       intro="We can't always name them. We can tell you what changed."
     >
       <div className="grid md:grid-cols-3 gap-5 md:gap-6">
-        {TESTIMONIALS.map((t, i) => (
-          <motion.figure
+        {TESTIMONIALS.map((t) => (
+          <figure
             key={t.attribution}
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ delay: 0.08 * i, duration: 0.6, ease: easings.outExpo }}
             className="relative bg-white rounded-2xl p-7 md:p-8 ring-1 ring-black/[0.05] hover:ring-brand-blue/30 transition-all duration-400 ease-out-expo flex flex-col"
           >
             <span aria-hidden className="font-display text-6xl text-brand-blue/15 leading-none mb-1">
@@ -58,7 +50,7 @@ export default function Testimonials() {
                 {t.sector}
               </div>
             </figcaption>
-          </motion.figure>
+          </figure>
         ))}
       </div>
     </Section>

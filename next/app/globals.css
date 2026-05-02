@@ -46,6 +46,11 @@
   }
 }
 
+/* Hide the WebKit scrollbar inside the hero chat composer textarea while
+   keeping scroll behavior intact, so the box stays visually clean. */
+.composer-input::-webkit-scrollbar { width: 0; height: 0; }
+.composer-input::-webkit-scrollbar-thumb { background: transparent; }
+
 /* Signature: animated stroke draw for hero/diagram lines */
 @keyframes draw-stroke {
   to { stroke-dashoffset: 0; }

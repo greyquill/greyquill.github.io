@@ -1,5 +1,9 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
+import { easings } from '@/lib/motion';
 
 type Props = {
   id?: string;
@@ -17,6 +21,11 @@ const toneClasses: Record<NonNullable<Props['tone']>, string> = {
   ink: 'bg-brand-ink text-white',
 };
 
+/**
+ * Section wrapper. The whole section fades in once when scrolled into
+ * view. Children should NOT add their own entrance animations; this
+ * single fade is the only entrance motion the section gets.
+ */
 export default function Section({
   id,
   eyebrow,
@@ -27,7 +36,14 @@ export default function Section({
   className,
 }: Props) {
   return (
-    <section id={id} className={clsx(toneClasses[tone], 'py-20 md:py-28', className)}>
+    <motion.section
+      id={id}
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.45, ease: easings.outExpo }}
+      className={clsx(toneClasses[tone], 'py-20 md:py-28', className)}
+    >
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         {(eyebrow || title || intro) && (
           <header className="max-w-3xl mb-12 md:mb-16">
@@ -54,6 +70,6 @@ export default function Section({
         )}
         {children}
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -6,66 +6,49 @@ import Section from './Section';
 import { easings } from '@/lib/motion';
 
 /**
- * The Dilemma. AI adoption climbs steeply across milestones; trust and
- * governance climb shallowly. The widening gap between them is the risk.
- *
- * Path geometry: each milestone dot is a quadratic-bezier waypoint, so
- * the dots are mathematically on the curve, not eyeballed.
- *
- * Motion: one section-level fade-in, fast. No per-object choreography.
+ * The Dilemma. Built to match the user-provided exhibit exactly:
+ * four bars centered on a horizontal axis, decreasing in height and
+ * shade, with red drop annotations between them naming the loss reasons.
  */
 
-// Adoption waypoints (each is a milestone)
-const A = {
-  start:    { x: 80,  y: 340 },
-  pilot:    { x: 220, y: 322 },
-  prod:     { x: 380, y: 270 },
-  agentic:  { x: 560, y: 155 },
-  everywhere: { x: 680, y: 95 },
-};
+const STAGES = [
+  { label: 'STARTED',       count: 100, fill: '#1f4e79', text: 'white', sizeIn: true  },
+  { label: 'REACH EVAL',    count: 60,  fill: '#4d7faa', text: 'white', sizeIn: true  },
+  { label: 'PASS EVAL',     count: 25,  fill: '#7fa3c2', text: 'white', sizeIn: true  },
+  { label: 'IN PRODUCTION', count: 5,   fill: '#b8cdde', text: '#0a1628', sizeIn: false },
+];
 
-// Governance waypoints
-const G = {
-  start:   { x: 80,  y: 348 },
-  policy:  { x: 200, y: 343 },
-  council: { x: 420, y: 322 },
-  audit:   { x: 640, y: 270 },
-};
+const LOSSES = [
+  {
+    n: 40,
+    heading: 'Data not AI-ready',
+    body: 'No master data, lineage, or quality at source.',
+  },
+  {
+    n: 35,
+    heading: 'Cannot pass evaluation',
+    body: 'No eval set, model card, or model risk management evidence.',
+  },
+  {
+    n: 20,
+    heading: 'Cannot run in production',
+    body: 'No runtime controls, guardrails, or observability.',
+  },
+];
 
-// Smooth quadratic-bezier path through waypoints (control points placed so
-// dots ARE on the line)
-const ADOPTION_PATH = `
-  M ${A.start.x} ${A.start.y}
-  Q 150 336 ${A.pilot.x} ${A.pilot.y}
-  Q 300 295 ${A.prod.x} ${A.prod.y}
-  Q 470 200 ${A.agentic.x} ${A.agentic.y}
-  Q 620 120 ${A.everywhere.x} ${A.everywhere.y}
-`;
-
-const GOVERNANCE_PATH = `
-  M ${G.start.x} ${G.start.y}
-  Q 140 346 ${G.policy.x} ${G.policy.y}
-  Q 310 332 ${G.council.x} ${G.council.y}
-  Q 530 295 ${G.audit.x} ${G.audit.y}
-`;
-
-// Gap polygon: adoption forward, governance reversed, close
-const GAP_PATH = `
-  M ${A.start.x} ${A.start.y}
-  Q 150 336 ${A.pilot.x} ${A.pilot.y}
-  Q 300 295 ${A.prod.x} ${A.prod.y}
-  Q 470 200 ${A.agentic.x} ${A.agentic.y}
-  Q 620 120 ${A.everywhere.x} ${A.everywhere.y}
-  L ${G.audit.x} ${G.audit.y}
-  Q 530 295 ${G.council.x} ${G.council.y}
-  Q 310 332 ${G.policy.x} ${G.policy.y}
-  Q 140 346 ${G.start.x} ${G.start.y}
-  Z
-`;
+// Chart geometry (SVG units)
+const VB_W = 1240;
+const VB_H = 440;                              // chart ends just past the drop lines; the −N now lives in HTML below
+const COL_W = VB_W / STAGES.length;          // 310
+const BAR_W = 150;
+const CENTER_Y = 240;                          // horizontal axis line
+const MAX_BAR_H = 320;                         // bar height for count = 100
+const HEADER_Y = 30;                           // column header text Y
+const DROP_BOT = 420;                          // where each red drop line ends (just before HTML annotations)
 
 export default function Dilemma() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.25 });
+  const inView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
     <Section
@@ -73,163 +56,151 @@ export default function Dilemma() {
       eyebrow="The dilemma"
       title={
         <>
-          AI is racing ahead.<br />
-          <span className="text-brand-blue">Trust isn&apos;t.</span>
+          100 ideas in.<br />
+          <span className="text-brand-blue">~5 in production.</span>
         </>
       }
-      intro="The risk isn't the model. It's deploying it on data you can't vouch for, with controls you can't prove. That gap is where careers, audits, and reputations break."
+      intro="Most AI initiatives never reach production. The drop offs happen at three predictable stages, and the reasons are diagnostic, not random."
     >
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 8 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.35, ease: easings.outExpo }}
-        className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center"
       >
-        <div className="lg:col-span-8 relative">
-          <div className="relative rounded-2xl bg-white ring-1 ring-black/5 shadow-2xl shadow-brand-blue/5 p-5 sm:p-7 md:p-8 overflow-hidden">
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-ink/55">
-                Capability over time
-              </div>
-              <div className="hidden sm:flex items-center gap-4 text-[11px] text-brand-ink/65">
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-sm bg-brand-ink" /> AI adoption
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-sm bg-brand-blue" /> Governance &amp; trust
-                </span>
-              </div>
-            </div>
+        <div className="bg-white rounded-2xl ring-1 ring-black/[0.06] shadow-xl shadow-brand-blue/5 p-6 md:p-10">
+          {/* Exhibit header */}
+          <div>
+            <h3 className="font-display font-bold text-2xl md:text-[28px] lg:text-[32px] text-brand-ink leading-tight">
+              Of every 100 GenAI ideas started, only ~5 reach production.
+            </h3>
+            <p className="mt-2.5 text-brand-ink/65 text-sm md:text-base">
+              The 95% drop off at three predictable stages, and the reasons are diagnostic, not random.
+            </p>
+          </div>
 
-            {/* viewBox: tight on left, generous on right so end-of-line labels fit */}
-            <svg viewBox="-78 0 920 460" className="block w-full h-auto" role="img" aria-label="A line chart showing AI adoption climbing steeply across milestones from pilot to agentic production while governance and trust capability climbs slowly, leaving a widening risk gap between them.">
-              <defs>
-                <pattern id="risk-stripes" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                  <line x1="0" y1="0" x2="0" y2="8" stroke="#0B4F88" strokeWidth="1.4" opacity="0.18" />
-                </pattern>
-                <pattern id="grid-fine" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#0a1628" strokeOpacity="0.05" strokeWidth="1" />
-                </pattern>
-                <linearGradient id="adoption-glow" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#0a1628" stopOpacity="0.18" />
-                  <stop offset="100%" stopColor="#0a1628" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-
-              {/* Plot area */}
-              <rect x="80" y="40" width="620" height="340" fill="url(#grid-fine)" />
-
-              {/* Y-axis */}
-              <line x1="80" y1="40" x2="80" y2="380" stroke="#0a162833" strokeWidth="1.5" />
-              {[
-                { y: 80,  label: 'Audit-ready' },
-                { y: 160, label: 'Production' },
-                { y: 240, label: 'Internal use' },
-                { y: 320, label: 'Pilot' },
-              ].map((row) => (
-                <g key={row.label}>
-                  <line x1="78" y1={row.y} x2="700" y2={row.y} stroke="#0a162812" strokeWidth="1" strokeDasharray="2 4" />
-                  <text x="72" y={row.y + 4} fontSize="12" fill="#0a162899" textAnchor="end" fontFamily="var(--font-body)">
-                    {row.label}
+          <div className="mt-6 pt-6 border-t border-black/[0.08]">
+            {/* CHART */}
+            <svg viewBox={`0 0 ${VB_W} ${VB_H}`} className="block w-full h-auto" role="img" aria-label="Funnel chart: 100 ideas started, 60 reach evaluation, 25 pass evaluation, 5 in production. Loss reasons annotated between each stage.">
+              {/* Column headers */}
+              {STAGES.map((s, i) => {
+                const cx = i * COL_W + COL_W / 2;
+                return (
+                  <text
+                    key={s.label}
+                    x={cx}
+                    y={HEADER_Y}
+                    fontSize="14"
+                    fontWeight="700"
+                    fill="#0a162888"
+                    textAnchor="middle"
+                    fontFamily="var(--font-body)"
+                    letterSpacing="2"
+                  >
+                    {s.label}
                   </text>
-                </g>
-              ))}
+                );
+              })}
 
-              {/* X-axis */}
-              <line x1="80" y1="380" x2="700" y2="380" stroke="#0a162833" strokeWidth="1.5" />
-              {[
-                { x: 130, label: '2022' },
-                { x: 270, label: '2023' },
-                { x: 410, label: '2024' },
-                { x: 550, label: '2025' },
-                { x: 680, label: '2026' },
-              ].map((tick) => (
-                <g key={tick.label}>
-                  <line x1={tick.x} y1="380" x2={tick.x} y2="384" stroke="#0a162866" strokeWidth="1.2" />
-                  <text x={tick.x} y="402" fontSize="11" fill="#0a162888" textAnchor="middle" fontFamily="var(--font-body)">
-                    {tick.label}
-                  </text>
-                </g>
-              ))}
+              {/* Horizontal axis line through centerline */}
+              <line x1="0" y1={CENTER_Y} x2={VB_W} y2={CENTER_Y} stroke="#0a162833" strokeWidth="1" />
 
-              {/* The widening risk gap (diagonal stripes) */}
-              <path d={GAP_PATH} fill="url(#risk-stripes)" />
+              {/* Bars (centered vertically on CENTER_Y) */}
+              {STAGES.map((s, i) => {
+                const cx = i * COL_W + COL_W / 2;
+                const h = (s.count / 100) * MAX_BAR_H;
+                const x = cx - BAR_W / 2;
+                const y = CENTER_Y - h / 2;
+                // Number font size shrinks with bar
+                const numFont = Math.max(28, Math.min(64, h * 0.22));
+                return (
+                  <g key={s.label}>
+                    <rect x={x} y={y} width={BAR_W} height={h} fill={s.fill} />
+                    {s.sizeIn ? (
+                      <text
+                        x={cx}
+                        y={CENTER_Y}
+                        fontSize={numFont}
+                        fontWeight="700"
+                        fill={s.text}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        fontFamily="var(--font-body)"
+                        letterSpacing="-1"
+                      >
+                        {s.count}
+                      </text>
+                    ) : (
+                      // For tiny bars, place the number BELOW the bar in dark
+                      <text
+                        x={cx}
+                        y={y + h + 30}
+                        fontSize="28"
+                        fontWeight="700"
+                        fill="#0a1628"
+                        textAnchor="middle"
+                        fontFamily="var(--font-body)"
+                      >
+                        {s.count}
+                      </text>
+                    )}
+                  </g>
+                );
+              })}
 
-              {/* Glow under the AI adoption line */}
-              <path d={`${ADOPTION_PATH} L 700 380 L 80 380 Z`} fill="url(#adoption-glow)" />
-
-              {/* Governance line */}
-              <path d={GOVERNANCE_PATH} fill="none" stroke="#0B4F88" strokeWidth="3" strokeLinecap="round" />
-
-              {/* Governance milestones (dots are path waypoints, so they're ON the line) */}
-              {[
-                { p: G.policy,  label: 'Policy drafted', tw: 86 },
-                { p: G.council, label: 'Council formed', tw: 92 },
-                { p: G.audit,   label: 'Audit readiness?', tw: 104 },
-              ].map((m) => (
-                <g key={m.label}>
-                  <circle cx={m.p.x} cy={m.p.y} r="5" fill="white" stroke="#0B4F88" strokeWidth="2" />
-                  <rect x={m.p.x - m.tw / 2} y={m.p.y + 12} width={m.tw} height="16" rx="3" fill="white" opacity="0.95" />
-                  <text x={m.p.x} y={m.p.y + 23} fontSize="10.5" fill="#0B4F88" textAnchor="middle" fontWeight="600" fontFamily="var(--font-body)">
-                    {m.label}
-                  </text>
-                </g>
-              ))}
-
-              {/* AI adoption line */}
-              <path d={ADOPTION_PATH} fill="none" stroke="#0a1628" strokeWidth="3.5" strokeLinecap="round" />
-
-              {/* Adoption milestones */}
-              {[
-                { p: A.pilot,      label: 'First pilot',         tw: 70 },
-                { p: A.prod,       label: 'GenAI in prod',       tw: 92 },
-                { p: A.agentic,    label: 'Agentic workflows',   tw: 116 },
-                { p: A.everywhere, label: 'Everywhere',          tw: 80 },
-              ].map((m) => (
-                <g key={m.label}>
-                  <circle cx={m.p.x} cy={m.p.y} r="5.5" fill="#0a1628" />
-                  <rect x={m.p.x - m.tw / 2} y={m.p.y - 26} width={m.tw} height="16" rx="3" fill="white" opacity="0.95" />
-                  <text x={m.p.x} y={m.p.y - 14} fontSize="10.5" fill="#0a1628" textAnchor="middle" fontWeight="700" fontFamily="var(--font-body)">
-                    {m.label}
-                  </text>
-                </g>
-              ))}
-
-              {/* "This gap is your risk" callout, anchored over the gap */}
-              <g>
-                <line x1="495" y1="290" x2="495" y2="248" stroke="#0a1628" strokeWidth="1" strokeDasharray="2 3" />
-                <rect x="402" y="218" width="186" height="34" rx="8" fill="white" stroke="#0B4F88" strokeWidth="1.4" />
-                <text x="495" y="235" fontSize="12" fontWeight="700" fill="#0B4F88" textAnchor="middle" fontFamily="var(--font-body)">
-                  This gap is your risk.
-                </text>
-                <text x="495" y="247" fontSize="10" fill="#0a162888" textAnchor="middle" fontFamily="var(--font-body)">
-                  Audit · regulator · board · brand
-                </text>
-              </g>
-
-              {/* End-of-line series labels (extra right-side viewBox room ensures no clipping) */}
-              <text x="710" y="92" fontSize="12" fontWeight="700" fill="#0a1628" fontFamily="var(--font-body)">
-                <tspan x="710" dy="0">AI</tspan>
-                <tspan x="710" dy="14">adoption</tspan>
-              </text>
-              <text x="710" y="266" fontSize="12" fontWeight="600" fill="#0B4F88" fontFamily="var(--font-body)">
-                <tspan x="710" dy="0">Governance</tspan>
-                <tspan x="710" dy="14">&amp; trust</tspan>
-              </text>
-
-              {/* Axis titles */}
-              <text x="-66" y="210" fontSize="11" fontWeight="600" fill="#0a162888" textAnchor="middle" transform="rotate(-90 -66 210)" fontFamily="var(--font-body)" letterSpacing="1">
-                CAPABILITY
-              </text>
-              <text x="390" y="436" fontSize="11" fontWeight="600" fill="#0a162888" textAnchor="middle" fontFamily="var(--font-body)" letterSpacing="1">
-                TIME
-              </text>
+              {/* Red drop lines between bars + −N number with LOST inline */}
+              {LOSSES.map((loss, i) => {
+                const dropX = (i + 1) * COL_W;
+                return (
+                  <g key={loss.heading}>
+                    <line
+                      x1={dropX}
+                      y1={CENTER_Y}
+                      x2={dropX}
+                      y2={394}
+                      stroke="#c0392b"
+                      strokeWidth="1.6"
+                    />
+                    <text x={dropX + 6} y={420} fontFamily="var(--font-body)">
+                      <tspan fontSize="24" fontWeight="700" fill="#c0392b" letterSpacing="-0.5">
+                        −{loss.n}
+                      </tspan>
+                      <tspan fontSize="11" fontWeight="700" fill="#c0392b" letterSpacing="2" dx="10">
+                        LOST
+                      </tspan>
+                    </text>
+                  </g>
+                );
+              })}
             </svg>
+
+            {/* Loss annotations: heading + body only (the −N and LOST live in the SVG above).
+                Cols 2/3/4 of a 4-col grid land flush with the drop lines at 25/50/75%. */}
+            <div className="grid grid-cols-4 gap-x-4 md:gap-x-6 mt-2">
+              <div aria-hidden />
+              {LOSSES.map((loss) => (
+                <div key={loss.heading}>
+                  <div className="font-semibold text-brand-ink text-[15px] md:text-base leading-snug">
+                    {loss.heading}
+                  </div>
+                  <div className="text-[13px] md:text-sm text-brand-ink/65 leading-relaxed mt-1.5">
+                    {loss.body}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Source footer */}
+          <div className="mt-8 pt-4 border-t border-black/[0.06] text-[11px] text-brand-ink/55 italic leading-relaxed">
+            <span className="font-semibold not-italic text-brand-ink/65">Source: </span>
+            Stage counts illustrate the funnel pattern reported across Gartner (2025), Deloitte CDO Survey (2025), and IBM IBV CEO Study (2025).
           </div>
         </div>
 
-        <div className="lg:col-span-4 space-y-7">
+        {/* The reasoning bullets that previously ran beside the chart now sit
+            below it, full width — gives the exhibit room to breathe. */}
+        <div className="mt-12 grid md:grid-cols-3 gap-6">
           {[
             {
               h: 'Models ship in weeks. Trust takes years.',
@@ -245,8 +216,8 @@ export default function Dilemma() {
             },
           ].map((row) => (
             <div key={row.h} className="border-l-2 border-brand-blue/30 pl-5">
-              <h3 className="font-display font-semibold text-lg md:text-xl text-brand-ink mb-1.5">{row.h}</h3>
-              <p className="text-brand-ink/70 leading-relaxed">{row.p}</p>
+              <h3 className="font-display font-semibold text-lg text-brand-ink mb-1.5">{row.h}</h3>
+              <p className="text-brand-ink/70 leading-relaxed text-[15px]">{row.p}</p>
             </div>
           ))}
         </div>

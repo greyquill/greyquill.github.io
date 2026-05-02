@@ -6,14 +6,16 @@ import { easings } from '@/lib/motion';
 
 export default function FinalCTA() {
   return (
-    <section className="py-24 md:py-32 bg-brand-ink text-white relative overflow-hidden">
-      {/* Signature motion: a soft, slow drifting orb behind the copy */}
-      <motion.div
+    <motion.section
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.45, ease: easings.outExpo }}
+      className="py-24 md:py-32 bg-brand-ink text-white relative overflow-hidden"
+    >
+      {/* Ambient drifting orbs (background only, transform-only motion) */}
+      <div
         aria-hidden
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.4 }}
         className="absolute -top-40 -right-32 h-[480px] w-[480px] rounded-full bg-brand-blue/40 blur-[120px]"
       />
       <motion.div
@@ -24,33 +26,15 @@ export default function FinalCTA() {
       />
 
       <div className="relative mx-auto max-w-4xl px-5 md:px-8 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7, ease: easings.outExpo }}
-          className="font-display text-4xl md:text-6xl leading-[1.05] tracking-tight"
-        >
+        <h2 className="font-display text-4xl md:text-6xl leading-[1.05] tracking-tight">
           Let&apos;s design the AI foundation <br className="hidden md:block" />
           your strategy actually deserves.
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ delay: 0.12, duration: 0.6, ease: easings.outExpo }}
-          className="mt-6 text-white/75 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
-        >
+        </h2>
+        <p className="mt-6 text-white/75 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
           A 30-minute discovery call. No pitch deck. We listen, ask the hard questions,
           and tell you, honestly, whether we&apos;re the right partner.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ delay: 0.22, duration: 0.6, ease: easings.outExpo }}
-          className="mt-9 flex flex-wrap items-center justify-center gap-4"
-        >
+        </p>
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/contact"
             className="group inline-flex items-center gap-2 bg-white text-brand-ink font-semibold px-6 py-3.5 rounded-full transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/10"
@@ -64,8 +48,8 @@ export default function FinalCTA() {
           >
             Read case studies
           </Link>
-        </motion.div>
+        </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
