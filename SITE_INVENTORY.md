@@ -13,7 +13,7 @@ Two trees coexist on the `redesign/aligne-style-relaunch` branch until cutover:
 ### Routes
 | Route | Status | Source | Notes |
 |---|---|---|---|
-| `/` | **Phase 1 complete** | `app/page.tsx` | 8 sections, in order: Hero · Dilemma · RoleTargeting · JourneyTiers · Method · Platform · Testimonials · FinalCTA. |
+| `/` | **Phase 1 complete** | `app/page.tsx` | 8 sections, in order: Hero · Dilemma · JourneyTiers · Method · RoleTargeting · Platform · Testimonials · FinalCTA. |
 | `/login` | redirect | `next.config.mjs` | 307 → `https://portal.greyquill.io/login` |
 
 > Routes below are planned and tracked in `REDESIGN_PLAN.md` Phase 1–3. They will be added to this table as they are built.
