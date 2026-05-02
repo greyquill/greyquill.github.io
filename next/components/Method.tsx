@@ -1,19 +1,71 @@
 import Section from './Section';
 
 /**
- * The Greyquill Method, a swim-lane flow.
+ * "Our approach + The Greyquill Method" merged into one section.
  *
- * Three lanes, each a workstream we own end to end. Today on top, KPIs
- * that move at the bottom.
+ * Two altitudes of the same story:
+ *   - TOP: three sequenced phases (Diagnose -> Govern -> Activate),
+ *     showing WHEN we work.
+ *   - BOTTOM: three workstream lanes (Trusted data / Re-imagined
+ *     process / Governed activation) running across every phase,
+ *     showing WHAT we work on. Today on top, KPIs at the end.
+ *
+ * Replaces the previous separate JourneyTiers section.
  */
+
+const DiagnoseIcon = () => (
+  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <circle cx="28" cy="28" r="14" />
+    <path d="M38 38l10 10" />
+    <path d="M22 28h12M28 22v12" opacity=".55" />
+    <circle cx="28" cy="28" r="4" fill="currentColor" opacity=".15" />
+  </svg>
+);
+
+const GovernIcon = () => (
+  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M32 8l20 8v14c0 12-8 22-20 26-12-4-20-14-20-26V16l20-8z" />
+    <path d="M22 32l7 7 13-14" />
+    <path d="M12 22h40" opacity=".35" />
+  </svg>
+);
+
+const ActivateIcon = () => (
+  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M14 38l8-22 22 8-22 14z" />
+    <path d="M22 16l4 14 14 4" opacity=".55" />
+    <circle cx="44" cy="22" r="3" fill="currentColor" />
+    <path d="M14 50l10-4M14 56l16-6" opacity=".7" />
+  </svg>
+);
+
+const PHASES = [
+  {
+    n: '01',
+    name: 'Diagnose',
+    Icon: DiagnoseIcon,
+    headline: 'See your AI risk and readiness clearly.',
+    sub: 'Maturity assessments, model inventories, regulatory gap analyses, board-ready risk picture.',
+  },
+  {
+    n: '02',
+    name: 'Govern',
+    Icon: GovernIcon,
+    headline: 'Put trusted data and runtime controls in place.',
+    sub: 'Master data, lineage, sensitivity classification, model lifecycle controls, real-time monitoring.',
+  },
+  {
+    n: '03',
+    name: 'Activate',
+    Icon: ActivateIcon,
+    headline: 'Ship governed AI use cases with oversight that scales.',
+    sub: 'Productionised generative and agentic workloads. Audit-ready by default, on day one.',
+  },
+];
 
 const TODAY = ['Siloed data', 'Broken processes', 'Policy on paper'];
 
-const LANES: {
-  name: string;
-  thesis: string;
-  steps: { title: string; sub: string }[];
-}[] = [
+const LANES: { name: string; thesis: string; steps: { title: string; sub: string }[] }[] = [
   {
     name: 'Trusted data foundation',
     thesis: 'AI is only as good as the data it stands on.',
@@ -71,15 +123,57 @@ function DownArrow() {
 export default function Method() {
   return (
     <Section
-      eyebrow="The Greyquill Method"
+      id="approach"
+      eyebrow="Our approach · The Greyquill Method"
       title={
         <>
-          From <span className="text-brand-blue">policy</span> to <span className="text-brand-blue">proof</span>,<br />
-          across one pipeline.
+          A three-step approach,<br />
+          <span className="text-brand-blue">for your success in your AI journey.</span>
         </>
       }
-      intro="We do not bolt AI on top of broken processes. We rebuild the pipeline. Trusted data, re-imagined process, governed activation. So the KPIs you committed to actually move."
+      intro="Three sequenced phases above. Three workstreams running through every phase below. One pipeline from policy to proof, so the KPIs you committed to actually move."
     >
+      {/* PHASES (former JourneyTiers content, compressed) */}
+      <div className="grid md:grid-cols-3 gap-4 md:gap-5">
+        {PHASES.map((phase) => (
+          <div
+            key={phase.n}
+            className="group bg-white rounded-2xl ring-1 ring-black/[0.06] p-6 hover:ring-brand-blue/40 hover:-translate-y-0.5 transition-all duration-300 ease-out-expo"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <span className="relative h-12 w-12 rounded-full bg-brand-blue/8 ring-1 ring-brand-blue/30 flex items-center justify-center text-brand-blue">
+                <span className="absolute -top-1.5 -right-1.5 bg-brand-blue text-white text-[9px] font-semibold px-1.5 py-0.5 rounded-full font-body tracking-wide">
+                  {phase.n}
+                </span>
+                <span className="h-6 w-6 block">
+                  <phase.Icon />
+                </span>
+              </span>
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-blue/80">
+                  Phase {phase.n}
+                </div>
+                <div className="font-display font-semibold text-lg text-brand-ink leading-tight">
+                  {phase.name}
+                </div>
+              </div>
+            </div>
+            <p className="font-display font-semibold text-brand-ink text-base leading-snug mb-2">
+              {phase.headline}
+            </p>
+            <p className="text-sm text-brand-ink/65 leading-relaxed">{phase.sub}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Bridge: phases above, workstreams below */}
+      <div className="flex flex-col items-center my-12 md:my-14">
+        <DownArrow />
+        <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55">
+          Across every phase, three workstreams
+        </p>
+      </div>
+
       {/* TODAY */}
       <div className="max-w-3xl mx-auto bg-white rounded-2xl ring-1 ring-black/[0.06] p-5 md:p-6 flex flex-wrap items-center gap-x-6 gap-y-2 justify-center">
         <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55">
@@ -96,7 +190,7 @@ export default function Method() {
         <DownArrow />
       </div>
 
-      {/* LANES */}
+      {/* LANES — steps flow horizontally with arrows between (original layout) */}
       <div className="space-y-6">
         {LANES.map((lane, li) => (
           <div key={lane.name} className="bg-white rounded-2xl ring-1 ring-black/[0.06] p-5 md:p-7">
@@ -142,7 +236,7 @@ export default function Method() {
         <DownArrow />
       </div>
 
-      {/* KPIs that move */}
+      {/* KPIs */}
       <div className="bg-brand-ink text-white rounded-2xl p-6 md:p-8">
         <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
           <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/60">
