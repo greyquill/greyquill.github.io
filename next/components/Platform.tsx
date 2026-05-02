@@ -9,7 +9,7 @@ const PRODUCTS = [
   {
     name: 'ClarityAI',
     href: '/products/clarity-ai',
-    tagline: 'Score the clarity and risk of any AI initiative — before you fund it.',
+    tagline: 'Score the clarity and risk of any AI initiative before you fund it.',
     body: 'Built for AI program leaders who need to defend roadmap decisions to the board. Surfaces hidden requirement gaps, regulatory exposure, and dependency risk in days, not months.',
     tier: 'Diagnose',
     live: true,
@@ -31,7 +31,7 @@ const PRODUCTS = [
   {
     name: 'GST Co-Pilot',
     href: '/products/gst-copilot',
-    tagline: 'A vertical proof point — agentic AI for Indian tax reconciliation.',
+    tagline: 'A vertical proof point. Agentic AI for Indian tax reconciliation.',
     body: 'Demonstrates our governed-agentic-AI stack in production for SMB and mid-market tax teams. The reference architecture you can adapt to your vertical.',
     tier: 'Activate',
   },
@@ -46,7 +46,7 @@ export default function Platform() {
           Productised accelerators,<br />not consulting hours.
         </>
       }
-      intro="Four products, designed to compose. Each one solves a specific stage of the journey — and ships value on its own."
+      intro="Four products, designed to compose. Each one solves a specific stage of the journey, and ships value on its own."
       tone="mist"
     >
       <div className="grid md:grid-cols-2 gap-5 md:gap-6">

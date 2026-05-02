@@ -13,7 +13,7 @@ const ROLES = [
 const PAINS = [
   'Pilots that never reach production because nobody can vouch for the data.',
   'Policies that exist in slide decks but not in the runtime path.',
-  'Vendors selling you a "platform" — not a defensible operating model.',
+  'Vendors selling you a "platform" instead of a defensible operating model.',
   'A board asking for an answer in two weeks that takes six months to assemble.',
 ];
 

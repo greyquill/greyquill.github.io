@@ -42,7 +42,7 @@ export default function FinalCTA() {
           className="mt-6 text-white/75 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
         >
           A 30-minute discovery call. No pitch deck. We listen, ask the hard questions,
-          and tell you whether we&apos;re the right partner — honestly.
+          and tell you, honestly, whether we&apos;re the right partner.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 12 }}

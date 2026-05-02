@@ -13,7 +13,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      'We\'d been told governance would slow us down. With Greyquill it became the reason we shipped — leadership finally trusted the numbers underneath.',
+      'We\'d been told governance would slow us down. With Greyquill it became the reason we shipped. Leadership finally trusted the numbers underneath.',
     attribution: 'Director of Analytics, National Retail Chain',
     sector: 'Retail',
   },

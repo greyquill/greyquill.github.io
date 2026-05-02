@@ -16,11 +16,17 @@
 
   body {
     @apply font-body text-brand-ink bg-white;
+    font-feature-settings: 'ss01', 'cv11', 'kern';
   }
 
   h1, h2, h3, h4 {
     @apply font-display tracking-tight;
+    /* Slight optical balance for serif headlines */
+    font-feature-settings: 'kern', 'liga', 'dlig';
   }
+
+  /* Italic display flourish — used inline for emphasis words */
+  .display-italic { font-style: italic; }
 
   ::selection {
     background-color: rgba(11, 79, 136, 0.18);
