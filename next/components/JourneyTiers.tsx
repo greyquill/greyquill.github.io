@@ -1,0 +1,121 @@
+'use client';
+
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import Section from './Section';
+import { easings } from '@/lib/motion';
+
+const TIERS = [
+  {
+    n: '01',
+    name: 'Diagnose',
+    headline: 'See your AI risk and readiness clearly.',
+    body: 'Maturity assessments, model inventories, regulatory gap analyses, and a board-ready risk picture. Nothing built until we know what to build.',
+    bullets: [
+      'AI Readiness Diagnostic (10-day)',
+      'Multi-jurisdiction regulatory gap analysis',
+      'Model inventory + risk classification',
+    ],
+  },
+  {
+    n: '02',
+    name: 'Govern',
+    headline: 'Put trusted data and runtime controls in place.',
+    body: 'Master data, lineage, sensitive-data classification, model lifecycle controls, real-time monitoring. The foundation under every use case.',
+    bullets: [
+      'Trusted data foundation (MDM + lineage)',
+      'Model lifecycle governance with evidence trails',
+      'Policy → control translation with runtime enforcement',
+    ],
+  },
+  {
+    n: '03',
+    name: 'Activate',
+    headline: 'Ship governed AI use cases — with oversight that scales.',
+    body: 'Productionised generative and agentic workloads, audit-ready by default. Activation that you can keep shipping after we leave.',
+    bullets: [
+      'Governed agentic workflows (with audit trails)',
+      'Vertical AI accelerators (e.g. tax, payments, telecom ops)',
+      'Internal enablement so your team owns the system',
+    ],
+  },
+];
+
+export default function JourneyTiers() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+  // Scroll-linked: progress fills the connector line as the user scrolls through
+  const progressHeight = useTransform(scrollYProgress, [0.05, 0.85], ['0%', '100%']);
+
+  return (
+    <Section
+      id="approach"
+      eyebrow="Our approach"
+      title={
+        <>
+          A three-step journey,<br />not a menu of services.
+        </>
+      }
+      intro="Diagnose what's actually broken. Govern the data and the model lifecycle. Activate use cases that pass an audit on day one — not day ninety."
+    >
+      <div ref={ref} className="relative">
+        {/* Connector spine — animates only height (transform), but using percent to align with content */}
+        <div className="absolute left-[27px] md:left-[35px] top-3 bottom-3 w-px bg-black/[0.08]" aria-hidden />
+        <motion.div
+          aria-hidden
+          style={{ height: progressHeight }}
+          className="absolute left-[27px] md:left-[35px] top-3 w-px bg-brand-blue origin-top"
+        />
+
+        <ol className="space-y-12 md:space-y-16">
+          {TIERS.map((tier, i) => (
+            <motion.li
+              key={tier.n}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ delay: 0.05 + i * 0.05, duration: 0.7, ease: easings.outExpo }}
+              className="relative pl-16 md:pl-24"
+            >
+              <div className="absolute left-0 top-0 flex flex-col items-center">
+                <motion.div
+                  whileInView={{ scale: [0.6, 1.08, 1] }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.6, ease: easings.springSoft }}
+                  className="h-14 w-14 md:h-[72px] md:w-[72px] rounded-full bg-white ring-2 ring-brand-blue flex items-center justify-center font-display text-brand-blue text-lg md:text-xl"
+                >
+                  {tier.n}
+                </motion.div>
+              </div>
+
+              <div className="grid md:grid-cols-12 gap-6 md:gap-10">
+                <div className="md:col-span-5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-blue mb-2">
+                    {tier.name}
+                  </div>
+                  <h3 className="font-display text-2xl md:text-3xl leading-tight text-brand-ink">
+                    {tier.headline}
+                  </h3>
+                </div>
+                <div className="md:col-span-7">
+                  <p className="text-brand-ink/75 text-lg leading-relaxed mb-5">{tier.body}</p>
+                  <ul className="space-y-2">
+                    {tier.bullets.map((b) => (
+                      <li key={b} className="flex gap-3 text-brand-ink/80">
+                        <span aria-hidden className="text-brand-blue/70 mt-1.5">▸</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </motion.li>
+          ))}
+        </ol>
+      </div>
+    </Section>
+  );
+}
