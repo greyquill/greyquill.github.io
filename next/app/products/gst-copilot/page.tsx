@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Section from '@/components/Section';
 import ProductSiblingChips from '@/components/ProductSiblingChips';
-import ProductBackLink from '@/components/ProductBackLink';
+import ProductSubnav from '@/components/ProductSubnav';
 
 export const metadata: Metadata = {
   title: 'GST Co-Pilot · Governed agentic AI for Indian tax reconciliation',
@@ -123,6 +123,8 @@ function ReconciliationVisual() {
 export default function GSTCoPilotPage() {
   return (
     <>
+      <ProductSubnav currentHref="/products/gst-copilot" />
+
       {/* HERO */}
       <section className="relative overflow-hidden isolate">
         <div aria-hidden className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f4fbff 60%, #eaf6fc 100%)' }} />
@@ -137,11 +139,7 @@ export default function GSTCoPilotPage() {
           }}
         />
 
-        <div className="relative">
-          <ProductBackLink currentName="GST Co-Pilot" />
-        </div>
-
-        <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-10 md:pt-14 pb-16 md:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-16 md:pt-20 pb-16 md:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue mb-5">
               <span className="h-px w-7 bg-brand-blue/60" aria-hidden />
@@ -151,9 +149,9 @@ export default function GSTCoPilotPage() {
             <h1 className="font-display font-semibold text-[44px] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.0] tracking-[-0.025em] text-brand-ink">
               <span className="text-brand-blue">GST Co-Pilot.</span>
               <br />
-              Forty hours of GST,
+              From forty hours a month
               <br />
-              compressed to a few.
+              to an afternoon.
             </h1>
 
             <p className="mt-7 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
@@ -296,27 +294,50 @@ export default function GSTCoPilotPage() {
               body: 'AI-powered practice management built for clinical workflows and audit trails.',
               href: 'https://umami.greyquill.io',
             },
-          ].map((v) => (
-            <a
-              key={v.name}
-              href={v.href}
-              target="_blank"
-              rel="noopener"
-              className="group block bg-white rounded-2xl ring-1 ring-black/[0.05] p-7 md:p-8 hover:ring-brand-blue/40 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-blue/10 transition-all duration-400 ease-out-expo"
-            >
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-blue/80 mb-3">
-                {v.domain}
-              </div>
-              <h3 className="font-display font-semibold text-xl md:text-[22px] text-brand-ink mb-2">
-                {v.name}
-              </h3>
-              <p className="text-brand-ink/70 leading-relaxed text-[15px]">{v.body}</p>
-              <span className="mt-5 inline-flex items-center gap-2 text-brand-blue font-semibold text-sm">
-                Visit site
-                <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">↗</span>
-              </span>
-            </a>
-          ))}
+          ].map((v) => {
+            const params = new URLSearchParams({
+              url: v.href,
+              screenshot: 'true',
+              meta: 'false',
+              embed: 'screenshot.url',
+              'viewport.width': '1280',
+              'viewport.height': '720',
+              type: 'jpeg',
+            });
+            const previewSrc = `https://api.microlink.io/?${params.toString()}`;
+            return (
+              <a
+                key={v.name}
+                href={v.href}
+                target="_blank"
+                rel="noopener"
+                className="group block bg-white rounded-2xl ring-1 ring-black/[0.05] overflow-hidden hover:ring-brand-blue/40 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-blue/10 transition-all duration-400 ease-out-expo"
+              >
+                <div className="aspect-[16/9] bg-brand-mist/30 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={previewSrc}
+                    alt={`${v.name} homepage preview`}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500 ease-out-expo"
+                  />
+                </div>
+                <div className="p-7 md:p-8">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-blue/80 mb-3">
+                    {v.domain}
+                  </div>
+                  <h3 className="font-display font-semibold text-xl md:text-[22px] text-brand-ink mb-2">
+                    {v.name}
+                  </h3>
+                  <p className="text-brand-ink/70 leading-relaxed text-[15px]">{v.body}</p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-brand-blue font-semibold text-sm">
+                    Visit site
+                    <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">↗</span>
+                  </span>
+                </div>
+              </a>
+            );
+          })}
         </div>
       </Section>
 
