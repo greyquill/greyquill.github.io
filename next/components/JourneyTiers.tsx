@@ -73,7 +73,7 @@ export default function JourneyTiers() {
       title={
         <>
           A three-step approach,<br />
-          <span className="text-brand-blue">for your success in your AI journey.</span>
+          <span className="text-brand-blue">for success in your AI journey.</span>
         </>
       }
       intro="Diagnose what's actually broken. Govern the data and the model lifecycle. Activate use cases that pass an audit on day one, not day ninety."
