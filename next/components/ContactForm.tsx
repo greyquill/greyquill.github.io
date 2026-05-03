@@ -1,0 +1,151 @@
+'use client';
+
+import { useState } from 'react';
+
+type FormState = {
+  name: string;
+  email: string;
+  inquiryType: 'general' | 'services' | 'quote' | 'technical' | 'other';
+  message: string;
+};
+
+const INITIAL: FormState = {
+  name: '',
+  email: '',
+  inquiryType: 'general',
+  message: '',
+};
+
+const INQUIRY_OPTIONS: { value: FormState['inquiryType']; label: string }[] = [
+  { value: 'general', label: 'General question' },
+  { value: 'services', label: 'Services information' },
+  { value: 'quote', label: 'Request a quote' },
+  { value: 'technical', label: 'Technical support' },
+  { value: 'other', label: 'Other' },
+];
+
+export default function ContactForm() {
+  const [form, setForm] = useState<FormState>(INITIAL);
+  const [submitted, setSubmitted] = useState(false);
+
+  const update = (field: keyof FormState) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      setForm((prev) => ({ ...prev, [field]: e.target.value }));
+    };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Backend wiring is out of scope here; CRA parity is local-only.
+    // eslint-disable-next-line no-console
+    console.log('Contact form submitted:', form);
+    setSubmitted(true);
+    setForm(INITIAL);
+  };
+
+  if (submitted) {
+    return (
+      <div className="rounded-2xl ring-1 ring-black/[0.06] bg-white p-8 md:p-10 text-center">
+        <div
+          aria-hidden
+          className="mx-auto mb-5 h-12 w-12 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center text-2xl"
+        >
+          ✓
+        </div>
+        <h3 className="font-display text-2xl text-brand-ink mb-3">Thank you.</h3>
+        <p className="text-brand-ink/70 leading-relaxed mb-6 max-w-md mx-auto">
+          Your message has been received. We will get back to you within one business day.
+        </p>
+        <button
+          type="button"
+          onClick={() => setSubmitted(false)}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-brand-blue text-white font-semibold text-sm hover:bg-brand-blue-dark transition-colors"
+        >
+          Send another message
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form
+      onSubmit={onSubmit}
+      className="rounded-2xl ring-1 ring-black/[0.06] bg-white p-6 md:p-8"
+    >
+      <div className="grid md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-brand-ink mb-2">
+            Your name
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            value={form.name}
+            onChange={update('name')}
+            placeholder="Jane Doe"
+            className="w-full px-4 py-2.5 rounded-md border border-black/[0.12] bg-white text-brand-ink placeholder:text-brand-ink/35 focus:outline-none focus:ring-2 focus:ring-brand-blue/40 focus:border-brand-blue transition-colors"
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-brand-ink mb-2">
+            Email address
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            value={form.email}
+            onChange={update('email')}
+            placeholder="jane@example.com"
+            className="w-full px-4 py-2.5 rounded-md border border-black/[0.12] bg-white text-brand-ink placeholder:text-brand-ink/35 focus:outline-none focus:ring-2 focus:ring-brand-blue/40 focus:border-brand-blue transition-colors"
+          />
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="inquiryType" className="block text-sm font-medium text-brand-ink mb-2">
+          Inquiry type
+        </label>
+        <select
+          id="inquiryType"
+          name="inquiryType"
+          value={form.inquiryType}
+          onChange={update('inquiryType')}
+          className="w-full px-4 py-2.5 rounded-md border border-black/[0.12] bg-white text-brand-ink focus:outline-none focus:ring-2 focus:ring-brand-blue/40 focus:border-brand-blue transition-colors"
+        >
+          {INQUIRY_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="mb-5">
+        <label htmlFor="message" className="block text-sm font-medium text-brand-ink mb-2">
+          Your message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows={5}
+          value={form.message}
+          onChange={update('message')}
+          placeholder="Tell us about what you are trying to ship and what is in the way."
+          className="w-full px-4 py-2.5 rounded-md border border-black/[0.12] bg-white text-brand-ink placeholder:text-brand-ink/35 focus:outline-none focus:ring-2 focus:ring-brand-blue/40 focus:border-brand-blue transition-colors resize-y"
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-brand-blue text-white font-semibold text-sm hover:bg-brand-blue-dark hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-blue/20 transition-all duration-300 ease-out-expo"
+      >
+        Submit inquiry
+        <span aria-hidden>→</span>
+      </button>
+    </form>
+  );
+}
