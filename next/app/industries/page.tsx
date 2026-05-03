@@ -104,9 +104,17 @@ export default function IndustriesIndexPage() {
             as high.
           </h2>
           <p className="mt-4 text-brand-ink/70 leading-relaxed max-w-2xl text-[15.5px]">
-            We have shipped in healthcare (practice management with Umami) and
-            public-sector-adjacent contexts. We do not claim deep references in
-            either vertical yet, but the platform travels.
+            We have shipped in healthcare (practice management with{' '}
+            <a
+              href="https://umami.greyquill.io"
+              target="_blank"
+              rel="noopener"
+              className="text-brand-blue font-semibold hover:text-brand-blue-dark underline-offset-4 hover:underline"
+            >
+              Umami
+            </a>
+            ) and public-sector-adjacent contexts. We do not claim deep
+            references in either vertical yet, but the platform travels.
           </p>
         </div>
       </section>
