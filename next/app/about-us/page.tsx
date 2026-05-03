@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Lightbulb, Handshake, CheckCircle2, Award } from 'lucide-react';
+import ProductBackLink from '@/components/ProductBackLink';
 import { CALENDLY_URL } from '@/lib/links';
 
 export const metadata: Metadata = {
@@ -67,6 +68,7 @@ const TEAM: Member[] = [
 export default function AboutPage() {
   return (
     <>
+      <ProductBackLink fallbackHref="/" fallbackLabel="Back to home" currentName="About" />
       <section className="relative overflow-hidden isolate">
         <div
           aria-hidden

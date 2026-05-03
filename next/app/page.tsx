@@ -2,23 +2,25 @@ import Hero from '@/components/Hero';
 import Dilemma from '@/components/Dilemma';
 import Method from '@/components/Method';
 import Capabilities from '@/components/Capabilities';
-import PartnershipStrip from '@/components/PartnershipStrip';
+import Deployment from '@/components/Deployment';
 import RoleTargeting from '@/components/RoleTargeting';
 import Platform from '@/components/Platform';
-import Testimonials from '@/components/Testimonials';
+import WhyTrustUs from '@/components/WhyTrustUs';
+import BriefDownload from '@/components/BriefDownload';
 import FinalCTA from '@/components/FinalCTA';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <PartnershipStrip />
       <Dilemma />
       <Method />
+      <Platform />
+      <Deployment />
       <Capabilities />
       <RoleTargeting />
-      <Platform />
-      <Testimonials />
+      <WhyTrustUs />
+      <BriefDownload />
       <FinalCTA />
     </>
   );

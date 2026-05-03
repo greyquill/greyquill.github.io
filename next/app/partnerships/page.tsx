@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import ProductBackLink from '@/components/ProductBackLink';
 import Section from '@/components/Section';
 import { CALENDLY_URL } from '@/lib/links';
 
@@ -95,6 +96,7 @@ const CERTS: { group: string; items: Cert[] }[] = [
 export default function PartnershipsPage() {
   return (
     <>
+      <ProductBackLink fallbackHref="/" fallbackLabel="Back to home" currentName="Partnerships" />
       {/* HERO */}
       <section className="relative overflow-hidden isolate">
         <div

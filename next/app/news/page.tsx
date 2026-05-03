@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Award, ScanLine, Bot, Layers } from 'lucide-react';
+import ProductBackLink from '@/components/ProductBackLink';
 import { CALENDLY_URL } from '@/lib/links';
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ const MILESTONES: Milestone[] = [
 export default function NewsPage() {
   return (
     <>
+      <ProductBackLink fallbackHref="/" fallbackLabel="Back to home" currentName="News" />
       <section className="relative overflow-hidden isolate">
         <div
           aria-hidden

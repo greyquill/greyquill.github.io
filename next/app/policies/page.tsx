@@ -9,6 +9,7 @@ import {
   Code2,
   Check,
 } from 'lucide-react';
+import ProductBackLink from '@/components/ProductBackLink';
 
 export const metadata: Metadata = {
   title: 'Policies · Greyquill Software',
@@ -103,6 +104,7 @@ const POLICIES: Policy[] = [
 export default function PoliciesPage() {
   return (
     <>
+      <ProductBackLink fallbackHref="/" fallbackLabel="Back to home" currentName="Policies" />
       <section className="relative overflow-hidden isolate">
         <div
           aria-hidden

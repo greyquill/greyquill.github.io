@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ProductBackLink from '@/components/ProductBackLink';
 import type { Industry } from '@/lib/industries';
 import { CALENDLY_URL } from '@/lib/links';
 
@@ -305,6 +306,7 @@ function FinalCTA({ industry }: { industry: Industry }) {
 export default function IndustryPage({ industry }: { industry: Industry }) {
   return (
     <>
+      <ProductBackLink fallbackHref="/industries" fallbackLabel="Back to industries" currentName={industry.shortLabel} />
       <IndustryHero industry={industry} />
       <Buyers industry={industry} />
       <Learnings industry={industry} />

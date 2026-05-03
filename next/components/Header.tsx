@@ -75,7 +75,7 @@ const VERTICAL_PRODUCTS = [
   {
     href: 'https://commerce-synapse.com',
     label: 'Commerce Synapse',
-    sub: 'Retail intelligence and orchestration',
+    sub: 'Retail intelligence',
     external: true,
   },
   {
@@ -108,7 +108,7 @@ export default function Header() {
   return (
     <header className="border-b border-black/[0.06] sticky top-0 z-40 bg-white/85 backdrop-blur-md">
       <div className="mx-auto max-w-6xl px-5 md:px-8 h-16 md:h-20 flex items-center justify-between">
-        <Link href="/" aria-label="Greyquill home" className="flex items-center group shrink-0">
+        <Link href="/" aria-label="Greyquill home" className="relative flex flex-col items-start group shrink-0 leading-none">
           <Image
             src="/images/logo/CompanyLogo.png"
             alt="Greyquill"
@@ -117,6 +117,16 @@ export default function Header() {
             priority
             className="h-8 md:h-9 w-auto transition-opacity duration-300 ease-out-expo group-hover:opacity-80"
           />
+          {/* Tagline overlaps slightly into the bottom of the logo, pushed
+             right so it tucks under the wordmark rather than sitting flush
+             with the icon. z-10 keeps it above the image. Hidden on small
+             screens. */}
+          <span
+            aria-hidden
+            className="hidden sm:inline-block relative z-10 -mt-2 md:-mt-2.5 pl-[58px] md:pl-[72px] text-[10.5px] md:text-[11px] font-medium leading-tight text-brand-ink/60 whitespace-nowrap"
+          >
+            The platform for governed AI.
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-sm">
@@ -164,28 +174,29 @@ export default function Header() {
                   </Link>
                 ))}
 
-                <div className="mt-2 pt-2 border-t border-black/[0.06] px-3 pb-2 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45">
-                  Products built on the platform
+                <div className="mt-2 pt-2 border-t border-black/[0.06] px-3 pb-1.5 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45">
+                  Built on the platform
                 </div>
+                <p className="px-3 pb-2 text-[11px] text-brand-ink/55 leading-snug">
+                  Demonstrations of what the platform does in production.
+                </p>
                 {VERTICAL_PRODUCTS.map((p) => (
                   <Link
                     key={p.href}
                     href={p.href}
                     {...(p.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     onClick={closeOnClick}
-                    className="group/item block p-3 rounded-xl hover:bg-brand-mist/40 transition-colors duration-200"
+                    className="group/item flex items-baseline justify-between gap-2 px-3 py-1.5 rounded-md hover:bg-brand-mist/40 transition-colors duration-200"
                   >
-                    <div className="flex items-baseline justify-between gap-2 mb-0.5">
-                      <span className="font-display font-semibold text-[15px] text-brand-ink group-hover/item:text-brand-blue transition-colors">
-                        {p.label}
-                      </span>
-                      {p.external && (
-                        <svg viewBox="0 0 12 12" className="h-2.5 w-2.5 text-brand-ink/40" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
-                          <path d="M4 4h4v4M8 4l-5 5" strokeLinecap="round" />
-                        </svg>
-                      )}
-                    </div>
-                    <div className="text-xs text-brand-ink/65 leading-snug">{p.sub}</div>
+                    <span className="text-[12.5px] text-brand-ink/80 group-hover/item:text-brand-blue transition-colors">
+                      <b>{p.label}</b>
+                      <span className="text-brand-ink/45"> · {p.sub}</span>
+                    </span>
+                    {p.external && (
+                      <svg viewBox="0 0 12 12" className="h-2.5 w-2.5 text-brand-ink/40 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+                        <path d="M4 4h4v4M8 4l-5 5" strokeLinecap="round" />
+                      </svg>
+                    )}
                   </Link>
                 ))}
 
@@ -249,14 +260,16 @@ export default function Header() {
                   <p className="text-[12.5px] text-brand-ink/65 leading-relaxed flex-1">
                     A tailored governance plan for your stack in two weeks. No subcontractors.
                   </p>
-                  <Link
-                    href="/contact"
+                  <a
+                    href={CALENDLY_URL}
+                    target="_blank"
+                    rel="noopener"
                     onClick={closeOnClick}
                     className="mt-4 inline-flex items-center justify-center gap-1.5 bg-brand-blue text-white text-[12.5px] font-semibold px-4 py-2.5 rounded-full hover:bg-brand-blue-dark transition-colors"
                   >
-                    Talk to us
-                    <span aria-hidden>→</span>
-                  </Link>
+                    Book a discovery call
+                    <span aria-hidden>↗</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -280,7 +293,7 @@ export default function Header() {
           rel="noopener"
           className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-brand-ink px-4 py-2 rounded-full hover:bg-brand-blue transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-md"
         >
-          Book a call
+          Book a discovery call
           <span aria-hidden>↗</span>
         </a>
       </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ContactForm from '@/components/ContactForm';
+import ProductBackLink from '@/components/ProductBackLink';
 
 export const metadata: Metadata = {
   title: 'Contact · Greyquill Software',
@@ -94,6 +95,7 @@ function InfoCard() {
 export default function ContactPage() {
   return (
     <>
+      <ProductBackLink fallbackHref="/" fallbackLabel="Back to home" currentName="Contact" />
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger

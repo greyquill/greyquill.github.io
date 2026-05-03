@@ -29,8 +29,8 @@ const PILLARS = [
     p: 'Add a new domain, a new agent, a new jurisdiction. The platform extends to absorb it. No re-platforming project, no migration team.',
   },
   {
-    h: 'No vendor lock-in',
-    p: 'Your data, your governance configuration, and your agent definitions are yours to take with you. Open standards across the stack.',
+    h: 'Built on IBM, owned by you',
+    p: 'The platform stands on enterprise-grade IBM foundations. Your data, your governance configuration, and your agent definitions are yours to take. No vendor capture, by design.',
   },
 ];
 
