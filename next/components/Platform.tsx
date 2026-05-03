@@ -436,7 +436,6 @@ export default function Platform() {
       }
       intro="One pipeline, three layers. Watch a single artifact travel from raw input to executed automation, on systems you already use."
       tone="mist"
-      className="!py-16 md:!py-24"
     >
       {/* Use-case toggle */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6 md:mb-8">

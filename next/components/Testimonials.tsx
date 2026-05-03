@@ -31,7 +31,6 @@ export default function Testimonials() {
         </>
       }
       intro="We can't always name them. We can tell you what changed."
-      className="!py-16 md:!py-24"
     >
       <div className="grid md:grid-cols-3 gap-5 md:gap-6">
         {TESTIMONIALS.map((t) => (
