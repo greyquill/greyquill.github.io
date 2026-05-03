@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { WEB3FORMS_KEY } from '@/lib/links';
 
 type FormState = {
   name: string;
@@ -31,7 +32,6 @@ const INQUIRY_LABEL: Record<FormState['inquiryType'], string> =
   >;
 
 const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
-const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? '';
 
 export default function ContactForm() {
   const [form, setForm] = useState<FormState>(INITIAL);
@@ -49,13 +49,6 @@ export default function ContactForm() {
     e.preventDefault();
     setError(null);
 
-    if (!ACCESS_KEY) {
-      setError(
-        'The contact form is not configured yet. Please email amarnath@greyquill.io directly.',
-      );
-      return;
-    }
-
     if (botField) {
       // Honeypot tripped — pretend success without sending.
       setSubmitted(true);
@@ -72,7 +65,7 @@ export default function ContactForm() {
           Accept: 'application/json',
         },
         body: JSON.stringify({
-          access_key: ACCESS_KEY,
+          access_key: WEB3FORMS_KEY,
           name: form.name,
           email: form.email,
           subject: `Greyquill website inquiry: ${INQUIRY_LABEL[form.inquiryType]}`,
