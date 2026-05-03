@@ -2,6 +2,8 @@ import type { MetadataRoute } from 'next';
 
 const SITE_URL = 'https://greyquill.io';
 
+export const dynamic = 'force-static';
+
 type Entry = {
   path: string;
   changeFrequency: 'monthly' | 'weekly' | 'yearly';
