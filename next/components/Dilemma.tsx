@@ -60,7 +60,7 @@ export default function Dilemma() {
           <span className="text-brand-blue">~5 in production.</span>
         </>
       }
-      intro="Most AI initiatives never reach production. The drop offs happen at three predictable stages, and the reasons are diagnostic, and fixable."
+      intro="Most AI initiatives never reach production. The drop offs happen at three predictable stages, and every one of them has a known cause and a known fix."
     >
       <motion.div
         ref={ref}
@@ -75,7 +75,7 @@ export default function Dilemma() {
               Of every 100 GenAI ideas started, only ~5 reach production.
             </h3>
             <p className="mt-2.5 text-brand-ink/65 text-sm md:text-base">
-              The 95% drop off at three predictable stages, and the reasons are diagnostic, and fixable.
+              The 95% drop off at three predictable stages. Every one has a known cause and a known fix.
             </p>
           </div>
 

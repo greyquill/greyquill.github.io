@@ -130,7 +130,7 @@ export default function Footer() {
         <div className="mx-auto max-w-6xl px-5 md:px-8 py-5 space-y-3">
           <div className="text-xs text-brand-ink/55 flex flex-wrap items-center justify-between gap-3">
             <span>© {year} Greyquill Software</span>
-            <span>Built with care · Bengaluru</span>
+            <span>Available worldwide · Headquartered in Bengaluru, India</span>
           </div>
           {/* Required IBM trademark attribution. */}
           <p className="text-[10.5px] text-brand-ink/45 leading-relaxed max-w-4xl">

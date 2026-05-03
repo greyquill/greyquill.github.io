@@ -1,16 +1,18 @@
+import type { ReactNode } from 'react';
 import Section from './Section';
 
 /**
- * "Our approach + The Greyquill Method" merged into one section.
+ * The Greyquill Method, compressed.
  *
- * Two altitudes of the same story:
- *   - TOP: three sequenced phases (Diagnose -> Govern -> Activate),
- *     showing WHEN we work.
- *   - BOTTOM: three workstream lanes (Trusted data / Re-imagined
- *     process / Governed activation) running across every phase,
- *     showing WHAT we work on. Today on top, KPIs at the end.
+ * Three sequenced phases (Diagnose → Govern → Activate). Each phase
+ * is implemented by one platform layer (Clarity / GQData / GQ Agents),
+ * which is called out explicitly so the Dilemma → Method → Platform
+ * spine reads as one consistent story rather than three altitudes of
+ * the same content.
  *
- * Replaces the previous separate JourneyTiers section.
+ * The previous "workstreams" lane and "today" strip have been removed
+ * because they restated the same content at a different altitude, and
+ * forced the reader to remember 18+ items to follow the page.
  */
 
 const DiagnoseIcon = () => (
@@ -39,13 +41,25 @@ const ActivateIcon = () => (
   </svg>
 );
 
-const PHASES = [
+type Phase = {
+  n: string;
+  name: string;
+  Icon: () => ReactNode;
+  headline: string;
+  sub: string;
+  layer: { name: string; tag: string; accent: string };
+  fixes: string;
+};
+
+const PHASES: Phase[] = [
   {
     n: '01',
     name: 'Diagnose',
     Icon: DiagnoseIcon,
     headline: 'See your AI risk and readiness clearly.',
-    sub: 'Maturity assessments, model inventories, regulatory gap analyses, board-ready risk picture.',
+    sub: 'Maturity assessment, model inventory, regulatory gap analysis, board-ready risk picture.',
+    layer: { name: 'ClarityAI', tag: 'Understanding', accent: '#0B4F88' },
+    fixes: 'Fixes the 40 lost to data not being AI-ready.',
   },
   {
     n: '02',
@@ -53,45 +67,17 @@ const PHASES = [
     Icon: GovernIcon,
     headline: 'Put trusted data and runtime controls in place.',
     sub: 'Master data, lineage, sensitivity classification, model lifecycle controls, real-time monitoring.',
+    layer: { name: 'GQData', tag: 'Foundation', accent: '#0e7490' },
+    fixes: 'Fixes the 35 lost at evaluation.',
   },
   {
     n: '03',
     name: 'Activate',
     Icon: ActivateIcon,
     headline: 'Ship governed AI use cases with oversight that scales.',
-    sub: 'Productionised generative and agentic workloads. Audit-ready by default, on day one.',
-  },
-];
-
-const TODAY = ['Siloed data', 'Broken processes', 'Policy on paper'];
-
-const LANES: { name: string; thesis: string; steps: { title: string; sub: string }[] }[] = [
-  {
-    name: 'Trusted data foundation',
-    thesis: 'AI is only as good as the data it stands on.',
-    steps: [
-      { title: 'Unify master data', sub: 'Golden record across systems' },
-      { title: 'Repair quality at source', sub: 'Cleansing, dedupe, validation' },
-      { title: 'Active lineage & sensitivity', sub: 'Queryable provenance and PII classification' },
-    ],
-  },
-  {
-    name: 'Re-imagined process',
-    thesis: 'We do not stitch AI onto broken APIs.',
-    steps: [
-      { title: 'Discover the real process', sub: 'Process intelligence from event logs' },
-      { title: 'Redesign with AI inside', sub: 'Capability mapping, decision rights' },
-      { title: 'Human + agent operating model', sub: 'Roles, hand-offs, escalation paths' },
-    ],
-  },
-  {
-    name: 'Governed activation',
-    thesis: 'Policy in a slide deck is not a control.',
-    steps: [
-      { title: 'Evaluation harness', sub: 'Eval sets, red team, drift checks' },
-      { title: 'Evidence packs at runtime', sub: 'One-query audit answers' },
-      { title: 'Change management & adoption', sub: 'Operating model your team owns' },
-    ],
+    sub: 'Productionised generative and agentic workloads, with evidence assembled while the agent runs.',
+    layer: { name: 'GQ Agents', tag: 'Activation', accent: '#4338ca' },
+    fixes: 'Fixes the 20 lost in production.',
   },
 ];
 
@@ -103,14 +89,6 @@ const KPIS = [
   'First-contact resolution',
   'Pilot to production rate',
 ];
-
-function Arrow() {
-  return (
-    <svg viewBox="0 0 32 16" className="w-7 h-4 text-brand-blue/60 shrink-0" aria-hidden>
-      <path d="M0 8 H 24 M 18 3 L 24 8 L 18 13" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 function DownArrow() {
   return (
@@ -131,14 +109,13 @@ export default function Method() {
           <span className="text-brand-blue">for success in your AI journey.</span>
         </>
       }
-      intro="Three sequenced phases above. Three workstreams running through every phase below. One pipeline from policy to proof, so the KPIs you committed to actually move."
+      intro="Three sequenced phases. Each one is implemented by one layer of the platform. Each one moves a KPI your board cares about."
     >
-      {/* PHASES (former JourneyTiers content, compressed) */}
       <div className="grid md:grid-cols-3 gap-4 md:gap-5">
         {PHASES.map((phase) => (
           <div
             key={phase.n}
-            className="group bg-white rounded-2xl ring-1 ring-black/[0.06] p-6 hover:ring-brand-blue/40 hover:-translate-y-0.5 transition-all duration-300 ease-out-expo"
+            className="group bg-white rounded-2xl ring-1 ring-black/[0.06] p-6 hover:ring-brand-blue/40 hover:-translate-y-0.5 transition-all duration-300 ease-out-expo flex flex-col"
           >
             <div className="flex items-center gap-3 mb-4">
               <span className="relative h-12 w-12 rounded-full bg-brand-blue/8 ring-1 ring-brand-blue/30 flex items-center justify-center text-brand-blue">
@@ -162,81 +139,40 @@ export default function Method() {
               {phase.headline}
             </p>
             <p className="text-sm text-brand-ink/65 leading-relaxed">{phase.sub}</p>
-          </div>
-        ))}
-      </div>
 
-      {/* Bridge: phases above, workstreams below */}
-      <div className="flex flex-col items-center my-12 md:my-14">
-        <DownArrow />
-        <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55">
-          Across every phase, three workstreams
-        </p>
-      </div>
-
-      {/* TODAY */}
-      <div className="max-w-3xl mx-auto bg-white rounded-2xl ring-1 ring-black/[0.06] p-5 md:p-6 flex flex-wrap items-center gap-x-6 gap-y-2 justify-center">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55">
-          Today
-        </span>
-        {TODAY.map((t) => (
-          <span key={t} className="text-sm md:text-base text-brand-ink/75">
-            {t}
-          </span>
-        ))}
-      </div>
-
-      <div className="flex justify-center my-3">
-        <DownArrow />
-      </div>
-
-      {/* LANES — steps flow horizontally with arrows between (original layout) */}
-      <div className="space-y-6">
-        {LANES.map((lane, li) => (
-          <div key={lane.name} className="bg-white rounded-2xl ring-1 ring-black/[0.06] p-5 md:p-7">
-            <div className="grid lg:grid-cols-12 gap-5 lg:gap-6 items-start">
-              <div className="lg:col-span-3">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-blue/80 mb-2">
-                  Workstream 0{li + 1}
-                </div>
-                <h3 className="font-display font-semibold text-xl md:text-[22px] text-brand-ink leading-tight">
-                  {lane.name}
-                </h3>
-                <p className="mt-2 text-sm text-brand-ink/65 leading-snug">{lane.thesis}</p>
+            {/* Platform-layer mapping. The bridge between Method and
+               the Platform section that follows: each phase runs on
+               one named layer, with the layer's accent colour. */}
+            <div className="mt-5 pt-4 border-t border-black/[0.06] space-y-2">
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-ink/50">
+                  Runs on
+                </span>
+                <span
+                  className="text-[10px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: phase.layer.accent }}
+                >
+                  {phase.layer.tag}
+                </span>
               </div>
-
-              <ol className="lg:col-span-9 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch gap-3 md:gap-2">
-                {lane.steps.map((s, si) => (
-                  <li key={s.title} className="contents">
-                    <div className="group relative rounded-xl p-3.5 md:p-4 bg-gradient-to-b from-white/85 to-brand-mist/80 backdrop-blur-sm ring-1 ring-brand-blue/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(10,22,40,0.04)] hover:ring-brand-blue/45 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_6px_18px_rgba(11,79,136,0.10)] hover:-translate-y-0.5 transition-all duration-300 ease-out-expo">
-                      <div className="flex items-baseline gap-2 mb-1">
-                        <span className="text-[10px] font-semibold tracking-[0.18em] text-brand-blue/70">
-                          {String(si + 1).padStart(2, '0')}
-                        </span>
-                        <span className="font-display font-semibold text-[15px] text-brand-ink leading-tight">
-                          {s.title}
-                        </span>
-                      </div>
-                      <div className="text-[12.5px] text-brand-ink/65 leading-snug">{s.sub}</div>
-                    </div>
-                    {si < lane.steps.length - 1 && (
-                      <div className="hidden md:flex items-center justify-center">
-                        <Arrow />
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ol>
+              <div
+                className="font-display font-semibold text-[15px]"
+                style={{ color: phase.layer.accent }}
+              >
+                {phase.layer.name}
+              </div>
+              <p className="text-[12px] text-brand-ink/55 leading-snug">
+                {phase.fixes}
+              </p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="flex justify-center my-3">
+      <div className="flex justify-center my-10 md:my-12">
         <DownArrow />
       </div>
 
-      {/* KPIs */}
       <div className="bg-brand-ink text-white rounded-2xl p-6 md:p-8">
         <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
           <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/60">

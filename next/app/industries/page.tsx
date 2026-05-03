@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import ProductBackLink from '@/components/ProductBackLink';
 import { INDUSTRIES } from '@/lib/industries';
 import { CALENDLY_URL } from '@/lib/links';
 
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function IndustriesIndexPage() {
   return (
     <>
+      <ProductBackLink fallbackHref="/" fallbackLabel="Back to home" currentName="Industries" />
       <section className="relative overflow-hidden isolate">
         <div
           aria-hidden

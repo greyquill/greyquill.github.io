@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
+import ProductBackLink from '@/components/ProductBackLink';
 
 export const metadata: Metadata = {
   title: 'Support · Greyquill Software',
@@ -58,6 +59,7 @@ const FAQ_LD = {
 export default function SupportPage() {
   return (
     <>
+      <ProductBackLink fallbackHref="/" fallbackLabel="Back to home" currentName="Support" />
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger

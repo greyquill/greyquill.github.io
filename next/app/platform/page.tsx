@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import ProductBackLink from '@/components/ProductBackLink';
 import Section from '@/components/Section';
 import { CALENDLY_URL } from '@/lib/links';
 
@@ -528,6 +529,7 @@ const PILLARS: Pillar[] = [
 export default function PlatformPage() {
   return (
     <>
+      <ProductBackLink fallbackHref="/" fallbackLabel="Back to home" currentName="Platform" />
       {/* HERO */}
       <section className="relative overflow-hidden isolate">
         <div

@@ -6,14 +6,6 @@ import { easings } from '@/lib/motion';
 import { CALENDLY_URL } from '@/lib/links';
 import HeroChatbot from './HeroChatbot';
 
-/**
- * Hero, text-led. The hero photograph has been retired from this section
- * (it lives elsewhere on the site). The visual interest is carried by an
- * animated background: drifting brand-blue orbs distributed across the
- * full width, a faint dot grid with a soft radial fade, and a slow shine
- * sweep. All animation is transform/opacity only, GPU-cheap at 60fps.
- */
-
 export default function Hero() {
   return (
     <section className="relative overflow-hidden isolate">
@@ -71,8 +63,7 @@ export default function Hero() {
             </h1>
 
             <p className="mt-7 text-lg md:text-xl text-brand-ink/75 max-w-xl leading-[1.55]">
-                  We help regulated enterprises ship trusted, governed AI by fixing the data foundation first. Build Products, accelerators, and senior advisors to assist Heads of AI, CDOs, and Chief Risk Officers in their AI journey.
-
+              Greyquill helps regulated enterprises put AI into production without losing the audit. Deployed in your environment, built on IBM foundations, designed so the audit answer is one query, not three weeks.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-4">
@@ -97,20 +88,23 @@ export default function Hero() {
             <div className="mt-12 pt-6 border-t border-black/[0.08] flex flex-wrap items-center gap-x-8 gap-y-3 text-xs text-brand-ink/60">
               <span className="inline-flex items-center gap-2">
                 <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brand-blue" />
-                Trusted across BFSI, telecom, retail
+                Built on IBM foundations
               </span>
               <span className="inline-flex items-center gap-2">
                 <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brand-blue" />
-                Senior advisors, not staffed teams
+                Senior engineers · 50+ years combined
               </span>
               <span className="inline-flex items-center gap-2">
                 <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brand-blue" />
-                Built on enterprise-grade foundations
+                BFSI · telecom · retail · insurance
               </span>
             </div>
           </motion.div>
 
-          {/* Right: chatbot demo */}
+          {/* Right: chatbot. Doubles as a "talk to us" surface and a
+             listening channel for raw qualitative signal from anonymous
+             visitors. Pre-PMF, that signal is more valuable than another
+             booked call, so the chatbot stays in the hero. */}
           <div className="lg:col-span-5">
             <HeroChatbot />
           </div>

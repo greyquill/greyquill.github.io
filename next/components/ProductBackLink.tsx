@@ -5,41 +5,16 @@ import Link from 'next/link';
 import { PREVIOUS_KEY } from './NavigationTracker';
 
 /**
- * Breadcrumb math. A back link is only honoured if the user's
- * previous path is a hierarchical ANCESTOR of the current path —
- * otherwise the breadcrumb would point sideways or downward, which
- * isn't a "back" in URL hierarchy terms.
+ * Subtle breadcrumb shown above the hero on inner pages.
  *
- * Examples:
- *   isAncestor('/',         '/products')              → true
- *   isAncestor('/products', '/products/gst-copilot')  → true
- *   isAncestor('/products/gst-copilot', '/products')  → false (descendant)
- *   isAncestor('/contact',  '/products')              → false (sibling)
- */
-function isAncestor(maybeAncestor: string, current: string): boolean {
-  if (maybeAncestor === current) return false;
-  if (maybeAncestor === '/') return current !== '/' && current.startsWith('/');
-  return current.startsWith(maybeAncestor + '/');
-}
-
-/** Compute the canonical parent of a URL path. `/products/x` → `/products`. */
-function parentOf(path: string): string {
-  if (path === '/' || path === '') return '/';
-  const segs = path.split('/').filter(Boolean);
-  segs.pop();
-  return segs.length === 0 ? '/' : '/' + segs.join('/');
-}
-
-/**
- * Subtle breadcrumb shown above the hero on inner pages. Visually
- * quiet, doubles as the differentiator that makes inner pages feel
- * distinct from the homepage.
- *
- * Smart back behaviour: on mount, checks `document.referrer`. If the
- * user came from another same-origin page, the back link points there
- * with a contextual label ("Back to home", "Back to products", "Back to
- * GQData", etc.). If there's no usable referrer (direct visit, new tab,
- * external source), it falls back to the page-defined default.
+ * Behaviour: pop the browser history (`history.back()`) on click so
+ * back means back, not "swap to the most recent prior page". The link
+ * still renders with an `href` pointing at the previous tracked path
+ * so middle-click and right-click open-in-new-tab work, and so the
+ * label can read "Back to industries" instead of just "Back". When
+ * there is no session history (direct entry, hard refresh into this
+ * page), the link falls back to navigating to the page-defined
+ * fallback.
  */
 
 const PATH_LABELS: Record<string, string> = {
@@ -73,15 +48,15 @@ export default function ProductBackLink({
 }: Props) {
   const [href, setHref] = useState(fallbackHref);
   const [label, setLabel] = useState(fallbackLabel);
+  // True when there is a tracked previous path inside this session,
+  // which means `history.back()` will land somewhere meaningful. Stays
+  // false on direct entry, so the link falls back to a normal navigation.
+  const [hasSessionHistory, setHasSessionHistory] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const current = window.location.pathname;
 
-    // Read the path the user actually came from. The tracker uses
-    // useLayoutEffect so this is reliably set before our useEffect
-    // runs. Falls back to document.referrer for the first navigation
-    // of a session, when the tracker has nothing to hand over.
     let candidate: string | null = null;
     try {
       const tracked = sessionStorage.getItem(PREVIOUS_KEY);
@@ -101,39 +76,51 @@ export default function ProductBackLink({
       }
     }
 
-    // Only honour the candidate if it's a hierarchical ancestor.
-    // Otherwise fall back to the canonical parent of the current
-    // path. Either way, the back link goes UP the tree, never sideways
-    // or down.
-    const target =
-      candidate && isAncestor(candidate, current)
-        ? candidate
-        : parentOf(current);
-
-    if (target && target !== current) {
-      const friendly = PATH_LABELS[target];
-      setHref(target);
+    if (candidate) {
+      const friendly = PATH_LABELS[candidate];
+      setHref(candidate);
       setLabel(friendly ? `Back to ${friendly}` : 'Back');
+      setHasSessionHistory(true);
     }
   }, []);
 
+  function onClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    // Let users open the previous page in a new tab / window via the
+    // usual modifier clicks. Only intercept the plain left click.
+    if (
+      e.button !== 0 ||
+      e.metaKey ||
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.altKey
+    ) {
+      return;
+    }
+    if (!hasSessionHistory) return;
+    e.preventDefault();
+    window.history.back();
+  }
+
   return (
-    <div className="mx-auto max-w-6xl px-5 md:px-8 pt-6 md:pt-8">
-      <Link
-        href={href}
-        className="group inline-flex items-center gap-2 text-xs text-brand-ink/55 hover:text-brand-blue transition-colors"
-      >
-        <span aria-hidden className="transition-transform duration-200 ease-out-expo group-hover:-translate-x-0.5">
-          ←
-        </span>
-        <span>{label}</span>
+    <div className="mx-auto max-w-6xl px-5 md:px-8 pt-4 md:pt-5 -mb-8 md:-mb-10 relative z-10">
+      <div className="inline-flex items-center gap-2 text-xs text-brand-ink/55">
+        <Link
+          href={href}
+          onClick={onClick}
+          className="group inline-flex items-center gap-2 hover:text-brand-blue transition-colors"
+        >
+          <span aria-hidden className="transition-transform duration-200 ease-out-expo group-hover:-translate-x-0.5">
+            ←
+          </span>
+          <span>{label}</span>
+        </Link>
         {currentName && (
           <>
             <span aria-hidden className="text-brand-ink/30">/</span>
             <span className="text-brand-ink/75 font-semibold">{currentName}</span>
           </>
         )}
-      </Link>
+      </div>
     </div>
   );
 }

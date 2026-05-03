@@ -7,6 +7,8 @@ const ROLES = [
   { label: 'Head of AI', sub: 'shipping use cases your board will defend' },
   { label: 'Chief Data Officer', sub: 'making data trustworthy at the speed of AI' },
   { label: 'Chief Risk / Compliance Officer', sub: 'turning AI policy into runtime evidence' },
+  { label: 'Chief Information Security Officer', sub: 'approving AI workloads without rewriting your security posture' },
+  { label: 'Internal Audit / Compliance Lead', sub: 'the champion who needs the evidence, not just the policy' },
   { label: 'CIO / CTO', sub: 'modernising the foundation underneath the agents' },
 ];
 
@@ -15,6 +17,8 @@ const PAINS = [
   'Policies that exist in slide decks but not in the runtime path.',
   'Vendors selling you a "platform" instead of a defensible operating model.',
   'A board asking for an answer in two weeks that takes six months to assemble.',
+  'Security review queues where every new AI use case waits behind the last one.',
+  'An audit request that needs three teams and four weeks to answer one question.',
 ];
 
 export default function RoleTargeting() {
