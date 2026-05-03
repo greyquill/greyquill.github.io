@@ -32,24 +32,61 @@ const SIGNALS = [
 type Cert = {
   product: string;
   area?: string;
-  levels: string[];
+  capabilities: string;
 };
 
 const CERTS: { group: string; items: Cert[] }[] = [
   {
     group: 'watsonx',
     items: [
-      { product: 'watsonx.ai', area: 'Generative AI tools', levels: ['Sales Foundation', 'Technical Sales Intermediate'] },
-      { product: 'watsonx.data', levels: ['Sales Foundation', 'Technical Sales Intermediate'] },
-      { product: 'watsonx.data intelligence', area: 'Data governance · data lineage', levels: ['Sales Foundation', 'Technical Sales Intermediate'] },
-      { product: 'watsonx.data integration', area: 'ETL/ELT · real-time streaming', levels: ['Sales Foundation', 'Technical Sales Intermediate'] },
-      { product: 'watsonx.governance', levels: ['Sales Foundation', 'Technical Sales Intermediate'] },
+      {
+        product: 'watsonx.ai',
+        area: 'Generative AI tools',
+        capabilities:
+          'Foundation model selection and fine-tuning, agent design, prompt and RAG patterns, governed GenAI use-case delivery.',
+      },
+      {
+        product: 'watsonx.data',
+        capabilities:
+          'Lakehouse architecture, federated query across stores, building AI-ready data products on hybrid stacks.',
+      },
+      {
+        product: 'watsonx.data intelligence',
+        area: 'Data governance · data lineage',
+        capabilities:
+          'Active metadata and catalog design, automated lineage capture, policy enforcement on data products.',
+      },
+      {
+        product: 'watsonx.data integration',
+        area: 'ETL/ELT · real-time streaming',
+        capabilities:
+          'Real-time streaming pipelines, ETL/ELT, change data capture, event-driven data flows into the lakehouse.',
+      },
+      {
+        product: 'watsonx.governance',
+        capabilities:
+          'Model lifecycle governance, evaluation harness setup, bias and drift monitoring, audit evidence capture.',
+      },
     ],
   },
   {
     group: 'IBM Security',
     items: [
-      { product: 'IBM Verify Identity Protection', levels: ['Sales Foundation', 'Technical Sales Intermediate'] },
+      {
+        product: 'IBM Verify Identity Protection',
+        capabilities:
+          'AI access controls, identity governance for human and agent users, zero-trust patterns for governed AI workloads.',
+      },
+    ],
+  },
+  {
+    group: 'IBM Automation',
+    items: [
+      {
+        product: 'IBM Business Automation',
+        capabilities:
+          'Process orchestration, workflow and decision automation, document understanding, back-office automation paired with governed AI.',
+      },
     ],
   },
 ];
@@ -85,7 +122,7 @@ export default function PartnershipsPage() {
             <h1 className="font-display font-semibold text-[40px] sm:text-5xl md:text-6xl lg:text-[64px] leading-[1.0] tracking-[-0.025em] text-brand-ink">
               An IBM Business Partner.
               <br />
-              <span className="text-brand-blue">By choice, not by lock-in.</span>
+              <span className="text-brand-blue">Enterprise-grade. Portable when you need it.</span>
             </h1>
 
             <p className="mt-7 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
@@ -179,22 +216,19 @@ export default function PartnershipsPage() {
                 {group.items.map((c) => (
                   <div
                     key={c.product}
-                    className="bg-white rounded-xl ring-1 ring-black/[0.05] p-5 md:p-6 hover:ring-brand-blue/30 transition-all duration-300 ease-out-expo"
+                    className="bg-white rounded-xl ring-1 ring-black/[0.05] p-5 md:p-6 hover:ring-brand-blue/30 transition-all duration-300 ease-out-expo flex flex-col"
                   >
                     <h4 className="font-display font-semibold text-brand-ink text-base md:text-lg leading-tight">
                       {c.product}
                     </h4>
                     {c.area && (
-                      <p className="mt-1.5 text-[13px] text-brand-ink/65 leading-snug">{c.area}</p>
+                      <p className="mt-1.5 text-[12px] uppercase tracking-[0.14em] text-brand-blue/70 font-semibold leading-snug">
+                        {c.area}
+                      </p>
                     )}
-                    <ul className="mt-4 pt-4 border-t border-black/[0.06] space-y-1.5">
-                      {c.levels.map((lvl) => (
-                        <li key={lvl} className="flex items-center gap-2 text-[12px] text-brand-ink/75">
-                          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brand-blue" />
-                          {lvl}
-                        </li>
-                      ))}
-                    </ul>
+                    <p className="mt-4 pt-4 border-t border-black/[0.06] text-[13.5px] text-brand-ink/75 leading-relaxed flex-1">
+                      {c.capabilities}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -202,11 +236,17 @@ export default function PartnershipsPage() {
           ))}
         </div>
 
-        <p className="mt-10 text-xs text-brand-ink/55 max-w-3xl">
-          Certifications maintained under the IBM Partner Plus program. Greyquill Software is the
-          sole entity responsible for the deliverables in any client engagement; IBM is named
-          here as the foundational technology vendor and partner program.
-        </p>
+        <div className="mt-10 max-w-3xl space-y-2">
+          <p className="text-xs text-brand-ink/65">
+            <span className="font-semibold text-brand-ink/80">Certifications held:</span>{' '}
+            Sales Foundation and Technical Sales Intermediate across every product listed above,
+            maintained under the IBM Partner Plus program.
+          </p>
+          <p className="text-xs text-brand-ink/55">
+            Greyquill Software is the sole entity responsible for the deliverables in any client
+            engagement; IBM is named here as the foundational technology vendor and partner program.
+          </p>
+        </div>
       </Section>
 
       {/* FINAL CTA — dark, with reverse-white IBM badge */}
