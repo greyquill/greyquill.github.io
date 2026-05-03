@@ -1,232 +1,506 @@
-import Link from 'next/link';
-import Section from './Section';
+'use client';
 
-type Product = {
-  name: string;
-  href: string;
-  stage: string;
-  tagline: string;
-  body: string;
-  live?: boolean;
-  /** Suffix used to wire each card's gear glow to its own active window. */
-  slot: 'a' | 'b' | 'c';
+import { useState, type CSSProperties, type ReactNode } from 'react';
+import Link from 'next/link';
+import clsx from 'clsx';
+import { Plug2 } from 'lucide-react';
+import Section from './Section';
+import {
+  SapGlyph,
+  GoogleDriveGlyph,
+  OutlookGlyph,
+  GmailGlyph,
+  ExcelGlyph,
+  TallyGlyph,
+  ScanGlyph,
+  GstPortalGlyph,
+} from './sources/SourceIcons';
+
+/**
+ * Three-layer platform pipeline with a use-case toggle.
+ *
+ * Layout: three columns side-by-side (Clarity | Data | Agents). Each
+ * column shows Sources → Engine → Output flowing top-to-bottom inside
+ * it. Two angled connectors sit between columns and carry a small
+ * token during the hand-off windows.
+ *
+ * The same 15s shared cycle drives every animated element; layer
+ * delays are 0s / 5s / 10s. Switching tabs re-mounts the stage so the
+ * cycle restarts cleanly.
+ *
+ * Brand source glyphs (SAP, Google Drive, Outlook, Tally, Excel, Gmail,
+ * GST portal, scan) live in components/sources/SourceIcons.tsx.
+ */
+
+type SourceKey = 'sap' | 'gdrive' | 'outlook' | 'gmail' | 'excel' | 'tally' | 'scan' | 'gst';
+
+const SOURCE_RENDER: Record<SourceKey, (size: number) => ReactNode> = {
+  sap: (size) => <SapGlyph size={size} />,
+  gdrive: (size) => <GoogleDriveGlyph size={size} />,
+  outlook: (size) => <OutlookGlyph size={size} />,
+  gmail: (size) => <GmailGlyph size={size} />,
+  excel: (size) => <ExcelGlyph size={size} />,
+  tally: (size) => <TallyGlyph size={size} />,
+  scan: (size) => <ScanGlyph size={size} />,
+  gst: (size) => <GstPortalGlyph size={size} />,
 };
 
-const PIPELINE: Product[] = [
-  {
-    name: 'ClarityAI',
-    href: '/products/clarity-ai',
-    stage: 'Diagnose',
-    tagline: 'Score the clarity and risk of any AI initiative before you fund it.',
-    body: 'Surfaces hidden requirement gaps, regulatory exposure, and dependency risk in days, not months. For program leaders defending roadmap calls to the board.',
-    live: true,
-    slot: 'a',
-  },
-  {
-    name: 'GQData',
-    href: '/products/gqdata',
-    stage: 'Govern',
-    tagline: 'The trusted-data layer beneath every AI decision.',
-    body: 'Master data unification, lineage, real-time quality, and sensitive-data protection, so every model and agent runs on data you can stand behind.',
-    slot: 'b',
-  },
-  {
-    name: 'GQ Agents',
-    href: '/products/agents',
-    stage: 'Activate',
-    tagline: 'Multi-agent orchestration with audit trails built in.',
-    body: 'Work-packet provenance, human-in-the-loop checkpoints, replayable execution. Designed for regulated environments where you must prove what an agent did and why.',
-    slot: 'c',
-  },
-];
+type Source = { key: SourceKey; label: string; sub?: string };
+type EngineStep = { label: string };
+type OutputField = { k: string; v: string };
 
-function Gear({ className }: { className?: string }) {
+type Layer = {
+  product: string;
+  role: string;
+  description: string;
+  /** Only used for layer 0 (ClarityAI). Layers 1 and 2 take whatever the
+   *  previous layer just produced and render an "incoming" arrow instead. */
+  sourcesLabel?: string;
+  sources?: Source[];
+  engineLabel: string;
+  steps: EngineStep[];
+  outputLabel: string;
+  outputTitle: string;
+  outputFields: OutputField[];
+  outputFooter?: string;
+};
+
+type UseCase = {
+  id: string;
+  tab: string;
+  tabSub: string;
+  intro: string;
+  layers: [Layer, Layer, Layer];
+};
+
+const SUPPLY_CHAIN: UseCase = {
+  id: 'supply',
+  tab: 'Supply chain',
+  tabSub: '3-way match',
+  intro: 'A purchase order, a goods receipt, and a vendor invoice arrive from three different systems. Watch one transaction travel through every layer.',
+  layers: [
+    {
+      product: 'ClarityAI',
+      role: 'Understanding',
+      description: 'Reads documents, scans, and source records. Extracts entities, classifies content, outputs structured fields.',
+      sourcesLabel: 'Sources',
+      sources: [
+        { key: 'sap', label: 'SAP', sub: 'Purchase orders' },
+        { key: 'scan', label: 'Scan', sub: 'Goods receipt' },
+        { key: 'outlook', label: 'Outlook', sub: 'Vendor invoice' },
+      ],
+      engineLabel: 'Clarity engine',
+      steps: [
+        { label: 'Detect document type' },
+        { label: 'Parse text + tables' },
+        { label: 'Extract entities' },
+      ],
+      outputLabel: 'Structured fields',
+      outputTitle: 'PO-2026-04812',
+      outputFields: [
+        { k: 'Vendor', v: 'Acme Industrial' },
+        { k: 'Qty ord', v: '500 units' },
+        { k: 'Qty rcv', v: '498 units' },
+        { k: 'Inv amt', v: '₹4,98,000' },
+      ],
+    },
+    {
+      product: 'GQData',
+      role: 'Foundation',
+      description: 'Promotes structured fields into a master record. Links to existing entities, classifies sensitive fields, stamps lineage.',
+      engineLabel: 'Data operations',
+      steps: [
+        { label: 'Link to vendor master' },
+        { label: 'Classify PII fields' },
+        { label: 'Quality + completeness' },
+        { label: 'Stamp lineage' },
+      ],
+      outputLabel: 'Master record',
+      outputTitle: 'PO-MASTER-04812',
+      outputFields: [
+        { k: 'Vendor', v: 'VND-00482' },
+        { k: 'Delta', v: '−2 units · −₹2,000' },
+        { k: 'PII', v: 'Tax ID, Bank A/C' },
+        { k: 'Lineage', v: 'PO + GRN + INV' },
+      ],
+    },
+    {
+      product: 'GQ Agents',
+      role: 'Activation',
+      description: 'Master records flow into purpose-built agents. This one runs three-way match, decides routing, logs the audit trail.',
+      engineLabel: 'Agent · 3-way match',
+      steps: [
+        { label: 'Compare PO vs GRN vs INV' },
+        { label: 'Apply tolerance rules' },
+        { label: 'Route + log audit' },
+      ],
+      outputLabel: 'Decision',
+      outputTitle: 'Hold for buyer review',
+      outputFields: [
+        { k: 'Confidence', v: '0.94' },
+        { k: 'Routed', v: 'Procurement · Tier 2' },
+        { k: 'Audit', v: '7 steps · immutable' },
+      ],
+      outputFooter: 'Quantity variance exceeds 0.5% tolerance.',
+    },
+  ],
+};
+
+const FINANCE_GST: UseCase = {
+  id: 'finance',
+  tab: 'Finance · GST',
+  tabSub: 'ITC reconciliation',
+  intro: 'Vendor invoices arrive across email, Tally, and the GST portal. A single invoice flows through the platform and ends up either matched or routed for review.',
+  layers: [
+    {
+      product: 'ClarityAI',
+      role: 'Understanding',
+      description: 'Reads invoices in any shape- PDF, scanned image, email body, or Tally export. Extracts GSTIN, line items, and totals.',
+      sourcesLabel: 'Sources',
+      sources: [
+        { key: 'tally', label: 'Tally', sub: 'Vendor ledger' },
+        { key: 'gmail', label: 'Gmail', sub: 'Forwarded invoice' },
+        { key: 'gdrive', label: 'Drive', sub: 'Scanned PDF' },
+      ],
+      engineLabel: 'Clarity engine',
+      steps: [
+        { label: 'Identify invoice format' },
+        { label: 'Extract GSTIN + line items' },
+        { label: 'Classify input type' },
+      ],
+      outputLabel: 'Structured invoice',
+      outputTitle: 'INV-2026-882341',
+      outputFields: [
+        { k: 'Vendor', v: 'Acme Corp' },
+        { k: 'Amount', v: '₹1,18,000' },
+        { k: 'GSTIN', v: '29AABCM1234F1Z5' },
+        { k: 'Date', v: '15-Apr-2026' },
+      ],
+    },
+    {
+      product: 'GQData',
+      role: 'Foundation',
+      description: 'Promotes the invoice into a master record. Links to vendor master, classifies PII (Tax ID), stamps lineage.',
+      engineLabel: 'Data operations',
+      steps: [
+        { label: 'Match to vendor master' },
+        { label: 'Classify PII fields' },
+        { label: 'Quality check' },
+        { label: 'Stamp lineage' },
+      ],
+      outputLabel: 'Master record',
+      outputTitle: 'INV-MASTER-882341',
+      outputFields: [
+        { k: 'Vendor', v: 'VND-00482 · Acme' },
+        { k: 'Amount', v: '₹1,18,000' },
+        { k: 'PII', v: 'Tax ID flagged' },
+        { k: 'Lineage', v: 'Clarity v2.1' },
+      ],
+    },
+    {
+      product: 'GQ Agents',
+      role: 'Activation',
+      description: 'Reconciliation agent matches the invoice against the GSTR-2B from the GST portal, scores ITC risk, routes the result.',
+      engineLabel: 'Agent · reconcile',
+      steps: [
+        { label: 'Match against GSTR-2B' },
+        { label: 'Score ITC risk' },
+        { label: 'Route to approver' },
+        { label: 'Log audit trail' },
+      ],
+      outputLabel: 'Outcome',
+      outputTitle: 'Matched · ITC OK',
+      outputFields: [
+        { k: 'Confidence', v: '0.97' },
+        { k: 'Routed', v: 'Finance approver' },
+        { k: 'Audit', v: '3 steps · immutable' },
+      ],
+      outputFooter: 'Clarity → Data → Agent · logged.',
+    },
+  ],
+};
+
+const USE_CASES: UseCase[] = [SUPPLY_CHAIN, FINANCE_GST];
+
+const LAYER_ACCENTS = ['#0B4F88', '#0e7490', '#4338ca'];
+const LAYER_DELAYS = [0, 5, 10]; // seconds; matches keyframes in globals.css
+
+/**
+ * Inter-column handoff. A dotted line spans the gap; an animated dot
+ * crosses it left → right, timed to fire just after the previous
+ * layer's engine completes. The dot inherits the next layer's accent
+ * so it visually "becomes" what enters the next column. The dot rides
+ * an invisible track whose width equals the line's width — translating
+ * the track 0% → 100% moves the dot from one end to the other.
+ */
+function Connector({ delay, accent }: { delay: number; accent: string }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden
+    <div className="hidden md:flex items-center justify-center self-stretch px-2">
+      <div className="relative w-14 h-px bg-brand-ink/15">
+        {/* arrowhead at the right end */}
+        <svg viewBox="0 0 10 10" className="absolute right-[-3px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-brand-ink/45" aria-hidden>
+          <path d="M1.5 1.5 L 8 5 L 1.5 8.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        {/* animated track containing the travelling dot */}
+        <div
+          className="ls-handoff absolute inset-y-0 left-0 right-0"
+          style={{ animationDelay: `${delay}s` }}
+        >
+          <div
+            className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full shadow-[0_0_10px_rgba(11,79,136,0.45)]"
+            style={{ background: accent }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SourceTile({ source, delay }: { source: Source; delay: number }) {
+  return (
+    <div
+      className="ls-source flex flex-col items-center gap-1.5 py-1 px-1"
+      title={source.sub ? `${source.label} · ${source.sub}` : source.label}
+      style={{ animationDelay: `${delay}s` }}
     >
-      <path d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" />
-      <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 008.5 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H2.5a2 2 0 110-4h.09A1.65 1.65 0 004.6 8.5a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V2.5a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z" />
-    </svg>
+      <span className="inline-flex">{SOURCE_RENDER[source.key](28)}</span>
+      <span className="text-[9.5px] font-medium text-brand-ink/65 leading-none truncate max-w-full">{source.label}</span>
+    </div>
   );
 }
 
 /**
- * Angled connectors between cards, with tokens that traverse the diagonal
- * during the corresponding card's "transit" window. The SVG sits BEHIND
- * the cards (z-0) so dotted segments only show in the inter-card gaps,
- * which reads as "data leaving one card, entering the next."
- *
- * preserveAspectRatio="none" means the viewBox stretches with the row.
- * Strokes use vectorEffect="non-scaling-stroke" so they stay crisp.
- *
- * Timing is locked to the same 9s cycle as the gear glows in globals.css:
- *   0–11%  card 1 active   (gear A glows)
- *   11–33% transit 1 → 2   (token 1 visible, traveling)
- *   33–44% card 2 active   (gear B glows)
- *   44–66% transit 2 → 3   (token 2 visible, traveling)
- *   66–77% card 3 active   (gear C glows)
- *   77–100% reset
+ * For layers 1 and 2, the input is whatever the previous layer just
+ * produced. The animated handoff lives on the inter-column connector
+ * (Connector component above), so this is just a quiet "arrives from
+ * <previous>" marker — no graphic of its own.
  */
-function Connectors() {
+function IncomingFromPrevious({ fromLabel, accent }: { fromLabel: string; accent: string }) {
   return (
-    <svg
-      aria-hidden
-      className="hidden md:block pointer-events-none absolute inset-0 w-full h-full z-0"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-    >
-      {/* Connector 1: card 1 lower-right port → card 2 upper-left port */}
-      <path
-        d="M 31 70 L 35 30"
-        stroke="rgba(11,79,136,0.28)"
-        strokeWidth="1"
-        strokeDasharray="3 4"
-        fill="none"
-        vectorEffect="non-scaling-stroke"
-      />
-      {/* Connector 2: card 2 lower-right port → card 3 upper-left port */}
-      <path
-        d="M 65 70 L 69 30"
-        stroke="rgba(11,79,136,0.28)"
-        strokeWidth="1"
-        strokeDasharray="3 4"
-        fill="none"
-        vectorEffect="non-scaling-stroke"
-      />
+    <div className="flex items-center gap-2.5">
+      <span
+        className="inline-flex h-6 w-6 items-center justify-center rounded-full"
+        style={{ background: `${accent}1a` }}
+      >
+        <svg viewBox="0 0 10 10" className="w-3 h-3" aria-hidden style={{ color: accent }}>
+          <path d="M1 5 H 8 M 5 2 L 8 5 L 5 8" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+      <div className="text-[11px] leading-tight">
+        <div className="text-brand-ink/55 uppercase tracking-[0.18em] text-[9.5px] font-semibold">From</div>
+        <div className="text-brand-ink font-medium">{fromLabel}</div>
+      </div>
+    </div>
+  );
+}
 
-      {/* Token 1 */}
-      <circle r="0.9" fill="#0B4F88">
-        <animateMotion
-          path="M 31 70 L 35 30"
-          dur="9s"
-          keyPoints="0;0;1;1;1"
-          keyTimes="0;0.11;0.33;0.335;1"
-          calcMode="linear"
-          repeatCount="indefinite"
-        />
-        <animate
-          attributeName="opacity"
-          values="0;0;1;1;0;0"
-          keyTimes="0;0.105;0.11;0.33;0.335;1"
-          dur="9s"
-          calcMode="linear"
-          repeatCount="indefinite"
-        />
-      </circle>
+function EngineBar({ accent, delay }: { accent: string; delay: number }) {
+  return (
+    <div className="relative flex-1 h-1.5 rounded-full bg-brand-ink/8 overflow-hidden">
+      <div
+        className="ls-bar absolute left-0 top-0 h-full rounded-full"
+        style={{ background: accent, animationDelay: `${delay}s` }}
+      />
+    </div>
+  );
+}
 
-      {/* Token 2 */}
-      <circle r="0.9" fill="#0B4F88">
-        <animateMotion
-          path="M 65 70 L 69 30"
-          dur="9s"
-          keyPoints="0;0;0;1;1"
-          keyTimes="0;0.439;0.44;0.66;1"
-          calcMode="linear"
-          repeatCount="indefinite"
-        />
-        <animate
-          attributeName="opacity"
-          values="0;0;1;1;0;0"
-          keyTimes="0;0.435;0.44;0.66;0.665;1"
-          dur="9s"
-          calcMode="linear"
-          repeatCount="indefinite"
-        />
-      </circle>
-    </svg>
+function LayerColumn({ layer, index, prevProduct }: { layer: Layer; index: number; prevProduct?: string }) {
+  const accent = LAYER_ACCENTS[index];
+  const layerDelay = LAYER_DELAYS[index];
+  const sourceDelay = layerDelay;
+  const barStartOffset = 0.6;
+  const barStep = 0.9;
+  // Each engine bar takes ~1.05s to fill (ls-bar 2% → 9% of 15s). With
+  // bars staggered every 0.9s, the LAST bar finishes filling at
+  //   layerDelay + barStartOffset + (N-1)*barStep + 1.05s.
+  // A small beat (0.5s) after that, the output flashes so it reads as
+  // "engine finished, then result settled."
+  const barFillDuration = 1.05;
+  const lastBarFinish = layerDelay + barStartOffset + (layer.steps.length - 1) * barStep + barFillDuration;
+  const flashDelay = lastBarFinish + 0.5;
+
+  const eyebrowStyle: CSSProperties = { color: accent };
+
+  return (
+    <div className="flex flex-col gap-5 rounded-2xl bg-white/70 backdrop-blur-md ring-1 ring-white/60 p-5 md:p-6 shadow-[0_10px_30px_rgba(10,22,40,0.05)]">
+      {/* Header */}
+      <div>
+        <div className="flex items-baseline justify-between gap-3 mb-1">
+          <div className="font-display text-xl md:text-[22px] font-semibold text-brand-ink leading-tight">
+            {layer.product}
+          </div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={eyebrowStyle}>
+            {layer.role}
+          </div>
+        </div>
+        <p className="text-[12.5px] text-brand-ink/65 leading-relaxed">{layer.description}</p>
+      </div>
+
+      {/* Sources / Incoming */}
+      <div>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-ink/50 mb-2">
+          {index === 0 ? layer.sourcesLabel : 'Incoming'}
+        </div>
+        {index === 0 ? (
+          <div className="grid grid-cols-4 gap-2">
+            {(layer.sources ?? []).map((s, i) => (
+              <SourceTile key={`${s.key}-${i}`} source={s} delay={sourceDelay + i * 0.12} />
+            ))}
+            {/* "Custom sources" — anything else the customer plugs in
+               (APIs, internal databases, niche ERPs, scanners). Flat
+               treatment matching SourceTile so it doesn't read as CTA. */}
+            <div
+              className="ls-source flex flex-col items-center justify-center gap-1.5 py-1 px-1 text-brand-ink/55"
+              title="Custom sources — APIs, internal databases, ERPs, scanners"
+              style={{ animationDelay: `${sourceDelay + (layer.sources?.length ?? 0) * 0.12}s` }}
+              aria-label="Custom sources"
+            >
+              <Plug2 size={26} strokeWidth={1.6} aria-hidden />
+              <span className="text-[9.5px] font-medium text-brand-ink/65 leading-none">Custom</span>
+            </div>
+          </div>
+        ) : (
+          <IncomingFromPrevious fromLabel={prevProduct ?? ''} accent={accent} />
+        )}
+      </div>
+
+      {/* Engine */}
+      <div>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] mb-2" style={eyebrowStyle}>
+          {layer.engineLabel}
+        </div>
+        <div className="rounded-xl bg-brand-mist/40 ring-1 ring-black/5 p-3 md:p-4 space-y-2.5">
+          {layer.steps.map((step, i) => (
+            <div key={step.label} className="flex items-center gap-3">
+              <div className="text-[11px] text-brand-ink/80 flex-1 leading-tight">{step.label}</div>
+              <EngineBar accent={accent} delay={layerDelay + barStartOffset + i * barStep} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Output — sticks to the bottom so all three columns line up at
+         the same baseline. Flashes a halo when its layer's last bar
+         finishes. */}
+      <div className="mt-auto">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-ink/50 mb-2">
+          {layer.outputLabel}
+        </div>
+        <div className="relative">
+          <div
+            aria-hidden
+            className="ls-output-flash absolute -inset-1 rounded-2xl pointer-events-none"
+            style={{ background: accent, animationDelay: `${flashDelay}s` }}
+          />
+          <div
+            className="relative rounded-xl bg-white p-3.5 md:p-4 ring-1 ring-black/[0.06]"
+            style={{ boxShadow: '0 4px 14px rgba(10,22,40,0.04)' }}
+          >
+            <div className="font-display font-semibold text-[14.5px] text-brand-ink leading-tight mb-2" style={{ color: accent }}>
+              {layer.outputTitle}
+            </div>
+            <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[11px]">
+              {layer.outputFields.map((f) => (
+                <div key={f.k} className="contents">
+                  <span className="text-brand-ink/50 uppercase tracking-wide text-[9.5px] font-semibold pt-[2px]">{f.k}</span>
+                  <span className="text-brand-ink">{f.v}</span>
+                </div>
+              ))}
+            </div>
+            {layer.outputFooter && (
+              <div className="mt-2 pt-2 border-t border-black/5 text-[10.5px] text-brand-ink/60 leading-snug">
+                {layer.outputFooter}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
 export default function Platform() {
+  const [activeId, setActiveId] = useState<string>(USE_CASES[0].id);
+  const useCase = USE_CASES.find((u) => u.id === activeId) ?? USE_CASES[0];
+
   return (
     <Section
       eyebrow="The platform"
       title={
         <>
-          Diagnose.<br />Govern. Activate.
+          Inputs become understanding.<br />
+          Understanding becomes data.<br />
+          <span className="text-brand-blue">Data becomes action.</span>
         </>
       }
-      intro="Three products. One pipeline. Each ships value on its own and composes with the others."
+      intro="One pipeline, three layers. Watch a single artifact travel from raw input to executed automation, on systems you already use."
       tone="mist"
     >
-      <div className="pipeline-rail relative">
-        <Connectors />
-
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6 relative">
-          {PIPELINE.map((p) => (
-            <Link
-              key={p.name}
-              href={p.href}
-              className="group relative block h-full rounded-2xl p-7 md:p-8 bg-gradient-to-br from-white/85 via-white/70 to-white/55 backdrop-blur-md ring-1 ring-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_10px_30px_rgba(11,79,136,0.06)] hover:ring-brand-blue/40 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_18px_44px_rgba(11,79,136,0.14)] hover:-translate-y-1 transition-all duration-400 ease-out-expo"
-            >
-              {/* Gear: continuously spinning; halo pulses during this card's active window */}
-              <div className="absolute top-5 right-5 h-11 w-11">
-                <span
-                  aria-hidden
-                  className={`absolute inset-0 -m-1 rounded-full bg-brand-blue/45 blur-[2px] pipeline-glow-${p.slot}`}
-                />
-                <span
-                  aria-hidden
-                  className={`absolute inset-0 rounded-full ring-1 ring-brand-blue/25 bg-white/60 backdrop-blur-sm`}
-                />
-                <span className="absolute inset-0 flex items-center justify-center text-brand-blue">
-                  <Gear className={`h-6 w-6 pipeline-gear pipeline-gear-${p.slot}`} />
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2 mb-5 pr-14">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-blue/80 px-2 py-1 rounded bg-brand-blue/10">
-                  {p.stage}
-                </span>
-                {p.live && (
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-700 px-2 py-1 rounded bg-emerald-500/10 inline-flex items-center gap-1.5">
-                    <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                    Live
-                  </span>
+      {/* Use-case toggle */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 md:mb-8">
+        <div className="inline-flex p-1 rounded-full bg-white ring-1 ring-black/5 shadow-[0_2px_8px_rgba(10,22,40,0.04)]">
+          {USE_CASES.map((uc) => {
+            const isActive = uc.id === activeId;
+            return (
+              <button
+                key={uc.id}
+                type="button"
+                onClick={() => setActiveId(uc.id)}
+                className={clsx(
+                  'px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-300 ease-out-expo',
+                  isActive
+                    ? 'bg-brand-blue text-white shadow-sm'
+                    : 'text-brand-ink/65 hover:text-brand-ink',
                 )}
-              </div>
-              <h3 className="font-display text-2xl md:text-[28px] text-brand-ink mb-2">
-                {p.name}
-              </h3>
-              <p className="text-brand-ink font-semibold text-base md:text-lg leading-snug mb-3">
-                {p.tagline}
-              </p>
-              <p className="text-brand-ink/70 leading-relaxed">{p.body}</p>
-              <span className="mt-6 inline-flex items-center gap-2 text-brand-blue font-semibold text-sm">
-                Explore
-                <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
-              </span>
-            </Link>
-          ))}
+              >
+                {uc.tab}
+                <span className={clsx('hidden sm:inline ml-1.5 text-[11.5px]', isActive ? 'text-white/75' : 'text-brand-ink/45')}>
+                  · {uc.tabSub}
+                </span>
+              </button>
+            );
+          })}
         </div>
+        <p className="text-[12px] text-brand-ink/55 max-w-md">
+          {useCase.intro}
+        </p>
+      </div>
 
-        {/* Vertical proof point */}
-        <div className="mt-8 md:mt-10">
-          <Link
-            href="/products/gst-copilot"
-            className="group flex flex-col md:flex-row md:items-center gap-3 md:gap-6 rounded-xl bg-white/55 backdrop-blur-md ring-1 ring-white/60 hover:ring-brand-blue/35 px-6 py-5 transition-all duration-300 ease-out-expo shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]"
+      {/* Stage — `key` re-mounts on tab change so animations restart.
+         Each connector's dot fires shortly after the previous layer
+         finishes (lastBarFinish of layer N + 0.7s buffer) and inherits
+         the next layer's accent so the colour reads as "what's about
+         to land." */}
+      {(() => {
+        const handoffDelay = (i: number) => {
+          const prev = useCase.layers[i];
+          return LAYER_DELAYS[i] + 0.6 + (prev.steps.length - 1) * 0.9 + 1.05 + 0.7;
+        };
+        return (
+          <div
+            key={useCase.id}
+            className="layered-stage grid md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-4 md:gap-2 items-stretch"
           >
-            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-ink/60 shrink-0">
-              Vertical proof point
-            </span>
-            <div className="flex-1">
-              <span className="font-display text-xl text-brand-ink">GST Co-Pilot</span>
-              <span className="text-brand-ink/70"> &middot; agentic AI for Indian tax reconciliation, running the same governed stack in production for SMB and mid-market tax teams.</span>
-            </div>
-            <span className="text-brand-blue font-semibold text-sm inline-flex items-center gap-2 shrink-0">
-              See it
-              <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
-            </span>
-          </Link>
-        </div>
+            <LayerColumn layer={useCase.layers[0]} index={0} />
+            <Connector delay={handoffDelay(0)} accent={LAYER_ACCENTS[1]} />
+            <LayerColumn layer={useCase.layers[1]} index={1} prevProduct={useCase.layers[0].product} />
+            <Connector delay={handoffDelay(1)} accent={LAYER_ACCENTS[2]} />
+            <LayerColumn layer={useCase.layers[2]} index={2} prevProduct={useCase.layers[1].product} />
+          </div>
+        );
+      })()}
+
+      {/* Cycle hint */}
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-[11px] text-brand-ink/55">
+        <div>A complete pipeline cycle runs every 15 seconds. Hover any column to pause.</div>
+        <Link
+          href="/products/gst-copilot"
+          className="font-semibold text-brand-blue hover:text-brand-blue-light inline-flex items-center gap-1.5"
+        >
+          See GST Co-Pilot in production
+          <span aria-hidden>→</span>
+        </Link>
       </div>
     </Section>
   );

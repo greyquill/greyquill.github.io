@@ -23,7 +23,7 @@ export default function PartnershipStrip() {
 
         <div className="md:col-span-7 text-center md:text-left">
           <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-blue/80 mb-1.5">
-            Built on
+            We are
           </div>
           <p className="font-display font-semibold text-base md:text-lg text-brand-ink leading-snug">
             An IBM Business Partner.{' '}

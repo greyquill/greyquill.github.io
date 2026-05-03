@@ -142,3 +142,89 @@
 .pipeline-rail:hover .pipeline-glow-c {
   animation-play-state: paused;
 }
+
+/* ---------------------------------------------------------------- *
+ * Layered story (Platform section).
+ * Three layers, one shared 15s cycle. Each element uses one of the
+ * shared keyframes below + an inline `animation-delay` to land in
+ * its layer's window:
+ *   layer 0 (Clarity) — delay   0s
+ *   layer 1 (Data)    — delay   5s
+ *   layer 2 (Agents)  — delay  10s
+ * Within a layer, engine bars stagger by ~0.9s; output reveals after
+ * the bars complete. Pure transform/opacity/width → composited 60fps.
+ * Pause on hover via .layered-stage:hover on the parent.
+ * ---------------------------------------------------------------- */
+
+@keyframes ls-source {
+  0%, 100% { filter: grayscale(0.55) saturate(0.7); opacity: 0.5; transform: translateY(2px); }
+  3%       { filter: grayscale(0)    saturate(1);   opacity: 1;   transform: translateY(0); }
+  33%      { filter: grayscale(0)    saturate(1);   opacity: 1;   transform: translateY(0); }
+  38%      { filter: grayscale(0.55) saturate(0.7); opacity: 0.5; transform: translateY(2px); }
+}
+
+@keyframes ls-bar {
+  0%, 2%   { width: 0%;   opacity: 0.5; }
+  9%       { width: 100%; opacity: 1; }
+  90%      { width: 100%; opacity: 1; }
+  99%      { width: 100%; opacity: 0.4; }
+  100%     { width: 0%;   opacity: 0; }
+}
+
+@keyframes ls-output {
+  0%, 26%  { opacity: 0; transform: translateY(6px); }
+  33%      { opacity: 1; transform: translateY(0); }
+  93%      { opacity: 1; transform: translateY(0); }
+  100%     { opacity: 0; transform: translateY(-2px); }
+}
+
+@keyframes ls-token {
+  0%, 28%  { transform: translateX(0%);   opacity: 0; }
+  30%      { transform: translateX(0%);   opacity: 1; }
+  34%      { transform: translateX(100%); opacity: 1; }
+  36%      { transform: translateX(100%); opacity: 0; }
+  100%     { transform: translateX(100%); opacity: 0; }
+}
+
+/* animation-fill-mode: backwards so each element adopts its keyframe-0
+   state during animation-delay, instead of showing its base CSS styles
+   and snapping into the keyframe once the delay elapses. */
+.ls-source  { animation: ls-source  15s ease-in-out infinite; animation-fill-mode: backwards; will-change: opacity, filter, transform; }
+.ls-bar     { animation: ls-bar     15s cubic-bezier(0.65, 0, 0.35, 1) infinite; animation-fill-mode: backwards; will-change: width, opacity; }
+.ls-output  { animation: ls-output  15s cubic-bezier(0.22, 1, 0.36, 1) infinite; animation-fill-mode: backwards; will-change: opacity, transform; }
+.ls-token   { animation: ls-token   15s linear infinite; animation-fill-mode: backwards; will-change: transform, opacity; }
+
+/* Inter-column handoff: a dot crosses the connector left → right just
+   after the previous layer's engine finishes. The element wraps a dot
+   at left:0; translating the wrapper 0% → 100% moves the dot from the
+   start of the rail to the end. Set animation-delay per connector so
+   the travel lines up with the relevant handoff window. */
+@keyframes ls-handoff {
+  0%       { transform: translateX(0%);   opacity: 0; }
+  2%       { transform: translateX(0%);   opacity: 1; }
+  9%       { transform: translateX(100%); opacity: 1; }
+  12%      { transform: translateX(100%); opacity: 0; }
+  100%     { transform: translateX(100%); opacity: 0; }
+}
+.ls-handoff { animation: ls-handoff 15s cubic-bezier(0.65, 0, 0.35, 1) infinite; animation-fill-mode: backwards; will-change: transform, opacity; }
+
+/* Output cards bloom a soft halo when their layer's engine completes.
+   Slow + subtle: the halo eases up over ~1.2s, peaks low (0.18), and
+   takes another ~2s to fade. Total visible window ~3s — quiet enough to
+   feel like a confirmation, not a flash. */
+@keyframes ls-output-flash {
+  0%       { opacity: 0;    transform: scale(1);     }
+  8%       { opacity: 0.18; transform: scale(1.014); }
+  22%      { opacity: 0;    transform: scale(1.03);  }
+  100%     { opacity: 0;    transform: scale(1);     }
+}
+.ls-output-flash { animation: ls-output-flash 15s cubic-bezier(0.22, 1, 0.36, 1) infinite; animation-fill-mode: backwards; opacity: 0; will-change: transform, opacity; }
+
+.layered-stage:hover .ls-source,
+.layered-stage:hover .ls-bar,
+.layered-stage:hover .ls-output,
+.layered-stage:hover .ls-token,
+.layered-stage:hover .ls-handoff,
+.layered-stage:hover .ls-output-flash {
+  animation-play-state: paused;
+}

@@ -12,7 +12,7 @@
 ## 1. Strategic Positioning (locked)
 
 ### Headline thesis
-**"Compliant AI starts with governance you can prove — and trusted data you can stand behind."**
+**"Compliant AI with governance you can prove — and trusted data you can stand behind."**
 
 A fusion of Aligne's governance-first framing with Reltio's "data foundation before AI" thesis, expressed in *our* voice.
 
