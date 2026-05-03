@@ -1,9 +1,5 @@
-'use client';
-
 import type { ReactNode } from 'react';
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
-import { easings } from '@/lib/motion';
 
 type Props = {
   id?: string;
@@ -22,9 +18,9 @@ const toneClasses: Record<NonNullable<Props['tone']>, string> = {
 };
 
 /**
- * Section wrapper. The whole section fades in once when scrolled into
- * view. Children should NOT add their own entrance animations; this
- * single fade is the only entrance motion the section gets.
+ * Section wrapper. Titles + content render straight to the page — no
+ * scroll-triggered entrance animation. Sections that genuinely need
+ * staged motion can wrap themselves.
  */
 export default function Section({
   id,
@@ -36,12 +32,8 @@ export default function Section({
   className,
 }: Props) {
   return (
-    <motion.section
+    <section
       id={id}
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.45, ease: easings.outExpo }}
       className={clsx(toneClasses[tone], 'py-20 md:py-28', className)}
     >
       <div className="mx-auto max-w-6xl px-5 md:px-8">
@@ -70,6 +62,6 @@ export default function Section({
         )}
         {children}
       </div>
-    </motion.section>
+    </section>
   );
 }
