@@ -24,22 +24,77 @@ const INQUIRY_OPTIONS: { value: FormState['inquiryType']; label: string }[] = [
   { value: 'other', label: 'Other' },
 ];
 
+const INQUIRY_LABEL: Record<FormState['inquiryType'], string> =
+  Object.fromEntries(INQUIRY_OPTIONS.map((o) => [o.value, o.label])) as Record<
+    FormState['inquiryType'],
+    string
+  >;
+
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? '';
+
 export default function ContactForm() {
   const [form, setForm] = useState<FormState>(INITIAL);
   const [submitted, setSubmitted] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [botField, setBotField] = useState('');
 
   const update = (field: keyof FormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
       setForm((prev) => ({ ...prev, [field]: e.target.value }));
     };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Backend wiring is out of scope here; CRA parity is local-only.
-    // eslint-disable-next-line no-console
-    console.log('Contact form submitted:', form);
-    setSubmitted(true);
-    setForm(INITIAL);
+    setError(null);
+
+    if (!ACCESS_KEY) {
+      setError(
+        'The contact form is not configured yet. Please email amarnath@greyquill.io directly.',
+      );
+      return;
+    }
+
+    if (botField) {
+      // Honeypot tripped — pretend success without sending.
+      setSubmitted(true);
+      setForm(INITIAL);
+      return;
+    }
+
+    setPending(true);
+    try {
+      const res = await fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          name: form.name,
+          email: form.email,
+          subject: `Greyquill website inquiry: ${INQUIRY_LABEL[form.inquiryType]}`,
+          inquiry_type: INQUIRY_LABEL[form.inquiryType],
+          message: form.message,
+          from_name: 'Greyquill website',
+          botcheck: botField,
+        }),
+      });
+      const data = (await res.json()) as { success?: boolean; message?: string };
+      if (!data.success) {
+        throw new Error(data.message ?? 'Submission failed.');
+      }
+      setSubmitted(true);
+      setForm(INITIAL);
+    } catch (err) {
+      const msg =
+        err instanceof Error ? err.message : 'Something went wrong. Please try again.';
+      setError(msg);
+    } finally {
+      setPending(false);
+    }
   };
 
   if (submitted) {
@@ -57,7 +112,10 @@ export default function ContactForm() {
         </p>
         <button
           type="button"
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            setSubmitted(false);
+            setError(null);
+          }}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-brand-blue text-white font-semibold text-sm hover:bg-brand-blue-dark transition-colors"
         >
           Send another message
@@ -71,6 +129,18 @@ export default function ContactForm() {
       onSubmit={onSubmit}
       className="rounded-2xl ring-1 ring-black/[0.06] bg-white p-6 md:p-8"
     >
+      {/* Honeypot — hidden from real users, often filled by bots. */}
+      <input
+        type="text"
+        name="botcheck"
+        value={botField}
+        onChange={(e) => setBotField(e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="hidden"
+      />
+
       <div className="grid md:grid-cols-2 gap-4 mb-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-brand-ink mb-2">
@@ -139,12 +209,22 @@ export default function ContactForm() {
         />
       </div>
 
+      {error && (
+        <div
+          role="alert"
+          className="mb-4 rounded-md bg-rose-50 ring-1 ring-rose-200 text-rose-800 text-sm px-4 py-3 leading-relaxed"
+        >
+          {error}
+        </div>
+      )}
+
       <button
         type="submit"
-        className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-brand-blue text-white font-semibold text-sm hover:bg-brand-blue-dark hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-blue/20 transition-all duration-300 ease-out-expo"
+        disabled={pending}
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-brand-blue text-white font-semibold text-sm hover:bg-brand-blue-dark hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-blue/20 transition-all duration-300 ease-out-expo disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
       >
-        Submit inquiry
-        <span aria-hidden>→</span>
+        {pending ? 'Sending…' : 'Submit inquiry'}
+        <span aria-hidden>{pending ? '' : '→'}</span>
       </button>
     </form>
   );
