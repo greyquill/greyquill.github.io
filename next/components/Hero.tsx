@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { easings } from '@/lib/motion';
+import { CALENDLY_URL } from '@/lib/links';
 import HeroChatbot from './HeroChatbot';
 
 /**
@@ -70,19 +71,20 @@ export default function Hero() {
             </h1>
 
             <p className="mt-7 text-lg md:text-xl text-brand-ink/75 max-w-xl leading-[1.55]">
-              We help regulated enterprises ship trusted, governed AI by fixing
-              the data foundation first. Products, accelerators, and senior
-              advisors for Heads of AI, CDOs, and Chief Risk Officers.
+                  We help regulated enterprises ship trusted, governed AI by fixing the data foundation first. Build Products, accelerators, and senior advisors to assist Heads of AI, CDOs, and Chief Risk Officers in their AI journey.
+
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-4">
-              <Link
-                href="/contact"
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener"
                 className="group inline-flex items-center gap-2 bg-brand-ink text-white font-semibold px-6 py-3.5 rounded-full transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-blue/20 hover:bg-brand-blue"
               >
                 Book a discovery call
-                <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
-              </Link>
+                <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">↗</span>
+              </a>
               <Link
                 href="#approach"
                 className="group inline-flex items-center gap-2 text-brand-ink/85 hover:text-brand-blue font-semibold px-3 py-3.5 transition-colors"

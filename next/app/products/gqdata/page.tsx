@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Section from '@/components/Section';
 import ProductSiblingChips from '@/components/ProductSiblingChips';
 import ProductSubnav from '@/components/ProductSubnav';
+import { CALENDLY_URL } from '@/lib/links';
 
 export const metadata: Metadata = {
   title: 'GQData · Master data and lineage for AI-ready data',
@@ -177,13 +178,15 @@ export default function GQDataPage() {
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-4">
-              <Link
-                href="/contact"
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener"
                 className="group inline-flex items-center gap-2 bg-brand-blue text-white font-semibold px-6 py-3.5 rounded-full transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-blue/30 hover:bg-brand-blue-dark"
               >
                 Book a discovery call
-                <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
-              </Link>
+                <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">↗</span>
+              </a>
               <Link
                 href="/products"
                 className="group inline-flex items-center gap-2 text-brand-ink/85 hover:text-brand-blue font-semibold px-3 py-3.5 transition-colors"
@@ -299,13 +302,15 @@ export default function GQDataPage() {
             whether GQData solves it and what the path to production looks like.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/contact"
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener"
               className="group inline-flex items-center gap-2 bg-white text-brand-ink font-semibold px-6 py-3.5 rounded-full transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/15"
             >
               Book a discovery call
-              <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
-            </Link>
+              <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">↗</span>
+            </a>
             <Link href="/industries" className="text-white/85 hover:text-white font-semibold px-3 py-3.5 transition-colors">
               See industries we serve
             </Link>

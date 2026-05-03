@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { easings } from '@/lib/motion';
+import { CALENDLY_URL } from '@/lib/links';
 
 export default function FinalCTA() {
   return (
@@ -35,13 +36,15 @@ export default function FinalCTA() {
           and tell you, honestly, whether we&apos;re the right partner.
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-          <Link
-            href="/contact"
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener"
             className="group inline-flex items-center gap-2 bg-white text-brand-ink font-semibold px-6 py-3.5 rounded-full transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/10"
           >
             Book a discovery call
-            <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
-          </Link>
+            <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">↗</span>
+          </a>
           <Link
             href="/industries"
             className="text-white/85 hover:text-white font-semibold px-3 py-3.5 transition-colors"
