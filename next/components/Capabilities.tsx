@@ -36,7 +36,7 @@ const PILLARS = [
 
 export default function Capabilities() {
   return (
-    <section className="bg-brand-ink text-white py-20 md:py-28 relative overflow-hidden">
+    <section className="bg-brand-ink text-white py-16 md:py-24 relative overflow-hidden">
       <div aria-hidden className="absolute -top-32 -right-24 h-[440px] w-[440px] rounded-full bg-brand-blue/30 blur-[120px]" />
       <div aria-hidden className="absolute -bottom-32 -left-24 h-[380px] w-[380px] rounded-full bg-brand-blue/20 blur-[110px]" />
 
