@@ -231,11 +231,3 @@
 }
 .ls-output-flash { animation: ls-output-flash 15s cubic-bezier(0.22, 1, 0.36, 1) infinite; animation-fill-mode: backwards; opacity: 0; will-change: transform, opacity; }
 
-.layered-stage:hover .ls-source,
-.layered-stage:hover .ls-bar,
-.layered-stage:hover .ls-output,
-.layered-stage:hover .ls-token,
-.layered-stage:hover .ls-handoff,
-.layered-stage:hover .ls-output-flash {
-  animation-play-state: paused;
-}

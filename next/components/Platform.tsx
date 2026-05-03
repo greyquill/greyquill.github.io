@@ -493,7 +493,7 @@ export default function Platform() {
 
       {/* Cycle hint */}
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-[11px] text-brand-ink/55">
-        <div>A complete pipeline cycle runs every 15 seconds. Hover any column to pause.</div>
+        <div>A complete pipeline cycle runs every 15 seconds.</div>
         <Link
           href="/products/gst-copilot"
           className="font-semibold text-brand-blue hover:text-brand-blue-light inline-flex items-center gap-1.5"
