@@ -24,7 +24,7 @@ export default function RoleTargeting() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.45, ease: easings.outExpo }}
-      className="py-16 md:py-24 bg-white"
+      className="py-14 md:py-20 bg-white"
     >
       <div className="mx-auto max-w-6xl px-5 md:px-8 grid lg:grid-cols-12 gap-10 lg:gap-16">
         <div className="lg:col-span-5">

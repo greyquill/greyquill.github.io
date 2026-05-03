@@ -636,7 +636,7 @@ export default function PlatformPage() {
 
       {/* THREE PILLARS — alternating sections */}
       <section id="pillars" className="bg-brand-mist/30">
-        <div className="mx-auto max-w-6xl px-5 md:px-8 py-16 md:py-24 space-y-20 md:space-y-28">
+        <div className="mx-auto max-w-6xl px-5 md:px-8 py-14 md:py-20 space-y-20 md:space-y-28">
           {PILLARS.map((p, i) => {
             const imageRight = i % 2 === 0; // alternate: 0 right, 1 left, 2 right
             return (
@@ -691,7 +691,7 @@ export default function PlatformPage() {
       </section>
 
       {/* CLOSING CTA */}
-      <section className="py-16 md:py-24 bg-brand-ink text-white relative overflow-hidden">
+      <section className="py-14 md:py-20 bg-brand-ink text-white relative overflow-hidden">
         <div aria-hidden className="absolute -top-32 -right-24 h-[440px] w-[440px] rounded-full bg-brand-blue/40 blur-[120px]" />
         <div aria-hidden className="absolute -bottom-24 -left-20 h-[320px] w-[320px] rounded-full bg-brand-blue/25 blur-[100px]" />
 

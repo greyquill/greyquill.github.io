@@ -345,7 +345,7 @@ export default function GSTCoPilotPage() {
       </Section>
 
       {/* FINAL CTA */}
-      <section className="py-16 md:py-24 bg-brand-ink text-white relative overflow-hidden">
+      <section className="py-14 md:py-20 bg-brand-ink text-white relative overflow-hidden">
         <div aria-hidden className="absolute -top-32 -right-24 h-[440px] w-[440px] rounded-full bg-brand-blue/40 blur-[120px]" />
         <div aria-hidden className="absolute -bottom-24 -left-20 h-[320px] w-[320px] rounded-full bg-brand-blue/25 blur-[100px]" />
 

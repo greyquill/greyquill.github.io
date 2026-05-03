@@ -96,7 +96,7 @@ function IndustryHero({ industry }: { industry: Industry }) {
 
 function Buyers({ industry }: { industry: Industry }) {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-14 md:py-20">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="grid md:grid-cols-[280px_1fr] gap-10 md:gap-16">
           <div>
@@ -129,7 +129,7 @@ function Buyers({ industry }: { industry: Industry }) {
 
 function Learnings({ industry }: { industry: Industry }) {
   return (
-    <section className="bg-brand-mist/40 py-16 md:py-24">
+    <section className="bg-brand-mist/40 py-14 md:py-20">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="max-w-3xl mb-10 md:mb-14">
           <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue/80 mb-3">
@@ -164,7 +164,7 @@ function Learnings({ industry }: { industry: Industry }) {
 
 function Solutions({ industry }: { industry: Industry }) {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-14 md:py-20">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="max-w-3xl mb-10 md:mb-14">
           <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue/80 mb-3">
@@ -207,7 +207,7 @@ function Solutions({ industry }: { industry: Industry }) {
 
 function CrossLinks({ industry }: { industry: Industry }) {
   return (
-    <section className="bg-brand-mist/40 py-16 md:py-24">
+    <section className="bg-brand-mist/40 py-14 md:py-20">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="max-w-3xl mb-10 md:mb-12">
           <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue/80 mb-3">
@@ -265,7 +265,7 @@ function CrossLinks({ industry }: { industry: Industry }) {
 
 function FinalCTA({ industry }: { industry: Industry }) {
   return (
-    <section className="relative overflow-hidden isolate bg-brand-ink text-white py-16 md:py-24">
+    <section className="relative overflow-hidden isolate bg-brand-ink text-white py-14 md:py-20">
       <div
         aria-hidden
         className="absolute -top-32 -left-24 w-[520px] h-[520px] rounded-full opacity-20 blur-3xl"
