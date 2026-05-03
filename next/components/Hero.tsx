@@ -50,7 +50,7 @@ export default function Hero() {
       />
 
       {/* Content */}
-      <div className="relative mx-auto max-w-6xl px-5 md:px-8 min-h-[78vh] md:min-h-[82vh] flex items-center py-16 md:py-20">
+      <div className="relative mx-auto max-w-6xl px-5 md:px-8 py-20 md:py-32">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full">
           {/* Left: text — single section-level fade only, no stagger */}
           <motion.div
