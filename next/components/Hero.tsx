@@ -63,7 +63,7 @@ export default function Hero() {
               Compliant AI · Trusted Data
             </div>
 
-            <h1 className="font-display font-semibold text-[40px] sm:text-5xl md:text-6xl lg:text-[64px] xl:text-7xl leading-[1.0] tracking-[-0.025em] text-brand-ink">
+            <h1 className="font-display font-semibold text-[38px] sm:text-5xl md:text-6xl lg:text-[64px] xl:text-7xl leading-[1.0] tracking-[-0.025em] text-brand-ink">
               Compliant AI with{' '}
               <span className="text-brand-blue">governance</span>{' '}
               you can prove.

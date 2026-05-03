@@ -3,9 +3,9 @@ import Link from 'next/link';
 import ProductBackLink from '@/components/ProductBackLink';
 
 export const metadata: Metadata = {
-  title: 'Products · The Greyquill platform',
+  title: 'Products · Built on the Greyquill platform',
   description:
-    'Three core platform products and three commercial verticals. ClarityAI scores readiness, GQData makes the foundation trustworthy, GQ Agents runs governed workflows. GST Co-Pilot, Commerce Synapse, and Umami prove it in production.',
+    'Vertical products built on the Greyquill platform. GST Co-Pilot for Indian tax reconciliation, Commerce Synapse for retail and commerce, Umami for healthcare practice management.',
   alternates: { canonical: 'https://greyquill.io/products' },
 };
 
@@ -30,44 +30,9 @@ type Group = {
 
 const GROUPS: Group[] = [
   {
-    label: 'Core platform',
-    description:
-      'Three horizontal layers across the AI journey. Diagnose readiness, govern the foundation, activate workloads.',
-    items: [
-      {
-        name: 'ClarityAI',
-        tier: 'Diagnose',
-        live: true,
-        tagline: 'Score the clarity and risk of any initiative, before you fund it.',
-        body: 'Drop in a PRD, AI brief, or RFP. Get a clarity score, line-by-line fixes, and a one-page board summary in minutes.',
-        href: '/products/clarity-ai',
-        previewUrl: 'https://clarity.greyquill.io',
-        cta: 'Read more',
-      },
-      {
-        name: 'GQData',
-        tier: 'Govern',
-        tagline: 'The trusted-data layer beneath every AI decision.',
-        body: 'Master data unification, real-time quality, queryable lineage, and sensitive-data classification.',
-        href: '/products/gqdata',
-        gradient: 'linear-gradient(135deg, #0B4F88 0%, #1a6bb5 100%)',
-        cta: 'Read more',
-      },
-      {
-        name: 'GQ Agents',
-        tier: 'Activate',
-        tagline: 'Multi-agent orchestration with audit trails built in.',
-        body: 'Work-packet provenance, human-in-the-loop checkpoints, replayable execution. Designed for regulated workloads.',
-        href: '/products/agents',
-        gradient: 'linear-gradient(135deg, #083d6a 0%, #0B4F88 100%)',
-        cta: 'Read more',
-      },
-    ],
-  },
-  {
     label: 'Commercial verticals',
     description:
-      'Industry-specific applications of the platform. The reference architectures for governed agentic AI in production, in real domains.',
+      'Industry-specific products built on the Greyquill platform. Each one is a reference architecture for governed agentic AI in production, in a real domain.',
     items: [
       {
         name: 'GST Co-Pilot',
@@ -228,16 +193,19 @@ export default function ProductsPage() {
         <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-10 md:pt-14 pb-12 md:pb-16">
           <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue mb-5">
             <span className="h-px w-7 bg-brand-blue/60" aria-hidden />
-            The platform
+            Products
           </div>
           <h1 className="font-display font-semibold text-[40px] sm:text-5xl md:text-6xl leading-[1.0] tracking-[-0.025em] text-brand-ink max-w-4xl">
-            Three core products,<br />
-            <span className="text-brand-blue">multiple commercial verticals.</span>
+            Vertical products,<br />
+            <span className="text-brand-blue">built on the platform.</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
-            The platform layer scores readiness, governs the foundation, and activates
-            workloads. The vertical accelerators are what that layer looks like in
-            production, in real industries.
+            What the Greyquill platform looks like in production, in real industries —
+            tax reconciliation, retail commerce, healthcare practice management. Each
+            one is a reference architecture you can adapt to your vertical.{' '}
+            <Link href="/platform" className="text-brand-blue font-semibold hover:text-brand-blue-dark">
+              See the platform →
+            </Link>
           </p>
         </div>
       </section>

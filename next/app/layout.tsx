@@ -8,8 +8,8 @@ import './globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL('https://greyquill.io'),
   title: {
-    default: 'Greyquill. Compliant AI on a foundation you can prove.',
-    template: '%s · Greyquill',
+    default: 'Greyquill Software · Governed AI for regulated enterprises',
+    template: '%s · Greyquill Software',
   },
   description:
     'We help regulated enterprises ship trusted, governed AI by fixing the data foundation first. Products, accelerators, and senior advisors for Heads of AI, CDOs, and Chief Risk Officers.',
