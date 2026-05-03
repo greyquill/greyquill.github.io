@@ -306,8 +306,8 @@ export default function GQDataPage() {
               Book a discovery call
               <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
             </Link>
-            <Link href="/case-studies" className="text-white/85 hover:text-white font-semibold px-3 py-3.5 transition-colors">
-              Read case studies
+            <Link href="/industries" className="text-white/85 hover:text-white font-semibold px-3 py-3.5 transition-colors">
+              See industries we serve
             </Link>
           </div>
         </div>

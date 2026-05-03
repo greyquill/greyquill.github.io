@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 
 const PRIMARY_NAV = [
   { href: '/industries', label: 'Industries' },
-  { href: '/case-studies', label: 'Case studies' },
   { href: '/about-us', label: 'About' },
 ];
 

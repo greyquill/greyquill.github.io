@@ -15,7 +15,6 @@ const VERTICALS: { href: string; label: string; external?: boolean }[] = [
 
 const COMPANY = [
   { href: '/about-us', label: 'About' },
-  { href: '/case-studies', label: 'Case studies' },
   { href: '/partnerships', label: 'Partnerships' },
   { href: '/news', label: 'News' },
 ];
