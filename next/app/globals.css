@@ -61,3 +61,84 @@
   stroke-dashoffset: 1000;
   animation: draw-stroke 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
+
+/* Platform pipeline: each card has a gear that spins continuously to
+   convey "ongoing process," and a halo that pulses twice during that
+   card's active window in a shared 9s cycle. Connector tokens between
+   cards are SVG <animateMotion> elements timed to the same 9s cycle.
+   Pure transform/opacity animations → composited at 60fps.
+     0–11%  card A active   (gear A glow pulses 2×)
+     11–33% transit A → B   (SVG token 1 traverses connector 1)
+     33–44% card B active   (gear B glow pulses 2×)
+     44–66% transit B → C   (SVG token 2 traverses connector 2)
+     66–77% card C active   (gear C glow pulses 2×) */
+
+/* Gear: continuous slow spin. */
+@keyframes pipeline-gear-spin {
+  to { transform: rotate(360deg); }
+}
+.pipeline-gear {
+  animation: pipeline-gear-spin 9s linear infinite;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+/* Each gear gets a tiny brightness lift during its own active window. */
+@keyframes pipeline-gear-active-a {
+  0%, 11%, 100%   { filter: none; }
+  3%, 9%          { filter: drop-shadow(0 0 6px rgba(11,79,136,0.55)); }
+}
+@keyframes pipeline-gear-active-b {
+  0%, 33%, 44%, 100% { filter: none; }
+  36%, 42%           { filter: drop-shadow(0 0 6px rgba(11,79,136,0.55)); }
+}
+@keyframes pipeline-gear-active-c {
+  0%, 66%, 77%, 100% { filter: none; }
+  69%, 75%           { filter: drop-shadow(0 0 6px rgba(11,79,136,0.55)); }
+}
+.pipeline-gear-a { animation: pipeline-gear-spin 9s linear infinite, pipeline-gear-active-a 9s linear infinite; }
+.pipeline-gear-b { animation: pipeline-gear-spin 9s linear infinite, pipeline-gear-active-b 9s linear infinite; }
+.pipeline-gear-c { animation: pipeline-gear-spin 9s linear infinite, pipeline-gear-active-c 9s linear infinite; }
+
+/* Halo glow around the gear: 2 quick pulses during each card's window. */
+@keyframes pipeline-glow-a {  /* 0–11% */
+  0%, 11%, 100% { transform: scale(0.7); opacity: 0; }
+  1%   { transform: scale(0.7); opacity: 0.6; }
+  4%   { transform: scale(2.4); opacity: 0;   }
+  5%   { transform: scale(0.7); opacity: 0.6; }
+  9%   { transform: scale(2.6); opacity: 0;   }
+}
+@keyframes pipeline-glow-b {  /* 33–44% */
+  0%, 33%, 44%, 100% { transform: scale(0.7); opacity: 0; }
+  34%  { transform: scale(0.7); opacity: 0.6; }
+  37%  { transform: scale(2.4); opacity: 0;   }
+  38%  { transform: scale(0.7); opacity: 0.6; }
+  42%  { transform: scale(2.6); opacity: 0;   }
+}
+@keyframes pipeline-glow-c {  /* 66–77% */
+  0%, 66%, 77%, 100% { transform: scale(0.7); opacity: 0; }
+  67%  { transform: scale(0.7); opacity: 0.6; }
+  70%  { transform: scale(2.4); opacity: 0;   }
+  71%  { transform: scale(0.7); opacity: 0.6; }
+  75%  { transform: scale(2.6); opacity: 0;   }
+}
+.pipeline-glow-a,
+.pipeline-glow-b,
+.pipeline-glow-c {
+  animation-duration: 9s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-iteration-count: infinite;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+.pipeline-glow-a { animation-name: pipeline-glow-a; }
+.pipeline-glow-b { animation-name: pipeline-glow-b; }
+.pipeline-glow-c { animation-name: pipeline-glow-c; }
+
+/* Hovering the row pauses the CSS-driven gears + glows.
+   (SVG SMIL tokens keep playing — acceptable; their loop is brief.) */
+.pipeline-rail:hover .pipeline-gear,
+.pipeline-rail:hover .pipeline-glow-a,
+.pipeline-rail:hover .pipeline-glow-b,
+.pipeline-rail:hover .pipeline-glow-c {
+  animation-play-state: paused;
+}

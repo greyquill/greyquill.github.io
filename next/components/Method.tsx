@@ -208,7 +208,7 @@ export default function Method() {
               <ol className="lg:col-span-9 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch gap-3 md:gap-2">
                 {lane.steps.map((s, si) => (
                   <li key={s.title} className="contents">
-                    <div className="group rounded-xl bg-brand-mist/45 ring-1 ring-black/[0.04] p-3.5 md:p-4 hover:ring-brand-blue/40 hover:-translate-y-0.5 transition-all duration-300 ease-out-expo">
+                    <div className="group relative rounded-xl p-3.5 md:p-4 bg-gradient-to-b from-white/85 to-brand-mist/80 backdrop-blur-sm ring-1 ring-brand-blue/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(10,22,40,0.04)] hover:ring-brand-blue/45 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_6px_18px_rgba(11,79,136,0.10)] hover:-translate-y-0.5 transition-all duration-300 ease-out-expo">
                       <div className="flex items-baseline gap-2 mb-1">
                         <span className="text-[10px] font-semibold tracking-[0.18em] text-brand-blue/70">
                           {String(si + 1).padStart(2, '0')}
