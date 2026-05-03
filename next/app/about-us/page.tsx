@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Lightbulb, Handshake, CheckCircle2, Award } from 'lucide-react';
+import { CALENDLY_URL } from '@/lib/links';
 
 export const metadata: Metadata = {
   title: 'About · Greyquill Software',
@@ -238,13 +239,15 @@ export default function AboutPage() {
             whether we are the right team to help you clear it.
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
-            <Link
-              href="/contact"
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-white text-brand-ink font-semibold text-sm hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300 ease-out-expo"
             >
               Book a discovery call
-              <span aria-hidden>→</span>
-            </Link>
+              <span aria-hidden>↗</span>
+            </a>
             <Link
               href="/platform"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-md ring-1 ring-white/30 text-white font-semibold text-sm hover:ring-white/60 hover:bg-white/[0.06] transition-all duration-300 ease-out-expo"

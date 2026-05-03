@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import ServiceGroups from '@/components/ServiceGroups';
+import { CALENDLY_URL } from '@/lib/links';
 
 export const metadata: Metadata = {
   title: 'Services · Training, assessments, consulting',
@@ -65,13 +66,15 @@ export default function ServicesPage() {
             </p>
           </div>
           <div className="md:col-span-4 flex md:justify-end">
-            <Link
-              href="/contact"
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener"
               className="group inline-flex items-center gap-2 bg-white text-brand-ink font-semibold px-6 py-3.5 rounded-full transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-blue/30"
             >
               Book a call
-              <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
-            </Link>
+              <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">↗</span>
+            </a>
           </div>
         </div>
       </section>

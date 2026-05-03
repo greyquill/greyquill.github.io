@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { CALENDLY_URL } from '@/lib/links';
 
 const PRIMARY_NAV = [
   { href: '/industries', label: 'Industries' },
@@ -273,13 +274,15 @@ export default function Header() {
           ))}
         </nav>
 
-        <Link
-          href="/contact"
+        <a
+          href={CALENDLY_URL}
+          target="_blank"
+          rel="noopener"
           className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-brand-ink px-4 py-2 rounded-full hover:bg-brand-blue transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-md"
         >
           Book a call
-          <span aria-hidden>→</span>
-        </Link>
+          <span aria-hidden>↗</span>
+        </a>
       </div>
     </header>
   );
