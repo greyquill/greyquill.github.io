@@ -34,7 +34,7 @@ export default function Section({
   return (
     <section
       id={id}
-      className={clsx(toneClasses[tone], 'py-16 md:py-24', className)}
+      className={clsx(toneClasses[tone], 'py-14 md:py-20', className)}
     >
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         {(eyebrow || title || intro) && (

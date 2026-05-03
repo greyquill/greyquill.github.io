@@ -120,7 +120,7 @@ export default function IndustriesIndexPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden isolate bg-brand-ink text-white py-16 md:py-24">
+      <section className="relative overflow-hidden isolate bg-brand-ink text-white py-14 md:py-20">
         <div
           aria-hidden
           className="absolute -top-32 -left-24 w-[520px] h-[520px] rounded-full opacity-20 blur-3xl bg-brand-blue"
