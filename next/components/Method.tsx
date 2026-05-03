@@ -128,7 +128,7 @@ export default function Method() {
       title={
         <>
           A three-step approach,<br />
-          <span className="text-brand-blue">for your success in your AI journey.</span>
+          <span className="text-brand-blue">for success in your AI journey.</span>
         </>
       }
       intro="Three sequenced phases above. Three workstreams running through every phase below. One pipeline from policy to proof, so the KPIs you committed to actually move."
