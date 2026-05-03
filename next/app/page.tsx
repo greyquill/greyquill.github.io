@@ -12,10 +12,10 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <PartnershipStrip />
       <Dilemma />
       <Method />
       <Capabilities />
-      <PartnershipStrip />
       <RoleTargeting />
       <Platform />
       <Testimonials />

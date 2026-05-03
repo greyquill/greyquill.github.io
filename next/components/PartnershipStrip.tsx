@@ -10,7 +10,7 @@ import Link from 'next/link';
 export default function PartnershipStrip() {
   return (
     <section className="bg-brand-mist/45 border-y border-black/[0.05]">
-      <div className="mx-auto max-w-6xl px-5 md:px-8 py-7 md:py-8 grid md:grid-cols-12 gap-5 md:gap-6 items-center">
+      <div className="mx-auto max-w-6xl px-5 md:px-8 py-5 md:py-6 grid md:grid-cols-12 gap-5 md:gap-6 items-center">
         <div className="md:col-span-2 flex justify-center md:justify-start">
           <Image
             src="/images/partners/ibm-partner-plus-silver.png"

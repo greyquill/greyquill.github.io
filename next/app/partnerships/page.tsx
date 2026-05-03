@@ -126,11 +126,7 @@ export default function PartnershipsPage() {
             </h1>
 
             <p className="mt-7 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
-              Greyquill holds Silver tier in the IBM Partner Plus program, with sales and
-              technical certifications across the watsonx and IBM Verify stacks. The reason
-              we built much of our platform on these foundations is the same reason we tell
-              you about it: enterprise-grade, regulator-aware, and portable when you need it
-              to be.
+              Greyquill is a Silver-tier IBM Partner Plus member, certified across watsonx and IBM Verify. We chose this foundation deliberately: it gives our customers enterprise-grade reliability, supports regulatory requirements out of the box, and keeps the architecture flexible as things change.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-4">
@@ -200,11 +196,11 @@ export default function PartnershipsPage() {
         eyebrow="Where we hold certifications"
         title={
           <>
-            Sales and technical depth <br className="hidden md:block" />
+            Technical depth <br className="hidden md:block" />
             <span className="text-brand-blue">across the stack we ship on.</span>
           </>
         }
-        intro="Every product in the platform is built and operated by engineers carrying current sales and technical certifications in the underlying IBM products. No reseller pretence, no learn-as-we-go projects."
+        intro="Every product in the platform is built and operated by engineers who hold current certifications across the underlying IBM stack. The work is done by the same people who understand it end to end."
       >
         <div className="space-y-8">
           {CERTS.map((group) => (
@@ -234,18 +230,6 @@ export default function PartnershipsPage() {
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="mt-10 max-w-3xl space-y-2">
-          <p className="text-xs text-brand-ink/65">
-            <span className="font-semibold text-brand-ink/80">Certifications held:</span>{' '}
-            Sales Foundation and Technical Sales Intermediate across every product listed above,
-            maintained under the IBM Partner Plus program.
-          </p>
-          <p className="text-xs text-brand-ink/55">
-            Greyquill Software is the sole entity responsible for the deliverables in any client
-            engagement; IBM is named here as the foundational technology vendor and partner program.
-          </p>
         </div>
       </Section>
 
