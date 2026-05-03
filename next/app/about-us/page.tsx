@@ -112,28 +112,37 @@ export default function AboutPage() {
             </div>
             <div className="space-y-5 md:pt-2 text-brand-ink/85 text-[16px] leading-[1.7] max-w-2xl">
               <p>
-                We have spent our careers building software for enterprises in
-                financial services, healthcare, manufacturing, and logistics.
-                Along the way we watched project after project fail. Not because
-                the code was bad, but because nobody truly understood what
-                needed to be built.
+                We have spent our careers building enterprise-grade software
+                for banking, financial services, insurance, retail, and
+                telecom. Most of those projects shipped. Most of those clients
+                came back.
               </p>
               <p>
-                Teams would dive into development with vague requirements,
-                misaligned stakeholders, and assumptions instead of facts. Six
-                months later they would deliver something that technically
-                worked but did not solve the actual problem.
+                Even on the wins, our team kept asking the same question. How
+                could this have gone better? Where did vague requirements cost
+                us a week? Where did a misalignment we should have caught
+                earlier eat into the timeline? We are perfectionists, and the
+                hardest critic of any Greyquill engagement has always been the
+                Greyquill team that ran it.
               </p>
               <p>
-                We founded Greyquill to do things differently. Our answer is the
-                Greyquill Method, a rigorous process that maps the business
-                reality before we write a single line of code, and a platform
-                (ClarityAI, GQData, GQ Agents) that makes governed AI work
-                shippable in regulated environments.
+                Alongside our own work, we watched other teams and other
+                companies ship projects that did not land. The root cause was
+                almost always the same: nobody truly understood what needed to
+                be built. Vague requirements, misaligned stakeholders,
+                assumptions instead of facts. Six months later, software that
+                technically worked but did not solve the actual problem.
               </p>
               <p>
-                The result is projects that deliver what is actually needed, on
-                time, with no surprises. We are not the cheapest option. We
+                We founded Greyquill to fix that pattern up front. Our answer
+                is the Greyquill Method, a rigorous process that maps the
+                business reality before we write a single line of code, and a
+                platform (ClarityAI, GQData, GQ Agents) that makes governed AI
+                work shippable in regulated environments.
+              </p>
+              <p>
+                The result is projects that deliver what is actually needed,
+                on time, with no surprises. We are not the cheapest option. We
                 might be the only one that guarantees clarity.
               </p>
             </div>
