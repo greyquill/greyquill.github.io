@@ -1,8 +1,8 @@
-name: Deploy React App to GitHub Pages
+name: Deploy site to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -25,20 +25,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'npm'
-          cache-dependency-path: websire_react/package-lock.json
+          cache-dependency-path: next/package-lock.json
 
       - name: Install dependencies
-        working-directory: ./websire_react
+        working-directory: ./next
         run: npm ci
 
-      - name: Build React app
-        working-directory: ./websire_react
+      - name: Build static export
+        working-directory: ./next
         run: npm run build
 
-      - name: Copy CNAME to build directory
-        run: cp websire_react/CNAME websire_react/build/CNAME
+      - name: Copy CNAME for custom domain
+        run: cp CNAME next/out/CNAME
+
+      - name: Disable Jekyll
+        run: touch next/out/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -46,7 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./websire_react/build
+          path: ./next/out
 
   deploy:
     environment:
