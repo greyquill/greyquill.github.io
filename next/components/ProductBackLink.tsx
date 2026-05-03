@@ -50,7 +50,6 @@ const PATH_LABELS: Record<string, string> = {
   '/products/agents':        'GQ Agents',
   '/products/gst-copilot':   'GST Co-Pilot',
   '/industries':             'industries',
-  '/case-studies':           'case studies',
   '/about-us':               'about',
   '/contact':                'contact',
   '/partnerships':           'partnerships',

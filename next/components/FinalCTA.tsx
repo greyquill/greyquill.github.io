@@ -43,10 +43,10 @@ export default function FinalCTA() {
             <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
           </Link>
           <Link
-            href="/case-studies"
+            href="/industries"
             className="text-white/85 hover:text-white font-semibold px-3 py-3.5 transition-colors"
           >
-            Read case studies
+            See industries we serve
           </Link>
         </div>
       </div>
