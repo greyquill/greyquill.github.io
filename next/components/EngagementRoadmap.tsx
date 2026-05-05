@@ -156,7 +156,7 @@ const PHASES: Phase[] = [
     n: '01',
     name: 'Align',
     headline: 'Align the board.',
-    body: 'One picture of risk. One 90-day action list. Before a line of code.',
+    body: 'A picture you need before signing the next contract or engagement. And, well before a line of code.',
     bring: 'AI initiatives in flight. Your top three worries.',
     walkAway: 'Shared risk view. 90-day action list.',
     Character: Briefer,
