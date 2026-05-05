@@ -684,49 +684,8 @@ export default function EngagementRoadmap() {
 
   return (
     <>
-      {/* Intro / how to read this */}
-      <section className="relative bg-white pt-10 md:pt-14 pb-6 md:pb-10">
-        <div className="mx-auto max-w-6xl px-5 md:px-8">
-          <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue mb-4">
-            <span className="h-px w-7 bg-brand-blue/60" aria-hidden />
-            Engagement roadmap
-          </div>
-          <div className="grid md:grid-cols-12 gap-8 md:gap-10 items-end">
-            <div className="md:col-span-7">
-              <h2 className="font-display font-semibold text-3xl md:text-[44px] leading-[1.05] tracking-tight text-brand-ink">
-                Not sure where to start?
-                <br />
-                <span className="text-brand-blue">The path most clients walk.</span>
-              </h2>
-              <p className="mt-5 text-base md:text-lg text-brand-ink/70 leading-relaxed max-w-2xl">
-                Five phases from boardroom to production. Each has one recommended engagement and parallel options. Most start at Phase 01. Stop at any milestone.
-              </p>
-            </div>
-            <div className="md:col-span-5">
-              <div className="rounded-xl bg-brand-mist/50 ring-1 ring-black/[0.05] p-5">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55 mb-3">
-                  How to read this
-                </div>
-                <ul className="space-y-2 text-[13px] text-brand-ink/80 leading-relaxed">
-                  <li className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-blue px-1.5 py-0.5 rounded-full bg-brand-blue/10">★ Recommended</span>
-                    is the core engagement at each phase.
-                  </li>
-                  <li className="flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />Training</span>
-                    <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-amber-500" />Assessment</span>
-                    <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-brand-blue" />Consulting</span>
-                  </li>
-                  <li>Click any service for details. Opens here.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* The roadmap */}
-      <section id="roadmap" className="relative bg-white pb-16 md:pb-24">
+      {/* The roadmap. Hero / intro lives on the page (services/page.tsx). */}
+      <section id="roadmap" className="relative bg-white pt-10 md:pt-14 pb-16 md:pb-24">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <ol className="relative">
             {/* spine */}
