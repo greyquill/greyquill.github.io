@@ -153,12 +153,12 @@ const TYPE_DOT: Record<ServiceType, string> = {
 const PHASES: Phase[] = [
   {
     id: 'align',
-    n: '00',
+    n: '01',
     name: 'Align',
-    headline: 'Get one leadership view of risk and the next 90 days.',
-    body: 'Most engagements start here. Boardroom-grade alignment on what governance requires before a single line of code is touched.',
-    bring: 'A list of in-flight AI initiatives and your top three governance worries.',
-    walkAway: 'Shared leadership view of risk and a 90-day action list.',
+    headline: 'Align the board.',
+    body: 'One picture of risk. One 90-day action list. Before a line of code.',
+    bring: 'AI initiatives in flight. Your top three worries.',
+    walkAway: 'Shared risk view. 90-day action list.',
     Character: Briefer,
     services: [
       {
@@ -168,7 +168,7 @@ const PHASES: Phase[] = [
         type: 'training',
         recommended: true,
         free: true,
-        blurb: 'Boardroom-grade briefing on what governance actually requires, what regulators ask for, and what failure looks like. Complimentary.',
+        blurb: 'What governance requires. What regulators ask for. What failure looks like. Complimentary.',
         detail: {
           summary:
             'A 90-minute briefing tailored to your industry and your current AI portfolio. We walk your leadership team through what governance actually requires, what regulators and auditors will ask for, and where peer organisations have run into trouble. Concrete, not theoretical.',
@@ -187,7 +187,7 @@ const PHASES: Phase[] = [
         label: 'Regulatory Readiness Workshop',
         meta: '1 day',
         type: 'training',
-        blurb: 'Translates EU AI Act, RBI, DPDP, and sector-specific obligations into concrete technical and operating-model requirements.',
+        blurb: 'EU AI Act, RBI, DPDP, sector rules. Translated into technical and operating-model requirements.',
         detail: {
           summary:
             'A working day that translates EU AI Act, RBI, DPDP, and sector-specific obligations into concrete technical and operating-model requirements for your stack. Not a deck of regulation summaries.',
@@ -205,12 +205,12 @@ const PHASES: Phase[] = [
   },
   {
     id: 'diagnose',
-    n: '01',
+    n: '02',
     name: 'Diagnose',
-    headline: 'See exactly where you stand and what to fix first.',
-    body: 'Structured diagnostics that produce a defendable picture of your AI estate. Pick the maturity baseline, or a deeper diagnostic where you already suspect a problem.',
-    bring: 'Access to leadership for 6 to 8 interviews and current AI / data documentation.',
-    walkAway: 'A scored maturity baseline with peer benchmarks and a sequenced uplift plan.',
+    headline: 'Know where you stand.',
+    body: 'A defendable picture of your AI estate. Start with the maturity baseline. Go deeper where you already suspect trouble.',
+    bring: 'Leadership access. 6 to 8 interviews. Current AI and data docs.',
+    walkAway: 'Scored baseline. Peer benchmarks. Sequenced uplift plan.',
     Character: Diagnoser,
     services: [
       {
@@ -219,7 +219,7 @@ const PHASES: Phase[] = [
         meta: '2 weeks',
         type: 'assessment',
         recommended: true,
-        blurb: 'A maturity baseline across data, model, governance, and operating-model dimensions, scored and benchmarked.',
+        blurb: 'Scored baseline across data, model, governance, and operating model. Benchmarked against peers.',
         detail: {
           summary:
             'A maturity baseline across data, model, governance, and operating-model dimensions. Scored against twelve sub-dimensions, benchmarked against peers in your sector, and presented with a sequenced uplift plan.',
@@ -238,7 +238,7 @@ const PHASES: Phase[] = [
         label: 'Model Inventory & Risk Classification',
         meta: '3 weeks',
         type: 'assessment',
-        blurb: 'A complete inventory of every model, agent, and copilot across your estate, with risk tiers mapped to controls.',
+        blurb: 'Every model, agent, and copilot in your estate. Risk-tiered. Controls mapped. Shadow AI surfaced.',
         detail: {
           summary:
             'A complete inventory of every model, agent, and copilot in your estate, including shadow AI. Each entry is risk-tiered, mapped to required controls, and gaps in coverage are flagged.',
@@ -257,7 +257,7 @@ const PHASES: Phase[] = [
         label: 'Data Lineage Diagnostic',
         meta: '2 weeks',
         type: 'assessment',
-        blurb: 'Traces what data feeds which AI workload, where lineage breaks, and which fields carry sensitive-data exposure.',
+        blurb: 'What data feeds which workload. Where lineage breaks. Which fields carry PII.',
         detail: {
           summary:
             'Traces what data feeds which AI workload, where lineage breaks, and which fields carry sensitive-data exposure. A critical diagnostic before scaling any AI workload to production.',
@@ -276,7 +276,7 @@ const PHASES: Phase[] = [
         label: 'Audit-Readiness Review',
         meta: '2 weeks',
         type: 'assessment',
-        blurb: 'Walks an auditor through your AI estate today, and tells you exactly what would fail before they get there.',
+        blurb: 'Walk through your AI estate as an auditor would. Find what would fail, before they do.',
         detail: {
           summary:
             'A pre-audit aligned to your specific regulatory framework. We walk through your AI estate as an auditor would, and tell you exactly what would fail before they get there.',
@@ -294,12 +294,12 @@ const PHASES: Phase[] = [
   },
   {
     id: 'plan',
-    n: '02',
+    n: '03',
     name: 'Plan',
-    headline: 'Turn the diagnostic into a board-fundable plan.',
-    body: 'Design a program your board will fund and your CDO can execute. The data foundation workshop slots in here when you need to align engineering before the roadmap lands.',
-    bring: 'The maturity baseline from Diagnose, and a clear business ambition for AI.',
-    walkAway: 'An 18-month roadmap, an operating model, and a packaged business case.',
+    headline: 'Build the plan.',
+    body: 'A program the board will fund and the CDO can execute. Add the data workshop when engineering needs to align first.',
+    bring: 'Diagnose baseline. A clear AI ambition.',
+    walkAway: '18-month roadmap. Operating model. Board-ready business case.',
     Character: Planner,
     services: [
       {
@@ -308,7 +308,7 @@ const PHASES: Phase[] = [
         meta: '4 to 6 weeks',
         type: 'consulting',
         recommended: true,
-        blurb: 'A roadmap your board will fund and your CDO can execute, sequenced by risk reduction and business value.',
+        blurb: 'A roadmap the board will fund and the CDO can execute. Sequenced by risk and value.',
         detail: {
           summary:
             'A roadmap your board will fund and your CDO can execute. Sequenced by risk reduction and business value, packaged with the operating model needed to make it run.',
@@ -327,7 +327,7 @@ const PHASES: Phase[] = [
         label: 'Data Foundation Workshop',
         meta: '1 day',
         type: 'training',
-        blurb: 'Working session with your data and AI teams to map gaps in lineage, master data, and sensitive-data classification.',
+        blurb: 'One day with your data and AI teams. Map gaps in lineage, master data, and PII classification.',
         detail: {
           summary:
             'A working session with your data and AI teams to map the gaps in lineage, master data, and sensitive-data classification that your in-flight AI initiatives depend on. Pragmatic and grounded in your real workloads.',
@@ -345,12 +345,12 @@ const PHASES: Phase[] = [
   },
   {
     id: 'build',
-    n: '03',
+    n: '04',
     name: 'Build',
-    headline: 'Stand up the operating system for governed AI.',
-    body: 'Implementation engagements that ship the operating model. Pair with the model risk masterclass when you want your team operating it themselves on day one.',
-    bring: 'Approved roadmap, an executive sponsor, and a named delivery owner.',
-    walkAway: 'A live governance system integrated with your existing risk frameworks.',
+    headline: 'Stand up the system.',
+    body: 'We ship the operating model. Add the model risk masterclass when your team should run it from day one.',
+    bring: 'Approved roadmap. Executive sponsor. Named delivery owner.',
+    walkAway: 'Live governance, wired into your existing risk frameworks.',
     Character: Builder,
     services: [
       {
@@ -359,7 +359,7 @@ const PHASES: Phase[] = [
         meta: '8 to 12 weeks',
         type: 'consulting',
         recommended: true,
-        blurb: 'Operationalise model lifecycle, evaluation, and audit-trail capture, mapped to your existing risk frameworks.',
+        blurb: 'Model lifecycle, evaluation, and audit trail. Live and wired to your risk frameworks. Not a policy doc.',
         detail: {
           summary:
             'Operationalise model lifecycle management, evaluation, and audit-trail capture, mapped to your existing risk frameworks. Not a policy document. A working system.',
@@ -378,7 +378,7 @@ const PHASES: Phase[] = [
         label: 'Data Foundation Buildout',
         meta: '8 to 16 weeks',
         type: 'consulting',
-        blurb: 'Stand up the GQData layer for priority domains: master data, lineage, quality, sensitive-data classification.',
+        blurb: 'GQData stood up for one to two domains. Master data, lineage, quality, PII classification, operational.',
         detail: {
           summary:
             'Stand up the GQData layer for one or two priority domains. Master data, active lineage, real-time quality, and sensitive-data classification, deployed and operational. Greyquill engineers end to end.',
@@ -397,7 +397,7 @@ const PHASES: Phase[] = [
         label: 'Model Risk Masterclass',
         meta: '2 days',
         type: 'training',
-        blurb: 'Hands-on training on model risk tiering, evaluation harnesses, and ongoing monitoring, using your own models.',
+        blurb: 'Hands-on. Risk tiering, evaluation harnesses, drift monitoring. Your models, your data.',
         detail: {
           summary:
             'Hands-on training on model risk tiering, evaluation harnesses, drift monitoring, and incident response. We work with your own models and your own data, not pre-canned exercises, so the team leaves ready to apply what they learned.',
@@ -415,7 +415,7 @@ const PHASES: Phase[] = [
   },
   {
     id: 'ship',
-    n: '04',
+    n: '05',
     name: 'Ship',
     headline: 'Get one governed agent into production.',
     body: 'A reference workflow, deployed and operating, with the architecture transferred so your team can extend to the next ten.',
@@ -429,7 +429,7 @@ const PHASES: Phase[] = [
         meta: '12 to 20 weeks',
         type: 'consulting',
         recommended: true,
-        blurb: 'Build, deploy, and operate a governed agent for one prioritised workflow. Proven in production, audit-ready.',
+        blurb: 'One governed agent. Built, deployed, operating. Production-proven. Audit-ready.',
         detail: {
           summary:
             'Build, deploy, and operate a governed agent for one prioritised workflow. Proven in production, audit-ready, with hand-off documentation so your team can extend it.',
@@ -696,12 +696,10 @@ export default function EngagementRoadmap() {
               <h2 className="font-display font-semibold text-3xl md:text-[44px] leading-[1.05] tracking-tight text-brand-ink">
                 Not sure where to start?
                 <br />
-                <span className="text-brand-blue">Here is the path most clients walk.</span>
+                <span className="text-brand-blue">The path most clients walk.</span>
               </h2>
               <p className="mt-5 text-base md:text-lg text-brand-ink/70 leading-relaxed max-w-2xl">
-                Five phases, from boardroom to production. Each phase has one recommended core
-                engagement and a few parallel options that fit alongside it. You can enter at any
-                phase, and stop at any milestone.
+                Five phases from boardroom to production. Each has one recommended engagement and parallel options. Most start at Phase 01. Stop at any milestone.
               </p>
             </div>
             <div className="md:col-span-5">
@@ -719,7 +717,7 @@ export default function EngagementRoadmap() {
                     <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-amber-500" />Assessment</span>
                     <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-brand-blue" />Consulting</span>
                   </li>
-                  <li>Click any service for the full brief.</li>
+                  <li>Click any service for details. Opens here.</li>
                 </ul>
               </div>
             </div>
@@ -808,10 +806,10 @@ export default function EngagementRoadmap() {
           <div className="mt-10 md:mt-12 rounded-2xl bg-brand-mist/40 ring-1 ring-black/[0.05] p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h3 className="font-display text-xl md:text-2xl text-brand-ink leading-tight">
-                Want help picking the right entry point?
+                Not sure which entry point fits?
               </h3>
               <p className="mt-1.5 text-[14.5px] text-brand-ink/70 leading-relaxed max-w-xl">
-                A 30-minute call to scope the right engagement for where you actually are.
+                30 minutes. We scope the right one for where you actually are.
               </p>
             </div>
             <a

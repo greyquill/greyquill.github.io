@@ -43,8 +43,7 @@ export default function ServicesPage() {
             <span className="text-brand-blue">Consulting that ships.</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
-            Senior-led engagements across the AI governance lifecycle. Each one composes
-            with the platform, but stands up on its own.
+            Senior-led. Across the AI governance lifecycle. Composes with the platform. Stands up on its own.
           </p>
         </div>
       </section>
@@ -64,10 +63,10 @@ export default function ServicesPage() {
           <div className="md:col-span-8">
             <h2 className="font-display text-3xl md:text-5xl leading-[1.05] tracking-tight">
               Tell us where you are stuck.<br className="hidden md:block" />
-              <span className="text-brand-blue-light">We will help you with what to do next.</span>
+              <span className="text-brand-blue-light">We will tell you what to do next.</span>
             </h2>
             <p className="mt-5 text-white/75 text-lg md:text-xl max-w-2xl leading-relaxed">
-              A 30-minute call to scope the right engagement. Whether that means a workshop, a diagnostic, or an implementation, you walk away with a recommendation either way.
+              30 minutes. Workshop, diagnostic, or implementation, you leave with a recommendation either way.
             </p>
           </div>
           <div className="md:col-span-4 flex md:justify-end">
