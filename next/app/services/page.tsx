@@ -33,18 +33,41 @@ export default function ServicesPage() {
           }}
         />
 
-        <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-16 md:pt-24 pb-12 md:pb-16">
+        <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-16 md:pt-24 pb-10 md:pb-14">
           <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue mb-5">
             <span className="h-px w-7 bg-brand-blue/60" aria-hidden />
-            Services
+            Services · Engagement roadmap
           </div>
-          <h1 className="font-display font-semibold text-[40px] sm:text-5xl md:text-6xl leading-[1.0] tracking-[-0.025em] text-brand-ink max-w-4xl">
-            Training. Assessments.<br />
-            <span className="text-brand-blue">Consulting that ships.</span>
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
-            Senior-led. Across the AI governance lifecycle. Composes with the platform. Stands up on its own.
-          </p>
+          <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end">
+            <div className="md:col-span-7">
+              <h1 className="font-display font-semibold text-[40px] sm:text-5xl md:text-6xl leading-[1.0] tracking-[-0.025em] text-brand-ink">
+                Not sure where to start?<br />
+                <span className="text-brand-blue">The path most clients walk.</span>
+              </h1>
+              <p className="mt-6 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
+                Five phases from boardroom to production. Each has one recommended engagement and parallel options. Most start at Phase 01. Stop at any milestone.
+              </p>
+            </div>
+            <div className="md:col-span-5">
+              <div className="rounded-xl bg-white/70 backdrop-blur ring-1 ring-black/[0.05] p-5">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55 mb-3">
+                  How to read this
+                </div>
+                <ul className="space-y-2.5 text-[13px] text-brand-ink/80 leading-relaxed">
+                  <li className="flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-blue px-1.5 py-0.5 rounded-full bg-brand-blue/10">★ Recommended</span>
+                    <span>is the core engagement at each phase.</span>
+                  </li>
+                  <li className="flex items-center gap-1.5 flex-wrap">
+                    <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />Training</span>
+                    <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-amber-500" />Assessment</span>
+                    <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-brand-blue" />Consulting</span>
+                  </li>
+                  <li>Click any service for details. Opens here.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
