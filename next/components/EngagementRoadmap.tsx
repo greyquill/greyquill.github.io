@@ -627,10 +627,11 @@ function ServiceCard({
   return (
     <button
       type="button"
+      id={service.id}
       onClick={() => onOpen(service)}
       aria-haspopup="dialog"
       className={clsx(
-        'group text-left w-full rounded-2xl bg-white transition-all duration-300 ease-out-expo focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/60 hover:-translate-y-0.5',
+        'group text-left w-full scroll-mt-24 rounded-2xl bg-white transition-all duration-300 ease-out-expo focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/60 hover:-translate-y-0.5',
         isLg
           ? 'p-5 md:p-6 ring-2 ring-brand-blue/35 shadow-md shadow-brand-blue/10 hover:ring-brand-blue/60 hover:shadow-lg'
           : 'p-4 md:p-5 ring-1 ring-black/[0.07] hover:ring-brand-blue/35 hover:shadow-md hover:shadow-brand-blue/10',
@@ -703,17 +704,23 @@ export default function EngagementRoadmap() {
       if (!raw) return;
       const hit = SERVICE_INDEX[raw];
       if (hit) {
-        const phaseEl = document.getElementById(hit.phaseId);
-        if (phaseEl) phaseEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setActive(hit.service);
+        // Scroll to the card itself (it carries its service id), instant so
+        // it completes before the modal locks body scroll. Defer the modal
+        // open one frame so the scroll position settles first.
+        const cardEl = document.getElementById(hit.service.id);
+        if (cardEl) cardEl.scrollIntoView({ block: 'center' });
+        requestAnimationFrame(() => setActive(hit.service));
         return;
       }
-      // Phase-only anchor: let the browser handle scroll, just close any modal.
       if (PHASES.some((p) => p.id === raw)) setActive(null);
     };
-    open();
+    // Defer the initial run a frame so all phase / card ids are in the DOM.
+    const id = requestAnimationFrame(open);
     window.addEventListener('hashchange', open);
-    return () => window.removeEventListener('hashchange', open);
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener('hashchange', open);
+    };
   }, []);
 
   return (
