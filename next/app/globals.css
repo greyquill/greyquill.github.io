@@ -231,46 +231,151 @@
 }
 .ls-output-flash { animation: ls-output-flash 15s cubic-bezier(0.22, 1, 0.36, 1) infinite; animation-fill-mode: backwards; opacity: 0; will-change: transform, opacity; }
 
-/* Recommended Roadmap character animations. Subtle, looping, low-CPU. */
-@keyframes rm-bob {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-1.5px); }
-}
-.rm-bob { animation: rm-bob 3.6s ease-in-out infinite; transform-box: fill-box; }
+/* ---------------------------------------------------------------- */
+/* Engagement Roadmap — per-phase value animations (vp-*).           */
+/* Each animation depicts what its phase actually does.              */
+/* ---------------------------------------------------------------- */
 
-@keyframes rm-wave {
-  0%, 60%, 100% { transform: rotate(0deg); }
-  70%, 90%      { transform: rotate(-18deg); }
-  80%           { transform: rotate(-8deg); }
+/* Phase 01 Align — scattered dots converge into a cluster */
+@keyframes vp-align-converge {
+  0%   { transform: translate(0, 0);                          opacity: 0.7; }
+  35%  { transform: translate(var(--tx, 0), var(--ty, 0));    opacity: 1;   }
+  85%  { transform: translate(var(--tx, 0), var(--ty, 0));    opacity: 1;   }
+  100% { transform: translate(0, 0);                          opacity: 0.7; }
 }
-.rm-wave { animation: rm-wave 4s ease-in-out infinite; transform-box: fill-box; }
+.vp-align-dot { animation: vp-align-converge 4s ease-in-out infinite; transform-box: fill-box; }
+.vp-d1 { animation-delay: 0s;    } .vp-d2 { animation-delay: 0.1s;  }
+.vp-d3 { animation-delay: 0.2s;  } .vp-d4 { animation-delay: 0.3s;  }
+.vp-d5 { animation-delay: 0.15s; } .vp-d6 { animation-delay: 0.25s; }
 
-@keyframes rm-scan {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(-4px, 2px); }
+@keyframes vp-align-ring {
+  0%, 30% { opacity: 0; transform: scale(0.55); }
+  45%     { opacity: 1; transform: scale(1);    }
+  85%     { opacity: 1; transform: scale(1);    }
+  100%    { opacity: 0; transform: scale(1.2);  }
 }
-.rm-scan { animation: rm-scan 4.2s ease-in-out infinite; transform-box: fill-box; }
+.vp-align-ring { animation: vp-align-ring 4s ease-in-out infinite; transform-origin: 40px 40px; transform-box: fill-box; }
 
-@keyframes rm-trace {
-  0%   { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -24; }
+/* Phase 02 Diagnose — scan line across grid; cells flip good/bad */
+.vp-diag-cell {
+  fill: rgba(11, 79, 136, 0.06);
+  stroke: rgba(11, 79, 136, 0.12);
+  stroke-width: 0.5;
+  animation: vp-diag-flip 4s ease-in-out infinite;
 }
-.rm-trace { animation: rm-trace 3s linear infinite; }
+.vp-good { --vp-result: #10b981; }
+.vp-bad  { --vp-result: #f59e0b; }
+.vp-c1 { animation-delay: 0.05s; } .vp-c2 { animation-delay: 0.20s; } .vp-c3 { animation-delay: 0.35s; }
+.vp-c4 { animation-delay: 0.50s; } .vp-c5 { animation-delay: 0.65s; } .vp-c6 { animation-delay: 0.80s; }
+.vp-c7 { animation-delay: 0.95s; } .vp-c8 { animation-delay: 1.10s; } .vp-c9 { animation-delay: 1.25s; }
 
-@keyframes rm-spin     { to { transform: rotate(360deg); } }
-@keyframes rm-spin-rev { to { transform: rotate(-360deg); } }
-.rm-spin     { animation: rm-spin     6s linear infinite; transform-box: fill-box; }
-.rm-spin-rev { animation: rm-spin-rev 4s linear infinite; transform-box: fill-box; }
-
-@keyframes rm-launch {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-3px); }
+@keyframes vp-diag-flip {
+  0%, 25% { fill: rgba(11, 79, 136, 0.06); }
+  35%     { fill: var(--vp-result); }
+  85%     { fill: var(--vp-result); }
+  100%    { fill: rgba(11, 79, 136, 0.06); }
 }
-.rm-launch { animation: rm-launch 2.4s ease-in-out infinite; transform-box: fill-box; }
 
-@keyframes rm-flame {
-  0%, 100% { transform: scaleY(1);   opacity: 0.45; }
-  50%      { transform: scaleY(1.4); opacity: 0.7; }
+.vp-diag-scan {
+  stroke: #f59e0b;
+  stroke-width: 1.5;
+  fill: none;
+  animation: vp-diag-scan 4s ease-in-out infinite;
 }
-.rm-flame { animation: rm-flame 0.45s ease-in-out infinite; transform-origin: 56px 56px; transform-box: fill-box; }
+@keyframes vp-diag-scan {
+  0%   { transform: translateX(-28px); opacity: 0.9; }
+  50%  { transform: translateX( 28px); opacity: 0.9; }
+  55%  { transform: translateX( 28px); opacity: 0;   }
+  95%  { transform: translateX(-28px); opacity: 0;   }
+  100% { transform: translateX(-28px); opacity: 0.9; }
+}
+
+/* Phase 03 Plan — loose items snap onto rails */
+.vp-plan-item { animation: vp-plan-snap 4s ease-in-out infinite; transform-box: fill-box; }
+.vp-pi1 { animation-delay: 0s;    } .vp-pi2 { animation-delay: 0.15s; }
+.vp-pi3 { animation-delay: 0.30s; } .vp-pi4 { animation-delay: 0.10s; }
+.vp-pi5 { animation-delay: 0.25s; } .vp-pi6 { animation-delay: 0.40s; }
+
+@keyframes vp-plan-snap {
+  0%   { transform: translate(0, 0);                          opacity: 0.7; }
+  45%  { transform: translate(var(--gx, 0), var(--gy, 0));    opacity: 1;   }
+  85%  { transform: translate(var(--gx, 0), var(--gy, 0));    opacity: 1;   }
+  100% { transform: translate(0, 0);                          opacity: 0.7; }
+}
+
+.vp-plan-rail {
+  opacity: 0;
+  stroke-dasharray: 0 60;
+  animation: vp-plan-rail 4s ease-in-out infinite;
+}
+@keyframes vp-plan-rail {
+  0%, 40% { opacity: 0;   stroke-dasharray: 0 60; }
+  55%     { opacity: 0.45; stroke-dasharray: 60 0; }
+  85%     { opacity: 0.45; stroke-dasharray: 60 0; }
+  100%    { opacity: 0;   stroke-dasharray: 0 60; }
+}
+
+/* Phase 04 Build — input → hub processes → audited output */
+.vp-build-input { animation: vp-build-in 4s ease-in-out infinite; transform-box: fill-box; }
+@keyframes vp-build-in {
+  0%   { transform: translateX(-32px); opacity: 0;   }
+  20%  { transform: translateX(-32px); opacity: 1;   }
+  45%  { transform: translateX(0);     opacity: 1;   }
+  50%  { transform: translateX(0);     opacity: 0;   }
+  100% { transform: translateX(-32px); opacity: 0;   }
+}
+
+.vp-build-hub { animation: vp-build-hub 4s ease-in-out infinite; transform-origin: 40px 40px; transform-box: fill-box; }
+@keyframes vp-build-hub {
+  0%, 35% { transform: scale(1);    }
+  45%     { transform: scale(1.22); }
+  55%     { transform: scale(1);    }
+  100%    { transform: scale(1);    }
+}
+
+.vp-build-output { opacity: 0; animation: vp-build-out 4s ease-in-out infinite; transform-box: fill-box; }
+@keyframes vp-build-out {
+  0%, 50% { transform: translateX(0);   opacity: 0; }
+  60%     { transform: translateX(28px); opacity: 1; }
+  85%     { transform: translateX(28px); opacity: 1; }
+  100%    { transform: translateX(28px); opacity: 0; }
+}
+
+.vp-build-check { opacity: 0; animation: vp-build-check 4s ease-in-out infinite; }
+@keyframes vp-build-check {
+  0%, 55% { opacity: 0; }
+  65%     { opacity: 1; }
+  85%     { opacity: 1; }
+  100%    { opacity: 0; }
+}
+
+/* Phase 05 Ship — heartbeat waveform + alerts that resolve */
+.vp-ship-wave {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: vp-ship-wave 4s linear infinite;
+}
+@keyframes vp-ship-wave {
+  0%   { stroke-dashoffset: 200;  }
+  100% { stroke-dashoffset: -200; }
+}
+
+.vp-ship-alert {
+  opacity: 0;
+  fill: #f59e0b;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: vp-ship-alert 4s ease-in-out infinite;
+}
+.vp-a1 { animation-delay: 0.6s; }
+.vp-a2 { animation-delay: 2.1s; }
+@keyframes vp-ship-alert {
+  0%, 5% { opacity: 0; transform: scale(0);   fill: #f59e0b; }
+  8%     { opacity: 1; transform: scale(1.4); fill: #f59e0b; }
+  13%    { opacity: 1; transform: scale(1);   fill: #f59e0b; }
+  23%    { opacity: 1; transform: scale(1);   fill: #f59e0b; }
+  28%    { opacity: 1; transform: scale(1);   fill: #10b981; }
+  33%    { opacity: 0; transform: scale(0.6); fill: #10b981; }
+  100%   { opacity: 0; transform: scale(0);   fill: #10b981; }
+}
 

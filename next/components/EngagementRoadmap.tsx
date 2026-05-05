@@ -41,92 +41,96 @@ type Phase = {
 };
 
 /* ------------------------------------------------------------------ */
-/* Characters (small SVG personas, animated via globals.css rm-*)     */
+/* Phase value-animations. Each one shows what that phase actually     */
+/* DOES, in 80x80 viewBox. CSS keyframes live in globals.css (vp-*).   */
+/* Tinted by the dominant service type for that phase.                 */
 /* ------------------------------------------------------------------ */
 
-const Briefer = () => (
+// CSS custom properties on inline style need a cast.
+const cssvar = (vars: Record<string, string>) => vars as React.CSSProperties;
+
+// Phase 01 — Align: scattered dots converge into one cluster (emerald = training).
+const VAlign = () => (
   <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden>
-    <rect x="30" y="50" width="20" height="20" rx="2" fill="#0B4F88" opacity="0.18" />
-    <rect x="28" y="48" width="24" height="4" rx="1.5" fill="#0B4F88" opacity="0.35" />
-    <g className="rm-bob">
-      <circle cx="40" cy="22" r="8" fill="#0B4F88" />
-      <path d="M28 48 Q28 36 40 36 Q52 36 52 48 Z" fill="#0B4F88" opacity="0.85" />
-      <path d="M50 40 L60 28" stroke="#0B4F88" strokeWidth="3" strokeLinecap="round" className="rm-wave" style={{ transformOrigin: '50px 40px' }} />
+    <circle className="vp-align-dot vp-d1" cx="15" cy="20" r="2.6" fill="#10b981" style={cssvar({ '--tx': '25px', '--ty': '20px' })} />
+    <circle className="vp-align-dot vp-d2" cx="65" cy="22" r="2.6" fill="#10b981" style={cssvar({ '--tx': '-25px', '--ty': '18px' })} />
+    <circle className="vp-align-dot vp-d3" cx="12" cy="45" r="2.6" fill="#10b981" style={cssvar({ '--tx': '28px', '--ty': '-5px' })} />
+    <circle className="vp-align-dot vp-d4" cx="68" cy="50" r="2.6" fill="#10b981" style={cssvar({ '--tx': '-28px', '--ty': '-10px' })} />
+    <circle className="vp-align-dot vp-d5" cx="20" cy="68" r="2.6" fill="#10b981" style={cssvar({ '--tx': '20px', '--ty': '-28px' })} />
+    <circle className="vp-align-dot vp-d6" cx="60" cy="65" r="2.6" fill="#10b981" style={cssvar({ '--tx': '-20px', '--ty': '-25px' })} />
+    <circle className="vp-align-ring" cx="40" cy="40" r="14" fill="none" stroke="#10b981" strokeWidth="1.5" strokeDasharray="2 3" />
+  </svg>
+);
+
+// Phase 02 — Diagnose: 3x3 grid scanned by a line, cells flip good/bad (amber = assessment).
+const VDiagnose = () => {
+  const cells: Array<{ x: number; y: number; cls: 'good' | 'bad'; n: number }> = [
+    { x: 16, y: 16, cls: 'good', n: 1 },
+    { x: 33, y: 16, cls: 'good', n: 2 },
+    { x: 50, y: 16, cls: 'bad',  n: 3 },
+    { x: 16, y: 33, cls: 'bad',  n: 4 },
+    { x: 33, y: 33, cls: 'good', n: 5 },
+    { x: 50, y: 33, cls: 'good', n: 6 },
+    { x: 16, y: 50, cls: 'good', n: 7 },
+    { x: 33, y: 50, cls: 'bad',  n: 8 },
+    { x: 50, y: 50, cls: 'good', n: 9 },
+  ];
+  return (
+    <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden>
+      {cells.map((c) => (
+        <rect key={c.n} className={`vp-diag-cell vp-${c.cls} vp-c${c.n}`} x={c.x} y={c.y} width="14" height="14" rx="2" />
+      ))}
+      <line className="vp-diag-scan" x1="40" y1="12" x2="40" y2="68" />
+    </svg>
+  );
+};
+
+// Phase 03 — Plan: loose items snap into structured rows on rails (blue = consulting).
+const VPlan = () => (
+  <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden>
+    <line className="vp-plan-rail" x1="15" y1="32" x2="65" y2="32" stroke="#0B4F88" strokeWidth="1" />
+    <line className="vp-plan-rail" x1="15" y1="52" x2="65" y2="52" stroke="#0B4F88" strokeWidth="1" />
+    <rect className="vp-plan-item vp-pi1" x="14" y="14" width="10" height="6" rx="1" fill="#0B4F88" style={cssvar({ '--gx': '8px',  '--gy': '15px' })} />
+    <rect className="vp-plan-item vp-pi2" x="56" y="18" width="10" height="6" rx="1" fill="#0B4F88" style={cssvar({ '--gx': '-12px','--gy': '11px' })} />
+    <rect className="vp-plan-item vp-pi3" x="34" y="62" width="10" height="6" rx="1" fill="#0B4F88" style={cssvar({ '--gx': '0px',  '--gy': '-13px' })} />
+    <rect className="vp-plan-item vp-pi4" x="16" y="64" width="10" height="6" rx="1" fill="#0B4F88" style={cssvar({ '--gx': '8px',  '--gy': '-15px' })} />
+    <rect className="vp-plan-item vp-pi5" x="60" y="12" width="10" height="6" rx="1" fill="#0B4F88" style={cssvar({ '--gx': '-16px','--gy': '17px' })} />
+    <rect className="vp-plan-item vp-pi6" x="14" y="44" width="10" height="6" rx="1" fill="#0B4F88" style={cssvar({ '--gx': '36px','--gy': '5px' })} />
+  </svg>
+);
+
+// Phase 04 — Build: input flows → hub processes → audited output emerges (blue).
+const VBuild = () => (
+  <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden>
+    {/* track guide */}
+    <line x1="10" y1="40" x2="70" y2="40" stroke="#0B4F88" strokeWidth="0.5" opacity="0.18" strokeDasharray="2 3" />
+    {/* input */}
+    <rect className="vp-build-input" x="36" y="35" width="10" height="10" rx="2" fill="#0B4F88" />
+    {/* hub */}
+    <circle className="vp-build-hub" cx="40" cy="40" r="14" fill="none" stroke="#0B4F88" strokeWidth="2" />
+    <circle cx="40" cy="40" r="3.5" fill="#0B4F88" opacity="0.3" />
+    {/* output with check */}
+    <g>
+      <rect className="vp-build-output" x="34" y="35" width="14" height="10" rx="2" fill="#10b981" />
+      <path className="vp-build-check" d="M64 39 L 67.5 42.5 L 73 36" stroke="#10b981" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     </g>
   </svg>
 );
 
-const Diagnoser = () => (
+// Phase 05 — Ship: heartbeat waveform with periodic alerts that resolve themselves (blue).
+const VShip = () => (
   <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden>
-    <g className="rm-bob">
-      <circle cx="36" cy="20" r="7" fill="#0B4F88" />
-      <path d="M26 46 Q26 34 36 34 Q46 34 46 46 Z" fill="#0B4F88" opacity="0.85" />
-      <g className="rm-scan" style={{ transformOrigin: '50px 50px' }}>
-        <circle cx="56" cy="46" r="9" fill="none" stroke="#0B4F88" strokeWidth="2.5" />
-        <path d="M62 52 L70 60" stroke="#0B4F88" strokeWidth="3" strokeLinecap="round" />
-        <circle cx="56" cy="46" r="6" fill="#0B4F88" opacity="0.12" />
-      </g>
-    </g>
-    <rect x="14" y="62" width="52" height="3" rx="1.5" fill="#0B4F88" opacity="0.18" />
-  </svg>
-);
-
-const Planner = () => (
-  <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden>
-    <g className="rm-bob">
-      <circle cx="40" cy="20" r="7" fill="#0B4F88" />
-      <path d="M30 46 Q30 34 40 34 Q50 34 50 46 Z" fill="#0B4F88" opacity="0.85" />
-    </g>
-    <rect x="14" y="52" width="52" height="18" rx="2" fill="#0B4F88" opacity="0.1" />
     <path
-      d="M18 66 Q28 56 38 62 T62 56"
-      fill="none"
+      className="vp-ship-wave"
+      d="M 8 40 L 16 40 L 19 30 L 22 50 L 25 40 L 33 40 L 36 32 L 39 48 L 42 40 L 50 40 L 53 30 L 56 50 L 59 40 L 72 40"
       stroke="#0B4F88"
-      strokeWidth="2"
+      strokeWidth="1.6"
+      fill="none"
       strokeLinecap="round"
-      strokeDasharray="3 3"
-      className="rm-trace"
+      strokeLinejoin="round"
     />
-    <circle cx="62" cy="56" r="2.5" fill="#0B4F88" />
-  </svg>
-);
-
-const Builder = () => (
-  <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden>
-    <g className="rm-bob">
-      <circle cx="34" cy="20" r="7" fill="#0B4F88" />
-      <path d="M24 46 Q24 34 34 34 Q44 34 44 46 Z" fill="#0B4F88" opacity="0.85" />
-    </g>
-    <g className="rm-spin" style={{ transformOrigin: '56px 50px' }}>
-      <circle cx="56" cy="50" r="9" fill="none" stroke="#0B4F88" strokeWidth="2.5" />
-      <circle cx="56" cy="50" r="3" fill="#0B4F88" />
-      {[0, 60, 120, 180, 240, 300].map((d) => (
-        <rect key={d} x="55" y="38" width="2" height="5" fill="#0B4F88" transform={`rotate(${d} 56 50)`} />
-      ))}
-    </g>
-    <g className="rm-spin-rev" style={{ transformOrigin: '68px 64px' }}>
-      <circle cx="68" cy="64" r="5" fill="none" stroke="#0B4F88" strokeWidth="2" opacity="0.7" />
-      {[0, 90, 180, 270].map((d) => (
-        <rect key={d} x="67.2" y="57" width="1.6" height="3" fill="#0B4F88" opacity="0.7" transform={`rotate(${d} 68 64)`} />
-      ))}
-    </g>
-  </svg>
-);
-
-const Launcher = () => (
-  <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden>
-    <g className="rm-bob">
-      <circle cx="28" cy="22" r="7" fill="#0B4F88" />
-      <path d="M18 48 Q18 36 28 36 Q38 36 38 48 Z" fill="#0B4F88" opacity="0.85" />
-    </g>
-    <g className="rm-launch" style={{ transformOrigin: '56px 56px' }}>
-      <path d="M56 22 Q64 36 64 50 L48 50 Q48 36 56 22 Z" fill="#0B4F88" />
-      <circle cx="56" cy="38" r="3" fill="#fff" />
-      <path d="M48 50 L44 58 L52 54 Z" fill="#0B4F88" opacity="0.6" />
-      <path d="M64 50 L68 58 L60 54 Z" fill="#0B4F88" opacity="0.6" />
-      <path d="M52 56 Q56 70 60 56 Q58 64 56 60 Q54 64 52 56 Z" fill="#0B4F88" opacity="0.45" className="rm-flame" />
-    </g>
-    <rect x="10" y="68" width="60" height="2" rx="1" fill="#0B4F88" opacity="0.18" />
+    <circle className="vp-ship-alert vp-a1" cx="22" cy="40" r="3.2" />
+    <circle className="vp-ship-alert vp-a2" cx="56" cy="40" r="3.2" />
   </svg>
 );
 
@@ -159,7 +163,7 @@ const PHASES: Phase[] = [
     body: 'A picture you need before signing the next contract or engagement. And, well before a line of code.',
     bring: 'AI initiatives in flight. Your top three worries.',
     walkAway: 'Shared risk view. 90-day action list.',
-    Character: Briefer,
+    Character: VAlign,
     services: [
       {
         id: 'training-exec-brief',
@@ -211,7 +215,7 @@ const PHASES: Phase[] = [
     body: 'A defendable picture of your AI estate. Start with the maturity baseline. Go deeper where you already suspect trouble.',
     bring: 'Leadership access. 6 to 8 interviews. Current AI and data docs.',
     walkAway: 'Scored baseline. Peer benchmarks. Sequenced uplift plan.',
-    Character: Diagnoser,
+    Character: VDiagnose,
     services: [
       {
         id: 'assess-ai-maturity',
@@ -300,7 +304,7 @@ const PHASES: Phase[] = [
     body: 'A program the board will fund and the CDO can execute. Add the data workshop when engineering needs to align first.',
     bring: 'Diagnose baseline. A clear AI ambition.',
     walkAway: '18-month roadmap. Operating model. Board-ready business case.',
-    Character: Planner,
+    Character: VPlan,
     services: [
       {
         id: 'consult-program-design',
@@ -351,7 +355,7 @@ const PHASES: Phase[] = [
     body: 'We ship the operating model. Add the model risk masterclass when your team should run it from day one.',
     bring: 'Approved roadmap. Executive sponsor. Named delivery owner.',
     walkAway: 'Live governance, wired into your existing risk frameworks.',
-    Character: Builder,
+    Character: VBuild,
     services: [
       {
         id: 'consult-governance-impl',
@@ -421,7 +425,7 @@ const PHASES: Phase[] = [
     body: 'A reference workflow, deployed and operating, with the architecture transferred so your team can extend to the next ten.',
     bring: 'One business workflow with an owner who will actually use the agent.',
     walkAway: 'A production agent, runbooks, and capability transferred to your team.',
-    Character: Launcher,
+    Character: VShip,
     services: [
       {
         id: 'consult-agentic',
@@ -691,16 +695,16 @@ export default function EngagementRoadmap() {
             {/* spine */}
             <span
               aria-hidden
-              className="absolute left-[31px] md:left-[39px] top-2 bottom-2 w-px bg-gradient-to-b from-brand-blue/0 via-brand-blue/40 to-brand-blue/0"
+              className="absolute left-[39px] md:left-[47px] top-2 bottom-2 w-px bg-gradient-to-b from-brand-blue/0 via-brand-blue/40 to-brand-blue/0"
             />
 
             {PHASES.map((phase, i) => {
               const recommended = phase.services.find((s) => s.recommended);
               const others = phase.services.filter((s) => !s.recommended);
               return (
-                <li key={phase.id} id={phase.id} className="relative pl-20 md:pl-24 pb-12 last:pb-0 scroll-mt-24">
-                  {/* character node */}
-                  <div className="absolute left-0 top-0 w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white ring-1 ring-brand-blue/25 shadow-md shadow-brand-blue/10 flex items-center justify-center overflow-hidden">
+                <li key={phase.id} id={phase.id} className="relative pl-24 md:pl-28 pb-12 last:pb-0 scroll-mt-24">
+                  {/* phase value-animation */}
+                  <div className="absolute left-0 top-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white ring-1 ring-brand-blue/25 shadow-md shadow-brand-blue/10 flex items-center justify-center p-2 overflow-hidden">
                     <phase.Character />
                   </div>
 
@@ -750,7 +754,7 @@ export default function EngagementRoadmap() {
 
                   {/* connector arrow */}
                   {i < PHASES.length - 1 && (
-                    <div aria-hidden className="absolute left-[27px] md:left-[35px] -bottom-1 w-3 h-3 text-brand-blue/40">
+                    <div aria-hidden className="absolute left-[35px] md:left-[43px] -bottom-1 w-3 h-3 text-brand-blue/40">
                       <svg viewBox="0 0 12 12" fill="currentColor">
                         <path d="M6 10 L1 4 L11 4 Z" transform="rotate(180 6 6)" />
                       </svg>
