@@ -683,8 +683,38 @@ function ServiceCard({
 /* The roadmap                                                         */
 /* ------------------------------------------------------------------ */
 
+// Flat lookup for deep-linking from header / external URLs.
+const SERVICE_INDEX: Record<string, { service: Service; phaseId: string }> = (() => {
+  const out: Record<string, { service: Service; phaseId: string }> = {};
+  for (const phase of PHASES) {
+    for (const s of phase.services) out[s.id] = { service: s, phaseId: phase.id };
+  }
+  return out;
+})();
+
 export default function EngagementRoadmap() {
   const [active, setActive] = useState<Service | null>(null);
+
+  // Deep-link: if the URL hash matches a known service id, scroll to its phase
+  // and open the service modal. Also matches a phase id alone (just scrolls).
+  useEffect(() => {
+    const open = () => {
+      const raw = window.location.hash.replace(/^#/, '');
+      if (!raw) return;
+      const hit = SERVICE_INDEX[raw];
+      if (hit) {
+        const phaseEl = document.getElementById(hit.phaseId);
+        if (phaseEl) phaseEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActive(hit.service);
+        return;
+      }
+      // Phase-only anchor: let the browser handle scroll, just close any modal.
+      if (PHASES.some((p) => p.id === raw)) setActive(null);
+    };
+    open();
+    window.addEventListener('hashchange', open);
+    return () => window.removeEventListener('hashchange', open);
+  }, []);
 
   return (
     <>

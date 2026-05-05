@@ -18,28 +18,28 @@ const SERVICES: ServiceColumn[] = [
   {
     title: 'Training',
     items: [
-      { href: '/services#training', label: 'AI governance executive briefing' },
-      { href: '/services#training', label: 'Data foundation workshop' },
-      { href: '/services#training', label: 'Model risk masterclass' },
-      { href: '/services#training', label: 'Regulatory readiness workshop' },
+      { href: '/services#training-exec-brief',     label: 'AI governance executive briefing' },
+      { href: '/services#training-data-foundation', label: 'Data foundation workshop' },
+      { href: '/services#training-model-risk',     label: 'Model risk masterclass' },
+      { href: '/services#training-reg-readiness',  label: 'Regulatory readiness workshop' },
     ],
   },
   {
     title: 'Assessments',
     items: [
-      { href: '/services#assessments', label: 'AI maturity assessment' },
-      { href: '/services#assessments', label: 'Model inventory & risk classification' },
-      { href: '/services#assessments', label: 'Data lineage diagnostic' },
-      { href: '/services#assessments', label: 'Audit-readiness review' },
+      { href: '/services#assess-ai-maturity',    label: 'AI maturity assessment' },
+      { href: '/services#assess-model-inventory', label: 'Model inventory & risk classification' },
+      { href: '/services#assess-lineage',        label: 'Data lineage diagnostic' },
+      { href: '/services#assess-audit',          label: 'Audit-readiness review' },
     ],
   },
   {
     title: 'Consulting',
     items: [
-      { href: '/services#consulting', label: 'AI program design & roadmap' },
-      { href: '/services#consulting', label: 'Data foundation buildout' },
-      { href: '/services#consulting', label: 'Governance framework implementation' },
-      { href: '/services#consulting', label: 'Agentic AI activation' },
+      { href: '/services#consult-program-design',  label: 'AI program design & roadmap' },
+      { href: '/services#consult-data-buildout',   label: 'Data foundation buildout' },
+      { href: '/services#consult-governance-impl', label: 'Governance framework implementation' },
+      { href: '/services#consult-agentic',         label: 'Agentic AI activation' },
     ],
   },
 ];
