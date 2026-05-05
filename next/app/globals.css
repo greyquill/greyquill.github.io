@@ -231,3 +231,46 @@
 }
 .ls-output-flash { animation: ls-output-flash 15s cubic-bezier(0.22, 1, 0.36, 1) infinite; animation-fill-mode: backwards; opacity: 0; will-change: transform, opacity; }
 
+/* Recommended Roadmap character animations. Subtle, looping, low-CPU. */
+@keyframes rm-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-1.5px); }
+}
+.rm-bob { animation: rm-bob 3.6s ease-in-out infinite; transform-box: fill-box; }
+
+@keyframes rm-wave {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  70%, 90%      { transform: rotate(-18deg); }
+  80%           { transform: rotate(-8deg); }
+}
+.rm-wave { animation: rm-wave 4s ease-in-out infinite; transform-box: fill-box; }
+
+@keyframes rm-scan {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-4px, 2px); }
+}
+.rm-scan { animation: rm-scan 4.2s ease-in-out infinite; transform-box: fill-box; }
+
+@keyframes rm-trace {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -24; }
+}
+.rm-trace { animation: rm-trace 3s linear infinite; }
+
+@keyframes rm-spin     { to { transform: rotate(360deg); } }
+@keyframes rm-spin-rev { to { transform: rotate(-360deg); } }
+.rm-spin     { animation: rm-spin     6s linear infinite; transform-box: fill-box; }
+.rm-spin-rev { animation: rm-spin-rev 4s linear infinite; transform-box: fill-box; }
+
+@keyframes rm-launch {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+.rm-launch { animation: rm-launch 2.4s ease-in-out infinite; transform-box: fill-box; }
+
+@keyframes rm-flame {
+  0%, 100% { transform: scaleY(1);   opacity: 0.45; }
+  50%      { transform: scaleY(1.4); opacity: 0.7; }
+}
+.rm-flame { animation: rm-flame 0.45s ease-in-out infinite; transform-origin: 56px 56px; transform-box: fill-box; }
+
