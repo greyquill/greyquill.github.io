@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import ProductBackLink from '@/components/ProductBackLink';
-import ServiceGroups from '@/components/ServiceGroups';
+import EngagementRoadmap from '@/components/EngagementRoadmap';
 import { CALENDLY_URL } from '@/lib/links';
 
 export const metadata: Metadata = {
@@ -49,8 +49,11 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* GROUPS — interactive: clicking a card opens a flip-in detail modal. */}
-      <ServiceGroups />
+      {/* ENGAGEMENT ROADMAP — single source of truth for services.
+          All 12 engagements organised by phase, with the recommended core
+          highlighted at each phase and parallel options inline alongside.
+          Clicking any service card opens the detail modal. */}
+      <EngagementRoadmap />
 
       {/* CLOSING CTA */}
       <section className="py-14 md:py-20 bg-brand-ink text-white relative overflow-hidden">
