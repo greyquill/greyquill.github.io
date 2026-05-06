@@ -22,7 +22,11 @@ export default function HomePage() {
         <Deployment />
       </div>
       <Capabilities />
-      <RoleTargeting />
+      {/* Role/pain qualifier reads as a long stacked list on mobile and
+          loses its desktop two-column impact. Gated to md+. */}
+      <div className="hidden md:block">
+        <RoleTargeting />
+      </div>
       <WhyTrustUs />
       <BriefDownload />
       <FinalCTA />
