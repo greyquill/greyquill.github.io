@@ -64,8 +64,8 @@ export default function Dilemma() {
     >
       <motion.div
         ref={ref}
-        initial={{ opacity: 0, y: 8 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
+        initial={{ y: 8 }}
+        animate={inView ? { y: 0 } : {}}
         transition={{ duration: 0.35, ease: easings.outExpo }}
       >
         <div className="bg-white rounded-2xl ring-1 ring-black/[0.06] shadow-xl shadow-brand-blue/5 p-6 md:p-10">
@@ -80,8 +80,58 @@ export default function Dilemma() {
           </div>
 
           <div className="mt-6 pt-6 border-t border-black/[0.08]">
-            {/* CHART */}
-            <svg viewBox={`0 0 ${VB_W} ${VB_H}`} className="block w-full h-auto" role="img" aria-label="Funnel chart: 100 ideas started, 60 reach evaluation, 25 pass evaluation, 5 in production. Loss reasons annotated between each stage.">
+            {/* Mobile: stacked vertical funnel. The SVG below scales to
+                ~4px text on a 390px viewport, so we render a stripped
+                stack here. Hidden on `md`+ where the SVG is legible. */}
+            <div className="md:hidden">
+              {STAGES.map((s, i) => {
+                const widthPct = Math.max(8, s.count); // floor for tiny bars
+                const loss = LOSSES[i];
+                return (
+                  <div key={s.label}>
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 text-right shrink-0">
+                        <div className="font-display font-bold text-2xl text-brand-ink leading-none">
+                          {s.count}
+                        </div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-ink/55 mb-1">
+                          {s.label}
+                        </div>
+                        <div className="h-3 w-full rounded-full bg-brand-mist/60 overflow-hidden">
+                          <div
+                            className="h-full rounded-full"
+                            style={{ width: `${widthPct}%`, background: s.fill }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    {loss && (
+                      <div className="my-3 ml-12 pl-3 border-l-2 border-[#c0392b]/40">
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-display font-bold text-lg text-[#c0392b] leading-none">
+                            −{loss.n}
+                          </span>
+                          <span className="text-[10px] font-bold tracking-[0.18em] text-[#c0392b]">
+                            LOST
+                          </span>
+                        </div>
+                        <div className="font-semibold text-brand-ink text-[14px] leading-snug mt-1.5">
+                          {loss.heading}
+                        </div>
+                        <div className="text-[12.5px] text-brand-ink/65 leading-relaxed mt-1">
+                          {loss.body}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Desktop / tablet: original SVG funnel. */}
+            <svg viewBox={`0 0 ${VB_W} ${VB_H}`} className="hidden md:block w-full h-auto" role="img" aria-label="Funnel chart: 100 ideas started, 60 reach evaluation, 25 pass evaluation, 5 in production. Loss reasons annotated between each stage.">
               {/* Column headers */}
               {STAGES.map((s, i) => {
                 const cx = i * COL_W + COL_W / 2;
@@ -175,8 +225,9 @@ export default function Dilemma() {
             </svg>
 
             {/* Loss annotations: heading + body only (the −N and LOST live in the SVG above).
-                Cols 2/3/4 of a 4-col grid land flush with the drop lines at 25/50/75%. */}
-            <div className="grid grid-cols-4 gap-x-4 md:gap-x-6 mt-2">
+                Cols 2/3/4 of a 4-col grid land flush with the drop lines at 25/50/75%.
+                Hidden on mobile where the stacked version already inlines them. */}
+            <div className="hidden md:grid grid-cols-4 gap-x-4 md:gap-x-6 mt-2">
               <div aria-hidden />
               {LOSSES.map((loss) => (
                 <div key={loss.heading}>
