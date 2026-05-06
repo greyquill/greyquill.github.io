@@ -8,6 +8,7 @@ import Platform from '@/components/Platform';
 import WhyTrustUs from '@/components/WhyTrustUs';
 import BriefDownload from '@/components/BriefDownload';
 import FinalCTA from '@/components/FinalCTA';
+import MobileChatbotFAB from '@/components/MobileChatbotFAB';
 
 export default function HomePage() {
   return (
@@ -30,6 +31,11 @@ export default function HomePage() {
       <WhyTrustUs />
       <BriefDownload />
       <FinalCTA />
+      {/* Floating chat icon for tablet/mobile. Mounted at the page root
+          so it sits outside any section's stacking context (Hero uses
+          `isolate`, which previously bounded the FAB's z-index and let
+          later sections paint over it on scroll). */}
+      <MobileChatbotFAB />
     </>
   );
 }
