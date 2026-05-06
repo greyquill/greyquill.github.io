@@ -355,32 +355,88 @@
 }
 
 /* ---------------------------------------------------------------- *
- * Mobile Platform pipeline — three numbered nodes in a vertical
- * rail, each "lights" for a third of a 9s cycle so the eye reads
- * the pipeline left-to-right (top-to-bottom) without the dense
- * desktop animation. Pure transform/box-shadow → cheap on mobile.
+ * Mobile Platform — triangle layout with marching-ants connectors.
+ *
+ * One 9s cycle:
+ *   0–22%   ClarityAI active   (top card pulses)
+ *   22–33%  ants 1 visible     (Clarity → GQData)
+ *   33–55%  GQData active      (bottom-left card pulses)
+ *   55–66%  ants 2 visible     (GQData → GQ Agents)
+ *   66–89%  GQ Agents active   (bottom-right card pulses)
+ *   89–100% rest
+ *
+ * Cards highlight by lifting a coloured ring and a soft halo. Ants are
+ * a `stroke-dashoffset` march, made visible only inside their window
+ * via opacity. Pure transform/opacity → cheap on mobile.
  * ---------------------------------------------------------------- */
-@keyframes platform-mobile-node-pulse {
+
+.platform-triangle { max-width: 360px; }
+
+/* Card highlight cycle — each card lights for its window, then rests. */
+@keyframes platform-tri-card-pulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(11, 79, 136, 0);
+    box-shadow: 0 4px 14px rgba(10, 22, 40, 0.06);
     transform: scale(1);
   }
-  6% {
-    box-shadow: 0 0 0 4px rgba(11, 79, 136, 0.18);
-    transform: scale(1.06);
+  4% {
+    box-shadow:
+      0 4px 14px rgba(10, 22, 40, 0.06),
+      0 0 0 3px var(--accent-soft, rgba(11, 79, 136, 0.18));
+    transform: scale(1.015);
   }
-  20% {
-    box-shadow: 0 0 0 0 rgba(11, 79, 136, 0);
+  18% {
+    box-shadow: 0 4px 14px rgba(10, 22, 40, 0.06);
     transform: scale(1);
   }
 }
-.platform-mobile-node {
-  animation: platform-mobile-node-pulse 9s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+.platform-tri-card {
+  animation: platform-tri-card-pulse 9s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   will-change: transform, box-shadow;
 }
-.platform-mobile-node-0 { animation-delay: 0s; }
-.platform-mobile-node-1 { animation-delay: 3s; }
-.platform-mobile-node-2 { animation-delay: 6s; }
+.platform-tri-card-0 {
+  animation-delay: 0s;
+  --accent-soft: rgba(11, 79, 136, 0.22);
+}
+.platform-tri-card-1 {
+  animation-delay: 3s;
+  --accent-soft: rgba(14, 116, 144, 0.22);
+}
+.platform-tri-card-2 {
+  animation-delay: 6s;
+  --accent-soft: rgba(67, 56, 202, 0.22);
+}
+
+/* Marching ants. The stroke-dashoffset march loops independently;
+   opacity windows make the line appear only during its handoff slot. */
+@keyframes platform-ants-march {
+  to { stroke-dashoffset: -8; }
+}
+@keyframes platform-ants-1-fade {
+  0%, 18% { opacity: 0; }
+  22%     { opacity: 1; }
+  33%     { opacity: 1; }
+  37%     { opacity: 0; }
+  100%    { opacity: 0; }
+}
+@keyframes platform-ants-2-fade {
+  0%, 51% { opacity: 0; }
+  55%     { opacity: 1; }
+  66%     { opacity: 1; }
+  70%     { opacity: 0; }
+  100%    { opacity: 0; }
+}
+.platform-ants {
+  opacity: 0;
+  animation:
+    platform-ants-march 0.7s linear infinite,
+    platform-ants-1-fade 9s linear infinite;
+  will-change: stroke-dashoffset, opacity;
+}
+.platform-ants-2 {
+  animation:
+    platform-ants-march 0.7s linear infinite,
+    platform-ants-2-fade 9s linear infinite;
+}
 
 /* Phase 05 Ship — heartbeat waveform + alerts that resolve */
 .vp-ship-wave {

@@ -220,7 +220,7 @@ const FINANCE_GST: UseCase = {
   ],
 };
 
-const USE_CASES: UseCase[] = [SUPPLY_CHAIN, FINANCE_GST];
+const USE_CASES: UseCase[] = [FINANCE_GST, SUPPLY_CHAIN];
 
 const LAYER_ACCENTS = ['#0B4F88', '#0e7490', '#4338ca'];
 const LAYER_DELAYS = [0, 5, 10]; // seconds; matches keyframes in globals.css
@@ -420,6 +420,40 @@ function LayerColumn({ layer, index, prevProduct }: { layer: Layer; index: numbe
   );
 }
 
+/**
+ * Mobile-only card body used inside the triangle layout. Compact: name,
+ * role, and the engine steps as bullets so the user sees what happens
+ * at each stage without the desktop's source/engine/output stack.
+ */
+function PlatformMobileCard({ layer, accent }: { layer: Layer; accent: string }) {
+  return (
+    <div>
+      <div className="flex items-baseline justify-between gap-2 mb-1.5">
+        <span className="font-display font-semibold text-[14px] text-brand-ink leading-tight">
+          {layer.product}
+        </span>
+        <span
+          className="text-[8.5px] font-bold uppercase tracking-[0.16em] shrink-0"
+          style={{ color: accent }}
+        >
+          {layer.role}
+        </span>
+      </div>
+      <ul className="space-y-1">
+        {layer.steps.slice(0, 3).map((s) => (
+          <li
+            key={s.label}
+            className="text-[11.5px] text-brand-ink/70 flex items-start gap-1.5 leading-snug"
+          >
+            <span aria-hidden className="shrink-0 mt-[7px] h-1 w-1 rounded-full" style={{ background: accent }} />
+            <span>{s.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function Platform() {
   const [activeId, setActiveId] = useState<string>(USE_CASES[0].id);
   const useCase = USE_CASES.find((u) => u.id === activeId) ?? USE_CASES[0];
@@ -467,76 +501,86 @@ export default function Platform() {
         </p>
       </div>
 
-      {/* Mobile: a stripped vertical pipeline. The full three-column
-          desktop stage doesn't translate to 390px — too dense, animations
-          rely on left-to-right flow. We render an instructional vertical
-          version with one travelling dot that lights each stage in turn,
-          plus the final-stage outcome at the bottom. Hidden md+. */}
-      <div key={useCase.id + '-m'} className="md:hidden platform-mobile">
-        <ol className="relative pl-10">
-          {/* Vertical rail behind the bullets */}
-          <span aria-hidden className="absolute left-[18px] top-2 bottom-2 w-px bg-brand-ink/15" />
-          {useCase.layers.map((layer, i) => (
-            <li key={layer.product} className="relative pb-7 last:pb-0">
-              <span
-                aria-hidden
-                className={`platform-mobile-node platform-mobile-node-${i} absolute left-0 top-0 inline-flex h-9 w-9 items-center justify-center rounded-full ring-1 ring-black/5 bg-white text-[12px] font-semibold`}
-                style={{ color: LAYER_ACCENTS[i] }}
-              >
-                {i + 1}
-              </span>
-              <div className="ml-1">
-                <div className="flex items-baseline gap-2 mb-0.5">
-                  <span className="font-display font-semibold text-[16px] text-brand-ink">
-                    {layer.product}
-                  </span>
-                  <span
-                    className="text-[10px] font-semibold uppercase tracking-[0.18em]"
-                    style={{ color: LAYER_ACCENTS[i] }}
-                  >
-                    {layer.role}
-                  </span>
-                </div>
-                <p className="text-[13px] text-brand-ink/70 leading-relaxed">
-                  {layer.description}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ol>
+      {/* Mobile: triangle layout. ClarityAI at the top vertex, GQData
+          and GQ Agents at the bottom corners. Marching-ants connectors
+          animate the flow ClarityAI → GQData → GQ Agents on a 9s cycle.
+          Each card shows a short list of "what happens there." Hidden md+. */}
+      <div
+        key={useCase.id + '-m'}
+        className="md:hidden platform-triangle relative mx-auto"
+      >
+        {/* Connector layer — sits behind the cards. Two paths:
+            (1) ClarityAI bottom → GQData top (curved, marching ants),
+            (2) GQData right → GQ Agents left (horizontal, marching ants).
+            Visibility windows match the card pulse cycle defined in CSS.
+            The viewBox is 0–100 stretched to the container with
+            preserveAspectRatio=none so coordinates are simply percent
+            of the card box. */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          {/* Faint triangle outline — gives the layout a clear geometric
+              read so users feel "three things working together" even
+              before the ants animate. */}
+          <path
+            d="M 50 18 L 22 82 L 78 82 Z"
+            stroke="#0a162818"
+            strokeWidth="0.5"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+          />
+          {/* Path 1: top card bottom-center → bottom-left card top-center.
+              Starts just below card 0 bottom (~36%) and lands just above
+              card 1 top (~53%). */}
+          <path
+            d="M 50 37 Q 35 46 22 53"
+            className="platform-ants platform-ants-1"
+            stroke={LAYER_ACCENTS[1]}
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeDasharray="2.5 2.5"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+          />
+          {/* Path 2: bottom-left card right edge → bottom-right card left edge.
+              Sits at the vertical centre of the bottom row so ants visually
+              cross between the two cards. */}
+          <path
+            d="M 44 76 L 56 76"
+            className="platform-ants platform-ants-2"
+            stroke={LAYER_ACCENTS[2]}
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeDasharray="2.5 2.5"
+            fill="none"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
 
-        {/* Final outcome card — what comes out the other side of the pipeline. */}
-        {(() => {
-          const final = useCase.layers[2];
-          return (
-            <div className="mt-2 rounded-2xl bg-white ring-1 ring-black/[0.06] p-4 shadow-[0_4px_14px_rgba(10,22,40,0.04)]">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-ink/50 mb-2">
-                {final.outputLabel}
-              </div>
-              <div
-                className="font-display font-semibold text-[15px] leading-tight mb-2.5"
-                style={{ color: LAYER_ACCENTS[2] }}
-              >
-                {final.outputTitle}
-              </div>
-              <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[12px]">
-                {final.outputFields.map((f) => (
-                  <div key={f.k} className="contents">
-                    <span className="text-brand-ink/50 uppercase tracking-wide text-[9.5px] font-semibold pt-[2px]">
-                      {f.k}
-                    </span>
-                    <span className="text-brand-ink">{f.v}</span>
-                  </div>
-                ))}
-              </div>
-              {final.outputFooter && (
-                <div className="mt-2.5 pt-2 border-t border-black/5 text-[11px] text-brand-ink/60 leading-snug">
-                  {final.outputFooter}
-                </div>
-              )}
-            </div>
-          );
-        })()}
+        {/* Top: ClarityAI */}
+        <div
+          className="platform-tri-card platform-tri-card-0 relative z-10 mx-auto w-[72%] rounded-2xl bg-white ring-1 ring-black/[0.06] p-4"
+        >
+          <PlatformMobileCard layer={useCase.layers[0]} accent={LAYER_ACCENTS[0]} />
+        </div>
+
+        {/* Spacer — gives the angled Path 1 room to breathe */}
+        <div className="h-14" aria-hidden />
+
+        {/* Bottom row: GQData + GQ Agents.
+            gap-10 keeps a 40px gutter between cards so Path 2's marching
+            ants are clearly visible. */}
+        <div className="relative z-10 grid grid-cols-2 gap-10">
+          <div className="platform-tri-card platform-tri-card-1 rounded-2xl bg-white ring-1 ring-black/[0.06] p-4">
+            <PlatformMobileCard layer={useCase.layers[1]} accent={LAYER_ACCENTS[1]} />
+          </div>
+          <div className="platform-tri-card platform-tri-card-2 rounded-2xl bg-white ring-1 ring-black/[0.06] p-4">
+            <PlatformMobileCard layer={useCase.layers[2]} accent={LAYER_ACCENTS[2]} />
+          </div>
+        </div>
       </div>
 
       {/* Desktop / tablet: full three-column animated stage. `key`

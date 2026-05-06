@@ -14,22 +14,22 @@ const POSTURE = [
   {
     eyebrow: 'Where it runs',
     title: 'In your environment.',
-    body: 'Greyquill deploys inside your perimeter, on infrastructure you already control. The platform comes to your data, not the other way around.',
+    body: 'Inside your perimeter, on infrastructure you already control.',
   },
   {
     eyebrow: 'What it stands on',
     title: 'On IBM foundations.',
-    body: 'Built on the IBM stack you already trust for regulated workloads. Greyquill is an IBM Business Partner. Enterprise-grade rails, recognised by your security team.',
+    body: 'The enterprise stack your security team already trusts.',
   },
   {
     eyebrow: 'Where your data sits',
-    title: 'Inside your perimeter.',
-    body: 'Your records, your lineage, your audit trail. Data does not cross the Greyquill boundary. Your security team holds the keys.',
+    title: 'Your data, your keys.',
+    body: 'Records, lineage, and audit trail never cross our boundary.',
   },
   {
     eyebrow: 'What you take with you',
     title: 'Yours to own.',
-    body: 'Your governance configuration, your master data model, your agent definitions. Open standards across the stack. No vendor capture, by design.',
+    body: 'Open standards across the stack. No vendor capture.',
   },
 ];
 
