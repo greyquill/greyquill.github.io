@@ -16,7 +16,7 @@ const PILLARS = [
     eyebrow: 'The team',
     headline: 'Senior engineers, 50+ years combined.',
     body: 'Four senior engineers across architecture, business analysis, infrastructure, and design. Careers spent shipping enterprise software in regulated sectors.',
-    cta: { label: 'Meet the team', href: '/about-us' },
+    cta: { label: 'Read about us', href: '/about-us' },
   },
   {
     eyebrow: 'The track record',
