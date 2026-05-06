@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { easings } from '@/lib/motion';
 import { CALENDLY_URL } from '@/lib/links';
 import HeroChatbot from './HeroChatbot';
-import MobileChatbotFAB from './MobileChatbotFAB';
 
 export default function Hero() {
   return (
@@ -113,8 +112,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      {/* Floating chat icon for tablet/mobile. Renders nothing on `lg`+. */}
-      <MobileChatbotFAB />
     </section>
   );
 }
