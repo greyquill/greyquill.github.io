@@ -354,6 +354,34 @@
   100%    { opacity: 0; }
 }
 
+/* ---------------------------------------------------------------- *
+ * Mobile Platform pipeline — three numbered nodes in a vertical
+ * rail, each "lights" for a third of a 9s cycle so the eye reads
+ * the pipeline left-to-right (top-to-bottom) without the dense
+ * desktop animation. Pure transform/box-shadow → cheap on mobile.
+ * ---------------------------------------------------------------- */
+@keyframes platform-mobile-node-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(11, 79, 136, 0);
+    transform: scale(1);
+  }
+  6% {
+    box-shadow: 0 0 0 4px rgba(11, 79, 136, 0.18);
+    transform: scale(1.06);
+  }
+  20% {
+    box-shadow: 0 0 0 0 rgba(11, 79, 136, 0);
+    transform: scale(1);
+  }
+}
+.platform-mobile-node {
+  animation: platform-mobile-node-pulse 9s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  will-change: transform, box-shadow;
+}
+.platform-mobile-node-0 { animation-delay: 0s; }
+.platform-mobile-node-1 { animation-delay: 3s; }
+.platform-mobile-node-2 { animation-delay: 6s; }
+
 /* Phase 05 Ship — heartbeat waveform + alerts that resolve */
 .vp-ship-wave {
   stroke-dasharray: 200;

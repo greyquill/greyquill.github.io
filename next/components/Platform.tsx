@@ -467,11 +467,83 @@ export default function Platform() {
         </p>
       </div>
 
-      {/* Stage — `key` re-mounts on tab change so animations restart.
-         Each connector's dot fires shortly after the previous layer
-         finishes (lastBarFinish of layer N + 0.7s buffer) and inherits
-         the next layer's accent so the colour reads as "what's about
-         to land." */}
+      {/* Mobile: a stripped vertical pipeline. The full three-column
+          desktop stage doesn't translate to 390px — too dense, animations
+          rely on left-to-right flow. We render an instructional vertical
+          version with one travelling dot that lights each stage in turn,
+          plus the final-stage outcome at the bottom. Hidden md+. */}
+      <div key={useCase.id + '-m'} className="md:hidden platform-mobile">
+        <ol className="relative pl-10">
+          {/* Vertical rail behind the bullets */}
+          <span aria-hidden className="absolute left-[18px] top-2 bottom-2 w-px bg-brand-ink/15" />
+          {useCase.layers.map((layer, i) => (
+            <li key={layer.product} className="relative pb-7 last:pb-0">
+              <span
+                aria-hidden
+                className={`platform-mobile-node platform-mobile-node-${i} absolute left-0 top-0 inline-flex h-9 w-9 items-center justify-center rounded-full ring-1 ring-black/5 bg-white text-[12px] font-semibold`}
+                style={{ color: LAYER_ACCENTS[i] }}
+              >
+                {i + 1}
+              </span>
+              <div className="ml-1">
+                <div className="flex items-baseline gap-2 mb-0.5">
+                  <span className="font-display font-semibold text-[16px] text-brand-ink">
+                    {layer.product}
+                  </span>
+                  <span
+                    className="text-[10px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: LAYER_ACCENTS[i] }}
+                  >
+                    {layer.role}
+                  </span>
+                </div>
+                <p className="text-[13px] text-brand-ink/70 leading-relaxed">
+                  {layer.description}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        {/* Final outcome card — what comes out the other side of the pipeline. */}
+        {(() => {
+          const final = useCase.layers[2];
+          return (
+            <div className="mt-2 rounded-2xl bg-white ring-1 ring-black/[0.06] p-4 shadow-[0_4px_14px_rgba(10,22,40,0.04)]">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-ink/50 mb-2">
+                {final.outputLabel}
+              </div>
+              <div
+                className="font-display font-semibold text-[15px] leading-tight mb-2.5"
+                style={{ color: LAYER_ACCENTS[2] }}
+              >
+                {final.outputTitle}
+              </div>
+              <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[12px]">
+                {final.outputFields.map((f) => (
+                  <div key={f.k} className="contents">
+                    <span className="text-brand-ink/50 uppercase tracking-wide text-[9.5px] font-semibold pt-[2px]">
+                      {f.k}
+                    </span>
+                    <span className="text-brand-ink">{f.v}</span>
+                  </div>
+                ))}
+              </div>
+              {final.outputFooter && (
+                <div className="mt-2.5 pt-2 border-t border-black/5 text-[11px] text-brand-ink/60 leading-snug">
+                  {final.outputFooter}
+                </div>
+              )}
+            </div>
+          );
+        })()}
+      </div>
+
+      {/* Desktop / tablet: full three-column animated stage. `key`
+         re-mounts on tab change so animations restart. Each connector's
+         dot fires shortly after the previous layer finishes
+         (lastBarFinish of layer N + 0.7s buffer) and inherits the next
+         layer's accent so the colour reads as "what's about to land." */}
       {(() => {
         const handoffDelay = (i: number) => {
           const prev = useCase.layers[i];
@@ -480,7 +552,7 @@ export default function Platform() {
         return (
           <div
             key={useCase.id}
-            className="layered-stage grid md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-4 md:gap-2 items-stretch"
+            className="hidden md:grid layered-stage md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-4 md:gap-2 items-stretch"
           >
             <LayerColumn layer={useCase.layers[0]} index={0} />
             <Connector delay={handoffDelay(0)} accent={LAYER_ACCENTS[1]} />
