@@ -220,7 +220,7 @@ const FINANCE_GST: UseCase = {
   ],
 };
 
-const USE_CASES: UseCase[] = [FINANCE_GST, SUPPLY_CHAIN];
+const USE_CASES: UseCase[] = [SUPPLY_CHAIN, FINANCE_GST];
 
 const LAYER_ACCENTS = ['#0B4F88', '#0e7490', '#4338ca'];
 const LAYER_DELAYS = [0, 5, 10]; // seconds; matches keyframes in globals.css
