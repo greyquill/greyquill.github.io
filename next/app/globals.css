@@ -17,6 +17,11 @@
   body {
     @apply font-body text-brand-ink bg-white;
     font-feature-settings: 'ss01', 'cv11', 'kern';
+    /* Prevent decorative absolute-positioned elements (blur halos, gradient
+       washes) from creating horizontal scroll on narrow viewports. `clip`
+       avoids the scroll context that `hidden` introduces. */
+    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   h1, h2, h3, h4 {

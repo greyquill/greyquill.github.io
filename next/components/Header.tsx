@@ -287,14 +287,30 @@ export default function Header() {
           ))}
         </nav>
 
+        {/* Desktop: full-text pill. Mobile: compact circular icon button so the
+            sticky header stays clean on narrow viewports. Same destination. */}
         <a
           href={CALENDLY_URL}
           target="_blank"
           rel="noopener"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-brand-ink px-4 py-2 rounded-full hover:bg-brand-blue transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-md"
+          aria-label="Book a discovery call"
+          className="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-white bg-brand-ink px-4 py-2 rounded-full hover:bg-brand-blue transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-md whitespace-nowrap"
         >
           Book a discovery call
           <span aria-hidden>↗</span>
+        </a>
+        <a
+          href={CALENDLY_URL}
+          target="_blank"
+          rel="noopener"
+          aria-label="Book a discovery call"
+          className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-ink text-white shadow-sm hover:bg-brand-blue transition-colors shrink-0"
+        >
+          <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <rect x="3" y="4.5" width="14" height="13" rx="2" />
+            <path d="M3 8.5h14" />
+            <path d="M7 3v3M13 3v3" />
+          </svg>
         </a>
       </div>
     </header>

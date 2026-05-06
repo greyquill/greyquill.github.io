@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { easings } from '@/lib/motion';
 import { CALENDLY_URL } from '@/lib/links';
 import HeroChatbot from './HeroChatbot';
+import MobileChatbotFAB from './MobileChatbotFAB';
 
 export default function Hero() {
   return (
@@ -44,10 +45,11 @@ export default function Hero() {
       {/* Content */}
       <div className="relative mx-auto max-w-6xl px-5 md:px-8 py-20 md:py-32">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full">
-          {/* Left: text — single section-level fade only, no stagger */}
+          {/* Left: text. Slide-only on mount so content is readable even if
+              JS or animations fail; opacity is intentionally not gated. */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 10 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: easings.outExpo }}
             className="lg:col-span-7"
           >
@@ -103,13 +105,16 @@ export default function Hero() {
 
           {/* Right: chatbot. Doubles as a "talk to us" surface and a
              listening channel for raw qualitative signal from anonymous
-             visitors. Pre-PMF, that signal is more valuable than another
-             booked call, so the chatbot stays in the hero. */}
-          <div className="lg:col-span-5">
+             visitors. Hidden below `lg` so the embedded card doesn't
+             compete with hero text on small viewports — on those screens
+             the FAB below opens the same chatbot in a bottom sheet. */}
+          <div className="hidden lg:block lg:col-span-5">
             <HeroChatbot />
           </div>
         </div>
       </div>
+      {/* Floating chat icon for tablet/mobile. Renders nothing on `lg`+. */}
+      <MobileChatbotFAB />
     </section>
   );
 }

@@ -30,7 +30,16 @@ const SUGGESTIONS = [
 const PLACEHOLDER_ANSWER =
   "Thanks for asking. We're still wiring up the assistant to our knowledge base. The fastest way to a real answer is a 30-minute discovery call, or drop us a line through the contact form. We'll respond personally.";
 
-export default function HeroChatbot() {
+type Props = {
+  /**
+   * `card` (default) is the embedded glass card used in the desktop hero.
+   * `sheet` strips the outer card chrome and entry animation so the chat
+   * UI fits inside an already-framed container (e.g. mobile bottom sheet).
+   */
+  variant?: 'card' | 'sheet';
+};
+
+export default function HeroChatbot({ variant = 'card' }: Props = {}) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [thinking, setThinking] = useState(false);
@@ -79,48 +88,62 @@ export default function HeroChatbot() {
   }
 
   const empty = messages.length === 0 && !thinking;
+  const isSheet = variant === 'sheet';
 
-  return (
-    <div className="relative w-full max-w-[460px] mx-auto lg:ml-auto lg:mr-0">
-      <motion.div
-        initial={{ opacity: 0, y: 16, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.7, delay: 0.4, ease: easings.outExpo }}
-        className="relative rounded-2xl overflow-hidden ring-1 ring-white/55 shadow-2xl shadow-brand-blue/10"
-        style={{
-          // Bluish frosted glass: soft brand-blue tint over a strong
-          // backdrop blur, with a subtle vertical sheen so it reads as
-          // a real surface
+  // Choose between the glass card chrome (hero) and a transparent
+  // pass-through wrapper (sheet, where the parent provides the chrome).
+  const Wrapper = isSheet ? 'div' : motion.div;
+  const wrapperProps: Record<string, unknown> = isSheet
+    ? { className: 'flex h-full flex-col' }
+    : {
+        initial: { y: 16, scale: 0.98 },
+        animate: { y: 0, scale: 1 },
+        transition: { duration: 0.7, delay: 0.4, ease: easings.outExpo },
+        className:
+          'relative rounded-2xl overflow-hidden ring-1 ring-white/55 shadow-2xl shadow-brand-blue/10',
+        style: {
           background:
             'linear-gradient(180deg, rgba(214,234,247,0.55) 0%, rgba(186,217,238,0.42) 100%)',
           backdropFilter: 'blur(28px) saturate(150%)',
           WebkitBackdropFilter: 'blur(28px) saturate(150%)',
-        }}
-      >
-        {/* Top-edge highlight, gives the glass a real reflective edge */}
-        <div
-          aria-hidden
-          className="absolute inset-x-0 top-0 h-px"
-          style={{
-            background:
-              'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.9) 50%, transparent 100%)',
-          }}
-        />
-        {/* Header */}
-        <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-white/40">
-          <span className="relative flex h-2 w-2" aria-hidden>
-            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          <span className="font-display font-semibold text-sm text-brand-ink">
-            Ask us anything
-          </span>
-        </div>
+        },
+      };
+
+  return (
+    <div className={isSheet ? 'h-full' : 'relative w-full max-w-[460px] mx-auto lg:ml-auto lg:mr-0'}>
+      <Wrapper {...(wrapperProps as Record<string, never>)}>
+        {!isSheet && (
+          <>
+            {/* Top-edge highlight, gives the glass a real reflective edge */}
+            <div
+              aria-hidden
+              className="absolute inset-x-0 top-0 h-px"
+              style={{
+                background:
+                  'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.9) 50%, transparent 100%)',
+              }}
+            />
+            {/* Header */}
+            <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-white/40">
+              <span className="relative flex h-2 w-2" aria-hidden>
+                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span className="font-display font-semibold text-sm text-brand-ink">
+                Ask us anything
+              </span>
+            </div>
+          </>
+        )}
 
         {/* Messages */}
         <div
           ref={scrollRef}
-          className="px-5 py-5 min-h-[420px] max-h-[520px] overflow-y-auto flex flex-col gap-3.5 scroll-smooth"
+          className={
+            isSheet
+              ? 'flex-1 min-h-0 overflow-y-auto flex flex-col gap-3.5 scroll-smooth px-1 py-3'
+              : 'px-5 py-5 min-h-[420px] max-h-[520px] overflow-y-auto flex flex-col gap-3.5 scroll-smooth'
+          }
         >
           {empty ? (
             <div className="flex flex-col gap-3">
@@ -208,7 +231,11 @@ export default function HeroChatbot() {
         {/* Composer */}
         <form
           onSubmit={handleSubmit}
-          className="px-3 py-2.5 border-t border-white/40 bg-white/30"
+          className={
+            isSheet
+              ? 'px-1 py-2 border-t border-black/[0.08]'
+              : 'px-3 py-2.5 border-t border-white/40 bg-white/30'
+          }
         >
           <div className="flex items-end gap-2">
             <textarea
@@ -235,7 +262,7 @@ export default function HeroChatbot() {
             </button>
           </div>
         </form>
-      </motion.div>
+      </Wrapper>
     </div>
   );
 }

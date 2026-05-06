@@ -24,8 +24,8 @@ const PAINS = [
 export default function RoleTargeting() {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 8 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.45, ease: easings.outExpo }}
       className="py-14 md:py-20 bg-white"
