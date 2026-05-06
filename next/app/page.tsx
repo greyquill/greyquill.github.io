@@ -16,7 +16,11 @@ export default function HomePage() {
       <Dilemma />
       <Method />
       <Platform />
-      <Deployment />
+      {/* Deployment posture is a CISO/InfoSec primer; that audience
+          evaluates on desktop, not on a phone. Hidden below md. */}
+      <div className="hidden md:block">
+        <Deployment />
+      </div>
       <Capabilities />
       <RoleTargeting />
       <WhyTrustUs />
