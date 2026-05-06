@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { easings } from '@/lib/motion';
 import { CALENDLY_URL } from '@/lib/links';
 
 const PRIMARY_NAV = [
@@ -95,11 +97,27 @@ export default function Header() {
   // panel dismisses even when the click is to a hash on the current
   // page (which usePathname does not register as a change).
   const [suppressMenu, setSuppressMenu] = useState(false);
+  // Mobile nav drawer state. Closed on route change and on Escape.
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   useEffect(() => {
     setSuppressMenu(true);
     const t = setTimeout(() => setSuppressMenu(false), 350);
+    setMobileNavOpen(false);
     return () => clearTimeout(t);
   }, [pathname]);
+  useEffect(() => {
+    if (!mobileNavOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileNavOpen(false);
+    };
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [mobileNavOpen]);
   function closeOnClick() {
     setSuppressMenu(true);
     setTimeout(() => setSuppressMenu(false), 350);
@@ -287,32 +305,175 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Desktop: full-text pill. Mobile: compact circular icon button so the
-            sticky header stays clean on narrow viewports. Same destination. */}
-        <a
-          href={CALENDLY_URL}
-          target="_blank"
-          rel="noopener"
-          aria-label="Book a discovery call"
-          className="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-white bg-brand-ink px-4 py-2 rounded-full hover:bg-brand-blue transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-md whitespace-nowrap"
-        >
-          Book a discovery call
-          <span aria-hidden>↗</span>
-        </a>
-        <a
-          href={CALENDLY_URL}
-          target="_blank"
-          rel="noopener"
-          aria-label="Book a discovery call"
-          className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-ink text-white shadow-sm hover:bg-brand-blue transition-colors shrink-0"
-        >
-          <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <rect x="3" y="4.5" width="14" height="13" rx="2" />
-            <path d="M3 8.5h14" />
-            <path d="M7 3v3M13 3v3" />
-          </svg>
-        </a>
+        {/* Right cluster — desktop pill + mobile icons (CTA + hamburger). */}
+        <div className="flex items-center gap-2">
+          {/* Desktop: full-text pill. */}
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener"
+            aria-label="Book a discovery call"
+            className="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-white bg-brand-ink px-4 py-2 rounded-full hover:bg-brand-blue transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:shadow-md whitespace-nowrap"
+          >
+            Book a discovery call
+            <span aria-hidden>↗</span>
+          </a>
+          {/* Mobile: compact calendar icon. */}
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener"
+            aria-label="Book a discovery call"
+            className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-ink text-white shadow-sm hover:bg-brand-blue transition-colors shrink-0"
+          >
+            <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <rect x="3" y="4.5" width="14" height="13" rx="2" />
+              <path d="M3 8.5h14" />
+              <path d="M7 3v3M13 3v3" />
+            </svg>
+          </a>
+          {/* Mobile: hamburger / close toggle. */}
+          <button
+            type="button"
+            onClick={() => setMobileNavOpen((v) => !v)}
+            aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileNavOpen}
+            aria-controls="mobile-nav"
+            className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-brand-ink hover:bg-black/5 transition-colors shrink-0"
+          >
+            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+              {mobileNavOpen ? (
+                <>
+                  <path d="M6 6l12 12" />
+                  <path d="M18 6L6 18" />
+                </>
+              ) : (
+                <>
+                  <path d="M4 7h16" />
+                  <path d="M4 12h16" />
+                  <path d="M4 17h16" />
+                </>
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
+
+      {/* Mobile nav drawer. Slides down from the header; backdrop dims the
+          page behind. Hidden on md+ where the desktop nav is rendered
+          inline above. */}
+      <AnimatePresence>
+        {mobileNavOpen && (
+          <>
+            <motion.div
+              key="mobile-nav-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
+              className="md:hidden fixed inset-0 top-16 z-30 bg-black/30"
+              onClick={() => setMobileNavOpen(false)}
+              aria-hidden
+            />
+            <motion.nav
+              key="mobile-nav"
+              id="mobile-nav"
+              initial={{ y: -8, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -8, opacity: 0 }}
+              transition={{ duration: 0.22, ease: easings.outExpo }}
+              className="md:hidden fixed inset-x-0 top-16 z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto bg-white border-b border-black/[0.06] shadow-xl"
+            >
+              <div className="px-5 py-5 max-w-6xl mx-auto">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45 mb-2">
+                  Platform
+                </div>
+                <Link
+                  href="/platform"
+                  onClick={() => setMobileNavOpen(false)}
+                  className="block py-2.5 text-[16px] font-display font-semibold text-brand-ink"
+                >
+                  All of the platform <span aria-hidden className="text-brand-blue">→</span>
+                </Link>
+                <ul className="mb-2">
+                  {PILLARS.map((p) => (
+                    <li key={p.href}>
+                      <Link
+                        href={p.href}
+                        onClick={() => setMobileNavOpen(false)}
+                        className="flex items-baseline justify-between gap-3 py-2.5 text-brand-ink/85 hover:text-brand-blue"
+                      >
+                        <span className="text-[15px] font-medium">{p.label}</span>
+                        <span className="text-[10.5px] uppercase tracking-[0.16em] text-brand-blue/70">{p.tier}</span>
+                      </Link>
+                    </li>
+                  ))}
+                  {VERTICAL_PRODUCTS.map((p) => (
+                    <li key={p.href}>
+                      <Link
+                        href={p.href}
+                        {...(p.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        onClick={() => setMobileNavOpen(false)}
+                        className="flex items-center justify-between gap-3 py-2.5 text-brand-ink/85"
+                      >
+                        <span className="text-[15px] font-medium">{p.label}</span>
+                        {p.external && (
+                          <svg viewBox="0 0 12 12" className="h-3 w-3 text-brand-ink/40 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+                            <path d="M4 4h4v4M8 4l-5 5" strokeLinecap="round" />
+                          </svg>
+                        )}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-4 pt-4 border-t border-black/[0.06] space-y-1">
+                  <Link
+                    href="/services"
+                    onClick={() => setMobileNavOpen(false)}
+                    className="block py-2.5 text-[16px] font-display font-semibold text-brand-ink"
+                  >
+                    Services
+                  </Link>
+                  <Link
+                    href="/industries"
+                    onClick={() => setMobileNavOpen(false)}
+                    className="block py-2.5 text-[16px] font-display font-semibold text-brand-ink"
+                  >
+                    Industries
+                  </Link>
+                  <Link
+                    href="/about-us"
+                    onClick={() => setMobileNavOpen(false)}
+                    className="block py-2.5 text-[16px] font-display font-semibold text-brand-ink"
+                  >
+                    About
+                  </Link>
+                </div>
+
+                <div className="mt-4 pt-4 border-t border-black/[0.06] grid grid-cols-2 gap-y-2 gap-x-4 text-[13px] text-brand-ink/65">
+                  <Link href="/news" onClick={() => setMobileNavOpen(false)} className="py-1.5">News</Link>
+                  <Link href="/support" onClick={() => setMobileNavOpen(false)} className="py-1.5">Support</Link>
+                  <Link href="/contact" onClick={() => setMobileNavOpen(false)} className="py-1.5">Contact</Link>
+                  <Link href="/policies" onClick={() => setMobileNavOpen(false)} className="py-1.5">Policies</Link>
+                  <Link href="/partnerships" onClick={() => setMobileNavOpen(false)} className="py-1.5">Partnerships</Link>
+                </div>
+
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener"
+                  onClick={() => setMobileNavOpen(false)}
+                  className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-brand-ink text-white font-semibold px-4 py-3 rounded-full hover:bg-brand-blue transition-colors"
+                >
+                  Book a discovery call
+                  <span aria-hidden>↗</span>
+                </a>
+              </div>
+            </motion.nav>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
