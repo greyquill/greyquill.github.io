@@ -7,7 +7,7 @@ import { CALENDLY_URL } from '@/lib/links';
 export const metadata: Metadata = {
   title: 'About · Greyquill Software',
   description:
-    'Greyquill was founded by engineers who watched too many well-coded projects fail because the requirements were unclear. Meet the team and the principles we work by.',
+    'Greyquill was founded by engineers who watched too many well-coded projects fail because the requirements were unclear. Read about the principles we work by.',
   alternates: { canonical: 'https://greyquill.io/about-us' },
 };
 
@@ -33,35 +33,6 @@ const VALUES: Value[] = [
     Icon: Award,
     title: 'Enterprise-grade by default',
     body: 'Audit trails, governance, security, and operational readiness are not features we add when asked. They are how we build, every time.',
-  },
-];
-
-type Member = { name: string; role: string; expertise: string; experience: string };
-
-const TEAM: Member[] = [
-  {
-    name: 'Amarnath',
-    role: 'Chief Technology Officer',
-    expertise: 'Enterprise architecture, cloud platforms',
-    experience: '15+ years in software architecture',
-  },
-  {
-    name: 'Srinivas Reddy',
-    role: 'Lead Business Analyst',
-    expertise: 'Process optimization, requirements engineering',
-    experience: '10+ years optimizing business workflows',
-  },
-  {
-    name: 'Charan Sreedhar',
-    role: 'Senior Infrastructure Engineer',
-    expertise: 'Infrastructure, cloud solutions',
-    experience: '12+ years building scalable applications',
-  },
-  {
-    name: 'Anusha K',
-    role: 'UX/UI Design Lead',
-    expertise: 'User-centered design, interface architecture',
-    experience: '12+ years creating intuitive interfaces',
   },
 ];
 
@@ -178,48 +149,6 @@ export default function AboutPage() {
                   </h3>
                 </div>
                 <p className="text-brand-ink/75 leading-relaxed text-[15px]">{body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-14 md:py-20">
-        <div className="mx-auto max-w-6xl px-5 md:px-8">
-          <div className="max-w-3xl mb-10 md:mb-14">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue/80 mb-3">
-              The team
-            </div>
-            <h2 className="font-display text-3xl md:text-5xl leading-[1.06] tracking-tight">
-              The people you will actually work with.
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-5 md:gap-6">
-            {TEAM.map((m) => (
-              <div
-                key={m.name}
-                className="bg-white rounded-2xl ring-1 ring-black/[0.05] p-6 md:p-7 flex items-start gap-5"
-              >
-                <div
-                  aria-hidden
-                  className="h-14 w-14 rounded-full bg-brand-blue/10 text-brand-blue font-display font-semibold text-xl flex items-center justify-center shrink-0"
-                >
-                  {m.name.charAt(0)}
-                </div>
-                <div>
-                  <h3 className="font-display text-lg text-brand-ink leading-tight">
-                    {m.name}
-                  </h3>
-                  <p className="text-brand-blue text-sm font-semibold mt-0.5">
-                    {m.role}
-                  </p>
-                  <p className="text-brand-ink/75 text-[14.5px] mt-2 leading-relaxed">
-                    {m.expertise}
-                  </p>
-                  <p className="text-brand-ink/55 text-[12.5px] mt-1">
-                    {m.experience}
-                  </p>
-                </div>
               </div>
             ))}
           </div>
