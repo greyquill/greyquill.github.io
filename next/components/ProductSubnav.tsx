@@ -38,6 +38,8 @@ export default function ProductSubnav({ currentHref }: { currentHref: string }) 
 
   const activeVertical = VERTICALS.find((v) => v.href === currentHref);
   const verticalActive = Boolean(activeVertical);
+  const activeProduct =
+    PILLARS.find((p) => p.href === currentHref) ?? activeVertical;
 
   return (
     // Outer strip lets the dropdown overflow downwards. Only the
@@ -59,8 +61,108 @@ export default function ProductSubnav({ currentHref }: { currentHref: string }) 
           </span>
         </Link>
 
-        {/* Pillar pills — scroll horizontally on small screens */}
-        <div className="flex items-center gap-2 overflow-x-auto min-w-0 flex-1">
+        {/* Mobile (below md): single dropdown that lists every product.
+            Replaces the horizontally-scrolling pillar pills, which clip
+            on narrow viewports. */}
+        <div ref={wrapRef} className="relative md:hidden flex-1 min-w-0">
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-haspopup="menu"
+            aria-expanded={open}
+            className="w-full inline-flex items-center justify-between gap-2 text-[13px] font-semibold text-white bg-brand-blue px-3.5 py-1.5 rounded-full shadow-sm shadow-brand-blue/25"
+          >
+            <span className="truncate">
+              {activeProduct ? activeProduct.name : 'Browse products'}
+            </span>
+            <svg
+              viewBox="0 0 12 12"
+              className={`h-3 w-3 shrink-0 opacity-90 transition-transform duration-200 ease-out-expo ${open ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden
+            >
+              <path d="M3 5l3 3 3-3" />
+            </svg>
+          </button>
+
+          {open && (
+            <div
+              role="menu"
+              className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-2 z-50"
+            >
+              <div className="px-3 pt-1 pb-2 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45">
+                Platform pillars
+              </div>
+              {PILLARS.map((p) => {
+                const isActive = p.href === currentHref;
+                return (
+                  <Link
+                    key={p.href}
+                    href={p.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`block px-3 py-2.5 rounded-lg transition-colors duration-150 ${isActive ? 'bg-brand-mist/60' : 'hover:bg-brand-mist/40'}`}
+                  >
+                    <div className="flex items-baseline justify-between gap-2">
+                      <span className="font-display font-semibold text-[14px] text-brand-ink">
+                        {p.name}
+                      </span>
+                      <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-brand-ink/45 shrink-0">
+                        {p.tier}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+              <div className="mt-1 pt-2 border-t border-black/[0.06] px-3 pb-2 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45">
+                Vertical products
+              </div>
+              {VERTICALS.map((v) => {
+                const isActive = v.href === currentHref;
+                const cls = `block px-3 py-2.5 rounded-lg transition-colors duration-150 ${isActive ? 'bg-brand-mist/60' : 'hover:bg-brand-mist/40'}`;
+                const inner = (
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="font-display font-semibold text-[14px] text-brand-ink">
+                      {v.name}
+                    </span>
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-brand-ink/45 shrink-0">
+                      {v.tier}
+                      {v.external && ' ↗'}
+                    </span>
+                  </div>
+                );
+                return v.external ? (
+                  <a
+                    key={v.href}
+                    href={v.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setOpen(false)}
+                    className={cls}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <Link
+                    key={v.href}
+                    href={v.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={cls}
+                  >
+                    {inner}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* Desktop (md+): pillar pills inline, verticals as a separate
+            dropdown. Hidden on mobile in favour of the single dropdown. */}
+        <div className="hidden md:flex items-center gap-2 overflow-x-auto min-w-0 flex-1">
           {PILLARS.map((p) => {
             const active = p.href === currentHref;
             return (
@@ -80,12 +182,9 @@ export default function ProductSubnav({ currentHref }: { currentHref: string }) 
           })}
         </div>
 
-        {/* Separator */}
-        <span aria-hidden className="h-5 w-px bg-brand-ink/20 mx-1.5 shrink-0" />
-
-        {/* Verticals dropdown pill — outside the scroll container so the
-            dropdown panel renders unclipped over the page below. */}
-        <div ref={wrapRef} className="relative shrink-0">
+        {/* Desktop separator + verticals dropdown */}
+        <span aria-hidden className="hidden md:inline-block h-5 w-px bg-brand-ink/20 mx-1.5 shrink-0" />
+        <div className="relative shrink-0 hidden md:block">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -113,7 +212,7 @@ export default function ProductSubnav({ currentHref }: { currentHref: string }) 
           {open && (
             <div
               role="menu"
-              className="absolute left-0 top-full mt-2 w-[280px] bg-white rounded-xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-2 z-50"
+              className="absolute right-0 top-full mt-2 w-[280px] bg-white rounded-xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-2 z-50"
             >
               {VERTICALS.map((v) => {
                 const isActive = v.href === currentHref;
@@ -123,17 +222,15 @@ export default function ProductSubnav({ currentHref }: { currentHref: string }) 
                   ? `${baseCls} bg-brand-mist/60`
                   : `${baseCls} hover:bg-brand-mist/40`;
                 const inner = (
-                  <>
-                    <div className="flex items-baseline justify-between gap-2">
-                      <span className="font-display font-semibold text-[14px] text-brand-ink group-hover/item:text-brand-blue transition-colors">
-                        {v.name}
-                      </span>
-                      <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-brand-ink/45 shrink-0">
-                        {v.tier}
-                        {v.external && ' ↗'}
-                      </span>
-                    </div>
-                  </>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="font-display font-semibold text-[14px] text-brand-ink group-hover/item:text-brand-blue transition-colors">
+                      {v.name}
+                    </span>
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-brand-ink/45 shrink-0">
+                      {v.tier}
+                      {v.external && ' ↗'}
+                    </span>
+                  </div>
                 );
                 return v.external ? (
                   <a
