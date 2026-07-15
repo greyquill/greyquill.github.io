@@ -303,6 +303,16 @@ export default function Header() {
               <span aria-hidden className="pointer-events-none absolute left-0 -bottom-0.5 h-px w-0 bg-brand-blue transition-[width] duration-300 ease-out-expo group-hover/nav:w-full" />
             </Link>
           ))}
+
+          {/* Blog lives in the separate `dc` repo, served under /dc/blogs/.
+             Plain anchor (not next/link) so the browser hard-navigates out of the app. */}
+          <a
+            href="/dc/blogs/"
+            className="group/nav relative text-brand-ink/75 hover:text-brand-ink transition-colors py-1"
+          >
+            <span>Blog</span>
+            <span aria-hidden className="pointer-events-none absolute left-0 -bottom-0.5 h-px w-0 bg-brand-blue transition-[width] duration-300 ease-out-expo group-hover/nav:w-full" />
+          </a>
         </nav>
 
         {/* Right cluster — desktop pill + mobile icons (CTA + hamburger). */}
@@ -452,6 +462,7 @@ export default function Header() {
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-black/[0.06] grid grid-cols-2 gap-y-2 gap-x-4 text-[13px] text-brand-ink/65">
+                  <a href="/dc/blogs/" onClick={() => setMobileNavOpen(false)} className="py-1.5">Blog</a>
                   <Link href="/news" onClick={() => setMobileNavOpen(false)} className="py-1.5">News</Link>
                   <Link href="/support" onClick={() => setMobileNavOpen(false)} className="py-1.5">Support</Link>
                   <Link href="/contact" onClick={() => setMobileNavOpen(false)} className="py-1.5">Contact</Link>
