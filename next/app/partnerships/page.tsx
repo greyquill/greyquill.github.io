@@ -141,7 +141,7 @@ export default function PartnershipsPage() {
                 <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
               </Link>
               <Link
-                href="/products"
+                href="/platform"
                 className="group inline-flex items-center gap-2 text-brand-ink/85 hover:text-brand-blue font-semibold px-3 py-3.5 transition-colors"
               >
                 See the platform
@@ -262,7 +262,7 @@ export default function PartnershipsPage() {
                 Book a discovery call
                 <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">↗</span>
               </a>
-              <Link href="/products" className="text-white/85 hover:text-white font-semibold px-3 py-3.5 transition-colors">
+              <Link href="/platform" className="text-white/85 hover:text-white font-semibold px-3 py-3.5 transition-colors">
                 See the platform
               </Link>
             </div>

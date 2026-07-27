@@ -3,9 +3,9 @@ import Link from 'next/link';
 import ProductBackLink from '@/components/ProductBackLink';
 
 export const metadata: Metadata = {
-  title: 'Products · Built on the Greyquill platform',
+  title: 'Products · The Greyquill platform and the verticals built on it',
   description:
-    'Vertical products built on the Greyquill platform. GST Co-Pilot for Indian tax reconciliation, Commerce Synapse for retail and commerce, Umami for healthcare practice management.',
+    'Every Greyquill product in one place. The platform pillars ClarityAI, GQData, and GQ Agents, and the vertical products built on them: GST Co-Pilot, Commerce Synapse, and Umami.',
   alternates: { canonical: 'https://greyquill.io/products' },
 };
 
@@ -30,7 +30,42 @@ type Group = {
 
 const GROUPS: Group[] = [
   {
-    label: 'Commercial verticals',
+    label: 'The platform',
+    description:
+      'Three pillars, one journey: Diagnose, Govern, Activate. The foundation every vertical product runs on, and the one you build your own AI on.',
+    items: [
+      {
+        name: 'ClarityAI',
+        tier: 'Diagnose',
+        live: true,
+        tagline: 'Score the clarity and risk of any initiative, before you fund it.',
+        body: 'Ingests PRDs, AI briefs, and SOWs. Scores ambiguity, testability, and regulatory exposure, with line-by-line fixes.',
+        href: '/products/clarity-ai',
+        previewUrl: 'https://clarity.greyquill.io',
+        cta: 'Read more',
+      },
+      {
+        name: 'GQData',
+        tier: 'Govern',
+        tagline: 'The trusted-data layer beneath every AI decision.',
+        body: 'Master data unification, quality repaired at source, active lineage, and sensitivity classification.',
+        href: '/products/gqdata',
+        gradient: 'linear-gradient(135deg, #0B4F88 0%, #083d6a 100%)',
+        cta: 'Read more',
+      },
+      {
+        name: 'GQ Agents',
+        tier: 'Activate',
+        tagline: 'Multi-agent orchestration with audit trails built in.',
+        body: 'Replayable execution from an append-only event log, with human-in-the-loop escalation in the protocol.',
+        href: '/products/agents',
+        gradient: 'linear-gradient(135deg, #1a6bb5 0%, #0B4F88 100%)',
+        cta: 'Read more',
+      },
+    ],
+  },
+  {
+    label: 'Vertical products',
     description:
       'Industry-specific products built on the Greyquill platform. Each one is a reference architecture for governed agentic AI in production, in a real domain.',
     items: [
@@ -196,15 +231,16 @@ export default function ProductsPage() {
             Products
           </div>
           <h1 className="font-display font-semibold text-[40px] sm:text-5xl md:text-6xl leading-[1.0] tracking-[-0.025em] text-brand-ink max-w-4xl">
-            Vertical products,<br />
-            <span className="text-brand-blue">built on the platform.</span>
+            One platform.<br />
+            <span className="text-brand-blue">Products at every layer.</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
-            What the Greyquill platform looks like in production, in real industries —
-            tax reconciliation, retail commerce, healthcare practice management. Each
-            one is a reference architecture you can adapt to your vertical.{' '}
+            Three platform pillars that take an enterprise from diagnosis to governed
+            activation, and the vertical products built on them: tax reconciliation,
+            retail commerce, healthcare practice management. Each vertical is a
+            reference architecture you can adapt to your own domain.{' '}
             <Link href="/platform" className="text-brand-blue font-semibold hover:text-brand-blue-dark">
-              See the platform →
+              See how the platform fits together →
             </Link>
           </p>
         </div>

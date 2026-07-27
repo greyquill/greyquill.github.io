@@ -188,7 +188,7 @@ export default function GQDataPage() {
                 <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">↗</span>
               </a>
               <Link
-                href="/products"
+                href="/platform"
                 className="group inline-flex items-center gap-2 text-brand-ink/85 hover:text-brand-blue font-semibold px-3 py-3.5 transition-colors"
               >
                 See the platform
