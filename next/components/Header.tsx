@@ -7,43 +7,11 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { easings } from '@/lib/motion';
 import { CALENDLY_URL } from '@/lib/links';
+import { SERVICE_LINES } from '@/lib/serviceLines';
 
 const PRIMARY_NAV = [
   { href: '/industries', label: 'Industries' },
   { href: '/about-us', label: 'About' },
-];
-
-type ServiceItem = { href: string; label: string };
-type ServiceColumn = { title: string; items: ServiceItem[] };
-
-const SERVICES: ServiceColumn[] = [
-  {
-    title: 'Training',
-    items: [
-      { href: '/services#training-exec-brief',     label: 'AI governance executive briefing' },
-      { href: '/services#training-data-foundation', label: 'Data foundation workshop' },
-      { href: '/services#training-model-risk',     label: 'Model risk masterclass' },
-      { href: '/services#training-reg-readiness',  label: 'Regulatory readiness workshop' },
-    ],
-  },
-  {
-    title: 'Assessments',
-    items: [
-      { href: '/services#assess-ai-maturity',    label: 'AI maturity assessment' },
-      { href: '/services#assess-model-inventory', label: 'Model inventory & risk classification' },
-      { href: '/services#assess-lineage',        label: 'Data lineage diagnostic' },
-      { href: '/services#assess-audit',          label: 'Audit-readiness review' },
-    ],
-  },
-  {
-    title: 'Consulting',
-    items: [
-      { href: '/services#consult-program-design',  label: 'AI program design & roadmap' },
-      { href: '/services#consult-data-buildout',   label: 'Data foundation buildout' },
-      { href: '/services#consult-governance-impl', label: 'Governance framework implementation' },
-      { href: '/services#consult-agentic',         label: 'Agentic AI activation' },
-    ],
-  },
 ];
 
 const PILLARS = [
@@ -83,7 +51,7 @@ const VERTICAL_PRODUCTS = [
   {
     href: 'https://umami.greyquill.io',
     label: 'Umami',
-    sub: 'Conversational analytics for operators',
+    sub: 'AI practice management for clinics',
     external: true,
   },
 ];
@@ -148,14 +116,23 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-sm">
-          {/* Platform dropdown — three platform pillars on top, the
-             products built on top of them below. */}
+          {/* Platform — the narrative "how it fits together" page. */}
+          <Link
+            href="/platform"
+            className="group/nav relative text-brand-ink/75 hover:text-brand-ink transition-colors py-1"
+          >
+            <span>Platform</span>
+            <span aria-hidden className="pointer-events-none absolute left-0 -bottom-0.5 h-px w-0 bg-brand-blue transition-[width] duration-300 ease-out-expo group-hover/nav:w-full" />
+          </Link>
+
+          {/* Products dropdown — the three platform pillars on top, the
+             vertical products built on top of them below. */}
           <div className="relative group/menu">
             <Link
-              href="/platform"
+              href="/products"
               className="relative inline-flex items-center gap-1 text-brand-ink/75 hover:text-brand-ink transition-colors py-1"
             >
-              <span>Platform</span>
+              <span>Products</span>
               <svg viewBox="0 0 12 12" className="h-2.5 w-2.5 opacity-60 transition-transform duration-200 ease-out-expo group-hover/menu:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                 <path d="M3 5l3 3 3-3" />
               </svg>
@@ -171,7 +148,7 @@ export default function Header() {
             >
               <div className="w-[380px] bg-white rounded-2xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-3">
                 <div className="px-3 pt-1 pb-2 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45">
-                  Three platform pillars
+                  The platform · three pillars
                 </div>
                 {PILLARS.map((p) => (
                   <Link
@@ -193,10 +170,10 @@ export default function Header() {
                 ))}
 
                 <div className="mt-2 pt-2 border-t border-black/[0.06] px-3 pb-1.5 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45">
-                  Built on the platform
+                  Vertical products
                 </div>
                 <p className="px-3 pb-2 text-[11px] text-brand-ink/55 leading-snug">
-                  Demonstrations of what the platform does in production.
+                  What the platform does in production, in real domains.
                 </p>
                 {VERTICAL_PRODUCTS.map((p) => (
                   <Link
@@ -219,11 +196,11 @@ export default function Header() {
                 ))}
 
                 <Link
-                  href="/platform"
+                  href="/products"
                   onClick={closeOnClick}
                   className="block px-3 py-2.5 mt-1 border-t border-black/[0.06] text-xs font-semibold text-brand-blue hover:text-brand-blue-dark transition-colors"
                 >
-                  Explore the full platform →
+                  All products →
                 </Link>
               </div>
             </div>
@@ -250,13 +227,17 @@ export default function Header() {
                          ${suppressMenu ? '!invisible !opacity-0 !pointer-events-none' : ''}`}
             >
               <div className="w-[920px] bg-white rounded-2xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-6 grid grid-cols-[1fr_1fr_1fr_auto] gap-x-8 gap-y-2">
-                {SERVICES.map((col) => (
-                  <div key={col.title}>
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45 mb-3">
-                      {col.title}
-                    </div>
+                {SERVICE_LINES.map((line) => (
+                  <div key={line.slug}>
+                    <Link
+                      href={line.href}
+                      onClick={closeOnClick}
+                      className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45 hover:text-brand-blue transition-colors mb-3"
+                    >
+                      {line.navLabel} →
+                    </Link>
                     <ul className="space-y-2.5">
-                      {col.items.map((it) => (
+                      {line.navItems.map((it) => (
                         <li key={it.label}>
                           <Link
                             href={it.href}
@@ -276,7 +257,7 @@ export default function Header() {
                     Senior-led, partnership-backed.
                   </div>
                   <p className="text-[12.5px] text-brand-ink/65 leading-relaxed flex-1">
-                    A tailored governance plan for your stack in two weeks. No subcontractors.
+                    Build, modernise, or govern: a tailored plan for your stack in two weeks. No subcontractors.
                   </p>
                   <a
                     href={CALENDLY_URL}
@@ -289,6 +270,14 @@ export default function Header() {
                     <span aria-hidden>↗</span>
                   </a>
                 </div>
+
+                <Link
+                  href="/services"
+                  onClick={closeOnClick}
+                  className="col-span-full mt-2 pt-3 border-t border-black/[0.06] text-xs font-semibold text-brand-blue hover:text-brand-blue-dark transition-colors"
+                >
+                  All services →
+                </Link>
               </div>
             </div>
           </div>
@@ -396,14 +385,14 @@ export default function Header() {
             >
               <div className="px-5 py-5 max-w-6xl mx-auto">
                 <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45 mb-2">
-                  Platform
+                  Products
                 </div>
                 <Link
-                  href="/platform"
+                  href="/products"
                   onClick={() => setMobileNavOpen(false)}
                   className="block py-2.5 text-[16px] font-display font-semibold text-brand-ink"
                 >
-                  All of the platform <span aria-hidden className="text-brand-blue">→</span>
+                  All products <span aria-hidden className="text-brand-blue">→</span>
                 </Link>
                 <ul className="mb-2">
                   {PILLARS.map((p) => (
@@ -437,13 +426,39 @@ export default function Header() {
                   ))}
                 </ul>
 
-                <div className="mt-4 pt-4 border-t border-black/[0.06] space-y-1">
+                <div className="mt-4 pt-4 border-t border-black/[0.06]">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45 mb-2">
+                    Services
+                  </div>
                   <Link
                     href="/services"
                     onClick={() => setMobileNavOpen(false)}
                     className="block py-2.5 text-[16px] font-display font-semibold text-brand-ink"
                   >
-                    Services
+                    All services <span aria-hidden className="text-brand-blue">→</span>
+                  </Link>
+                  <ul className="mb-2">
+                    {SERVICE_LINES.map((line) => (
+                      <li key={line.slug}>
+                        <Link
+                          href={line.href}
+                          onClick={() => setMobileNavOpen(false)}
+                          className="block py-2.5 text-[15px] font-medium text-brand-ink/85 hover:text-brand-blue"
+                        >
+                          {line.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-4 pt-4 border-t border-black/[0.06] space-y-1">
+                  <Link
+                    href="/platform"
+                    onClick={() => setMobileNavOpen(false)}
+                    className="block py-2.5 text-[16px] font-display font-semibold text-brand-ink"
+                  >
+                    Platform
                   </Link>
                   <Link
                     href="/industries"

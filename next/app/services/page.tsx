@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import ProductBackLink from '@/components/ProductBackLink';
-import EngagementRoadmap from '@/components/EngagementRoadmap';
+import { SERVICE_LINES } from '@/lib/serviceLines';
 import { CALENDLY_URL } from '@/lib/links';
 
 export const metadata: Metadata = {
-  title: 'Services · Training, assessments, consulting',
+  title: 'Services · Product engineering, digital transformation, AI & data',
   description:
-    'Greyquill services across training, assessments, and consulting. Senior-led engagements that turn AI governance from a line item into a working operating model.',
+    'Three service lines, one senior team. Greyquill builds new products, modernises the systems that run your business, and puts AI to work with governance you can prove.',
   alternates: { canonical: 'https://greyquill.io/services' },
 };
 
@@ -15,6 +15,7 @@ export default function ServicesPage() {
   return (
     <>
       <ProductBackLink fallbackHref="/" fallbackLabel="Back to home" currentName="Services" />
+
       {/* HERO */}
       <section className="relative overflow-hidden isolate">
         <div
@@ -33,49 +34,77 @@ export default function ServicesPage() {
           }}
         />
 
-        <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-16 md:pt-24 pb-10 md:pb-14">
+        <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-16 md:pt-24 pb-12 md:pb-16">
           <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue mb-5">
             <span className="h-px w-7 bg-brand-blue/60" aria-hidden />
-            Services · Engagement roadmap
+            Services
           </div>
-          <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end">
-            <div className="md:col-span-7">
-              <h1 className="font-display font-semibold text-[40px] sm:text-5xl md:text-6xl leading-[1.0] tracking-[-0.025em] text-brand-ink">
-                Not sure where to start?<br />
-                <span className="text-brand-blue">The path most clients walk.</span>
-              </h1>
-              <p className="mt-6 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
-                Five phases from boardroom to production. Each has one recommended engagement and parallel options. Most start at Phase 01. Stop at any milestone.
-              </p>
-            </div>
-            <div className="md:col-span-5">
-              <div className="rounded-xl bg-white/70 backdrop-blur ring-1 ring-black/[0.05] p-5">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55 mb-3">
-                  How to read this
-                </div>
-                <ul className="space-y-2.5 text-[13px] text-brand-ink/80 leading-relaxed">
-                  <li className="flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-blue px-1.5 py-0.5 rounded-full bg-brand-blue/10">★ Recommended</span>
-                    <span>is the core engagement at each phase.</span>
-                  </li>
-                  <li className="flex items-center gap-1.5 flex-wrap">
-                    <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />Training</span>
-                    <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-amber-500" />Assessment</span>
-                    <span className="inline-flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-brand-ink/65 px-1.5 py-0.5 rounded-full bg-black/[0.04]"><span className="h-1.5 w-1.5 rounded-full bg-brand-blue" />Consulting</span>
-                  </li>
-                  <li>Click any service for details. Opens here.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <h1 className="font-display font-semibold text-[40px] sm:text-5xl md:text-6xl leading-[1.02] tracking-[-0.025em] text-brand-ink max-w-4xl">
+            Everyone promises the autonomous enterprise.<br />
+            <span className="text-brand-blue">We build the version you can audit.</span>
+          </h1>
+          <p className="mt-6 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
+            Three service lines, one team of senior engineers. We build new products,
+            modernise the systems that run your business, and put AI to work with
+            governance you can prove. Every engagement is senior-led. No subcontractors.
+          </p>
         </div>
       </section>
 
-      {/* ENGAGEMENT ROADMAP — single source of truth for services.
-          All 12 engagements organised by phase, with the recommended core
-          highlighted at each phase and parallel options inline alongside.
-          Clicking any service card opens the detail modal. */}
-      <EngagementRoadmap />
+      {/* THE THREE LINES */}
+      <section className="bg-white py-12 md:py-16">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+            {SERVICE_LINES.map((line, i) => (
+              <Link
+                key={line.slug}
+                href={line.href}
+                className="group relative flex flex-col bg-white rounded-2xl ring-1 ring-black/[0.05] p-6 md:p-7 hover:ring-brand-blue/40 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-blue/10 transition-all duration-400 ease-out-expo"
+              >
+                <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue/70 mb-4">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <h2 className="font-display font-semibold text-xl md:text-[22px] text-brand-ink leading-tight mb-2">
+                  {line.name}
+                </h2>
+                <p className="text-brand-ink font-semibold text-[15px] leading-snug mb-3">
+                  {line.tagline}
+                </p>
+                <p className="text-brand-ink/70 text-[14px] leading-relaxed mb-5">
+                  {line.summary}
+                </p>
+                <ul className="space-y-1.5 mb-6 flex-1">
+                  {line.capabilities.map((cap) => (
+                    <li key={cap} className="flex items-start gap-2 text-[13px] text-brand-ink/75 leading-snug">
+                      <span aria-hidden className="mt-[7px] h-1 w-1 rounded-full bg-brand-blue/70 shrink-0" />
+                      {cap}
+                    </li>
+                  ))}
+                </ul>
+                <span className="inline-flex items-center gap-2 text-brand-blue font-semibold text-sm">
+                  Explore {line.navLabel}
+                  <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          {/* How the lines connect */}
+          <div className="mt-10 md:mt-12 rounded-xl bg-brand-mist/40 ring-1 ring-black/[0.04] p-5 md:p-6 md:flex items-center justify-between gap-6">
+            <p className="text-[14px] md:text-[15px] text-brand-ink/75 leading-relaxed max-w-3xl">
+              The lines are not silos. A modernisation engagement lays the data foundation
+              an AI program needs. A product build inherits the governance discipline of the
+              platform it runs on. Autonomy is the destination. Proof is the path.
+            </p>
+            <Link
+              href="/platform"
+              className="mt-4 md:mt-0 inline-flex items-center gap-2 text-brand-blue font-semibold text-sm shrink-0 hover:text-brand-blue-dark transition-colors"
+            >
+              See the platform underneath →
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* CLOSING CTA */}
       <section className="py-14 md:py-20 bg-brand-ink text-white relative overflow-hidden">
@@ -89,7 +118,7 @@ export default function ServicesPage() {
               <span className="text-brand-blue-light">We will tell you what to do next.</span>
             </h2>
             <p className="mt-5 text-white/75 text-lg md:text-xl max-w-2xl leading-relaxed">
-              30 minutes. Workshop, diagnostic, or implementation, you leave with a recommendation either way.
+              30 minutes. Build, modernise, or govern, you leave with a recommendation either way.
             </p>
           </div>
           <div className="md:col-span-4 flex md:justify-end">

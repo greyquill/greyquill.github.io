@@ -363,7 +363,7 @@ export default function GSTCoPilotPage() {
               Book a demo
               <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">↗</span>
             </a>
-            <Link href="/products" className="text-white/85 hover:text-white font-semibold px-3 py-3.5 transition-colors">
+            <Link href="/platform" className="text-white/85 hover:text-white font-semibold px-3 py-3.5 transition-colors">
               See the platform
             </Link>
           </div>
