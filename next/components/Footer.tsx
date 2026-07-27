@@ -1,16 +1,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const PLATFORM = [
+const PRODUCTS: { href: string; label: string; external?: boolean }[] = [
   { href: '/products/clarity-ai', label: 'ClarityAI' },
   { href: '/products/gqdata', label: 'GQData' },
   { href: '/products/agents', label: 'GQ Agents' },
-];
-
-const VERTICALS: { href: string; label: string; external?: boolean }[] = [
   { href: '/products/gst-copilot', label: 'GST Co-Pilot' },
   { href: 'https://commerce-synapse.com', label: 'Commerce Synapse', external: true },
   { href: 'https://umami.greyquill.io', label: 'Umami', external: true },
+];
+
+const SERVICES = [
+  { href: '/services/product-engineering', label: 'Product engineering' },
+  { href: '/services/digital-transformation', label: 'Digital transformation' },
+  { href: '/services/ai-and-data', label: 'AI & data' },
+  { href: '/services', label: 'All services' },
 ];
 
 const COMPANY = [
@@ -19,7 +23,10 @@ const COMPANY = [
   { href: '/news', label: 'News' },
 ];
 
-const RESOURCES = [
+// Blog lives in the separate `dc` repo, served under /dc/blogs/. Plain
+// anchor so the browser hard-navigates out of the app.
+const RESOURCES: { href: string; label: string; hardNav?: boolean }[] = [
+  { href: '/dc/blogs/', label: 'Blog', hardNav: true },
   { href: '/contact', label: 'Contact' },
   { href: '/support', label: 'Support' },
   { href: '/policies', label: 'Policies' },
@@ -29,11 +36,20 @@ function FooterLink({
   href,
   children,
   external,
+  hardNav,
 }: {
   href: string;
   children: React.ReactNode;
   external?: boolean;
+  hardNav?: boolean;
 }) {
+  if (hardNav) {
+    return (
+      <a href={href} className="hover:text-brand-blue transition-colors">
+        {children}
+      </a>
+    );
+  }
   if (external) {
     return (
       <a
@@ -88,21 +104,21 @@ export default function Footer() {
         </div>
 
         <div className="lg:col-span-2 space-y-2">
-          <div className="font-semibold text-brand-ink">Platform</div>
+          <div className="font-semibold text-brand-ink">Products</div>
           <ul className="space-y-1">
-            {PLATFORM.map((l) => (
-              <li key={l.href}><FooterLink href={l.href}>{l.label}</FooterLink></li>
+            {PRODUCTS.map((l) => (
+              <li key={l.href}>
+                <FooterLink href={l.href} external={l.external}>{l.label}</FooterLink>
+              </li>
             ))}
           </ul>
         </div>
 
         <div className="lg:col-span-2 space-y-2">
-          <div className="font-semibold text-brand-ink">Verticals</div>
+          <div className="font-semibold text-brand-ink">Services</div>
           <ul className="space-y-1">
-            {VERTICALS.map((l) => (
-              <li key={l.href}>
-                <FooterLink href={l.href} external={l.external}>{l.label}</FooterLink>
-              </li>
+            {SERVICES.map((l) => (
+              <li key={l.href}><FooterLink href={l.href}>{l.label}</FooterLink></li>
             ))}
           </ul>
         </div>
@@ -120,7 +136,7 @@ export default function Footer() {
           <div className="font-semibold text-brand-ink">Resources</div>
           <ul className="space-y-1">
             {RESOURCES.map((l) => (
-              <li key={l.href}><FooterLink href={l.href}>{l.label}</FooterLink></li>
+              <li key={l.href}><FooterLink href={l.href} hardNav={l.hardNav}>{l.label}</FooterLink></li>
             ))}
           </ul>
         </div>
