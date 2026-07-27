@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import ProductBackLink from '@/components/ProductBackLink';
+import TechStack from '@/components/TechStack';
 import { CALENDLY_URL } from '@/lib/links';
 
 export const metadata: Metadata = {
@@ -14,38 +15,32 @@ const CAPABILITIES = [
   {
     id: 'discovery',
     title: 'Discovery and scoping',
-    body: 'A structured discovery, typically one to two weeks: stakeholder interviews, domain walkthroughs, and workflow mapping, ending in a scoped specification with a prioritised backlog and an honest estimate. Every brief also runs through ClarityAI, the same clarity and risk scoring we sell, so ambiguity surfaces before it becomes rework.',
-    examples: ['Discovery workshops', 'Domain and workflow mapping', 'ClarityAI risk scoring', 'Scoped backlog and estimate'],
+    body: 'One to two weeks of workshops and workflow mapping, ending in a scoped spec, a prioritised backlog, and an honest estimate. Every brief runs through ClarityAI.',
   },
   {
     id: 'design',
     title: 'UX and product design',
-    body: 'User journeys, wireframes, and clickable prototypes tested with real users before a line of production code is written. We build a design system alongside the product so screens stay coherent as the product grows, and we design for accessibility from the start rather than retrofitting it.',
-    examples: ['Figma prototypes', 'Design systems', 'Usability testing', 'WCAG accessibility'],
+    body: 'Journeys, prototypes, and a design system tested with real users before production code. Accessible from the start.',
   },
   {
     id: 'build',
     title: 'Web, mobile, and backend engineering',
-    body: 'Full-stack platforms built API-first, in short iterations you can see running every week or two. Typed end to end, with the integrations that connect the product to the systems you already run: ERPs, CRMs, payment rails, and internal databases. Modular architecture, so the parts you buy today do not box you in tomorrow.',
-    examples: ['React · Next.js · TypeScript', 'Node.js · Python backends', 'React Native mobile', 'REST and event-driven APIs', 'PostgreSQL and cloud data stores'],
+    body: 'API-first platforms in short iterations you can see running every week or two, integrated with the systems you already run.',
   },
   {
     id: 'ai-native',
     title: 'AI-native features',
-    body: 'LLM applications, retrieval over your own documents, copilots, and agents designed into the product rather than bolted on. Every AI feature ships with an evaluation set, guardrails, and an audit trail, because a demo that works once is not a feature.',
-    examples: ['RAG over your data', 'Copilots and agents', 'IBM watsonx and frontier LLMs', 'Evaluation suites and guardrails'],
+    body: 'Copilots, retrieval, and agents designed into the product, each shipping with evaluation, guardrails, and an audit trail.',
   },
   {
     id: 'quality',
     title: 'QA and reliability',
-    body: 'Automated test suites that run on every commit, release gates that block regressions, performance budgets, and security review before anything faces a customer. Our own GST Co-Pilot ships with 162 tests and 88 percent coverage. Your product gets the same bar.',
-    examples: ['Automated tests in CI', 'Release gates', 'Performance and load testing', 'Security reviews'],
+    body: 'Automated tests on every commit and release gates that block regressions. Our own GST Co-Pilot ships with 162 tests and 88 percent coverage.',
   },
   {
     id: 'operate',
     title: 'DevOps and ongoing product management',
-    body: 'CI/CD pipelines, infrastructure as code, and observability on the cloud you already use: AWS, Azure, Google Cloud, IBM Cloud, or your own data centre. After launch we can stay on as the product team, running the roadmap, releases, and support. Either way, everything is yours to own: code, infrastructure definitions, and the knowledge to run them.',
-    examples: ['GitHub Actions CI/CD', 'Terraform · Docker · Kubernetes', 'AWS · Azure · Google Cloud · IBM Cloud', 'Roadmap and release management'],
+    body: 'CI/CD, infrastructure as code, and observability on your cloud. After launch we can stay on as the product team. Everything is yours to own.',
   },
 ];
 
@@ -161,21 +156,14 @@ export default function ProductEngineeringPage() {
                   {cap.title}
                 </h3>
                 <p className="text-brand-ink/70 text-[14px] leading-relaxed flex-1">{cap.body}</p>
-                <ul className="mt-4 pt-4 border-t border-black/[0.05] flex flex-wrap gap-1.5">
-                  {cap.examples.map((ex) => (
-                    <li
-                      key={ex}
-                      className="text-[11px] font-medium text-brand-ink/65 px-2 py-1 rounded-full bg-brand-mist/60"
-                    >
-                      {ex}
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* TECH STACK */}
+      <TechStack />
 
       {/* PROOF */}
       <section className="bg-brand-mist/30 py-12 md:py-16">
