@@ -14,32 +14,38 @@ const CAPABILITIES = [
   {
     id: 'discovery',
     title: 'Discovery and scoping',
-    body: 'A short, structured discovery that turns an idea into a scoped, testable specification. Every brief runs through ClarityAI, the same clarity and risk scoring we sell, so ambiguity surfaces before it becomes rework.',
+    body: 'A structured discovery, typically one to two weeks: stakeholder interviews, domain walkthroughs, and workflow mapping, ending in a scoped specification with a prioritised backlog and an honest estimate. Every brief also runs through ClarityAI, the same clarity and risk scoring we sell, so ambiguity surfaces before it becomes rework.',
+    examples: ['Discovery workshops', 'Domain and workflow mapping', 'ClarityAI risk scoring', 'Scoped backlog and estimate'],
   },
   {
     id: 'design',
     title: 'UX and product design',
-    body: 'Flows, wireframes, and clickable prototypes before a line of production code. A design system that keeps the product coherent as it grows, designed alongside the engineers who will build it.',
+    body: 'User journeys, wireframes, and clickable prototypes tested with real users before a line of production code is written. We build a design system alongside the product so screens stay coherent as the product grows, and we design for accessibility from the start rather than retrofitting it.',
+    examples: ['Figma prototypes', 'Design systems', 'Usability testing', 'WCAG accessibility'],
   },
   {
     id: 'build',
     title: 'Web, mobile, and backend engineering',
-    body: 'Full-stack web platforms, mobile applications, APIs, and the integrations that connect them to the systems you already run. Modular architecture, so the parts you buy today do not box you in tomorrow.',
+    body: 'Full-stack platforms built API-first, in short iterations you can see running every week or two. Typed end to end, with the integrations that connect the product to the systems you already run: ERPs, CRMs, payment rails, and internal databases. Modular architecture, so the parts you buy today do not box you in tomorrow.',
+    examples: ['React · Next.js · TypeScript', 'Node.js · Python backends', 'React Native mobile', 'REST and event-driven APIs', 'PostgreSQL and cloud data stores'],
   },
   {
     id: 'ai-native',
     title: 'AI-native features',
-    body: 'LLM applications, retrieval, copilots, and agents designed into the product rather than bolted on. Guardrails, evaluation, and audit trails are part of the feature, not an afterthought.',
+    body: 'LLM applications, retrieval over your own documents, copilots, and agents designed into the product rather than bolted on. Every AI feature ships with an evaluation set, guardrails, and an audit trail, because a demo that works once is not a feature.',
+    examples: ['RAG over your data', 'Copilots and agents', 'IBM watsonx and frontier LLMs', 'Evaluation suites and guardrails'],
   },
   {
     id: 'quality',
     title: 'QA and reliability',
-    body: 'Automated test suites, performance budgets, and release gates. Our own GST Co-Pilot ships with 162 tests and 88 percent coverage. Your product gets the same bar.',
+    body: 'Automated test suites that run on every commit, release gates that block regressions, performance budgets, and security review before anything faces a customer. Our own GST Co-Pilot ships with 162 tests and 88 percent coverage. Your product gets the same bar.',
+    examples: ['Automated tests in CI', 'Release gates', 'Performance and load testing', 'Security reviews'],
   },
   {
     id: 'operate',
-    title: 'DevOps and ongoing ownership',
-    body: 'CI/CD, observability, and documentation written for the team that inherits the system. Everything we build is yours to own: code, infrastructure definitions, and the knowledge to run them.',
+    title: 'DevOps and ongoing product management',
+    body: 'CI/CD pipelines, infrastructure as code, and observability on the cloud you already use: AWS, Azure, Google Cloud, IBM Cloud, or your own data centre. After launch we can stay on as the product team, running the roadmap, releases, and support. Either way, everything is yours to own: code, infrastructure definitions, and the knowledge to run them.',
+    examples: ['GitHub Actions CI/CD', 'Terraform · Docker · Kubernetes', 'AWS · Azure · Google Cloud · IBM Cloud', 'Roadmap and release management'],
   },
 ];
 
@@ -128,20 +134,25 @@ export default function ProductEngineeringPage() {
       {/* CAPABILITIES */}
       <section className="bg-white py-12 md:py-16">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
-          <div className="mb-8 md:mb-10 max-w-2xl">
+          <div className="mb-8 md:mb-10 max-w-3xl">
             <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-blue/80 mb-2">
               What we do
             </div>
             <h2 className="font-display font-semibold text-2xl md:text-4xl text-brand-ink leading-tight">
-              Six capabilities, one accountable team.
+              End-to-end product development and management.
             </h2>
+            <p className="mt-4 text-brand-ink/75 text-[15px] md:text-base leading-relaxed">
+              From the first discovery workshop to the release pipeline that ships
+              version fifty. One team owns the outcome across design, engineering,
+              quality, and operations, and you see working software every step of the way.
+            </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {CAPABILITIES.map((cap, i) => (
               <div
                 key={cap.id}
                 id={cap.id}
-                className="scroll-mt-28 rounded-2xl bg-white ring-1 ring-black/[0.05] p-6 md:p-7 hover:ring-brand-blue/30 transition-colors duration-300"
+                className="scroll-mt-28 flex flex-col rounded-2xl bg-white ring-1 ring-black/[0.05] p-6 md:p-7 hover:ring-brand-blue/30 transition-colors duration-300"
               >
                 <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue/70 mb-3">
                   {String(i + 1).padStart(2, '0')}
@@ -149,7 +160,17 @@ export default function ProductEngineeringPage() {
                 <h3 className="font-display font-semibold text-lg md:text-xl text-brand-ink leading-snug mb-2.5">
                   {cap.title}
                 </h3>
-                <p className="text-brand-ink/70 text-[14px] leading-relaxed">{cap.body}</p>
+                <p className="text-brand-ink/70 text-[14px] leading-relaxed flex-1">{cap.body}</p>
+                <ul className="mt-4 pt-4 border-t border-black/[0.05] flex flex-wrap gap-1.5">
+                  {cap.examples.map((ex) => (
+                    <li
+                      key={ex}
+                      className="text-[11px] font-medium text-brand-ink/65 px-2 py-1 rounded-full bg-brand-mist/60"
+                    >
+                      {ex}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>

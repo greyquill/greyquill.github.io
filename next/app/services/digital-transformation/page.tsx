@@ -10,26 +10,58 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://greyquill.io/services/digital-transformation' },
 };
 
+const METHOD = [
+  {
+    step: '01',
+    title: 'Map the estate',
+    body: 'Systems, data flows, owners, and risk. We write down what actually exists, not what the architecture diagram claims.',
+  },
+  {
+    step: '02',
+    title: 'Pick the seam',
+    body: 'One process or capability with real pain and a small blast radius. Never the whole system at once.',
+  },
+  {
+    step: '03',
+    title: 'Build alongside',
+    body: 'The new capability goes up behind a clean interface while the legacy keeps running untouched.',
+  },
+  {
+    step: '04',
+    title: 'Run in parallel',
+    body: 'Old and new process the same work. We reconcile the outputs until the numbers match, and show you the evidence.',
+  },
+  {
+    step: '05',
+    title: 'Retire and repeat',
+    body: 'Only then does the legacy piece switch off. The next seam starts with everything we learned from the last one.',
+  },
+];
+
 const CAPABILITIES = [
   {
     id: 'modernisation',
     title: 'Legacy application modernisation',
-    body: 'Incremental replacement of the systems everyone is afraid to touch. We carve out one capability at a time, run old and new side by side, and retire the legacy only when the numbers match. The business keeps running throughout.',
+    body: 'Incremental replacement of the systems everyone is afraid to touch: ageing monoliths, unsupported frameworks, databases nobody dares to migrate. We put a regression harness around the existing behaviour first, carve out one capability at a time along domain seams, and cut over without downtime. The business keeps running throughout.',
+    examples: ['Strangler-fig migration', 'Regression harness first', 'Domain-driven seams', 'Zero-downtime cutovers', 'Database migration with reconciliation'],
   },
   {
     id: 'automation',
     title: 'Process automation',
-    body: 'Manual workflows turned into governed automation. Agentic where autonomy earns its keep, deterministic where it should be, and human-in-the-loop wherever the cost of a wrong decision is real. Every automated step leaves evidence.',
+    body: 'Manual workflows turned into governed automation, starting from a mapped process, not a tool. Deterministic steps are automated as plain software, reasoning steps get agents, and a configurable human-review threshold decides what needs a person. Every automated step leaves evidence an auditor can query.',
+    examples: ['Workflow mapping', 'Human-in-the-loop thresholds', 'GQ Agents runtime', 'Immutable audit logs'],
   },
   {
     id: 'integration',
     title: 'Systems and data integration',
-    body: 'ERPs, CRMs, spreadsheets, and internal databases connected on a common data foundation, so the same customer, product, and transaction mean the same thing everywhere. This is the groundwork every serious AI program stands on.',
+    body: 'ERPs, CRMs, spreadsheets, scanners, and mailboxes connected on a common data foundation, so the same customer, product, and transaction mean the same thing everywhere. Where legacy systems cannot change, we put API facades in front of them and move data over event-driven pipelines. This is the groundwork every serious AI program stands on.',
+    examples: ['ERP and CRM connectors (SAP, Tally, and more)', 'API facades over legacy', 'Event-driven pipelines', 'GQData master records and lineage'],
   },
   {
     id: 'cloud',
     title: 'Cloud migration and infrastructure',
-    body: 'Migration to cloud or hybrid infrastructure that runs in your environment, under your keys. Infrastructure as code, observability from day one, and IBM foundations where they fit. Everything is yours to own when we leave.',
+    body: 'Migration to the cloud you choose: AWS, Azure, Google Cloud, IBM Cloud, hybrid, or fully on-premise. Everything is defined as code from day one, with observability and cost visibility built in, and your data stays under your keys. When we leave, the infrastructure and the runbooks are yours.',
+    examples: ['AWS · Azure · Google Cloud · IBM Cloud', 'Hybrid and on-premise', 'Terraform and IaC', 'Docker · Kubernetes', 'Observability from day one'],
   },
 ];
 
@@ -109,12 +141,42 @@ export default function DigitalTransformationPage() {
       {/* CAPABILITIES */}
       <section className="bg-white py-12 md:py-16">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="mb-8 md:mb-10 max-w-3xl">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-blue/80 mb-2">
+              How we do it
+            </div>
+            <h2 className="font-display font-semibold text-2xl md:text-4xl text-brand-ink leading-tight">
+              Transformation as a method, not a leap.
+            </h2>
+            <p className="mt-4 text-brand-ink/75 text-[15px] md:text-base leading-relaxed">
+              Every engagement follows the same discipline: map what exists, pick one
+              seam, build alongside it, prove the new numbers against the old, then
+              retire the legacy piece. Small steps, each one verified before the next,
+              so the risk stays bounded and the business never stops.
+            </p>
+          </div>
+
+          {/* THE METHOD */}
+          <ol className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5 mb-12 md:mb-16">
+            {METHOD.map((m) => (
+              <li key={m.step} className="rounded-xl bg-brand-mist/40 ring-1 ring-black/[0.04] p-5">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue/70 mb-2">
+                  {m.step}
+                </div>
+                <h3 className="font-display font-semibold text-[15.5px] text-brand-ink leading-snug mb-1.5">
+                  {m.title}
+                </h3>
+                <p className="text-[12.5px] text-brand-ink/65 leading-relaxed">{m.body}</p>
+              </li>
+            ))}
+          </ol>
+
           <div className="mb-8 md:mb-10 max-w-2xl">
             <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-blue/80 mb-2">
               What we do
             </div>
             <h2 className="font-display font-semibold text-2xl md:text-4xl text-brand-ink leading-tight">
-              Four ways in. One direction of travel.
+              The four workstreams of a transformation.
             </h2>
           </div>
           <div className="grid md:grid-cols-2 gap-5 md:gap-6">
@@ -122,7 +184,7 @@ export default function DigitalTransformationPage() {
               <div
                 key={cap.id}
                 id={cap.id}
-                className="scroll-mt-28 rounded-2xl bg-white ring-1 ring-black/[0.05] p-6 md:p-7 hover:ring-brand-blue/30 transition-colors duration-300"
+                className="scroll-mt-28 flex flex-col rounded-2xl bg-white ring-1 ring-black/[0.05] p-6 md:p-7 hover:ring-brand-blue/30 transition-colors duration-300"
               >
                 <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue/70 mb-3">
                   {String(i + 1).padStart(2, '0')}
@@ -130,7 +192,17 @@ export default function DigitalTransformationPage() {
                 <h3 className="font-display font-semibold text-lg md:text-xl text-brand-ink leading-snug mb-2.5">
                   {cap.title}
                 </h3>
-                <p className="text-brand-ink/70 text-[14px] leading-relaxed">{cap.body}</p>
+                <p className="text-brand-ink/70 text-[14px] leading-relaxed flex-1">{cap.body}</p>
+                <ul className="mt-4 pt-4 border-t border-black/[0.05] flex flex-wrap gap-1.5">
+                  {cap.examples.map((ex) => (
+                    <li
+                      key={ex}
+                      className="text-[11px] font-medium text-brand-ink/65 px-2 py-1 rounded-full bg-brand-mist/60"
+                    >
+                      {ex}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
