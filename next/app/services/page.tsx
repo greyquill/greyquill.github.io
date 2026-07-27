@@ -93,8 +93,8 @@ export default function ServicesPage() {
           <div className="mt-10 md:mt-12 rounded-xl bg-brand-mist/40 ring-1 ring-black/[0.04] p-5 md:p-6 md:flex items-center justify-between gap-6">
             <p className="text-[14px] md:text-[15px] text-brand-ink/75 leading-relaxed max-w-3xl">
               The lines are not silos. A modernisation engagement lays the data foundation
-              an AI program needs. A product build inherits the governance discipline of the
-              platform it runs on. Autonomy is the destination. Proof is the path.
+              an AI program needs. A product build inherits the governance discipline of
+              the platform it runs on. Each engagement leaves groundwork the next can build on.
             </p>
             <Link
               href="/platform"
