@@ -83,21 +83,6 @@ const PATTERNS = [
   },
 ];
 
-const AUDIENCE = [
-  {
-    role: 'CIOs and modernisation leads',
-    pain: 'You inherited systems that resist every change, and a board that wants AI on top of them next quarter.',
-  },
-  {
-    role: 'COOs and heads of operations',
-    pain: 'Your processes are held together by tenured people and spreadsheets, and both are getting harder to replace.',
-  },
-  {
-    role: 'CISOs and risk leaders',
-    pain: 'You are asked to approve automation you cannot inspect. You need controls and evidence in the runtime path, not in a policy document.',
-  },
-];
-
 export default function DigitalTransformationPage() {
   return (
     <>
@@ -217,13 +202,13 @@ export default function DigitalTransformationPage() {
             Why it matters
           </div>
           <h2 className="font-display text-2xl md:text-4xl leading-[1.15] tracking-tight">
-            Autonomy is the destination.<br />
-            <span className="text-brand-blue-light">Proof is the path.</span>
+            Each step leaves you<br />
+            <span className="text-brand-blue-light">ready for automation.</span>
           </h2>
           <p className="mt-5 text-white/75 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
-            Every modernisation step we take is designed so that when you are ready to let
-            AI act, the data, the controls, and the audit evidence are already in place.
-            That is the difference between an autonomous enterprise and an unaccountable one.
+            Every modernisation step is designed so that when you are ready to let AI act,
+            the data, the controls, and the audit evidence are already in place. Automation
+            becomes a decision you take when it makes business sense, not a leap of faith.
           </p>
         </div>
       </section>
@@ -258,30 +243,6 @@ export default function DigitalTransformationPage() {
                   <span aria-hidden className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1">→</span>
                 </span>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHO THIS IS FOR */}
-      <section className="bg-brand-mist/30 py-12 md:py-16">
-        <div className="mx-auto max-w-6xl px-5 md:px-8">
-          <div className="mb-8 md:mb-10">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-blue/80 mb-2">
-              Who this is for
-            </div>
-            <h2 className="font-display font-semibold text-2xl md:text-4xl text-brand-ink leading-tight">
-              If you are a…
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-5 md:gap-6">
-            {AUDIENCE.map((a) => (
-              <div key={a.role} className="rounded-2xl bg-white ring-1 ring-black/[0.05] p-6 md:p-7">
-                <h3 className="font-display font-semibold text-lg text-brand-ink leading-snug mb-2.5">
-                  {a.role}
-                </h3>
-                <p className="text-brand-ink/70 text-[14px] leading-relaxed">{a.pain}</p>
-              </div>
             ))}
           </div>
         </div>
