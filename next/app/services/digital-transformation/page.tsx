@@ -131,7 +131,7 @@ export default function DigitalTransformationPage() {
               How we do it
             </div>
             <h2 className="font-display font-semibold text-2xl md:text-4xl text-brand-ink leading-tight">
-              Transformation as a method, not a leap.
+              Transformation as a method.
             </h2>
             <p className="mt-4 text-brand-ink/75 text-[15px] md:text-base leading-relaxed">
               Every engagement follows the same discipline: map what exists, pick one
@@ -208,7 +208,7 @@ export default function DigitalTransformationPage() {
           <p className="mt-5 text-white/75 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
             Every modernisation step is designed so that when you are ready to let AI act,
             the data, the controls, and the audit evidence are already in place. Automation
-            becomes a decision you take when it makes business sense, not a leap of faith.
+            becomes a decision you take when it makes business sense.
           </p>
         </div>
       </section>
