@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: '%s · Greyquill Software',
   },
   description:
-    'The platform regulated enterprises use to ship governed AI. Deployed in your environment, built on IBM foundations, so models ship in weeks and the audit answer is one query, not three weeks.',
+    'The platform regulated enterprises use to put AI into production without losing the audit: a data foundation you can trust, compliance controls that prove themselves, and an audit trail behind every decision. Deployed in your environment, built on IBM foundations.',
   openGraph: {
     type: 'website',
     siteName: 'Greyquill',

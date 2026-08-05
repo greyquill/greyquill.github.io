@@ -15,7 +15,7 @@ type FaqEntry = { q: string; a: string };
 const FAQS: FaqEntry[] = [
   {
     q: 'What does Greyquill actually do?',
-    a: 'We build governed AI in regulated enterprises. The platform has three pillars: ClarityAI (AI risk and readiness scoring), GQData (trusted-data foundation), and GQ Agents (multi-agent orchestration with audit trails). On top of those we run consulting engagements (training, assessments, custom builds) and ship vertical products like GST Co-Pilot.',
+    a: 'We build governed AI in regulated enterprises. The platform has three products: GQData (trusted-data foundation), GQ Govern (policy, evidence, and AI-maturity diagnosis), and GQ Agents (multi-agent orchestration with audit trails), tied together by GQ Studio. On top of those we run consulting engagements (training, assessments, custom builds) and ship vertical products like GST Co-Pilot.',
   },
   {
     q: 'How does your discovery process work?',
@@ -40,7 +40,7 @@ const FAQS: FaqEntry[] = [
 ];
 
 const RESOURCES = [
-  { href: '/platform', title: 'The platform', body: 'Three pillars: ClarityAI, GQData, GQ Agents.' },
+  { href: '/platform', title: 'The platform', body: 'Three products: GQData, GQ Govern, GQ Agents.' },
   { href: '/industries', title: 'Industries', body: 'Where we have shipped governed AI.' },
   { href: '/policies', title: 'Policies', body: 'How we handle data, IP, billing, and support.' },
   { href: '/news', title: 'News and updates', body: 'Recent announcements and writing.' },

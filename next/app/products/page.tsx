@@ -5,7 +5,7 @@ import ProductBackLink from '@/components/ProductBackLink';
 export const metadata: Metadata = {
   title: 'Products · The Greyquill platform and the verticals built on it',
   description:
-    'Every Greyquill product in one place. The platform pillars ClarityAI, GQData, and GQ Agents, and the vertical products built on them: GST Co-Pilot, Commerce Synapse, and Umami.',
+    'Every Greyquill product in one place. The platform pillars GQData, GQ Govern, and GQ Agents, the shell that ties them together in GQ Studio, and the vertical products built on them: GST Co-Pilot, Commerce Synapse, and Umami.',
   alternates: { canonical: 'https://greyquill.io/products' },
 };
 
@@ -17,6 +17,10 @@ type ProductCard = {
   href: string;
   cta: string;
   external?: boolean;
+  /** Same-origin hard navigation (e.g. into the separate `dc` app) — a
+   *  plain anchor so the browser leaves the Next.js app, but no new tab
+   *  and no "External" badge since it's not really a different site. */
+  hardNav?: boolean;
   live?: boolean;
   previewUrl?: string;
   gradient?: string;
@@ -32,25 +36,24 @@ const GROUPS: Group[] = [
   {
     label: 'The platform',
     description:
-      'Three pillars, one journey: Diagnose, Govern, Activate. The foundation every vertical product runs on, and the one you build your own AI on.',
+      'Three products, one journey: Foundation, Govern, Activate. Each stands alone; together they run governed AI end to end. GQ Studio is the single shell that ties them together.',
     items: [
       {
-        name: 'ClarityAI',
-        tier: 'Diagnose',
-        live: true,
-        tagline: 'Score the clarity and risk of any initiative, before you fund it.',
-        body: 'Ingests PRDs, AI briefs, and SOWs. Scores ambiguity, testability, and regulatory exposure, with line-by-line fixes.',
-        href: '/products/clarity-ai',
-        previewUrl: 'https://clarity.greyquill.io',
-        cta: 'Read more',
-      },
-      {
         name: 'GQData',
-        tier: 'Govern',
+        tier: 'Foundation',
         tagline: 'The trusted-data layer beneath every AI decision.',
         body: 'Master data unification, quality repaired at source, active lineage, and sensitivity classification.',
         href: '/products/gqdata',
         gradient: 'linear-gradient(135deg, #0B4F88 0%, #083d6a 100%)',
+        cta: 'Read more',
+      },
+      {
+        name: 'GQ Govern',
+        tier: 'Govern',
+        tagline: 'The policy layer that makes AI defensible.',
+        body: 'Controls checked against the EU AI Act, GDPR, SOC 2, ISO 27001, and more, each one tied to the policy that actually enforces it. Owns Diagnose: AI-maturity, model inventory, document intelligence.',
+        href: '/products/govern',
+        gradient: 'linear-gradient(135deg, #0e7490 0%, #0a5063 100%)',
         cta: 'Read more',
       },
       {
@@ -61,6 +64,16 @@ const GROUPS: Group[] = [
         href: '/products/agents',
         gradient: 'linear-gradient(135deg, #1a6bb5 0%, #0B4F88 100%)',
         cta: 'Read more',
+      },
+      {
+        name: 'GQ Studio',
+        tier: 'The shell',
+        hardNav: true,
+        tagline: 'One application shell for the whole platform.',
+        body: 'Not sold alone. The workspaces, screens, and low-code customization layer that tie GQ Data, GQ Govern, and GQ Agents into one product experience.',
+        href: '/dc/studio',
+        gradient: 'linear-gradient(135deg, #4338ca 0%, #2c2483 100%)',
+        cta: 'See GQ Studio',
       },
     ],
   },
@@ -97,6 +110,23 @@ const GROUPS: Group[] = [
         href: 'https://umami.greyquill.io',
         previewUrl: 'https://umami.greyquill.io',
         cta: 'Visit site',
+      },
+    ],
+  },
+  {
+    label: 'Standalone tools',
+    description:
+      'Tools that work independently of the platform, useful on their own, without deploying GQ Data or GQ Govern.',
+    items: [
+      {
+        name: 'ClarityAI',
+        tier: 'Requirements scoring',
+        live: true,
+        tagline: 'Score the clarity and risk of any initiative, before you fund it.',
+        body: 'Ingests PRDs, AI briefs, and SOWs. Scores ambiguity, testability, and regulatory exposure, with line-by-line fixes.',
+        href: '/products/clarity-ai',
+        previewUrl: 'https://clarity.greyquill.io',
+        cta: 'Read more',
       },
     ],
   },
@@ -190,11 +220,21 @@ function Card({ item }: { item: ProductCard }) {
   const cls =
     'group relative flex flex-col bg-white rounded-2xl ring-1 ring-black/[0.05] overflow-hidden hover:ring-brand-blue/40 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-blue/10 transition-all duration-400 ease-out-expo';
 
-  return item.external ? (
-    <a key={item.name} href={item.href} target="_blank" rel="noopener" className={cls}>
-      {inner}
-    </a>
-  ) : (
+  if (item.external) {
+    return (
+      <a key={item.name} href={item.href} target="_blank" rel="noopener" className={cls}>
+        {inner}
+      </a>
+    );
+  }
+  if (item.hardNav) {
+    return (
+      <a key={item.name} href={item.href} className={cls}>
+        {inner}
+      </a>
+    );
+  }
+  return (
     <Link key={item.name} href={item.href} className={cls}>
       {inner}
     </Link>
@@ -235,8 +275,8 @@ export default function ProductsPage() {
             <span className="text-brand-blue">Products at every layer.</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
-            Three platform pillars that take an enterprise from diagnosis to governed
-            activation, and the vertical products built on them: tax reconciliation,
+            Three platform products, foundation to governed activation, tied together
+            by GQ Studio, and the vertical products built on them: tax reconciliation,
             retail commerce, healthcare practice management. Each vertical is a
             reference architecture you can adapt to your own domain.{' '}
             <Link href="/platform" className="text-brand-blue font-semibold hover:text-brand-blue-dark">

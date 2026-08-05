@@ -10,19 +10,19 @@
 const PILLARS = [
   {
     h: 'Master data, lineage, and quality',
-    p: 'Every record unified across systems with full provenance. When the auditor asks how a number got there, the answer is one query, not three weeks.',
+    p: 'Every record unified across systems with full provenance, so when the auditor asks how a number got there, one query answers it.',
   },
   {
     h: 'Real-time data freshness',
-    p: 'Data refreshes at the speed your decisions need. Drift detected before it lands in production, not after the board sees the report.',
+    p: 'Data refreshes at the speed your decisions need. Drift gets caught before it lands in production, while there is still time to act on it.',
   },
   {
     h: 'Governed AI activation',
-    p: 'Pilots that pass model risk management on the first review, not the third. Use cases that survive a regulator visit. AI that keeps shipping instead of getting paused.',
+    p: 'Pilots that pass model risk management on the first review. Use cases that survive a regulator visit. AI that keeps shipping instead of getting paused.',
   },
   {
     h: 'Audit evidence at runtime',
-    p: 'Evidence packs assembled while the agent runs, not stitched together at month-end. The audit answer is built into the system.',
+    p: 'Evidence packs assembled while the agent runs, already whole by the time anyone asks for them. The audit answer is built into the system.',
   },
   {
     h: 'Modular architecture',

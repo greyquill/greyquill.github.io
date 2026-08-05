@@ -22,6 +22,7 @@ const PATH_LABELS: Record<string, string> = {
   '/products':               'products',
   '/products/clarity-ai':    'ClarityAI',
   '/products/gqdata':        'GQData',
+  '/products/govern':        'GQ Govern',
   '/products/agents':        'GQ Agents',
   '/products/gst-copilot':   'GST Co-Pilot',
   '/industries':             'industries',

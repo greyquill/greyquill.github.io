@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Section from '@/components/Section';
-import ProductSiblingChips from '@/components/ProductSiblingChips';
 import ProductSubnav from '@/components/ProductSubnav';
 
 export const metadata: Metadata = {
@@ -129,7 +128,7 @@ export default function ClarityAIPage() {
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue mb-5">
               <span className="h-px w-7 bg-brand-blue/60" aria-hidden />
-              Product · Diagnose tier
+              Product · Standalone tool
               <span className="ml-1 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700">
                 <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                 Live
@@ -264,8 +263,8 @@ export default function ClarityAIPage() {
         eyebrow="Who uses it"
         title={
           <>
-            Three teams, one tool, <br className="hidden md:block" />
-            three different wins.
+            The same tool, read <br className="hidden md:block" />
+            differently by whoever opens it.
           </>
         }
       >
@@ -292,13 +291,22 @@ export default function ClarityAIPage() {
         eyebrow="Where it fits"
         title={
           <>
-            The diagnose tier <br className="hidden md:block" />
-            <span className="text-brand-blue">of the Greyquill platform.</span>
+            A tool that stands <br className="hidden md:block" />
+            <span className="text-brand-blue">on its own.</span>
           </>
         }
-        intro="ClarityAI tells you whether to fund an initiative. GQData makes the data underneath trustworthy. GQ Agents runs governed workflows. GST Co-Pilot is what those workflows look like in production."
+        intro="ClarityAI works on its own: drop in a document, get a score, no platform required. Need this wired into a governed pipeline instead of a one-off score? GQ Govern's Diagnose role does the same job as part of the platform, an AI-maturity assessment, model inventory, and document intelligence, versioned into the same policy registry everything else runs on."
       >
-        <ProductSiblingChips currentHref="/products/clarity-ai" />
+        <Link
+          href="/products/govern"
+          className="group inline-flex items-center gap-2 bg-white ring-1 ring-black/[0.05] hover:ring-brand-blue/40 hover:-translate-y-0.5 hover:shadow-md hover:shadow-brand-blue/10 rounded-full px-5 py-2.5 text-sm font-semibold text-brand-ink transition-all duration-200 ease-out-expo"
+        >
+          <span>GQ Govern</span>
+          <span className="text-brand-ink/55 font-normal">· Diagnose role</span>
+          <span aria-hidden className="text-brand-blue/70 transition-transform duration-200 ease-out-expo group-hover:translate-x-0.5">
+            →
+          </span>
+        </Link>
       </Section>
 
       {/* FINAL CTA */}
