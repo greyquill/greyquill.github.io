@@ -19,10 +19,10 @@ import {
 /**
  * Three-layer platform pipeline with a use-case toggle.
  *
- * Layout: three columns side-by-side (Clarity | Data | Agents). Each
- * column shows Sources → Engine → Output flowing top-to-bottom inside
- * it. Two angled connectors sit between columns and carry a small
- * token during the hand-off windows.
+ * Layout: three columns side-by-side (GQ Data | GQ Govern | GQ Agents).
+ * Each column shows Sources → Engine → Output flowing top-to-bottom
+ * inside it. Two angled connectors sit between columns and carry a
+ * small token during the hand-off windows.
  *
  * The same 15s shared cycle drives every animated element; layer
  * delays are 0s / 5s / 10s. Switching tabs re-mounts the stage so the
@@ -53,7 +53,7 @@ type Layer = {
   product: string;
   role: string;
   description: string;
-  /** Only used for layer 0 (ClarityAI). Layers 1 and 2 take whatever the
+  /** Only used for layer 0 (GQ Data). Layers 1 and 2 take whatever the
    *  previous layer just produced and render an "incoming" arrow instead. */
   sourcesLabel?: string;
   sources?: Source[];
@@ -80,39 +80,20 @@ const SUPPLY_CHAIN: UseCase = {
   intro: 'A purchase order, a goods receipt, and a vendor invoice arrive from three different systems. Watch one transaction travel through every layer.',
   layers: [
     {
-      product: 'ClarityAI',
-      role: 'Understanding',
-      description: 'Reads documents, scans, and source records. Extracts entities, classifies content, outputs structured fields.',
+      product: 'GQData',
+      role: 'Foundation',
+      description: 'Reads documents, scans, and source records. Extracts entities, resolves them to the vendor master, stamps lineage.',
       sourcesLabel: 'Sources',
       sources: [
         { key: 'sap', label: 'SAP', sub: 'Purchase orders' },
         { key: 'scan', label: 'Scan', sub: 'Goods receipt' },
         { key: 'outlook', label: 'Outlook', sub: 'Vendor invoice' },
       ],
-      engineLabel: 'Clarity engine',
-      steps: [
-        { label: 'Detect document type' },
-        { label: 'Parse text + tables' },
-        { label: 'Extract entities' },
-      ],
-      outputLabel: 'Structured fields',
-      outputTitle: 'PO-2026-04812',
-      outputFields: [
-        { k: 'Vendor', v: 'Acme Industrial' },
-        { k: 'Qty ord', v: '500 units' },
-        { k: 'Qty rcv', v: '498 units' },
-        { k: 'Inv amt', v: '₹4,98,000' },
-      ],
-    },
-    {
-      product: 'GQData',
-      role: 'Foundation',
-      description: 'Promotes structured fields into a master record. Links to existing entities, classifies sensitive fields, stamps lineage.',
       engineLabel: 'Data operations',
       steps: [
+        { label: 'Detect document type' },
+        { label: 'Extract entities' },
         { label: 'Link to vendor master' },
-        { label: 'Classify PII fields' },
-        { label: 'Quality + completeness' },
         { label: 'Stamp lineage' },
       ],
       outputLabel: 'Master record',
@@ -125,23 +106,41 @@ const SUPPLY_CHAIN: UseCase = {
       ],
     },
     {
+      product: 'GQ Govern',
+      role: 'Govern',
+      description: 'Evaluates the master record against the tolerance policy. Holds for approval where the rule says so, and seals the evidence pack.',
+      engineLabel: 'Policy gates',
+      steps: [
+        { label: 'Evaluate tolerance policy' },
+        { label: 'Check approval requirement' },
+        { label: 'Seal evidence pack' },
+      ],
+      outputLabel: 'Gate decision',
+      outputTitle: 'Hold for approval',
+      outputFields: [
+        { k: 'Policy', v: 'Qty tolerance 0.5%' },
+        { k: 'Approvals', v: '1 required' },
+        { k: 'Evidence', v: 'Pack sealed' },
+      ],
+      outputFooter: 'Quantity variance exceeds 0.5% tolerance.',
+    },
+    {
       product: 'GQ Agents',
-      role: 'Activation',
-      description: 'Master records flow into purpose-built agents. This one runs three-way match, decides routing, logs the audit trail.',
+      role: 'Activate',
+      description: 'Once the gate clears, the agent executes: routes the exception to the buyer, attaches the evidence, logs the audit trail.',
       engineLabel: 'Agent · 3-way match',
       steps: [
-        { label: 'Compare PO vs GRN vs INV' },
-        { label: 'Apply tolerance rules' },
-        { label: 'Route + log audit' },
+        { label: 'Route to buyer' },
+        { label: 'Attach evidence pack' },
+        { label: 'Log audit trail' },
       ],
-      outputLabel: 'Decision',
-      outputTitle: 'Hold for buyer review',
+      outputLabel: 'Outcome',
+      outputTitle: 'Routed for buyer review',
       outputFields: [
         { k: 'Confidence', v: '0.94' },
         { k: 'Routed', v: 'Procurement · Tier 2' },
         { k: 'Audit', v: '7 steps · immutable' },
       ],
-      outputFooter: 'Quantity variance exceeds 0.5% tolerance.',
     },
   ],
 };
@@ -153,39 +152,20 @@ const FINANCE_GST: UseCase = {
   intro: 'Vendor invoices arrive across email, Tally, and the GST portal. A single invoice flows through the platform and ends up either matched or routed for review.',
   layers: [
     {
-      product: 'ClarityAI',
-      role: 'Understanding',
-      description: 'Reads invoices in any shape- PDF, scanned image, email body, or Tally export. Extracts GSTIN, line items, and totals.',
+      product: 'GQData',
+      role: 'Foundation',
+      description: 'Reads invoices in any shape - PDF, scanned image, email body, or Tally export. Extracts GSTIN and line items, resolves to the vendor master.',
       sourcesLabel: 'Sources',
       sources: [
         { key: 'tally', label: 'Tally', sub: 'Vendor ledger' },
         { key: 'gmail', label: 'Gmail', sub: 'Forwarded invoice' },
         { key: 'gdrive', label: 'Drive', sub: 'Scanned PDF' },
       ],
-      engineLabel: 'Clarity engine',
+      engineLabel: 'Data operations',
       steps: [
         { label: 'Identify invoice format' },
         { label: 'Extract GSTIN + line items' },
-        { label: 'Classify input type' },
-      ],
-      outputLabel: 'Structured invoice',
-      outputTitle: 'INV-2026-882341',
-      outputFields: [
-        { k: 'Vendor', v: 'Acme Corp' },
-        { k: 'Amount', v: '₹1,18,000' },
-        { k: 'GSTIN', v: '29AABCM1234F1Z5' },
-        { k: 'Date', v: '15-Apr-2026' },
-      ],
-    },
-    {
-      product: 'GQData',
-      role: 'Foundation',
-      description: 'Promotes the invoice into a master record. Links to vendor master, classifies PII (Tax ID), stamps lineage.',
-      engineLabel: 'Data operations',
-      steps: [
         { label: 'Match to vendor master' },
-        { label: 'Classify PII fields' },
-        { label: 'Quality check' },
         { label: 'Stamp lineage' },
       ],
       outputLabel: 'Master record',
@@ -194,17 +174,34 @@ const FINANCE_GST: UseCase = {
         { k: 'Vendor', v: 'VND-00482 · Acme' },
         { k: 'Amount', v: '₹1,18,000' },
         { k: 'PII', v: 'Tax ID flagged' },
-        { k: 'Lineage', v: 'Clarity v2.1' },
+        { k: 'Lineage', v: 'Queryable' },
+      ],
+    },
+    {
+      product: 'GQ Govern',
+      role: 'Govern',
+      description: 'Checks the invoice against the ITC eligibility policy and the GSTR-2B match rule, then seals the evidence pack the reconciliation will cite.',
+      engineLabel: 'Policy gates',
+      steps: [
+        { label: 'Evaluate ITC eligibility policy' },
+        { label: 'Check GSTR-2B match rule' },
+        { label: 'Seal evidence pack' },
+      ],
+      outputLabel: 'Gate decision',
+      outputTitle: 'Cleared · ITC eligible',
+      outputFields: [
+        { k: 'Policy', v: 'ITC eligibility v3' },
+        { k: 'Match rule', v: 'GSTR-2B required' },
+        { k: 'Evidence', v: 'Pack sealed' },
       ],
     },
     {
       product: 'GQ Agents',
-      role: 'Activation',
-      description: 'Reconciliation agent matches the invoice against the GSTR-2B from the GST portal, scores ITC risk, routes the result.',
+      role: 'Activate',
+      description: 'Reconciliation agent matches the invoice against the cleared GSTR-2B window, routes the result, and logs the audit trail.',
       engineLabel: 'Agent · reconcile',
       steps: [
         { label: 'Match against GSTR-2B' },
-        { label: 'Score ITC risk' },
         { label: 'Route to approver' },
         { label: 'Log audit trail' },
       ],
@@ -215,7 +212,7 @@ const FINANCE_GST: UseCase = {
         { k: 'Routed', v: 'Finance approver' },
         { k: 'Audit', v: '3 steps · immutable' },
       ],
-      outputFooter: 'Clarity → Data → Agent · logged.',
+      outputFooter: 'Data → Govern → Agent · logged.',
     },
   ],
 };
@@ -463,9 +460,9 @@ export default function Platform() {
       eyebrow="The platform"
       title={
         <>
-          Inputs become understanding.<br />
-          Understanding becomes data.<br />
-          <span className="text-brand-blue">Data becomes action.</span>
+          Inputs become records.<br />
+          Records become evidence.<br />
+          <span className="text-brand-blue">Evidence becomes action.</span>
         </>
       }
       intro="One pipeline, three layers. Watch a single artifact travel from raw input to executed automation, on systems you already use."
@@ -501,17 +498,17 @@ export default function Platform() {
         </p>
       </div>
 
-      {/* Mobile: triangle layout. ClarityAI at the top vertex, GQData
+      {/* Mobile: triangle layout. GQData at the top vertex, GQ Govern
           and GQ Agents at the bottom corners. Marching-ants connectors
-          animate the flow ClarityAI → GQData → GQ Agents on a 9s cycle.
+          animate the flow GQData → GQ Govern → GQ Agents on a 9s cycle.
           Each card shows a short list of "what happens there." Hidden md+. */}
       <div
         key={useCase.id + '-m'}
         className="md:hidden platform-triangle relative mx-auto"
       >
         {/* Connector layer — sits behind the cards. Two paths:
-            (1) ClarityAI bottom → GQData top (curved, marching ants),
-            (2) GQData right → GQ Agents left (horizontal, marching ants).
+            (1) GQData bottom → GQ Govern top (curved, marching ants),
+            (2) GQ Govern right → GQ Agents left (horizontal, marching ants).
             Visibility windows match the card pulse cycle defined in CSS.
             The viewBox is 0–100 stretched to the container with
             preserveAspectRatio=none so coordinates are simply percent
@@ -560,7 +557,7 @@ export default function Platform() {
           />
         </svg>
 
-        {/* Top: ClarityAI */}
+        {/* Top: GQData */}
         <div
           className="platform-tri-card platform-tri-card-0 relative z-10 mx-auto w-[72%] rounded-2xl bg-white ring-1 ring-black/[0.06] p-4"
         >

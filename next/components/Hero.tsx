@@ -64,7 +64,7 @@ export default function Hero() {
             </h1>
 
             <p className="mt-7 text-lg md:text-xl text-brand-ink/75 max-w-xl leading-[1.55]">
-              Greyquill helps regulated enterprises put AI into production without losing the audit. Deployed in your environment, built on IBM foundations, designed so the audit answer is one query, not three weeks.
+              Greyquill helps regulated enterprises put AI into production without losing the audit: a data foundation you can trust, compliance controls that prove themselves, and an audit trail behind every decision. Deployed in your environment, built on IBM foundations.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-4">

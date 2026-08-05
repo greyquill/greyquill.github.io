@@ -14,39 +14,34 @@ export const metadata: Metadata = {
 
 const CAPABILITIES = [
   {
-    title: 'Master data unification',
+    title: 'Ingest',
     body:
-      'Resolve fragmented customer, product, vendor, and account records into a golden record. Probabilistic and deterministic matching, survivorship rules you can defend.',
+      'Connect any source, SAP, Tally, Drive, scanners, custom APIs, through one gateway. The connection is tested before anything saves.',
   },
   {
-    title: 'Quality repaired at source',
+    title: 'Resolve',
     body:
-      'Cleansing, deduplication, validation, and standardisation enforced where data enters, not in a downstream report. Issues fixed once, not patched every quarter.',
+      'Fragmented customer, product, vendor, and account records matched into a golden record. Probabilistic and deterministic matching, survivorship rules you can defend.',
   },
   {
-    title: 'Active lineage that you can query',
+    title: 'Quality',
+    body:
+      'Cleansing, deduplication, validation, and standardisation enforced at the point data enters, so an issue gets fixed once instead of patched every quarter downstream.',
+  },
+  {
+    title: 'Lineage',
     body:
       'Every field traced from its system of record through every transformation to every consuming model, agent, or dashboard. One query answers "where did this number come from?".',
   },
   {
-    title: 'Sensitivity classification by default',
+    title: 'Classify',
     body:
-      'PII, PCI, PHI, and jurisdiction-specific categories detected and tagged automatically. Access controls and masking enforced at runtime, not in policy documents.',
-  },
-];
-
-const FOR = [
-  {
-    role: 'Chief Data Officers',
-    body: 'Stop your AI roadmap stalling on "the data isn\'t ready". Make readiness measurable and the path to ready visible.',
+      'PII, PCI, PHI, and jurisdiction-specific categories detected and tagged automatically the moment a record lands. Access controls and masking enforced at runtime.',
   },
   {
-    role: 'Heads of AI / ML platform leads',
-    body: 'Give every model and agent the same trusted feature surface. Stop debugging "why is this score wrong" only to find a stale join.',
-  },
-  {
-    role: 'Risk and compliance officers',
-    body: 'Hand the regulator one query that answers "show me lineage and access trail for this decision". Without spreadsheets.',
+    title: 'Graph API',
+    body:
+      'One governed path out: REST and GraphQL reads that carry the same lineage, quality, and access rules as the screen a steward looks at.',
   },
 ];
 
@@ -133,6 +128,80 @@ function DataUnificationVisual() {
   );
 }
 
+function LineageVisual() {
+  const trail = [
+    { label: 'SAP · PO module', sub: 'PO-2026-04812.pdf, line 3' },
+    { label: 'Parsed', sub: '2026-08-04 14:01:52' },
+    { label: 'Validated', sub: '2026-08-04 14:02:03 · quality 0.97' },
+  ];
+  return (
+    <div className="bg-white rounded-2xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-5 md:p-7">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55 mb-4">
+        Golden record · PO-MASTER-04812
+      </div>
+      <div className="rounded-lg border-2 border-brand-blue/30 bg-brand-mist/30 p-3 mb-3">
+        <div className="text-[9.5px] font-semibold uppercase tracking-[0.18em] text-brand-blue/70 mb-1">unit_price</div>
+        <div className="font-display font-semibold text-[18px] text-brand-ink">₹412.00</div>
+      </div>
+      <div className="space-y-2 pl-1">
+        {trail.map((t, i) => (
+          <div key={t.label} className="flex items-start gap-2.5">
+            <div className="flex flex-col items-center pt-0.5">
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brand-blue/50" />
+              {i < trail.length - 1 && <span aria-hidden className="w-px flex-1 bg-brand-blue/20 mt-1" style={{ minHeight: '18px' }} />}
+            </div>
+            <div className="text-[11.5px] leading-snug">
+              <span className="text-brand-ink/80 font-medium">{t.label}</span>
+              <span className="text-brand-ink/45"> · {t.sub}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 pt-3 border-t border-black/[0.06] text-[11px] text-brand-ink/55">
+        One click on any field walks this trail back to the source row it came from.
+      </div>
+    </div>
+  );
+}
+
+function ClassificationVisual() {
+  const fields = [
+    { name: 'full_name', why: 'a person\'s name', level: 'direct' },
+    { name: 'national_id', why: 'a government identifier', level: 'direct' },
+    { name: 'health_condition', why: 'health data, GDPR Art. 9', level: 'special' },
+    { name: 'claim_amount', why: 'not sensitive', level: 'none' },
+  ];
+  return (
+    <div className="bg-white rounded-2xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-5 md:p-7">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55 mb-4">
+        PolicyHolder · classified on arrival
+      </div>
+      <div className="space-y-2">
+        {fields.map((f) => (
+          <div
+            key={f.name}
+            className={`flex items-center justify-between gap-3 rounded-lg p-2.5 text-[12px] ${
+              f.level === 'special' ? 'bg-rose-50' : f.level === 'direct' ? 'bg-amber-50' : 'bg-brand-mist/35'
+            }`}
+          >
+            <span className="font-mono text-brand-ink/85">{f.name}</span>
+            <span
+              className={`text-[10.5px] shrink-0 ${
+                f.level === 'special' ? 'text-rose-700 font-semibold' : f.level === 'direct' ? 'text-amber-800 font-semibold' : 'text-brand-ink/45'
+              }`}
+            >
+              {f.why}
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 pt-3 border-t border-black/[0.06] text-[11px] text-brand-ink/55">
+        Detected from the field itself the moment a record lands, no manual setup per source.
+      </div>
+    </div>
+  );
+}
+
 export default function GQDataPage() {
   return (
     <>
@@ -160,7 +229,7 @@ export default function GQDataPage() {
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-blue mb-5">
               <span className="h-px w-7 bg-brand-blue/60" aria-hidden />
-              Product · Govern tier
+              Product · Foundation tier
             </div>
 
             <h1 className="font-display font-semibold text-[44px] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.0] tracking-[-0.025em] text-brand-ink">
@@ -229,47 +298,44 @@ export default function GQDataPage() {
         </div>
       </Section>
 
-      {/* CAPABILITIES */}
+      {/* WHAT IT OFFERS — the centerpiece: the full breadth, up front */}
       <Section
-        eyebrow="What GQData does"
+        eyebrow="What GQData offers"
         title={
           <>
-            Four foundations under <br className="hidden md:block" />
-            <span className="text-brand-blue">every model and agent.</span>
+            Six modules, one <br className="hidden md:block" />
+            <span className="text-brand-blue">governed path from source to model.</span>
           </>
         }
+        intro="The two below have a visual, because a trail and a classification are easier to see than to read about."
       >
-        <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {CAPABILITIES.map((c, i) => (
-            <div key={c.title} className="bg-white rounded-2xl ring-1 ring-black/[0.05] p-7 md:p-8 hover:ring-brand-blue/30 transition-all duration-300 ease-out-expo">
+            <div key={c.title} className="bg-white rounded-2xl ring-1 ring-black/[0.05] p-6 hover:ring-brand-blue/30 transition-all duration-300 ease-out-expo">
               <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-blue/70 mb-2.5">
                 {String(i + 1).padStart(2, '0')}
               </div>
-              <h3 className="font-display font-semibold text-xl md:text-[22px] text-brand-ink mb-2">{c.title}</h3>
-              <p className="text-brand-ink/70 leading-relaxed">{c.body}</p>
+              <h3 className="font-display font-semibold text-[17px] text-brand-ink mb-1.5">{c.title}</h3>
+              <p className="text-brand-ink/70 leading-relaxed text-[14px]">{c.body}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      {/* WHO USES IT */}
+      {/* HOW IT WORKS — visual, grounded in the real classification and lineage model */}
       <Section
         tone="mist"
-        eyebrow="Who uses it"
+        eyebrow="How it works"
         title={
           <>
-            Three roles, <br className="hidden md:block" />
-            <span className="text-brand-blue">one defensible foundation.</span>
+            Every field, <br className="hidden md:block" />
+            <span className="text-brand-blue">traced back and tagged on arrival.</span>
           </>
         }
       >
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6">
-          {FOR.map((u) => (
-            <div key={u.role} className="bg-white rounded-2xl ring-1 ring-black/[0.05] p-7 hover:ring-brand-blue/30 transition-all duration-300 ease-out-expo">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-blue/80 mb-3">{u.role}</div>
-              <p className="text-brand-ink/80 leading-relaxed text-[15px]">{u.body}</p>
-            </div>
-          ))}
+        <div className="grid md:grid-cols-2 gap-6">
+          <LineageVisual />
+          <ClassificationVisual />
         </div>
       </Section>
 
@@ -282,7 +348,7 @@ export default function GQDataPage() {
             <span className="text-brand-blue">under everything else.</span>
           </>
         }
-        intro="GQData is the Govern tier of the Greyquill journey. ClarityAI says whether to fund the initiative. GQData makes sure the data underneath can carry it. GQ Agents and GST Co-Pilot are what becomes possible once the foundation holds."
+        intro="GQData is the foundation tier of the Greyquill journey. GQ Govern turns what it finds into an enforceable, evidenced rule. GQ Agents and GST Co-Pilot are what becomes possible once the foundation holds."
       >
         <ProductSiblingChips currentHref="/products/gqdata" />
       </Section>

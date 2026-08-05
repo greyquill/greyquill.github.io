@@ -2,18 +2,20 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { PILLARS, VERTICALS } from '@/lib/products';
+import { PILLARS, VERTICALS, TOOLS } from '@/lib/products';
 
 /**
  * Sticky strip below the main header on every product page.
  *
  * Always visible: a "Products" back-link, the three platform pillars
- * (ClarityAI · GQData · GQ Agents) as direct pills, then a thin
- * separator and a "Vertical products" dropdown pill. The dropdown
- * lists vertical products (some internal, some external). When the
- * user is on a vertical product page, the dropdown pill shows the
- * active vertical's name and is highlighted in the active style.
+ * (GQData · GQ Govern · GQ Agents) as direct pills, then a thin
+ * separator and a "More products" dropdown pill. The dropdown lists
+ * vertical products and standalone tools (some internal, some
+ * external). When the user is on one of those pages, the dropdown
+ * pill shows its name and is highlighted in the active style.
  */
+
+const MORE = [...VERTICALS, ...TOOLS];
 
 export default function ProductSubnav({ currentHref }: { currentHref: string }) {
   const [open, setOpen] = useState(false);
@@ -36,7 +38,7 @@ export default function ProductSubnav({ currentHref }: { currentHref: string }) 
     };
   }, [open]);
 
-  const activeVertical = VERTICALS.find((v) => v.href === currentHref);
+  const activeVertical = MORE.find((v) => v.href === currentHref);
   const verticalActive = Boolean(activeVertical);
   const activeProduct =
     PILLARS.find((p) => p.href === currentHref) ?? activeVertical;
@@ -117,9 +119,9 @@ export default function ProductSubnav({ currentHref }: { currentHref: string }) 
                 );
               })}
               <div className="mt-1 pt-2 border-t border-black/[0.06] px-3 pb-2 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45">
-                Vertical products
+                More products
               </div>
-              {VERTICALS.map((v) => {
+              {MORE.map((v) => {
                 const isActive = v.href === currentHref;
                 const cls = `block px-3 py-2.5 rounded-lg transition-colors duration-150 ${isActive ? 'bg-brand-mist/60' : 'hover:bg-brand-mist/40'}`;
                 const inner = (
@@ -196,7 +198,7 @@ export default function ProductSubnav({ currentHref }: { currentHref: string }) 
                 : 'inline-flex items-center gap-1.5 text-xs font-medium text-brand-ink/65 hover:text-brand-blue hover:bg-brand-mist/60 ring-1 ring-transparent hover:ring-brand-blue/20 px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all duration-200 ease-out-expo'
             }
           >
-            <span>{activeVertical ? activeVertical.name : 'Vertical products'}</span>
+            <span>{activeVertical ? activeVertical.name : 'More products'}</span>
             <svg
               viewBox="0 0 12 12"
               className={`h-2.5 w-2.5 opacity-70 transition-transform duration-200 ease-out-expo ${open ? 'rotate-180' : ''}`}
@@ -214,7 +216,7 @@ export default function ProductSubnav({ currentHref }: { currentHref: string }) 
               role="menu"
               className="absolute right-0 top-full mt-2 w-[280px] bg-white rounded-xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-2 z-50"
             >
-              {VERTICALS.map((v) => {
+              {MORE.map((v) => {
                 const isActive = v.href === currentHref;
                 const baseCls =
                   'group/item block px-3 py-2.5 rounded-lg transition-colors duration-150';

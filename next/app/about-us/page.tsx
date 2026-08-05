@@ -111,7 +111,7 @@ export default function AboutPage() {
                 We founded Greyquill to fix that pattern up front. Our answer
                 is the Greyquill Method, a rigorous process that maps the
                 business reality before we write a single line of code, and a
-                platform (ClarityAI, GQData, GQ Agents) that makes governed AI
+                platform (GQData, GQ Govern, GQ Agents) that makes governed AI
                 work shippable in regulated environments.
               </p>
               <p>

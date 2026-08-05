@@ -8,126 +8,115 @@ import { CALENDLY_URL } from '@/lib/links';
 export const metadata: Metadata = {
   title: 'GQ Agents · Multi-agent orchestration with audit trails',
   description:
-    'GQ Agents runs multi-agent workflows with provenance built in. Every action is a work packet. Every result is logged. Every decision is replayable. Designed for regulated workloads.',
+    'GQ Agents scopes what an agent can see, masks what it should not read in the clear, gates the step that needs a person, and proves it worked by checking the actual result through an independent harness.',
   alternates: { canonical: 'https://greyquill.io/products/agents' },
 };
 
-const CAPABILITIES = [
-  {
-    title: 'Work packets, not opaque chains',
-    body:
-      'Every unit of agent work is a structured envelope: instruction, context, success criteria, test command, invoker. Nothing happens off the record.',
-  },
-  {
-    title: 'Peer agents, not hidden hierarchy',
-    body:
-      'Agents discover and invoke each other through a shared registry. No black-box framework deciding which model gets which task in production.',
-  },
-  {
-    title: 'Replayable execution',
-    body:
-      'Every packet, every result, every shared-memory write is appended to an event log. Re-run any decision a regulator asks about. Show exactly what happened.',
-  },
-  {
-    title: 'Human-in-the-loop where it matters',
-    body:
-      'Configurable escalation. Threshold-based handoff to a human reviewer. Approval gates for destructive or high-stakes actions. Built into the protocol, not patched on.',
-  },
+const OFFERS = [
+  { title: 'Create', body: 'Define a playbook once: what it does, what it may read, what triggers it. Portable and declarative.' },
+  { title: 'Compose', body: 'Agents invoke each other through packets. No hidden hierarchy decides who does what.' },
+  { title: 'Scope & mask', body: 'An agent sees exactly the attributes its playbook names, and nothing else.' },
+  { title: 'Gate', body: 'A threshold decides when a person has to sign off before the run continues.' },
+  { title: 'Verify', body: 'An independent harness checks the actual result the run produced.' },
+  { title: 'Observe', body: 'Token spend, cost, and latency, visible per run and per step as it happens.' },
 ];
 
-const FOR = [
-  {
-    role: 'Heads of AI · MLOps leads',
-    body: 'Ship agentic workflows that pass model risk management on the first review, not the third. Hand the audit team a query, not a forensics project.',
-  },
-  {
-    role: 'Risk and compliance officers',
-    body: 'Approve agentic systems with confidence because every action is named, every output is traced, and every override is recorded.',
-  },
-  {
-    role: 'Engineering leadership',
-    body: 'Move past prompt-spaghetti. A protocol your team can reason about, debug, extend, and reuse across product lines.',
-  },
-];
+function ScopeMaskVisual() {
+  return (
+    <div className="bg-white rounded-2xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-5 md:p-7">
+      <div className="flex items-center justify-between mb-4">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55">
+          Playbook · claims-triage
+        </div>
+        <span className="text-[10px] font-mono text-brand-ink/40">scope</span>
+      </div>
 
-function PacketFlowVisual() {
+      <div className="space-y-2.5">
+        <div className="rounded-lg border border-black/[0.06] bg-brand-mist/35 p-3">
+          <div className="flex items-baseline justify-between gap-2 mb-1">
+            <span className="font-display font-semibold text-[13px] text-brand-ink">Claim</span>
+            <span className="text-[10px] font-mono text-brand-ink/50">all attributes</span>
+          </div>
+          <div className="text-[11.5px] text-brand-ink/65">amount, status, filed_at, adjuster_id …</div>
+        </div>
+
+        <div className="rounded-lg border border-amber-400/40 bg-amber-50 p-3">
+          <div className="flex items-baseline justify-between gap-2 mb-1">
+            <span className="font-display font-semibold text-[13px] text-brand-ink">PolicyHolder</span>
+            <span className="text-[10px] font-mono text-amber-700">full_name, address</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-[11.5px] text-brand-ink/65">
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+            masked · tok_9f21ac30, never the value itself
+          </div>
+        </div>
+
+        <div className="rounded-lg border border-black/[0.06] bg-white p-3 text-[11px] text-brand-ink/45">
+          Every other attribute on PolicyHolder: not handed to the agent, in any form.
+        </div>
+      </div>
+
+      <div className="mt-4 pt-3 border-t border-black/[0.06] text-[11px] text-brand-ink/55">
+        An attribute not named here never reaches the agent, masked or not.
+      </div>
+    </div>
+  );
+}
+
+function GateVisual() {
   return (
     <div className="bg-white rounded-2xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-5 md:p-7">
       <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55 mb-4">
-        Work packet flow · live trace
+        Same playbook · the gate
       </div>
 
-      {/* Three agent nodes with packets between them */}
-      <div className="space-y-3">
-        {/* Agent A → packet */}
-        <div className="flex items-start gap-3">
-          <div className="shrink-0 h-10 w-10 rounded-lg bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center text-[11px] font-bold text-brand-blue font-mono">
-            A
-          </div>
-          <div className="flex-1 rounded-lg border border-black/[0.06] bg-brand-mist/35 p-2.5 text-[11.5px]">
-            <div className="text-[9px] font-semibold tracking-[0.18em] text-brand-blue/70 mb-1">
-              PACKET · pkt_8a4f
-            </div>
-            <div className="text-brand-ink leading-snug">
-              <span className="text-brand-ink/55">instruction:</span> classify invoice
-            </div>
-            <div className="text-brand-ink/65 leading-snug">
-              <span className="text-brand-ink/45">success:</span> high-confidence label, citation
-            </div>
-          </div>
-          <span className="text-brand-blue/60 text-[10px] mt-3">→ B</span>
+      <div className="space-y-2">
+        <div className="rounded-lg bg-brand-mist/40 p-3 text-[12.5px] text-brand-ink/80">
+          Claim.amount is <span className="font-mono">₹62,400</span> — above the ₹50,000 threshold
         </div>
-
-        {/* Agent B → packet */}
-        <div className="flex items-start gap-3 pl-6">
-          <div className="shrink-0 h-10 w-10 rounded-lg bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center text-[11px] font-bold text-brand-blue font-mono">
-            B
-          </div>
-          <div className="flex-1 rounded-lg border border-black/[0.06] bg-brand-mist/35 p-2.5 text-[11.5px]">
-            <div className="text-[9px] font-semibold tracking-[0.18em] text-brand-blue/70 mb-1">
-              PACKET · pkt_8b1c
-            </div>
-            <div className="text-brand-ink leading-snug">
-              <span className="text-brand-ink/55">instruction:</span> verify against ledger
-            </div>
-            <div className="text-brand-ink/65 leading-snug">
-              <span className="text-brand-ink/45">human-review:</span> required if &gt; ₹50k
-            </div>
-          </div>
-          <span className="text-brand-blue/60 text-[10px] mt-3">→ C</span>
+        <div className="flex justify-center py-0.5">
+          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-brand-ink/30" aria-hidden>
+            <path d="M8 2v10M4 9l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </div>
-
-        {/* Agent C → result */}
-        <div className="flex items-start gap-3 pl-12">
-          <div className="shrink-0 h-10 w-10 rounded-lg bg-brand-ink text-white flex items-center justify-center text-[11px] font-bold font-mono">
-            C
-          </div>
-          <div className="flex-1 rounded-lg border-2 border-brand-blue/30 bg-white p-2.5 text-[11.5px]">
-            <div className="flex items-center gap-1.5 mb-1">
-              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              <span className="text-[9px] font-semibold tracking-[0.18em] text-emerald-700">RESULT</span>
-            </div>
-            <div className="text-brand-ink leading-snug">Approved · ledger match 0.991</div>
-            <div className="text-brand-ink/55 leading-snug font-mono text-[10px] mt-0.5">
-              event_log.jsonl +3 entries
-            </div>
-          </div>
+        <div className="rounded-lg border border-amber-400/40 bg-amber-50 p-3 flex items-center justify-between gap-3">
+          <span className="text-[12.5px] text-amber-900">Run pauses · routed to <span className="font-mono">gqdata:steward</span></span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-amber-700 shrink-0">A person decides</span>
         </div>
       </div>
 
-      <div className="mt-4 pt-4 border-t border-black/[0.06] grid grid-cols-3 gap-3 text-[10.5px]">
-        <div>
-          <div className="text-brand-ink/55">Provenance</div>
-          <div className="font-semibold text-brand-ink">queryable</div>
-        </div>
-        <div>
-          <div className="text-brand-ink/55">Replay</div>
-          <div className="font-semibold text-brand-ink">deterministic</div>
-        </div>
-        <div>
-          <div className="text-brand-ink/55">HITL</div>
-          <div className="font-semibold text-brand-ink">protocol-native</div>
-        </div>
+      <div className="mt-4 pt-3 border-t border-black/[0.06] text-[11px] text-brand-ink/55">
+        Under ₹50,000, the same gate lets the run continue on its own. The threshold lives in policy, so changing it doesn't touch code.
+      </div>
+    </div>
+  );
+}
+
+function VerificationVisual() {
+  const steps = [
+    { label: 'Agent finishes a step', detail: 'and reports done' },
+    { label: 'An independent check runs', detail: 'against the artifact it actually produced' },
+    { label: 'Pass or fail is recorded', detail: 'before the agent ever sees the answer' },
+  ];
+  return (
+    <div className="bg-white rounded-2xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-5 md:p-7">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-ink/55 mb-5">
+        How a pass earns its name
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        {steps.map((s, i) => (
+          <div key={s.label} className="flex flex-col">
+            <div className="h-7 w-7 rounded-full bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center text-[11px] font-bold text-brand-blue font-mono mb-2.5">
+              {i + 1}
+            </div>
+            <div className="text-[12.5px] font-semibold text-brand-ink leading-snug">{s.label}</div>
+            <div className="text-[11px] text-brand-ink/55 leading-snug mt-0.5">{s.detail}</div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 pt-4 border-t border-black/[0.06] text-[11.5px] text-brand-ink/65 leading-relaxed">
+        Before a check ships, a do-nothing agent has to fail it and a correct answer has to pass it, every time.
+        A check that lets a lazy answer through never goes live.
       </div>
     </div>
   );
@@ -162,15 +151,15 @@ export default function GQAgentsPage() {
             <h1 className="font-display font-semibold text-[44px] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.0] tracking-[-0.025em] text-brand-ink">
               <span className="text-brand-blue">GQ Agents.</span>
               <br />
-              Multi-agent orchestration
+              Every result passes
               <br />
-              with audit trails built in.
+              through a verification harness.
             </h1>
 
             <p className="mt-7 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
-              Every action is a work packet. Every result is logged. Every decision is
-              replayable. Designed for environments where you must prove what an agent
-              did, why, and on whose behalf.
+              An agent only sees what its playbook names. A threshold decides when a
+              person steps in. And a pass is something an independent harness found by
+              checking the actual result.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-4">
@@ -194,7 +183,7 @@ export default function GQAgentsPage() {
           </div>
 
           <div className="lg:col-span-5">
-            <PacketFlowVisual />
+            <ScopeMaskVisual />
           </div>
         </div>
       </section>
@@ -209,13 +198,12 @@ export default function GQAgentsPage() {
             <span className="text-brand-blue">Hard to defend.</span>
           </>
         }
-        intro="Most agentic frameworks give you LLM calls and a prayer. When the regulator, auditor, or board member asks what your agent did and why, you have a transcript, not an answer. GQ Agents makes the answer the protocol."
+        intro="When the regulator or the board asks what an agent did and why, most teams can only hand over a transcript."
       >
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+        <div className="grid sm:grid-cols-2 gap-5 md:gap-6 max-w-2xl">
           {[
             { h: '95%', p: 'of GenAI pilots deliver zero P&L impact (MIT, 2025).' },
             { h: '63%', p: 'of organisations have no formal AI governance in place (IBM/Reco, 2025).' },
-            { h: '11 wk', p: 'median wait for an agentic workload to clear MRM when provenance is missing.' },
           ].map((s) => (
             <div key={s.h} className="bg-white rounded-2xl ring-1 ring-black/[0.05] p-6">
               <div className="font-display font-semibold text-3xl md:text-4xl text-brand-blue leading-none">{s.h}</div>
@@ -225,47 +213,64 @@ export default function GQAgentsPage() {
         </div>
       </Section>
 
-      {/* CAPABILITIES */}
+      {/* WHAT IT OFFERS — the centerpiece: the full breadth, up front */}
       <Section
-        eyebrow="What GQ Agents does"
+        eyebrow="What GQ Agents offers"
         title={
           <>
-            A protocol designed <br className="hidden md:block" />
-            <span className="text-brand-blue">for an audit, not a demo.</span>
+            Everything it takes to run <br className="hidden md:block" />
+            <span className="text-brand-blue">an agent you can defend.</span>
           </>
         }
+        intro="Six things happen around every action an agent takes. The three below have a visual, because they're the ones worth seeing rather than reading about."
       >
-        <div className="grid md:grid-cols-2 gap-5 md:gap-6">
-          {CAPABILITIES.map((c, i) => (
-            <div key={c.title} className="bg-white rounded-2xl ring-1 ring-black/[0.05] p-7 md:p-8 hover:ring-brand-blue/30 transition-all duration-300 ease-out-expo">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+          {OFFERS.map((o, i) => (
+            <div key={o.title} className="bg-white rounded-2xl ring-1 ring-black/[0.05] p-6 hover:ring-brand-blue/30 transition-all duration-300 ease-out-expo">
               <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-blue/70 mb-2.5">
                 {String(i + 1).padStart(2, '0')}
               </div>
-              <h3 className="font-display font-semibold text-xl md:text-[22px] text-brand-ink mb-2">{c.title}</h3>
-              <p className="text-brand-ink/70 leading-relaxed">{c.body}</p>
+              <h3 className="font-display font-semibold text-[17px] text-brand-ink mb-1.5">{o.title}</h3>
+              <p className="text-brand-ink/70 leading-relaxed text-[14px]">{o.body}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      {/* WHO USES IT */}
+      {/* HOW IT WORKS — visual, grounded in the real playbook model */}
       <Section
         tone="mist"
-        eyebrow="Who uses it"
+        eyebrow="How it works"
         title={
           <>
-            Three roles that need <br className="hidden md:block" />
-            <span className="text-brand-blue">agents to be accountable.</span>
+            The same playbook, <br className="hidden md:block" />
+            <span className="text-brand-blue">two decisions made before it runs.</span>
           </>
         }
       >
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6">
-          {FOR.map((u) => (
-            <div key={u.role} className="bg-white rounded-2xl ring-1 ring-black/[0.05] p-7 hover:ring-brand-blue/30 transition-all duration-300 ease-out-expo">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-blue/80 mb-3">{u.role}</div>
-              <p className="text-brand-ink/80 leading-relaxed text-[15px]">{u.body}</p>
-            </div>
-          ))}
+        <div className="grid md:grid-cols-2 gap-6">
+          <ScopeMaskVisual />
+          <GateVisual />
+        </div>
+      </Section>
+
+      {/* INDEPENDENT VERIFICATION */}
+      <Section eyebrow="Independent verification">
+        <div className="grid lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-5">
+            <h3 className="font-display font-semibold text-2xl md:text-[28px] text-brand-ink leading-tight mb-3">
+              We don&apos;t take an agent&apos;s word for it.
+            </h3>
+            <p className="text-brand-ink/75 leading-relaxed text-[15px]">
+              Every check that decides whether a run passed is tested against a correct
+              answer and a wrong one before it ever grades a real run. If a lazy or wrong
+              result can slip through, the check doesn&apos;t ship. That discipline, built
+              for our own agent workforce, is what a pass on your workload means too.
+            </p>
+          </div>
+          <div className="lg:col-span-7">
+            <VerificationVisual />
+          </div>
         </div>
       </Section>
 
@@ -278,7 +283,7 @@ export default function GQAgentsPage() {
             <span className="text-brand-blue">over a trusted foundation.</span>
           </>
         }
-        intro="GQ Agents runs on top of GQData. Without trusted data, an audit-ready agent is still wrong, just provably wrong. With it, you ship governed AI that holds up to scrutiny. GST Co-Pilot is what GQ Agents looks like in production for a real regulated workload."
+        intro="GQ Agents runs on top of GQData and asks GQ Govern's gates before every governed step. Without trusted data and an enforced policy, an audit-ready agent is still wrong, just provably wrong. GST Co-Pilot is what GQ Agents looks like in production for a real regulated workload."
       >
         <ProductSiblingChips currentHref="/products/agents" />
       </Section>

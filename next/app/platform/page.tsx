@@ -7,7 +7,7 @@ import { CALENDLY_URL } from '@/lib/links';
 export const metadata: Metadata = {
   title: 'The platform · One foundation, three layers',
   description:
-    'The Greyquill platform: ClarityAI scores readiness, GQData makes the data foundation trustworthy, GQ Agents runs governed workflows. One foundation across the AI lifecycle.',
+    'The Greyquill platform: GQData makes the data foundation trustworthy, GQ Govern turns policy into evidence, GQ Agents runs governed workflows. GQ Studio ties them into one shell.',
   alternates: { canonical: 'https://greyquill.io/platform' },
 };
 
@@ -72,89 +72,12 @@ function PillarVisual({ pillar }: { pillar: Pillar }) {
 
 /* ----------------------------- Illustrations ---------------------------- */
 
-function ClarityIllustration({ className }: { className?: string }) {
-  // Score gauge — diagnostic / scoring metaphor.
-  return (
-    <svg viewBox="0 0 600 440" className={className} aria-hidden>
-      <defs>
-        <linearGradient id="clarityArc" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#0B4F88" stopOpacity="0.15" />
-          <stop offset="55%" stopColor="#0B4F88" stopOpacity="1" />
-          <stop offset="100%" stopColor="#1a6bb5" stopOpacity="1" />
-        </linearGradient>
-      </defs>
-      {/* Backing card */}
-      <rect x="40" y="40" width="520" height="360" rx="18" fill="#ffffff" stroke="#0a1628" strokeOpacity="0.06" />
-      <text x="68" y="74" fontFamily="var(--font-display), system-ui" fontSize="11" fontWeight="600" fill="#0B4F88" letterSpacing="2">
-        CLARITY SCORE
-      </text>
-      <text x="68" y="92" fontFamily="Inter, system-ui" fontSize="10.5" fill="#5b6573">
-        Initiative · Q3 fraud-detection rollout
-      </text>
-
-      {/* Gauge arc — track */}
-      <path
-        d="M 130 290 A 170 170 0 0 1 470 290"
-        fill="none"
-        stroke="#0a1628"
-        strokeOpacity="0.08"
-        strokeWidth="22"
-        strokeLinecap="round"
-      />
-      {/* Gauge arc — fill (74%) */}
-      <path
-        d="M 130 290 A 170 170 0 0 1 425 192"
-        fill="none"
-        stroke="url(#clarityArc)"
-        strokeWidth="22"
-        strokeLinecap="round"
-      />
-
-      {/* Score number */}
-      <text x="300" y="278" textAnchor="middle" fontFamily="var(--font-display), system-ui" fontSize="68" fontWeight="700" fill="#0a1628" letterSpacing="-2">
-        74
-      </text>
-      <text x="300" y="304" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#5b6573" letterSpacing="1.5">
-        OUT OF 100
-      </text>
-
-      {/* Risk markers along arc */}
-      {[
-        { angle: 195, label: 'Data lineage' },
-        { angle: 235, label: 'Reg exposure' },
-        { angle: 290, label: 'Dependencies' },
-        { angle: 345, label: 'Ownership' },
-      ].map((m, i) => {
-        const r = 192;
-        const cx = 300 + r * Math.cos((m.angle * Math.PI) / 180);
-        const cy = 290 + r * Math.sin((m.angle * Math.PI) / 180);
-        return (
-          <g key={i}>
-            <circle cx={cx} cy={cy} r="4" fill="#0B4F88" />
-            <circle cx={cx} cy={cy} r="9" fill="#0B4F88" fillOpacity="0.18" />
-          </g>
-        );
-      })}
-
-      {/* Risk callouts */}
-      <g fontFamily="Inter, system-ui" fontSize="10" fill="#0a1628">
-        <rect x="68" y="332" width="208" height="40" rx="6" fill="#fafbfc" stroke="#0a1628" strokeOpacity="0.08" />
-        <text x="80" y="348" fontWeight="600" fill="#0B4F88" fontSize="9" letterSpacing="0.5">FIX · 3</text>
-        <text x="80" y="364">Data lineage missing for 2 sources</text>
-        <rect x="324" y="332" width="208" height="40" rx="6" fill="#fafbfc" stroke="#0a1628" strokeOpacity="0.08" />
-        <text x="336" y="348" fontWeight="600" fill="#0B4F88" fontSize="9" letterSpacing="0.5">FIX · 2</text>
-        <text x="336" y="364">Owner unassigned for model risk tier</text>
-      </g>
-    </svg>
-  );
-}
-
 function DataIllustration({ className }: { className?: string }) {
   // Three stacked layers with lineage threads — the foundation metaphor.
   return (
     <svg viewBox="0 0 600 440" className={className} aria-hidden>
       <rect x="40" y="40" width="520" height="360" rx="18" fill="#ffffff" stroke="#0a1628" strokeOpacity="0.06" />
-      <text x="68" y="74" fontFamily="var(--font-display), system-ui" fontSize="11" fontWeight="600" fill="#0e7490" letterSpacing="2">
+      <text x="68" y="74" fontFamily="var(--font-display), system-ui" fontSize="11" fontWeight="600" fill="#0B4F88" letterSpacing="2">
         DATA FOUNDATION
       </text>
       <text x="68" y="92" fontFamily="Inter, system-ui" fontSize="10.5" fill="#5b6573">
@@ -168,7 +91,7 @@ function DataIllustration({ className }: { className?: string }) {
         { y: 268, label: 'Master record', sub: 'Lineage · Audit log · Versioned' },
       ].map((l, i) => (
         <g key={i}>
-          <rect x="68" y={l.y} width="464" height="58" rx="10" fill={i === 2 ? '#eefbff' : '#fafbfc'} stroke={i === 2 ? '#0e7490' : '#0a1628'} strokeOpacity={i === 2 ? '0.5' : '0.08'} strokeWidth={i === 2 ? '1.2' : '1'} />
+          <rect x="68" y={l.y} width="464" height="58" rx="10" fill={i === 2 ? '#eaf3fb' : '#fafbfc'} stroke={i === 2 ? '#0B4F88' : '#0a1628'} strokeOpacity={i === 2 ? '0.5' : '0.08'} strokeWidth={i === 2 ? '1.2' : '1'} />
           <text x="84" y={l.y + 24} fontFamily="var(--font-display), system-ui" fontSize="13" fontWeight="600" fill="#0a1628">
             {l.label}
           </text>
@@ -176,15 +99,15 @@ function DataIllustration({ className }: { className?: string }) {
             {l.sub}
           </text>
           {/* layer index */}
-          <circle cx="500" cy={l.y + 30} r="14" fill={i === 2 ? '#0e7490' : '#fafbfc'} stroke="#0e7490" strokeOpacity={i === 2 ? 0 : 0.4} />
-          <text x="500" y={l.y + 34} textAnchor="middle" fontFamily="var(--font-display), system-ui" fontSize="11" fontWeight="700" fill={i === 2 ? '#ffffff' : '#0e7490'}>
+          <circle cx="500" cy={l.y + 30} r="14" fill={i === 2 ? '#0B4F88' : '#fafbfc'} stroke="#0B4F88" strokeOpacity={i === 2 ? 0 : 0.4} />
+          <text x="500" y={l.y + 34} textAnchor="middle" fontFamily="var(--font-display), system-ui" fontSize="11" fontWeight="700" fill={i === 2 ? '#ffffff' : '#0B4F88'}>
             {i + 1}
           </text>
         </g>
       ))}
 
       {/* lineage threads */}
-      <g stroke="#0e7490" strokeWidth="1" fill="none" strokeOpacity="0.45">
+      <g stroke="#0B4F88" strokeWidth="1" fill="none" strokeOpacity="0.45">
         <path d="M 160 182 L 160 196" />
         <path d="M 280 182 L 280 196" />
         <path d="M 400 182 L 400 196" />
@@ -195,6 +118,52 @@ function DataIllustration({ className }: { className?: string }) {
       <text x="68" y="356" fontFamily="Inter, system-ui" fontSize="10" fill="#5b6573" letterSpacing="0.5">
         EVERY FIELD CARRIES LINEAGE BACK TO ITS SOURCE
       </text>
+    </svg>
+  );
+}
+
+function GovernIllustration({ className }: { className?: string }) {
+  // Policy gates evaluating a workflow step, sealing an evidence pack.
+  const ACCENT = '#0e7490';
+  return (
+    <svg viewBox="0 0 600 440" className={className} aria-hidden>
+      <rect x="40" y="40" width="520" height="360" rx="18" fill="#ffffff" stroke="#0a1628" strokeOpacity="0.06" />
+      <text x="68" y="74" fontFamily="var(--font-display), system-ui" fontSize="11" fontWeight="600" fill={ACCENT} letterSpacing="2">
+        POLICY GATES
+      </text>
+      <text x="68" y="92" fontFamily="Inter, system-ui" fontSize="10.5" fill="#5b6573">
+        Workflow · promote-to-production · step 4
+      </text>
+
+      {/* Gate rows */}
+      {[
+        { y: 118, label: 'Data classification gate', status: 'Passed', ok: true },
+        { y: 174, label: 'Model risk sign-off gate', status: 'Passed', ok: true },
+        { y: 230, label: 'Disparate-impact threshold', status: 'Hold for approval', ok: false },
+      ].map((g, i) => (
+        <g key={i}>
+          <rect x="68" y={g.y} width="464" height="42" rx="9" fill={g.ok ? '#ecfdf5' : '#fffbeb'} stroke={g.ok ? '#10b981' : '#d97706'} strokeOpacity="0.35" />
+          <circle cx="90" cy={g.y + 21} r="5" fill={g.ok ? '#10b981' : '#d97706'} />
+          <text x="106" y={g.y + 25} fontFamily="Inter, system-ui" fontSize="12" fill="#0a1628">
+            {g.label}
+          </text>
+          <text x="524" y={g.y + 25} textAnchor="end" fontFamily="var(--font-display), system-ui" fontSize="11.5" fontWeight="700" fill={g.ok ? '#047857' : '#92400e'}>
+            {g.status}
+          </text>
+        </g>
+      ))}
+
+      {/* Evidence pack strip */}
+      <g transform="translate(68 292)">
+        <rect width="464" height="80" rx="10" fill="#0a1628" />
+        <text x="16" y="24" fontFamily="var(--font-display), system-ui" fontSize="9.5" fontWeight="700" fill="#ffffff" letterSpacing="2">
+          EVIDENCE PACK · SIGNED
+        </text>
+        <g fontFamily="ui-monospace, monospace" fontSize="10" fill="#e2e8f0">
+          <text x="16" y="44">Routed → Model Risk · 2 approvals required</text>
+          <text x="16" y="62">a91f8c… · scoped to this workflow run</text>
+        </g>
+      </g>
     </svg>
   );
 }
@@ -346,23 +315,23 @@ function HeroIllustration({ className }: { className?: string }) {
     {
       y: 44,
       accent: '#0B4F88',
-      eyebrow: 'DIAGNOSE',
-      product: 'ClarityAI',
+      eyebrow: 'FOUNDATION',
+      product: 'GQData',
       bars: [0.9, 0.75, 0.55],
       sources: [
         { label: 'SAP', bg: '#003f7d', fg: '#ffffff' },
         { label: 'O',   bg: '#0072c6', fg: '#ffffff' },
         { label: 'PDF', bg: '#cf2027', fg: '#ffffff' },
       ],
-      output: { eyebrow: 'SCORE', value: '74' },
+      output: { eyebrow: 'MASTER', value: 'INV-882341' },
     },
     {
       y: 200,
       accent: '#0e7490',
       eyebrow: 'GOVERN',
-      product: 'GQData',
+      product: 'GQ Govern',
       bars: [1, 0.85, 0.72, 0.6],
-      output: { eyebrow: 'MASTER', value: 'INV-882341' },
+      output: { eyebrow: 'GATE', value: 'Cleared' },
     },
     {
       y: 356,
@@ -477,23 +446,7 @@ function HeroIllustration({ className }: { className?: string }) {
 
 const PILLARS: Pillar[] = [
   {
-    eyebrow: 'Diagnose',
-    product: 'ClarityAI',
-    heading: 'See the risk in any AI initiative before you fund it.',
-    lead: 'Most AI initiatives stall at the briefing stage. ClarityAI scores any initiative (a PRD, an AI brief, a vendor RFP) for clarity, regulatory exposure, and dependency risk. In days, not months.',
-    bullets: [
-      'Drop in any document and get a numerical clarity score with line-by-line fixes.',
-      'Surface hidden requirement gaps and regulatory exposure tied to specific clauses.',
-      'Generate a board-ready summary, with citations, you can stand behind.',
-    ],
-    closer: 'For program leaders who need to qualify ideas before they consume budget.',
-    href: '/products/clarity-ai',
-    ctaLabel: 'Read more',
-    previewUrl: 'https://clarity.greyquill.io',
-    Illustration: ClarityIllustration,
-  },
-  {
-    eyebrow: 'Govern',
+    eyebrow: 'Foundation',
     product: 'GQData',
     heading: 'AI is only as good as the data it stands on.',
     lead: 'GQData unifies, classifies, and stamps lineage on the data your models and agents will touch, before they touch it. The trusted-data layer beneath every AI decision.',
@@ -506,6 +459,21 @@ const PILLARS: Pillar[] = [
     href: '/products/gqdata',
     ctaLabel: 'Read more',
     Illustration: DataIllustration,
+  },
+  {
+    eyebrow: 'Govern',
+    product: 'GQ Govern',
+    heading: 'A rule nobody can produce is not a rule.',
+    lead: 'A control gets checked automatically where GQ Govern can, and attested to on a schedule where it can\'t. Every pass names the policy actually enforcing it. It also owns Diagnose: AI-maturity assessment, model inventory, and document intelligence over the policies you already have.',
+    bullets: [
+      'A catalogue spanning the EU AI Act, GDPR, SOC 2, ISO 27001, and the DPDP Act today, with dozens more standards mapped for later.',
+      'Evidence that names the policy behind a pass, not just a green checkmark.',
+      'Exceptions that need a reason, a fix in progress, and a date, never a silent bypass.',
+    ],
+    closer: 'For risk and compliance teams who need the evidence, not just the dashboard.',
+    href: '/products/govern',
+    ctaLabel: 'Read more',
+    Illustration: GovernIllustration,
   },
   {
     eyebrow: 'Activate',
@@ -560,9 +528,9 @@ export default function PlatformPage() {
             </h1>
             <p className="mt-7 text-lg md:text-xl text-brand-ink/75 max-w-2xl leading-[1.55]">
               The Greyquill platform is a single foundation for compliant enterprise AI:
-              ClarityAI scores readiness, GQData makes the data trustworthy, GQ Agents
-              runs the workloads. Each layer ships value on its own and composes with
-              the others.
+              GQData makes the data trustworthy, GQ Govern turns policy into evidence,
+              GQ Agents runs the workloads. Each product ships value on its own, and GQ
+              Studio ties them into one shell.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <a
@@ -601,19 +569,19 @@ export default function PlatformPage() {
             <span className="text-brand-blue">A platform addresses all three.</span>
           </>
         }
-        intro="Programs lose months guessing at risk, fixing data after the fact, and bolting governance onto already-running agents. The platform layers the work so each step is solved once."
+        intro="Programs lose months to data that isn't AI-ready, rules nobody can produce on demand, and governance bolted onto already-running agents. The platform layers the work so each step is solved once."
       >
         <div className="grid md:grid-cols-3 gap-5 md:gap-6">
           {[
             {
-              k: 'Diagnose',
-              h: 'Stop funding ideas you can\'t defend.',
-              p: 'Score every initiative for clarity, risk, and dependencies before it hits the roadmap.',
+              k: 'Foundation',
+              h: 'Trust the data before you trust the model.',
+              p: 'Master, classify, and stamp lineage on the data your models and agents will use.',
             },
             {
               k: 'Govern',
-              h: 'Trust the data before you trust the model.',
-              p: 'Master, classify, and stamp lineage on the data your models and agents will use.',
+              h: 'Turn the rule into something the system can prove.',
+              p: 'Check what can be checked automatically, attest to what can\'t, and name the policy behind every pass.',
             },
             {
               k: 'Activate',

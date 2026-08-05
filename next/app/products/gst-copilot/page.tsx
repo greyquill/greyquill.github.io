@@ -242,8 +242,8 @@ export default function GSTCoPilotPage() {
         eyebrow="Who uses it"
         title={
           <>
-            Three roles, <br className="hidden md:block" />
-            <span className="text-brand-blue">three reasons it matters.</span>
+            Different job, <br className="hidden md:block" />
+            <span className="text-brand-blue">same reason to care.</span>
           </>
         }
       >
@@ -266,7 +266,7 @@ export default function GSTCoPilotPage() {
             <span className="text-brand-blue">looks like in production.</span>
           </>
         }
-        intro="GST Co-Pilot is not a prototype. It is the same pattern we use for every governed agentic engagement, applied to a domain we know cold. Everything ClarityAI scores, GQData feeds, and GQ Agents runs is visible here, end to end, on a real workload that already moves money."
+        intro="GST Co-Pilot is not a prototype. It is the same pattern we use for every governed agentic engagement, applied to a domain we know cold. Everything GQData feeds, GQ Govern clears, and GQ Agents runs is visible here, end to end, on a real workload that already moves money."
       >
         <ProductSiblingChips currentHref="/products/gst-copilot" />
       </Section>

@@ -16,15 +16,15 @@ const PRIMARY_NAV = [
 
 const PILLARS = [
   {
-    href: '/products/clarity-ai',
-    label: 'ClarityAI',
-    sub: 'Score the clarity and risk of any initiative',
-    tier: 'Diagnose',
-  },
-  {
     href: '/products/gqdata',
     label: 'GQData',
     sub: 'Master data + lineage for AI-ready data',
+    tier: 'Foundation',
+  },
+  {
+    href: '/products/govern',
+    label: 'GQ Govern',
+    sub: 'Controls, evidence, and the Diagnose role',
     tier: 'Govern',
   },
   {
@@ -32,6 +32,21 @@ const PILLARS = [
     label: 'GQ Agents',
     sub: 'Multi-agent orchestration with audit trails',
     tier: 'Activate',
+  },
+];
+
+const STUDIO = {
+  href: '/dc/studio',
+  label: 'GQ Studio',
+  sub: 'The shell that ties the platform together',
+};
+
+const TOOLS = [
+  {
+    href: '/products/clarity-ai',
+    label: 'ClarityAI',
+    sub: 'Score the clarity and risk of any initiative',
+    external: false,
   },
 ];
 
@@ -148,7 +163,7 @@ export default function Header() {
             >
               <div className="w-[380px] bg-white rounded-2xl ring-1 ring-black/[0.06] shadow-2xl shadow-brand-blue/10 p-3">
                 <div className="px-3 pt-1 pb-2 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45">
-                  The platform · three pillars
+                  The platform · three products
                 </div>
                 {PILLARS.map((p) => (
                   <Link
@@ -168,6 +183,23 @@ export default function Header() {
                     <div className="text-xs text-brand-ink/65 leading-snug">{p.sub}</div>
                   </Link>
                 ))}
+
+                {/* GQ Studio — not a fourth pillar, the shell that ties the
+                   three together. Same-origin hard nav into the separate
+                   `dc` app, styled distinctly from the pillar links. */}
+                <a
+                  href={STUDIO.href}
+                  onClick={closeOnClick}
+                  className="group/item mt-1 flex items-baseline justify-between gap-2 p-3 rounded-xl bg-brand-blue/[0.04] ring-1 ring-brand-blue/15 hover:bg-brand-blue/[0.08] transition-colors duration-200"
+                >
+                  <span>
+                    <span className="font-display font-semibold text-[14px] text-brand-ink group-hover/item:text-brand-blue transition-colors">
+                      {STUDIO.label}
+                    </span>
+                    <span className="block text-xs text-brand-ink/65 leading-snug mt-0.5">{STUDIO.sub}</span>
+                  </span>
+                  <span aria-hidden className="shrink-0 text-brand-ink/40 text-xs">↗</span>
+                </a>
 
                 <div className="mt-2 pt-2 border-t border-black/[0.06] px-3 pb-1.5 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45">
                   Vertical products
@@ -192,6 +224,23 @@ export default function Header() {
                         <path d="M4 4h4v4M8 4l-5 5" strokeLinecap="round" />
                       </svg>
                     )}
+                  </Link>
+                ))}
+
+                <div className="mt-2 pt-2 border-t border-black/[0.06] px-3 pb-1.5 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-brand-ink/45">
+                  Standalone tools
+                </div>
+                {TOOLS.map((p) => (
+                  <Link
+                    key={p.href}
+                    href={p.href}
+                    onClick={closeOnClick}
+                    className="group/item flex items-baseline justify-between gap-2 px-3 py-1.5 rounded-md hover:bg-brand-mist/40 transition-colors duration-200"
+                  >
+                    <span className="text-[12.5px] text-brand-ink/80 group-hover/item:text-brand-blue transition-colors">
+                      <b>{p.label}</b>
+                      <span className="text-brand-ink/45"> · {p.sub}</span>
+                    </span>
                   </Link>
                 ))}
 
@@ -421,6 +470,27 @@ export default function Header() {
                             <path d="M4 4h4v4M8 4l-5 5" strokeLinecap="round" />
                           </svg>
                         )}
+                      </Link>
+                    </li>
+                  ))}
+                  <li>
+                    <a
+                      href={STUDIO.href}
+                      onClick={() => setMobileNavOpen(false)}
+                      className="flex items-center justify-between gap-3 py-2.5 text-brand-ink/85"
+                    >
+                      <span className="text-[15px] font-medium">{STUDIO.label}</span>
+                      <span aria-hidden className="text-brand-ink/40 text-xs">↗</span>
+                    </a>
+                  </li>
+                  {TOOLS.map((p) => (
+                    <li key={p.href}>
+                      <Link
+                        href={p.href}
+                        onClick={() => setMobileNavOpen(false)}
+                        className="flex items-center justify-between gap-3 py-2.5 text-brand-ink/85"
+                      >
+                        <span className="text-[15px] font-medium">{p.label}</span>
                       </Link>
                     </li>
                   ))}

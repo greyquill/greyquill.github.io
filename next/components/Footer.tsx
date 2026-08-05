@@ -1,13 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const PRODUCTS: { href: string; label: string; external?: boolean }[] = [
-  { href: '/products/clarity-ai', label: 'ClarityAI' },
+const PRODUCTS: { href: string; label: string; external?: boolean; hardNav?: boolean }[] = [
   { href: '/products/gqdata', label: 'GQData' },
+  { href: '/products/govern', label: 'GQ Govern' },
   { href: '/products/agents', label: 'GQ Agents' },
+  { href: '/dc/studio', label: 'GQ Studio', hardNav: true },
   { href: '/products/gst-copilot', label: 'GST Co-Pilot' },
   { href: 'https://commerce-synapse.com', label: 'Commerce Synapse', external: true },
   { href: 'https://umami.greyquill.io', label: 'Umami', external: true },
+  { href: '/products/clarity-ai', label: 'ClarityAI' },
 ];
 
 const SERVICES = [
@@ -108,7 +110,7 @@ export default function Footer() {
           <ul className="space-y-1">
             {PRODUCTS.map((l) => (
               <li key={l.href}>
-                <FooterLink href={l.href} external={l.external}>{l.label}</FooterLink>
+                <FooterLink href={l.href} external={l.external} hardNav={l.hardNav}>{l.label}</FooterLink>
               </li>
             ))}
           </ul>

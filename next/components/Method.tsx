@@ -4,23 +4,22 @@ import Section from './Section';
 /**
  * The Greyquill Method, compressed.
  *
- * Three sequenced phases (Diagnose → Govern → Activate). Each phase
- * is implemented by one platform layer (Clarity / GQData / GQ Agents),
- * which is called out explicitly so the Dilemma → Method → Platform
- * spine reads as one consistent story rather than three altitudes of
- * the same content.
+ * Three sequenced phases (Foundation → Govern → Activate). Each phase
+ * is implemented by one platform product (GQData / GQ Govern / GQ
+ * Agents), which is called out explicitly so the Dilemma → Method →
+ * Platform spine reads as one consistent story rather than three
+ * altitudes of the same content.
  *
  * The previous "workstreams" lane and "today" strip have been removed
  * because they restated the same content at a different altitude, and
  * forced the reader to remember 18+ items to follow the page.
  */
 
-const DiagnoseIcon = () => (
+const FoundationIcon = () => (
   <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <circle cx="28" cy="28" r="14" />
-    <path d="M38 38l10 10" />
-    <path d="M22 28h12M28 22v12" opacity=".55" />
-    <circle cx="28" cy="28" r="4" fill="currentColor" opacity=".15" />
+    <ellipse cx="32" cy="19" rx="17" ry="7" />
+    <path d="M15 19v12c0 3.9 7.6 7 17 7s17-3.1 17-7V19" />
+    <path d="M15 31v12c0 3.9 7.6 7 17 7s17-3.1 17-7V31" opacity=".55" />
   </svg>
 );
 
@@ -54,20 +53,20 @@ type Phase = {
 const PHASES: Phase[] = [
   {
     n: '01',
-    name: 'Diagnose',
-    Icon: DiagnoseIcon,
-    headline: 'See your AI risk and readiness clearly.',
-    sub: 'Maturity assessment, model inventory, regulatory gap analysis, board-ready risk picture.',
-    layer: { name: 'ClarityAI', tag: 'Understanding', accent: '#0B4F88' },
+    name: 'Foundation',
+    Icon: FoundationIcon,
+    headline: 'Give every model and agent a record they can stand on.',
+    sub: 'Master-data unification, active lineage, sensitivity classification, quality repaired at source.',
+    layer: { name: 'GQData', tag: 'Foundation', accent: '#0B4F88' },
     fixes: 'Fixes the 40 lost to data not being AI-ready.',
   },
   {
     n: '02',
     name: 'Govern',
     Icon: GovernIcon,
-    headline: 'Put trusted data and runtime controls in place.',
-    sub: 'Master data, lineage, sensitivity classification, model lifecycle controls, real-time monitoring.',
-    layer: { name: 'GQData', tag: 'Foundation', accent: '#0e7490' },
+    headline: 'Turn the rule into something the system can prove it followed.',
+    sub: 'Controls checked against EU AI Act, GDPR, SOC 2, and more, each tied to the policy that enforces it. Exceptions with an expiry, not a bypass.',
+    layer: { name: 'GQ Govern', tag: 'Govern', accent: '#0e7490' },
     fixes: 'Fixes the 35 lost at evaluation.',
   },
   {
@@ -76,7 +75,7 @@ const PHASES: Phase[] = [
     Icon: ActivateIcon,
     headline: 'Ship governed AI use cases with oversight that scales.',
     sub: 'Productionised generative and agentic workloads, with evidence assembled while the agent runs.',
-    layer: { name: 'GQ Agents', tag: 'Activation', accent: '#4338ca' },
+    layer: { name: 'GQ Agents', tag: 'Activate', accent: '#4338ca' },
     fixes: 'Fixes the 20 lost in production.',
   },
 ];
