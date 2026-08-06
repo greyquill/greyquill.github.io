@@ -1,0 +1,341 @@
+{
+  "$comment": [
+    "Curated answers for the site assistant. These are the primary match target:",
+    "the visitor's question is compared against the `questions` array, and",
+    "question-to-question similarity scores far higher than question-to-marketing-copy.",
+    "",
+    "Every `questions` entry becomes its own vector pointing at the same answer, so",
+    "adding paraphrases is the cheapest way to widen coverage.",
+    "",
+    "`answer` is shown verbatim. Write it as a reply a person would give, keep it",
+    "under about 70 words, and never claim something the public site does not.",
+    "`followUps` are ids of other entries, offered as one-tap chips.",
+    "",
+    "Passages extracted from the live site and Document Center are indexed too and",
+    "cover the long tail. Curated entries exist for questions that deserve a",
+    "deliberate answer rather than whatever paragraph happens to rank."
+  ],
+  "entries": [
+    {
+      "id": "method-overview",
+      "questions": [
+        "How does the Greyquill Method work?",
+        "What is the Greyquill Method?",
+        "What is your approach?",
+        "How do you actually run an engagement?",
+        "What are the three phases?"
+      ],
+      "answer": "Three sequenced phases, each run by one layer of the platform. Foundation gives every model a record it can stand on, using GQData. Govern turns your rules into controls the system can prove it followed, using GQ Govern. Activate ships the use case with oversight that scales, using GQ Agents. Each phase targets a specific place AI projects die.",
+      "links": [
+        {
+          "label": "The Greyquill Method",
+          "url": "https://www.greyquill.io/#approach"
+        },
+        {
+          "label": "Platform",
+          "url": "https://www.greyquill.io/platform/"
+        }
+      ],
+      "followUps": [
+        "what-is-gqdata",
+        "why-projects-fail",
+        "how-to-start"
+      ]
+    },
+    {
+      "id": "why-projects-fail",
+      "questions": [
+        "Why do most AI projects fail?",
+        "Why do only 5 in 100 GenAI ideas reach production?",
+        "What goes wrong with enterprise AI?"
+      ],
+      "answer": "Of every 100 GenAI ideas started, roughly 5 reach production. About 40 are lost because the data was never AI-ready, 35 fall over at evaluation when nobody can evidence that controls held, and 20 die in production without oversight. The Method maps one phase onto each of those three failures.",
+      "links": [
+        {
+          "label": "Homepage",
+          "url": "https://www.greyquill.io/"
+        }
+      ],
+      "followUps": [
+        "method-overview",
+        "what-is-gq-govern"
+      ]
+    },
+    {
+      "id": "what-is-gqdata",
+      "questions": [
+        "What does GQData do?",
+        "What is GQData?",
+        "Tell me about your data product",
+        "How do you make data AI-ready?"
+      ],
+      "answer": "GQData is the trusted-data layer beneath every AI decision. It unifies master data into golden records, repairs quality at source rather than downstream, stamps active lineage on what your models consume, and classifies sensitivity. It is the Foundation tier that GQ Govern and GQ Agents both build on.",
+      "links": [
+        {
+          "label": "GQData",
+          "url": "https://www.greyquill.io/products/gqdata/"
+        }
+      ],
+      "followUps": [
+        "what-is-gq-govern",
+        "data-residency",
+        "method-overview"
+      ]
+    },
+    {
+      "id": "what-is-gq-govern",
+      "questions": [
+        "What does GQ Govern do?",
+        "What is GQ Govern?",
+        "How do you handle AI governance?",
+        "How do you prove compliance?"
+      ],
+      "answer": "GQ Govern turns a written policy into something the system can produce evidence for. Controls are checked against frameworks including the EU AI Act, GDPR, and SOC 2, and each control is tied to the policy that enforces it. Exceptions carry an expiry rather than becoming a permanent bypass.",
+      "links": [
+        {
+          "label": "GQ Govern",
+          "url": "https://www.greyquill.io/products/govern/"
+        }
+      ],
+      "followUps": [
+        "what-is-gq-agents",
+        "regulated-industries",
+        "data-residency"
+      ]
+    },
+    {
+      "id": "what-is-gq-agents",
+      "questions": [
+        "What does GQ Agents do?",
+        "What is GQ Agents?",
+        "Do you build AI agents?",
+        "How do you run agents safely in production?"
+      ],
+      "answer": "GQ Agents is the Activate tier: productionised generative and agentic workloads with oversight that scales. Evidence is assembled while the agent runs rather than reconstructed afterwards, so provenance, checkpoints, and an audit trail exist by the time anyone asks for them.",
+      "links": [
+        {
+          "label": "GQ Agents",
+          "url": "https://www.greyquill.io/products/agents/"
+        }
+      ],
+      "followUps": [
+        "what-is-gq-govern",
+        "champ-swarm",
+        "how-to-start"
+      ]
+    },
+    {
+      "id": "regulated-industries",
+      "questions": [
+        "Do you work in regulated industries?",
+        "Which industries do you serve?",
+        "Do you work in banking or financial services?",
+        "Do you work in healthcare?",
+        "Have you shipped in telecom or retail?"
+      ],
+      "answer": "Yes, that is the whole focus. We have shipped governed AI in production across BFSI, telecom, and retail, and have delivered in healthcare and public sector work where the governance bar is just as high. The platform exists because regulated enterprises need AI they can put in front of an auditor.",
+      "links": [
+        {
+          "label": "Industries",
+          "url": "https://www.greyquill.io/industries/"
+        },
+        {
+          "label": "BFSI",
+          "url": "https://www.greyquill.io/industries/bfsi/"
+        }
+      ],
+      "followUps": [
+        "what-is-gq-govern",
+        "data-residency",
+        "how-to-start"
+      ]
+    },
+    {
+      "id": "data-residency",
+      "questions": [
+        "Where is my data stored?",
+        "Does my data leave my environment?",
+        "Do we have to move our data to you?",
+        "What about data residency and sovereignty?",
+        "Is this a SaaS product?"
+      ],
+      "answer": "Your data stays where it is. The platform installs into your own environment, meaning your cloud account, your region, and your identity provider, and reads data in place. There is no requirement to ship raw copies to us.",
+      "links": [
+        {
+          "label": "GQ Studio",
+          "url": "https://www.greyquill.io/dc/studio/"
+        },
+        {
+          "label": "Policies",
+          "url": "https://www.greyquill.io/policies/"
+        }
+      ],
+      "followUps": [
+        "security-privacy",
+        "what-is-gq-govern",
+        "how-to-start"
+      ]
+    },
+    {
+      "id": "how-to-start",
+      "questions": [
+        "How do we get started?",
+        "How do I book a call?",
+        "What does your discovery process look like?",
+        "How do we work together?",
+        "Can I talk to someone?"
+      ],
+      "answer": "Start with a 30-minute discovery call. Bring your hardest data or policy question and we will tell you honestly whether the bottleneck is data, process, or model. Fuller discovery adds stakeholder interviews, a working session with the team that owns the problem, and a business and technical analysis. We do not write code until everyone agrees on what we are building.",
+      "links": [
+        {
+          "label": "Book a discovery call",
+          "url": "https://calendly.com/greyquill/30min"
+        },
+        {
+          "label": "Contact",
+          "url": "https://www.greyquill.io/contact/"
+        }
+      ],
+      "followUps": [
+        "method-overview",
+        "timelines",
+        "regulated-industries"
+      ]
+    },
+    {
+      "id": "training-and-certification",
+      "questions": [
+        "Can I get certified?",
+        "Do you offer certification?",
+        "I need to be Greyquill certified",
+        "Is there a Greyquill certification programme?",
+        "Do you run training for our team?",
+        "Can you train our people?"
+      ],
+      "answer": "We do not run a Greyquill certification programme. We do run training as part of consulting engagements, including workshops and enablement so your team can operate what we build once we hand it over. If you have something specific in mind, a short call is the fastest way to scope it.",
+      "links": [
+        {
+          "label": "Support",
+          "url": "https://www.greyquill.io/support/"
+        },
+        {
+          "label": "Book a call",
+          "url": "https://calendly.com/greyquill/30min"
+        }
+      ],
+      "followUps": [
+        "ongoing-support",
+        "how-to-start",
+        "certifications"
+      ]
+    },
+    {
+      "id": "become-a-partner",
+      "questions": [
+        "How do I become a partner?",
+        "Do you have a partner programme?",
+        "Can we partner with you?",
+        "Are you looking for resellers?",
+        "I want to work with Greyquill"
+      ],
+      "answer": "We work with technology and delivery partners, and the partnerships page sets out who we already build alongside. There is no self-serve partner programme to sign up to, so the route is a direct conversation about what you have in mind.",
+      "links": [
+        {
+          "label": "Partnerships",
+          "url": "https://www.greyquill.io/partnerships/"
+        },
+        {
+          "label": "Contact",
+          "url": "https://www.greyquill.io/contact/"
+        }
+      ],
+      "followUps": [
+        "ibm-partnership",
+        "who-is-greyquill",
+        "how-to-start"
+      ]
+    },
+    {
+      "id": "contact-details",
+      "questions": [
+        "How do I contact you?",
+        "How do I get in touch?",
+        "What is your email address?",
+        "Where can I reach someone?",
+        "Who do I talk to?",
+        "How do I reach the team?"
+      ],
+      "answer": "Email us at hello@greyquill.io or send a note through the contact page, and if you would rather talk it through, a 30-minute discovery call is easy to book.",
+      "links": [
+        {
+          "label": "Contact",
+          "url": "https://www.greyquill.io/contact/"
+        },
+        {
+          "label": "Book a discovery call",
+          "url": "https://calendly.com/greyquill/30min"
+        }
+      ],
+      "followUps": [
+        "how-to-start",
+        "who-is-greyquill",
+        "regulated-industries"
+      ]
+    },
+    {
+      "id": "contact-phone",
+      "questions": [
+        "What is your phone number?",
+        "Can I call you?",
+        "Do you have a phone number?",
+        "I need to speak to someone",
+        "Is there a number I can call?",
+        "This is urgent, how do I reach you quickly?"
+      ],
+      "answer": "You can call us on +91 80505 22809, though email at hello@greyquill.io or a booked 30-minute discovery call usually gets you a fuller answer.",
+      "links": [
+        {
+          "label": "Contact",
+          "url": "https://www.greyquill.io/contact/"
+        },
+        {
+          "label": "Book a discovery call",
+          "url": "https://calendly.com/greyquill/30min"
+        }
+      ],
+      "followUps": [
+        "how-to-start",
+        "contact-details",
+        "regulated-industries"
+      ]
+    },
+    {
+      "id": "product-range",
+      "questions": [
+        "What are your products?",
+        "What products do you have?",
+        "What other products do you have?",
+        "What do you sell?",
+        "Show me your full product range",
+        "List your products",
+        "What is in the Greyquill platform?"
+      ],
+      "answer": "Four platform layers, and four things built on them. GQData is the trusted-data layer beneath every AI decision. GQ Govern is the policy layer that makes AI defensible. GQ Agents handles multi-agent orchestration with audit trails built in. GQ Studio is one application shell for the whole platform. Three vertical products sit on top: GST Co-Pilot for GST reconciliation, Commerce Synapse for retail and commerce operations, and Umami for clinical practice management. ClarityAI stands alone, scoring the clarity and risk of an initiative before you fund it.",
+      "links": [
+        {
+          "label": "Products",
+          "url": "https://www.greyquill.io/products/"
+        },
+        {
+          "label": "Platform",
+          "url": "https://www.greyquill.io/platform/"
+        }
+      ],
+      "followUps": [
+        "what-is-gqdata",
+        "what-is-gq-govern",
+        "what-is-gq-agents"
+      ]
+    }
+  ]
+}
