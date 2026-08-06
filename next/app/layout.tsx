@@ -4,6 +4,8 @@ import { display, body } from './fonts';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import NavigationTracker from '@/components/NavigationTracker';
+import SiteTour from '@/components/SiteTour';
+import { OnDeviceIndicator } from '@/components/OnDeviceWaiting';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -67,6 +69,11 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        {/* Both mounted in the layout, not a page, because both have to
+            survive route changes: the walkthrough navigates between routes,
+            and the on-device download continues while the visitor reads. */}
+        <SiteTour />
+        <OnDeviceIndicator />
       </body>
     </html>
   );

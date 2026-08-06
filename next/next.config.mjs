@@ -17,6 +17,17 @@ const nextConfig = {
     // GitHub Pages has no Image Optimization runtime; ship originals.
     unoptimized: true,
   },
+  webpack: (config) => {
+    // transformers.js ships both a Node and a browser backend. Without this
+    // the bundler follows the Node path and the build fails on native deps
+    // that have no business in a static export.
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      sharp$: false,
+      'onnxruntime-node$': false,
+    };
+    return config;
+  },
 };
 
 export default nextConfig;

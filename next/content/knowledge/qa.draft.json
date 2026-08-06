@@ -1,0 +1,586 @@
+{
+  "$comment": [
+    "DRAFT curated answers, new entries only. Same shape as qa.json.",
+    "Every factual claim here is drawn from public site or Document Center text",
+    "indexed in public/knowledge/meta.json. Merge into qa.json after review."
+  ],
+  "entries": [
+    {
+      "id": "what-is-gq-studio",
+      "questions": [
+        "What is GQ Studio?",
+        "Tell me about GQ Studio",
+        "Is GQ Studio sold separately?",
+        "What is the platform UI?",
+        "How do the three products fit together?"
+      ],
+      "answer": "GQ Studio is the single application shell over the whole platform: the workspaces, screens, and low-code customization layer that tie GQData, GQ Govern, and GQ Agents into one product experience. It is where data engineers, stewards, compliance officers, and AI engineers all work on the same records against the same trail. It ships with the platform rather than being sold on its own.",
+      "links": [
+        { "label": "GQ Studio", "url": "https://www.greyquill.io/dc/studio/" },
+        { "label": "Products", "url": "https://www.greyquill.io/products/" }
+      ],
+      "followUps": ["what-is-gqdata", "what-is-gq-govern", "deployment-model"]
+    },
+    {
+      "id": "what-is-gst-copilot",
+      "questions": [
+        "What is GST Co-Pilot?",
+        "Tell me about your GST product",
+        "Do you have anything for Indian tax?",
+        "GST reconciliation tool?",
+        "What does the GST co-pilot actually do?"
+      ],
+      "answer": "GST Co-Pilot is a four-agent system for Indian GST work: invoice ingestion, extraction, GSTR-2B reconciliation, and exception resolution. An orchestrator reads intent, routes work, and escalates to a human reviewer above a configurable threshold. It compresses the forty-plus hours a month an average mid-market tax team spends on manual reconciliation into an afternoon, and it is our reference architecture for governed agentic AI in production.",
+      "links": [
+        { "label": "GST Co-Pilot", "url": "https://www.greyquill.io/products/gst-copilot/" },
+        { "label": "Architecture and engine", "url": "https://www.greyquill.io/dc/gst/" }
+      ],
+      "followUps": ["gst-invoice-matching", "gstr-2b-exceptions", "what-is-gq-agents"]
+    },
+    {
+      "id": "gst-invoice-matching",
+      "questions": [
+        "How does invoice matching work?",
+        "What is the 5-pass reconciliation?",
+        "How do you match invoices to GSTR-2B?",
+        "Does it handle fuzzy matching?",
+        "What if the invoice number is formatted differently?"
+      ],
+      "answer": "Five passes, each less strict than the last, and each one works only on what earlier passes left behind. Pass one matches the e-invoice IRN at full confidence. Pass two matches GSTIN plus a normalised invoice number and value within a rupee. Pass three allows a fuzzy invoice number. Pass four uses amount and date. Pass five is amount only and always goes to a reviewer.",
+      "links": [
+        { "label": "Invoice matching logic", "url": "https://www.greyquill.io/dc/gst/invoice-matching.html" },
+        { "label": "Reconciliation engine", "url": "https://www.greyquill.io/dc/gst/reconciliation-engine.html" }
+      ],
+      "followUps": ["gstr-2b-exceptions", "what-is-gst-copilot"]
+    },
+    {
+      "id": "gstr-2b-exceptions",
+      "questions": [
+        "What is GSTR-2B reconciliation?",
+        "What happens when an invoice is missing from GSTR-2B?",
+        "How do you handle ITC risk?",
+        "What if my vendor has not filed?",
+        "How do exceptions get prioritised?"
+      ],
+      "answer": "Your purchase register is compared against the GSTR-2B the portal publishes from vendor filings. Anything still unmatched is checked against adjacent periods first, since late filing is common, then classified as missing in GSTR-2B or missing in books. Each one is scored zero to a hundred for ITC risk and given a priority and an SLA, so critical items reach the finance team first.",
+      "links": [
+        { "label": "Reconciliation engine", "url": "https://www.greyquill.io/dc/gst/reconciliation-engine.html" },
+        { "label": "Reconciliation workbench", "url": "https://www.greyquill.io/dc/gst/reconciliation-workbench.html" }
+      ],
+      "followUps": ["gst-invoice-matching", "what-is-gst-copilot"]
+    },
+    {
+      "id": "champ-swarm",
+      "questions": [
+        "What is Champ?",
+        "Tell me about the Champ agent swarm",
+        "Do you use AI to build software?",
+        "How does the agent swarm work?",
+        "What is the swarm architecture?"
+      ],
+      "answer": "Champ is our peer-based agent swarm for end-to-end software delivery. Agents talk through work packets on a shared board, with no hierarchy. Champ decomposes a PRD into packets, dispatches them, and watches progress. Specialist agents cover architecture, development, QA, PR review, and deployment, several running their own mini-swarms. Every packet carries a unique id, a phase history, and an append-only event log entry.",
+      "links": [
+        { "label": "Agent swarm architecture", "url": "https://www.greyquill.io/dc/champ/agent-swarm-architecture.html" },
+        { "label": "Champ documents", "url": "https://www.greyquill.io/dc/champ/" }
+      ],
+      "followUps": ["harness-verification", "what-is-gq-agents", "what-is-gst-copilot"]
+    },
+    {
+      "id": "harness-verification",
+      "questions": [
+        "How do you test your agents?",
+        "What is the harness?",
+        "How do you know an agent actually did the work?",
+        "How are agents verified before deployment?",
+        "Do you keep auditing agents after launch?"
+      ],
+      "answer": "An agent reporting done has told you about its confidence. So every result passes through a harness the agent does not control: it works in a sealed sandbox with a written brief and a time budget, then a separate grader inspects the artefacts it left and returns pass or fail. Before a check ships, a do-nothing agent has to fail it and a correct answer has to pass it.",
+      "links": [
+        { "label": "Harness and verification", "url": "https://www.greyquill.io/dc/champ/harness-verification.html" },
+        { "label": "GQ Agents", "url": "https://www.greyquill.io/products/agents/" }
+      ],
+      "followUps": ["champ-swarm", "what-is-gq-agents", "ai-feature-done"]
+    },
+    {
+      "id": "commerce-synapse",
+      "questions": [
+        "What is Commerce Synapse?",
+        "Do you have a retail product?",
+        "Tell me about Commerce Synapse",
+        "Anything for commerce operations?"
+      ],
+      "answer": "Commerce Synapse is our retail and commerce vertical product: AI-orchestrated commerce operations on a trusted product and customer foundation, so operations, pricing, and merchandising decisions all run on unified data. Like GST Co-Pilot, it is a reference architecture for governed agentic AI in a real domain, built on the Greyquill platform. It lives at its own address, linked from the products page.",
+      "links": [
+        { "label": "Products", "url": "https://www.greyquill.io/products/" },
+        { "label": "Retail and commerce", "url": "https://www.greyquill.io/industries/retail/" }
+      ],
+      "followUps": ["industry-retail", "umami-health", "what-is-gqdata"]
+    },
+    {
+      "id": "umami-health",
+      "questions": [
+        "What is Umami?",
+        "Do you work in healthcare?",
+        "Tell me about your health platform",
+        "Anything for clinics or practices?"
+      ],
+      "answer": "Umami is our healthcare vertical product: AI-powered practice management for medical clinics, with audit trails and clinical-workflow controls built in. The Document Center publishes its data model, which maps real-world concepts like doctor, nurse, and hospital onto a FHIR-aligned entity model organised by domain. We have shipped in healthcare, though we do not claim deep references in that vertical yet.",
+      "links": [
+        { "label": "Healthcare data model", "url": "https://www.greyquill.io/dc/health/data-model.html" },
+        { "label": "Products", "url": "https://www.greyquill.io/products/" }
+      ],
+      "followUps": ["regulated-industries", "document-center", "commerce-synapse"]
+    },
+    {
+      "id": "clarity-ai",
+      "questions": [
+        "What is ClarityAI?",
+        "Tell me about ClarityAI",
+        "Can you review my PRD?",
+        "How do I score an AI initiative?",
+        "Is ClarityAI free to try?"
+      ],
+      "answer": "ClarityAI scores the clarity and risk of an initiative before you fund it. Drop in a PRD, AI brief, RFP, or statement of work as PDF, DOCX, or plain text and it returns a clarity score, line-by-line fixes, and a one-page go, hold, or kill summary. It scores ambiguity, testability, edge-case coverage, regulatory exposure, and dependency risk. It works standalone, with no signup.",
+      "links": [
+        { "label": "ClarityAI", "url": "https://www.greyquill.io/products/clarity-ai/" },
+        { "label": "Products", "url": "https://www.greyquill.io/products/" }
+      ],
+      "followUps": ["discovery-week", "service-product-engineering", "how-to-start"]
+    },
+    {
+      "id": "service-digital-transformation",
+      "questions": [
+        "What does your digital transformation service cover?",
+        "Do you do legacy modernisation?",
+        "Can you modernise our old systems?",
+        "How do you handle a legacy rewrite?",
+        "Do you do cloud migration?"
+      ],
+      "answer": "We modernise the systems you already run, step by step. Map the estate, pick one seam with a small blast radius, build alongside it behind a clean interface, run old and new against the same work until the numbers reconcile, then retire the legacy piece and repeat. That covers legacy application modernisation, process automation, systems and data integration, and cloud migration. No big-bang rewrites.",
+      "links": [
+        { "label": "Digital transformation", "url": "https://www.greyquill.io/services/digital-transformation/" },
+        { "label": "The parallel run", "url": "https://www.greyquill.io/dc/services/parallel-run.html" }
+      ],
+      "followUps": ["parallel-run", "estate-map", "legacy-integration"]
+    },
+    {
+      "id": "service-ai-and-data",
+      "questions": [
+        "What does your AI and data service cover?",
+        "Do you do AI consulting?",
+        "Do you run AI training or workshops?",
+        "Where should we start with AI?",
+        "Do you do AI assessments?"
+      ],
+      "answer": "Twelve engagements across training, assessments, and consulting, organised in five phases from boardroom to production: Align, Diagnose, Plan, Build, Ship. Most clients start at Phase 01 and can stop at any milestone. The later phases are build phases run by the same engineers who build the platform, covering LLM applications and retrieval, agentic systems, master data and lineage, and evaluation and monitoring.",
+      "links": [
+        { "label": "AI and data", "url": "https://www.greyquill.io/services/ai-and-data/" },
+        { "label": "Services", "url": "https://www.greyquill.io/services/" }
+      ],
+      "followUps": ["method-overview", "how-to-start", "service-digital-transformation"]
+    },
+    {
+      "id": "service-product-engineering",
+      "questions": [
+        "Do you build software products?",
+        "What does your product engineering service cover?",
+        "Can you build our app?",
+        "Do you do mobile development?",
+        "Can you add AI features to our existing product?"
+      ],
+      "answer": "Discovery to design to production, with one senior team owning the outcome. Discovery and scoping workshops, UX and product design, web, mobile, and backend engineering, AI-native features that ship with evaluation, guardrails, and an audit trail, QA and reliability, then DevOps. Every brief runs through ClarityAI first. After launch we can stay on as the product team, and everything is yours to own.",
+      "links": [
+        { "label": "Product engineering", "url": "https://www.greyquill.io/services/product-engineering/" },
+        { "label": "Services", "url": "https://www.greyquill.io/services/" }
+      ],
+      "followUps": ["clarity-ai", "discovery-week", "ongoing-support"]
+    },
+    {
+      "id": "industry-bfsi",
+      "questions": [
+        "Do you work with banks?",
+        "What have you done in BFSI?",
+        "Do you handle payments?",
+        "Any experience in financial services?",
+        "What about reconciliation in banking?"
+      ],
+      "answer": "Banking, financial services, and payments, where AI lives or dies on auditability. We have built a multi-rail payment processing layer handling tens of thousands of transactions per minute, and a reconciliation engine with rule-based first-pass matching, ML-assisted fuzzy matching, and a human review queue carrying lineage on every decision. The regulatory ground includes RBI, SEBI, DPDP, FCA, PRA, FFIEC, OCC, PCI-DSS, and Basel III.",
+      "links": [
+        { "label": "BFSI and payments", "url": "https://www.greyquill.io/industries/bfsi/" },
+        { "label": "Industries", "url": "https://www.greyquill.io/industries/" }
+      ],
+      "followUps": ["regulated-industries", "compliance-frameworks", "industry-telecom"]
+    },
+    {
+      "id": "industry-telecom",
+      "questions": [
+        "Do you work with telcos?",
+        "What have you done in telecom?",
+        "Any OSS/BSS experience?",
+        "Can you help modernise a telecom platform?",
+        "Do you do churn or agent assist?"
+      ],
+      "answer": "Telecom estates carry decades of legacy and customer data spread across a dozen systems. We have retired pieces of an aging platform module by module while the business kept running, built a master-data layer unifying customer identity across CRM, billing, and OSS, and replaced brittle RPA scripts with multi-agent orchestrations that ask a human when uncertain. Identity gets reconciled before any model is allowed to act.",
+      "links": [
+        { "label": "Telecom", "url": "https://www.greyquill.io/industries/telecom/" },
+        { "label": "Industries", "url": "https://www.greyquill.io/industries/" }
+      ],
+      "followUps": ["industry-bfsi", "industry-retail", "what-is-gqdata"]
+    },
+    {
+      "id": "industry-retail",
+      "questions": [
+        "Do you work in retail?",
+        "What have you done for retailers?",
+        "Any experience with demand forecasting?",
+        "Can you help with dashboard sprawl?",
+        "Do you do personalization?"
+      ],
+      "answer": "Retail decisions repeat daily across millions of SKUs and customers. We have mapped and simplified overlapping operational workflows at a retailer that grew by acquisition, consolidated dozens of conflicting dashboards into one decision surface on a governed data layer, and fused point-of-sale, e-commerce, and supplier signals with lineage under ML-assisted demand forecasting. Consolidation usually beats new analytics.",
+      "links": [
+        { "label": "Retail and commerce", "url": "https://www.greyquill.io/industries/retail/" },
+        { "label": "Industries", "url": "https://www.greyquill.io/industries/" }
+      ],
+      "followUps": ["industry-telecom", "commerce-synapse", "what-is-gqdata"]
+    },
+    {
+      "id": "timelines",
+      "questions": [
+        "How long does a project take?",
+        "What are typical project timelines?",
+        "How quickly can we see something?",
+        "How long until we go live?",
+        "Is this a six-month thing?"
+      ],
+      "answer": "It depends on scope and complexity. A typical custom build runs three to six months from discovery to deployment, and smaller assessments or training engagements run in weeks. On the platform we aim at one governed entity serving through the API as the first milestone, because that proves the whole chain end to end. You get a specific timeline at the end of discovery.",
+      "links": [
+        { "label": "Support and FAQ", "url": "https://www.greyquill.io/support/" },
+        { "label": "GQ Studio", "url": "https://www.greyquill.io/dc/studio/" }
+      ],
+      "followUps": ["how-to-start", "discovery-week", "pricing"]
+    },
+    {
+      "id": "pricing",
+      "questions": [
+        "How much does it cost?",
+        "What is your pricing?",
+        "Can I get a quote?",
+        "Do you publish rates?",
+        "Are you expensive?"
+      ],
+      "answer": "We do not publish rates. Quotes are scoped after discovery, with defined payment milestones, itemised invoices, and no hidden fees, and pricing is value-based against the business outcome. Use the contact form and pick Request a quote, with enough detail about the project for us to give a meaningful estimate. We are also upfront that we are not the cheapest option.",
+      "links": [
+        { "label": "Policies", "url": "https://www.greyquill.io/policies/" },
+        { "label": "Contact", "url": "https://www.greyquill.io/contact/" }
+      ],
+      "followUps": ["timelines", "how-to-start", "ongoing-support"]
+    },
+    {
+      "id": "ongoing-support",
+      "questions": [
+        "Do you support what you build?",
+        "What happens after launch?",
+        "Do you offer maintenance?",
+        "Is there an SLA?",
+        "Will you train our team?"
+      ],
+      "answer": "Yes. We walk alongside clients through the operating life of the software, and most of our work is repeat work. Options include maintenance agreements, enhancement work, and training so your team can run the system on their own. Every engagement carries defined SLAs for issue response and resolution, regular maintenance and security updates, multiple support channels, and a warranty period on what we deliver.",
+      "links": [
+        { "label": "Support", "url": "https://www.greyquill.io/support/" },
+        { "label": "Policies", "url": "https://www.greyquill.io/policies/" }
+      ],
+      "followUps": ["pricing", "exit-and-ownership", "service-product-engineering"]
+    },
+    {
+      "id": "security-privacy",
+      "questions": [
+        "How do you handle security?",
+        "What about data privacy?",
+        "Is our data encrypted?",
+        "How do you approach infosec?",
+        "Will your security team talk to ours?"
+      ],
+      "answer": "Security and privacy are built into every engagement. We follow secure development practices, encrypt sensitive data, and align with the regulations relevant to your jurisdiction, including GDPR, DPDP, CCPA, and PCI-DSS. The platform installs into your own environment, so records, lineage, and the audit trail never cross our boundary, and authentication runs through your own identity provider over OAuth2 and OIDC.",
+      "links": [
+        { "label": "Support", "url": "https://www.greyquill.io/support/" },
+        { "label": "Policies", "url": "https://www.greyquill.io/policies/" }
+      ],
+      "followUps": ["data-residency", "deployment-model", "architecture-brief"]
+    },
+    {
+      "id": "certifications",
+      "questions": [
+        "What certifications do you hold?",
+        "Are you SOC 2 certified?",
+        "Are you ISO 27001 certified?",
+        "What are your credentials?",
+        "Is your team certified?"
+      ],
+      "answer": "We are a Silver-tier IBM Partner Plus member, and our engineers hold current certifications across the stack we ship on: watsonx.ai, watsonx.data, watsonx.data intelligence, watsonx.data integration, watsonx.governance, IBM Verify, and IBM Business Automation. On frameworks like SOC 2 and ISO 27001, GQ Govern checks controls against them for you. Bring your own audit requirements and we will answer them directly.",
+      "links": [
+        { "label": "Partnerships", "url": "https://www.greyquill.io/partnerships/" },
+        { "label": "News", "url": "https://www.greyquill.io/news/" }
+      ],
+      "followUps": ["ibm-partnership", "compliance-frameworks", "security-privacy"]
+    },
+    {
+      "id": "compliance-frameworks",
+      "questions": [
+        "Which compliance frameworks do you support?",
+        "Do you cover the EU AI Act?",
+        "Is GDPR handled?",
+        "What standards can you check against?",
+        "Do you support DPDP?"
+      ],
+      "answer": "Five standards are checkable today in GQ Govern: the EU AI Act, GDPR, SOC 2, ISO 27001, and India's DPDP Act, with dozens more mapped by domain and region so a workspace can find the one it actually needs. Each pass names the policy enforcing it, and a miss becomes a documented exception with a reason, a compensating action, a target date, and a named approver.",
+      "links": [
+        { "label": "GQ Govern", "url": "https://www.greyquill.io/products/govern/" },
+        { "label": "Platform", "url": "https://www.greyquill.io/platform/" }
+      ],
+      "followUps": ["what-is-gq-govern", "certifications", "regulated-industries"]
+    },
+    {
+      "id": "legacy-integration",
+      "questions": [
+        "Can you work with our existing systems?",
+        "Will this integrate with our legacy core?",
+        "Do you integrate with SAP?",
+        "Does this replace our data warehouse?",
+        "Do we have to rip anything out?"
+      ],
+      "answer": "Yes. Most of what we build layers onto existing estates: legacy core systems, OSS/BSS, ERPs, data warehouses, and identity providers. Where a legacy system cannot change, we put an API facade in front of it and move data over event-driven pipelines. GQ Studio sits alongside your warehouse or lake, reading from your systems of record and serving governed entities out.",
+      "links": [
+        { "label": "Support", "url": "https://www.greyquill.io/support/" },
+        { "label": "Digital transformation", "url": "https://www.greyquill.io/services/digital-transformation/" }
+      ],
+      "followUps": ["service-digital-transformation", "deployment-model", "what-is-gqdata"]
+    },
+    {
+      "id": "ibm-partnership",
+      "questions": [
+        "Are you an IBM partner?",
+        "Tell me about the IBM partnership",
+        "Why IBM?",
+        "Are we locked into IBM?",
+        "What does built on IBM foundations mean?"
+      ],
+      "answer": "We are a Silver-tier IBM Partner Plus member, certified across watsonx and IBM Verify. We chose that foundation because watsonx carries lineage, model governance, and audit primitives risk and compliance teams already recognise, which is less work to defend. Your data, governance configuration, and agent definitions stay yours. We use the IBM stack where it earns its place and compose with other systems where they are stronger.",
+      "links": [
+        { "label": "Partnerships", "url": "https://www.greyquill.io/partnerships/" },
+        { "label": "News", "url": "https://www.greyquill.io/news/" }
+      ],
+      "followUps": ["certifications", "exit-and-ownership", "deployment-model"]
+    },
+    {
+      "id": "who-is-greyquill",
+      "questions": [
+        "Who is Greyquill?",
+        "What does Greyquill do?",
+        "Where are you based?",
+        "Where is your office?",
+        "Where are you located?",
+        "Which city are you in?",
+        "How big is your team?",
+        "Tell me about the company"
+      ],
+      "answer": "We are an enterprise AI consulting firm and an IBM Business Partner based in Bengaluru, working with regulated organisations across banking, insurance, retail, and telecom. Four founding engineers cover architecture, business analysis, infrastructure, and design, backed by a wider delivery team, with fifty-plus years of combined experience shipping enterprise software in regulated sectors. We are a consulting firm as much as a product team, and at this stage that matters.",
+      "links": [
+        { "label": "About us", "url": "https://www.greyquill.io/about-us/" },
+        { "label": "GQ Studio", "url": "https://www.greyquill.io/dc/studio/" }
+      ],
+      "followUps": ["method-overview", "regulated-industries", "how-to-start"]
+    },
+    {
+      "id": "deployment-model",
+      "questions": [
+        "How does it get deployed?",
+        "Where does the platform run?",
+        "Can we run it on-prem?",
+        "Do you support air-gapped environments?",
+        "Which clouds do you support?"
+      ],
+      "answer": "We install into your environment: your cloud account, your region, your identity provider, your keys. The major clouds are supported and the pattern is the same on each, with on-prem and air-gapped topologies covered in the architecture brief. Containers run on Red Hat OpenShift with namespace-per-tenant isolation. Every source is residency-checked when it is connected, then enforced on every read after that.",
+      "links": [
+        { "label": "GQ Studio", "url": "https://www.greyquill.io/dc/studio/" },
+        { "label": "C4 architecture", "url": "https://www.greyquill.io/dc/platform/greyquill-c4-architecture.html" }
+      ],
+      "followUps": ["data-residency", "architecture-brief", "security-privacy"]
+    },
+    {
+      "id": "architecture-brief",
+      "questions": [
+        "Do you have an architecture document?",
+        "Can I get something for my CISO?",
+        "Is there a technical brief?",
+        "Send me the security documentation",
+        "What can I share with InfoSec?"
+      ],
+      "answer": "Yes. The architecture and governance brief runs two to three pages, written for whoever inside your organisation approves this before procurement signs. It covers deployment topology across your cloud, on-prem, or air-gapped, data residency, the IBM stack components used and which are replaceable, identity and SSO with your own IdP, audit evidence flow, and what you take with you when the engagement ends.",
+      "links": [
+        { "label": "Architecture and governance brief", "url": "https://www.greyquill.io/greyquill-platform-architecture-brief.pdf" },
+        { "label": "Homepage", "url": "https://www.greyquill.io/" }
+      ],
+      "followUps": ["deployment-model", "security-privacy", "data-residency"]
+    },
+    {
+      "id": "document-center",
+      "questions": [
+        "What is the Document Center?",
+        "Where can I read more technical detail?",
+        "Do you publish documentation?",
+        "Is there public documentation?",
+        "Where are your architecture docs?"
+      ],
+      "answer": "The Document Center is a curated space for open Greyquill material. It carries the GQ Studio product preview, platform and architecture documents including the C4 model and the GQ Data build explainer, five method documents on how we build, four on the Champ agent swarm, five on GST Co-Pilot's architecture and engine, and the FHIR-aligned healthcare data model. Every method page has a one-page PDF summary.",
+      "links": [
+        { "label": "Document Center", "url": "https://www.greyquill.io/dc/" },
+        { "label": "How we build", "url": "https://www.greyquill.io/dc/services/" }
+      ],
+      "followUps": ["architecture-brief", "champ-swarm", "parallel-run"]
+    },
+    {
+      "id": "parallel-run",
+      "questions": [
+        "What is a parallel run?",
+        "How do you replace a legacy system safely?",
+        "How do you avoid a big-bang rewrite?",
+        "How do you prove the new system is right?",
+        "When do you cut over?"
+      ],
+      "answer": "It is how we replace a legacy system without a big-bang rewrite. Pick a seam, build the replacement behind a facade, then have both process the same real work and classify every difference: a match, a tolerable difference, a defect in the replacement, or a defect in the legacy that has run for years. You cut over once real divergences hold at zero across a full business cycle.",
+      "links": [
+        { "label": "The parallel run", "url": "https://www.greyquill.io/dc/services/parallel-run.html" },
+        { "label": "Digital transformation", "url": "https://www.greyquill.io/services/digital-transformation/" }
+      ],
+      "followUps": ["estate-map", "service-digital-transformation", "automation-threshold"]
+    },
+    {
+      "id": "estate-map",
+      "questions": [
+        "What is an estate map?",
+        "How do you map a legacy estate?",
+        "Where do you start with modernisation?",
+        "How do you find undocumented dependencies?",
+        "Do we need a discovery tool for that?"
+      ],
+      "answer": "Before touching a legacy estate we write down what actually exists: six columns per system, covering every inbound and outbound path including manual uploads, email attachments, and someone rekeying from a screen. Interviews miss the systems nobody has thought about in years, so we also read firewall and DNS config, scheduled jobs, and database accounts. A filled-in spreadsheet beats a discovery platform nobody has populated.",
+      "links": [
+        { "label": "Mapping an estate", "url": "https://www.greyquill.io/dc/services/estate-map.html" },
+        { "label": "Digital transformation", "url": "https://www.greyquill.io/services/digital-transformation/" }
+      ],
+      "followUps": ["parallel-run", "service-digital-transformation", "legacy-integration"]
+    },
+    {
+      "id": "automation-threshold",
+      "questions": [
+        "How do you decide what to automate?",
+        "What is the automation threshold?",
+        "When does a human stay in the loop?",
+        "How do you set a confidence threshold?",
+        "What should never be automated?"
+      ],
+      "answer": "Map the process first, then sort each step: deterministic steps become plain software, judgement steps get agents, and some steps stay with a person. Judgement steps get a confidence line, and everything below it goes to review. Start with a shadow period where everything is reviewed, read the agreement rate by confidence band, set the line, then move it on evidence with a named approver and a date.",
+      "links": [
+        { "label": "Where automation stops", "url": "https://www.greyquill.io/dc/services/automation-threshold.html" },
+        { "label": "How we build", "url": "https://www.greyquill.io/dc/services/" }
+      ],
+      "followUps": ["parallel-run", "ai-feature-done", "what-is-gq-agents"]
+    },
+    {
+      "id": "discovery-week",
+      "questions": [
+        "What is the discovery week?",
+        "What happens in discovery?",
+        "How long is discovery?",
+        "What do we get out of discovery?",
+        "What should we prepare?"
+      ],
+      "answer": "Five days of structured questioning that turn an idea into something a team can build from and a sponsor can fund. Day one fixes the outcome and how anyone would know it landed. Day two walks the workflow end to end with the people who perform it. Day three collects constraints, day four weighs at least two routes, day five sets scope, order, and estimate.",
+      "links": [
+        { "label": "The discovery week", "url": "https://www.greyquill.io/dc/services/discovery-week.html" },
+        { "label": "Book a discovery call", "url": "https://calendly.com/greyquill/30min" }
+      ],
+      "followUps": ["how-to-start", "clarity-ai", "service-product-engineering"]
+    },
+    {
+      "id": "ai-feature-done",
+      "questions": [
+        "When is an AI feature done?",
+        "What is your definition of done for AI?",
+        "How do you test AI features?",
+        "What gates does an AI feature pass?",
+        "How do you handle guardrails?"
+      ],
+      "answer": "A normal definition of done assumes a feature passing today will pass tomorrow, and a model breaks that. So we gate on an evaluation set written before the build finished, a grader proven to fail a wrong answer, repeated runs with the spread recorded, a test that attempts each guardrail, an exercised failure path, and a record of every decision. Cost and latency at peak are advisory gates.",
+      "links": [
+        { "label": "Definition of done for an AI feature", "url": "https://www.greyquill.io/dc/services/ai-feature-done.html" },
+        { "label": "How we build", "url": "https://www.greyquill.io/dc/services/" }
+      ],
+      "followUps": ["harness-verification", "automation-threshold", "what-is-gq-agents"]
+    },
+    {
+      "id": "exit-and-ownership",
+      "questions": [
+        "What happens if we stop working with you?",
+        "Do we own the code?",
+        "Is there vendor lock-in?",
+        "Can we take our data out?",
+        "What do we keep at the end?"
+      ],
+      "answer": "You keep everything. Clients receive full ownership of custom-developed code on completion, and golden records, lineage, and the full audit trail export in open formats whenever you ask for them. Your governance configuration and agent definitions are yours as well. Open standards run across the stack, so the evidence belongs to you rather than being something you rent from us.",
+      "links": [
+        { "label": "Policies", "url": "https://www.greyquill.io/policies/" },
+        { "label": "GQ Studio", "url": "https://www.greyquill.io/dc/studio/" }
+      ],
+      "followUps": ["ibm-partnership", "ongoing-support", "deployment-model"]
+    },
+    {
+      "id": "vertical-packs",
+      "questions": [
+        "What is a vertical pack?",
+        "Do you have anything for my industry?",
+        "Is the platform insurance-specific?",
+        "How do you adapt to a new domain?",
+        "Can we bring our own data model?"
+      ],
+      "answer": "The platform underneath is the same everywhere. What changes by industry is the pack: the entity model, the survivorship defaults, the control set, and the workflows you start from. A pack is configuration rather than a fork, so you keep getting platform improvements as they land, and a new industry means writing a new pack with no change to the engine. Insurance claims is the first one.",
+      "links": [
+        { "label": "GQ Studio", "url": "https://www.greyquill.io/dc/studio/" },
+        { "label": "GQ Data build explainer", "url": "https://www.greyquill.io/dc/platform/gq-data-explainer.html" }
+      ],
+      "followUps": ["what-is-gqdata", "regulated-industries", "deployment-model"]
+    },
+    {
+      "id": "tech-stack",
+      "questions": [
+        "What technologies do you use?",
+        "What is your tech stack?",
+        "Do you do mobile?",
+        "Which languages do you work in?",
+        "Do you work with Kubernetes?"
+      ],
+      "answer": "Go, Python, JavaScript and TypeScript, with React, Next.js and Node.js on the web, and Flutter or React Native on mobile. PostgreSQL, MySQL, SQL Server, MongoDB and Redis for data. AWS, Google Cloud, Azure and IBM Cloud for hosting. Jenkins, CircleCI, GitHub Actions, Docker, Kubernetes, Terraform and Ansible for delivery. That is the shortlist rather than the limit, so ask about yours.",
+      "links": [
+        { "label": "Product engineering", "url": "https://www.greyquill.io/services/product-engineering/" },
+        { "label": "Services", "url": "https://www.greyquill.io/services/" }
+      ],
+      "followUps": ["service-product-engineering", "deployment-model", "legacy-integration"]
+    },
+    {
+      "id": "customer-references",
+      "questions": [
+        "Do you have customer references?",
+        "Can I see case studies?",
+        "Who are your clients?",
+        "Any testimonials?",
+        "Have you done this before?"
+      ],
+      "answer": "We are early, so there are no logos or testimonials yet. Customer names stay withheld, though the patterns are real: a multi-rail payments platform, a telecom modernisation carried out while the platform stayed in production, retail process and reporting consolidation. GQ Studio is in product preview with a small number of design partners. If you want a reference before signing, we may not have one and will say so.",
+      "links": [
+        { "label": "Homepage", "url": "https://www.greyquill.io/" },
+        { "label": "Industries", "url": "https://www.greyquill.io/industries/" }
+      ],
+      "followUps": ["regulated-industries", "industry-bfsi", "how-to-start"]
+    }
+  ]
+}

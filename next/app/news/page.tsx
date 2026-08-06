@@ -32,7 +32,7 @@ const MILESTONES: Milestone[] = [
     Icon: ScanLine,
     category: 'Product',
     title: 'ClarityAI is live',
-    body: 'Score the clarity and risk of any AI initiative before you fund it. ClarityAI is in production at clarity.greyquill.io and behind the platform on /platform.',
+    body: 'Score the clarity and risk of any AI initiative before you fund it. ClarityAI is in production at clarity.greyquill.io as a standalone tool.',
     href: '/products/clarity-ai',
   },
   {
@@ -46,7 +46,7 @@ const MILESTONES: Milestone[] = [
     Icon: Layers,
     category: 'Platform',
     title: 'The Greyquill platform',
-    body: 'Three pillars: ClarityAI to diagnose, GQData to govern, GQ Agents to activate. One foundation across the AI lifecycle, in regulated environments.',
+    body: 'Three pillars: GQData for the foundation, GQ Govern to prove the controls, GQ Agents to activate. One foundation across the AI lifecycle, in regulated environments.',
     href: '/platform',
   },
 ];
