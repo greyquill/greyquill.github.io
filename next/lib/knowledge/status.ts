@@ -52,15 +52,6 @@ const WRITING = [
   'Refining',
 ];
 
-/** Shown when generation runs on the visitor's own device instead. */
-const ON_DEVICE = [
-  'Composing',
-  'Thinking',
-  'Locally',
-  'On device',
-  'Offline',
-];
-
 /** First visit, when the models themselves are still arriving. */
 const WARMING = [
   'Fetching',
@@ -70,13 +61,12 @@ const WARMING = [
   'Preparing',
 ];
 
-export type Phase = 'warming' | 'searching' | 'writing' | 'ondevice';
+export type Phase = 'warming' | 'searching' | 'writing';
 
 const CATALOG: Record<Phase, string[]> = {
   warming: WARMING,
   searching: SEARCHING,
   writing: WRITING,
-  ondevice: ON_DEVICE,
 };
 
 /**

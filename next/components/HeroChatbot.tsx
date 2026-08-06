@@ -34,17 +34,6 @@ import {
 } from '@/lib/knowledge/search';
 import { generateAnswer, isGenerationEnabled } from '@/lib/knowledge/generate';
 import { nextStatus, type Phase } from '@/lib/knowledge/status';
-import {
-  APPROX_DOWNLOAD_MB,
-  builtinAvailable,
-  generateOnDevice,
-  isOnDeviceSupported,
-  loadOnDevice,
-} from '@/lib/knowledge/ondevice';
-import {
-  OnDeviceWaitingPanel,
-  useOnDeviceProgress,
-} from '@/components/OnDeviceWaiting';
 
 
 /**
@@ -93,24 +82,9 @@ type Message = {
    * taken, so the same answer cannot be expanded twice.
    */
   expand?: { question: string; grounding: string[] };
-  /**
-   * How long this answer took end to end, and what produced it.
-   *
-   * Recorded so the on-device mode can be an actual comparison rather than a
-   * novelty. The page argues that where a model runs is a real engineering
-   * decision; the honest way to show that is to run the same question both
-   * ways and put the two numbers next to each other.
-   */
-  timing?: { ms: number; engine: 'hosted' | 'ondevice' | 'index' };
+  /** How long this answer took end to end, and what produced it. */
+  timing?: { ms: number; engine: 'hosted' | 'index' };
 };
-
-/**
- * The fastest hosted answer this visitor has seen.
- *
- * Module scope so it survives the on-device toggle and any remount: the whole
- * point is to still have it in hand once they have switched.
- */
-let bestHostedMs: number | null = null;
 
 /** Human-scale duration. Sub-second matters here, so milliseconds show. */
 const took = (ms: number) => (ms < 1000 ? `${Math.round(ms)}ms` : `${(ms / 1000).toFixed(1)}s`);
@@ -141,9 +115,6 @@ const HEDGE: Partial<Record<Confidence, string>> = {
 const LABEL_THINKING = 'Thinking';
 /** How often the status line changes while the assistant is busy. */
 const STATUS_ROTATE_MS = 2400;
-
-/** Questions the visitor must ask before the on-device tab appears. */
-const OFFER_AFTER_QUESTIONS = 2;
 
 const SUGGESTIONS = [
   'How does the Greyquill Method work?',
@@ -181,59 +152,7 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
   // Last matched topic, so a short follow-up ("what about healthcare?")
   // still retrieves against the subject under discussion.
   const topicRef = useRef<string | null>(null);
-  /** WebGPU present, so the on-device demo is worth offering at all. */
-  const [onDeviceOffered, setOnDeviceOffered] = useState(false);
-  /**
-   * Download progress, read from the shared store rather than held here: the
-   * chat card unmounts as soon as the visitor follows one of the "while you
-   * wait" links, and the download must keep reporting regardless.
-   */
-  const loading = useOnDeviceProgress();
-  /** Answers are being written locally rather than on our hardware. */
-  const [onDevice, setOnDevice] = useState(false);
 
-  /**
-   * True when the browser already has a usable model, so the offer can say
-   * "no download" instead of quoting a size the visitor will never pay.
-   */
-  const [builtin, setBuiltin] = useState(false);
-
-  useEffect(() => {
-    let live = true;
-    // Offer the demo if EITHER route exists: a browser built-in model, or a
-    // GPU we can load our own weights onto.
-    void (async () => {
-      const hasBuiltin = await builtinAvailable();
-      if (!live) return;
-      setBuiltin(hasBuiltin);
-      setOnDeviceOffered(hasBuiltin || isOnDeviceSupported());
-    })();
-    return () => {
-      live = false;
-    };
-  }, []);
-
-  async function startOnDevice() {
-    try {
-      await loadOnDevice();
-      setOnDevice(true);
-      setMessages((m) => [
-        ...m,
-        {
-          role: 'bot',
-          text: 'You are now fully local. Everything from here is written in your browser, offline, with nothing sent to us. This is a demonstration of what on-device AI feels like rather than an upgrade: the model is smaller than the one we host, so answers will be rougher. Use the tab again to switch back.',
-        },
-      ]);
-    } catch {
-      setMessages((m) => [
-        ...m,
-        {
-          role: 'bot',
-          text: 'That did not load, so I am still answering from our hosted model. Your browser may have blocked the download, or WebGPU may be unavailable.',
-        },
-      ]);
-    }
-  }
 
   /**
    * Rotate the status line while the assistant is busy.
@@ -264,7 +183,7 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
    *
    * Two guards make this polite rather than pushy. If anything else already
    * holds focus, the visitor put it there on purpose (a source link, a
-   * follow-up chip, the on-device tab) and it is left alone. And on touch
+   * follow-up chip) and it is left alone. And on touch
    * devices focusing the field summons the on-screen keyboard, which covers
    * the answer they were about to read, so it only runs where there is a real
    * pointer.
@@ -323,7 +242,7 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
       // whole generation wait to do it. Answering instantly from the bank is
       // both the better text and the fastest reply in the system.
       const canCompose =
-        (isGenerationEnabled() || onDevice) &&
+        isGenerationEnabled() &&
         reply.kind === 'answer' &&
         !reply.verbatim &&
         !!reply.grounding?.length;
@@ -361,12 +280,8 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
       if (canCompose) {
         // The wait is the model writing, which on the self-hosted box takes
         // real seconds. Keep the indicator up until words actually appear.
-        setPhase(onDevice ? 'ondevice' : 'writing');
-        // On-device generation has no streaming to show, so the indicator
-        // simply stays up until the answer lands.
-        const composed = onDevice
-          ? await generateOnDevice(q, reply.grounding!, history)
-          : await generateAnswer(
+        setPhase('writing');
+        const composed = await generateAnswer(
               q,
               reply.grounding!,
               (partial) => {
@@ -379,12 +294,6 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
             );
 
         const elapsed = performance.now() - startedAt;
-        // Only a successful hosted answer sets the baseline. A failed one fell
-        // back to curated text, so its duration measures a timeout rather than
-        // the stack, and comparing against that would flatter the local model.
-        if (!onDevice && composed !== null) {
-          bestHostedMs = bestHostedMs === null ? elapsed : Math.min(bestHostedMs, elapsed);
-        }
 
         setMessages((m) =>
           m.map((msg, i) =>
@@ -402,10 +311,7 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
                     composed && (reply.grounding?.length ?? 0) > 1
                       ? { question: q, grounding: reply.grounding! }
                       : undefined,
-                  timing: {
-                    ms: elapsed,
-                    engine: onDevice ? ('ondevice' as const) : ('hosted' as const),
-                  },
+                  timing: { ms: elapsed, engine: 'hosted' as const },
                 }
               : msg,
           ),
@@ -435,7 +341,7 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
     if (!source || thinking) return;
 
     setMessages((m) => m.map((msg, i) => (i === index ? { ...msg, expand: undefined } : msg)));
-    setPhase(onDevice ? 'ondevice' : 'writing');
+    setPhase('writing');
     setThinking(true);
 
     const target = messages.length;
@@ -509,16 +415,6 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
   }
 
   const empty = messages.length === 0 && !thinking;
-  /**
-   * How many questions the visitor has actually asked.
-   *
-   * The on-device tab waits for this rather than appearing immediately. Two
-   * questions in, the conversation has scrolled far enough that the offer in
-   * the empty state is gone, and the visitor has seen enough of the assistant
-   * to be curious how it works. Offering it up front competes with the first
-   * question they came to ask.
-   */
-  const asked = messages.filter((m) => m.role === 'user').length;
   const isSheet = variant === 'sheet';
 
   // Choose between the glass card chrome (hero) and a transparent
@@ -542,56 +438,6 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
 
   return (
     <div className={isSheet ? 'h-full' : 'relative w-full max-w-[460px] mx-auto lg:ml-auto lg:mr-0'}>
-      {/* On-device offer, as a tab tucked behind the card.
-          It used to live in the empty state, which meant it vanished the
-          moment anyone started a conversation, i.e. exactly when they had seen
-          enough to be curious about it. Anchored to the parent rather than the
-          card because the card is overflow-hidden and would clip it, and given
-          a lower stacking order so the card overlaps its left edge and it reads
-          as protruding from behind. */}
-      {!isSheet && onDeviceOffered && !loading && asked >= OFFER_AFTER_QUESTIONS && (
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: easings.outExpo }}
-          className="absolute top-0 right-8 z-0 group hidden sm:block"
-        >
-          <button
-            onClick={onDevice ? () => setOnDevice(false) : startOnDevice}
-            className="flex flex-col items-center gap-1 -translate-y-8 hover:-translate-y-full bg-white/95 backdrop-blur-md border border-brand-blue/20 hover:border-brand-blue/45 rounded-t-xl shadow-lg shadow-brand-blue/10 px-3.5 pt-2 pb-3 transition-transform duration-300 ease-out-expo w-[260px] text-center"
-            aria-label="Run the model on your own device"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/on-device-ai.png"
-              alt=""
-              width={22}
-              height={22}
-              className="rounded shrink-0 mix-blend-multiply"
-            />
-            <span className="text-center">
-              <span className="block text-[12px] font-medium text-brand-ink whitespace-nowrap">
-                {onDevice ? 'Back to the hosted model' : 'Compare against fully local'}
-              </span>
-              {/* Framed as a comparison rather than an upgrade. The local
-                  model is much smaller than the hosted one, so promising a
-                  better answer would set the visitor up to be disappointed by
-                  the very thing meant to impress them. Ask the same question
-                  both ways and the trade-off shows itself, which is a stronger
-                  argument than any claim we could print. */}
-              {/* Once local is running the same tab is the way back. Weights
-                  stay cached, so switching costs nothing after the first time. */}
-              <span className="block text-[10.5px] text-brand-ink/50 leading-snug">
-                {onDevice
-                  ? 'Running on your machine now. Ask something you already asked to see both answers and both timings.'
-                  : builtin
-                  ? 'Ask the same question again, answered by your browser’s own model. Nothing downloads, nothing reaches us, and you can see what it costs.'
-                  : `Ask the same question again, answered here instead of by us. One-off ${APPROX_DOWNLOAD_MB} MB download, then it runs offline on a far smaller model.`}
-              </span>
-            </span>
-          </button>
-        </motion.div>
-      )}
       <Wrapper {...(wrapperProps as Record<string, never>)}>
         {!isSheet && (
           <>
@@ -623,26 +469,20 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
                 <span className="block uppercase tracking-wider text-brand-ink/30">
                   Powered by
                 </span>
-                {onDevice ? (
-                  'your own device, nothing sent anywhere'
-                ) : (
-                  <>
-                    {/* Replaced the old list once generation moved to Groq,
-                        which made four of its six phrases false: "a small
-                        model", "minimal hardware", "no GPU" and "no API" all
-                        described the Optiplex, now the third fallback rather
-                        than the norm.
+                {/* Replaced the old list once generation moved to the hosted
+                    chain, which made four of its six phrases false: "a small
+                    model", "minimal hardware", "no GPU" and "no API" all
+                    described the Optiplex, now the last fallback rather than
+                    the norm.
 
-                        Both surviving claims are still accurate. The harness is
-                        everything around the model: browser-side retrieval, the
-                        cross-encoder rerank, the grounding rules and the guards
-                        in generate.ts. The knowledge management is the index
-                        itself, built from the published site and Document
-                        Center and searched entirely on the visitor's device. */}
-                    a custom harness and advanced
-                    <span className="block">knowledge management</span>
-                  </>
-                )}
+                    Both surviving claims are accurate. The harness is
+                    everything around the model: browser-side retrieval, the
+                    cross-encoder rerank, the grounding rules and the guards in
+                    generate.ts. The knowledge management is the index itself,
+                    built from the published site and Document Center and
+                    searched entirely on the visitor's device. */}
+                a custom harness and advanced
+                <span className="block">knowledge management</span>
               </span>
             </div>
           </>
@@ -657,9 +497,7 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
               : 'px-5 py-5 min-h-[420px] max-h-[520px] overflow-y-auto flex flex-col gap-3.5 scroll-smooth'
           }
         >
-          {loading && !onDevice ? (
-            <OnDeviceWaitingPanel progress={loading} />
-          ) : empty ? (
+          {empty ? (
             <div className="flex flex-col gap-3">
               <p className="text-sm text-brand-ink/55 leading-relaxed">
                 Ask me something, or let me walk you through the site. Either way you choose, I will not start anything on my own.
@@ -688,30 +526,6 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
                     →
                   </span>
                 </button>
-
-                {onDeviceOffered && (
-                  <button
-                    onClick={startOnDevice}
-                    className="group/od text-left text-[13px] text-brand-ink/80 bg-white/60 hover:bg-white border border-black/[0.07] hover:border-brand-blue/30 rounded-xl px-3.5 py-2.5 transition-all duration-200 ease-out-expo flex items-center gap-2.5"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/on-device-ai.png"
-                      alt=""
-                      width={22}
-                      height={22}
-                      className="rounded-md shrink-0 mix-blend-multiply"
-                    />
-                    <span className="flex-1">
-                      Run the model on your own device
-                      <span className="block text-[11.5px] text-brand-ink/45">
-                        {builtin
-                          ? 'Uses your browser’s own model, nothing to download'
-                          : `One-off ${APPROX_DOWNLOAD_MB} MB download, then nothing leaves your machine`}
-                      </span>
-                    </span>
-                  </button>
-                )}
               </div>
               <div className="flex flex-col gap-2">
                 {SUGGESTIONS.map((s, i) => (
@@ -768,28 +582,13 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
                           </div>
                         )}
 
-                        {/* What it cost, and where it ran.
-                            Shown because the page argues that where a model
-                            runs is a real engineering decision. Asserting that
-                            is cheap; putting the two numbers side by side is
-                            the only version a visitor can check. The local
-                            figure is deliberately not softened. */}
+                        {/* What it cost, and where it ran. A company arguing
+                            that AI systems should evidence what they did can
+                            afford to say how long its own answer took. */}
                         {m.timing && !m.pending && (
                           <p className="text-[11px] text-brand-ink/40 leading-snug">
                             {m.timing.engine === 'index' ? (
                               <>Answered from the index in your browser, {took(m.timing.ms)}.</>
-                            ) : m.timing.engine === 'ondevice' ? (
-                              <>
-                                {took(m.timing.ms)} on your device
-                                {bestHostedMs !== null && (
-                                  <>
-                                    , against {took(bestHostedMs)} on ours.{' '}
-                                    <span className="text-brand-ink/30">
-                                      Same passages, a much smaller model.
-                                    </span>
-                                  </>
-                                )}
-                              </>
                             ) : (
                               <>Retrieved here, composed in {took(m.timing.ms)}.</>
                             )}
