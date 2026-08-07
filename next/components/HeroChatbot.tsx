@@ -122,6 +122,18 @@ const SUGGESTIONS = [
   'Do you work in regulated industries?',
 ];
 
+/**
+ * Does this answer point the visitor somewhere?
+ *
+ * An answer that offers a discovery call and then links to nothing is worse
+ * than one that offers neither: it names the next step and makes the visitor
+ * go and find it. Observed twice, both on unmatched questions, because links
+ * were being stripped whenever retrieval found nothing without checking what
+ * the answer actually said.
+ */
+const OFFERS_A_NEXT_STEP =
+  /\b(discovery call|30[- ]minute|book a call|get in touch|contact (us|form)|reach out|talk to (the team|us)|put it to the team)\b/i;
+
 /** Shown only if the index or model genuinely fails to load. */
 const ERROR_ANSWER =
   "Something went wrong reaching our knowledge base just now. A 30-minute discovery call is the fastest route to a real answer, or drop us a line through the contact form.";
@@ -315,13 +327,20 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
                   text: composed ?? reply.text,
                   pending: false,
                   composed: composed !== null,
-                  // Links and chips belong to the retrieved answer, and when
-                  // nothing was retrieved they belong to the fallback sentence
-                  // rather than to whatever the model wrote instead. Left
-                  // attached, a greeting arrived carrying "Book a discovery
-                  // call", which reads as a company that cannot say hello
-                  // without selling.
-                  sources: grounded ? msg.sources : [],
+                  // Three cases, and the middle one is the reason this is not
+                  // a single condition.
+                  //
+                  // Retrieval matched: the links are its sources, keep them.
+                  // Nothing matched and the model declined, pointing at a call:
+                  //   keep them, or the answer names a next step and links to
+                  //   nothing. This is the fallback text's own wording, so it
+                  //   arrives here whenever generation failed too.
+                  // Nothing matched and the model just talked: drop them, or a
+                  //   greeting arrives carrying "Book a discovery call".
+                  sources:
+                    grounded || OFFERS_A_NEXT_STEP.test(composed ?? reply.text)
+                      ? msg.sources
+                      : [],
                   followUps: grounded ? msg.followUps : [],
                   // Offer the longer version only when there is genuinely more
                   // to say: a real match, and unused material behind it. On a
