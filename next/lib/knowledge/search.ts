@@ -507,6 +507,17 @@ export type Turn = { role: 'user' | 'assistant'; text: string };
 export async function askKnowledge(
   question: string,
   history: Turn[] = [],
+  /**
+   * Whether the previous turn had a subject worth carrying into this query.
+   *
+   * Merging the previous question into the retrieval query is what makes short
+   * follow-ups work, and it is worth a great deal when there was a topic:
+   * "how do you do that?" scores 0.80 alone and 8.26 merged with "what is the
+   * Greyquill Method?". But merged with a conversational turn that matched
+   * nothing, the same follow-up drops to -1.92 and lands on the partner entry.
+   * A greeting has no subject, so carrying it forward only adds noise.
+   */
+  carryTopic = true,
 ): Promise<Reply & { topic: string | null }> {
   const trimmed = question.trim();
   const topic = [...history].reverse().find((t) => t.role === 'user')?.text ?? null;
@@ -524,10 +535,12 @@ export async function askKnowledge(
 
   // The question as typed, plus the same question carrying the previous one.
   // Both feed the candidate pool; only the first decides the ranking.
-  const priorQuestions = history
-    .filter((t) => t.role === 'user')
-    .slice(-HISTORY_QUERY_TURNS)
-    .map((t) => t.text);
+  const priorQuestions = carryTopic
+    ? history
+        .filter((t) => t.role === 'user')
+        .slice(-HISTORY_QUERY_TURNS)
+        .map((t) => t.text)
+    : [];
   const queries = [trimmed, ...priorQuestions.map((p) => `${p} ${trimmed}`)];
 
   const matches = await rankMatches(trimmed, queries, vectors, meta);
