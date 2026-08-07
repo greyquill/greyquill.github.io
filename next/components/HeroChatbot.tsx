@@ -152,6 +152,12 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
   // Last matched topic, so a short follow-up ("what about healthcare?")
   // still retrieves against the subject under discussion.
   const topicRef = useRef<string | null>(null);
+  /**
+   * Whether the previous answer was grounded in a real match. A conversational
+   * turn carries no subject, so merging it into the next retrieval query makes
+   * the follow-up worse rather than better.
+   */
+  const groundedRef = useRef(true);
 
 
   /**
@@ -230,8 +236,11 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
       // The conversation so far, so retrieval can widen on a follow-up and the
       // model can resolve what "it" or "they" refers to.
       const history = conversationTurns(messages);
-      const reply = await askKnowledge(q, history);
+      const reply = await askKnowledge(q, history, groundedRef.current);
       topicRef.current = reply.topic;
+      // Set on every path, including the verbatim one that never composes, or
+      // a curated answer would leave the flag reading whatever came before it.
+      groundedRef.current = reply.confidence !== 'none';
 
       // Generation composes a reply to the question actually asked, grounded
       // in the passages retrieval selected. It only ever replaces the retrieved
@@ -294,6 +303,9 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
             );
 
         const elapsed = performance.now() - startedAt;
+        // Whether retrieval actually found something. On a miss the model still
+        // answers, and answers well, but nothing it said came from a page.
+        const grounded = reply.confidence !== 'none';
 
         setMessages((m) =>
           m.map((msg, i) =>
@@ -303,12 +315,20 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
                   text: composed ?? reply.text,
                   pending: false,
                   composed: composed !== null,
-                  // Offer the longer version only when the answer was actually
-                  // composed and there is unused material behind it. Offering
-                  // to expand a one-line fact from a single passage would just
-                  // reword the same sentence.
+                  // Links and chips belong to the retrieved answer, and when
+                  // nothing was retrieved they belong to the fallback sentence
+                  // rather than to whatever the model wrote instead. Left
+                  // attached, a greeting arrived carrying "Book a discovery
+                  // call", which reads as a company that cannot say hello
+                  // without selling.
+                  sources: grounded ? msg.sources : [],
+                  followUps: grounded ? msg.followUps : [],
+                  // Offer the longer version only when there is genuinely more
+                  // to say: a real match, and unused material behind it. On a
+                  // greeting the grounding is arbitrary passages, so expanding
+                  // would invent a second paragraph about nothing.
                   expand:
-                    composed && (reply.grounding?.length ?? 0) > 1
+                    composed && grounded && (reply.grounding?.length ?? 0) > 1
                       ? { question: q, grounding: reply.grounding! }
                       : undefined,
                   timing: { ms: elapsed, engine: 'hosted' as const },
