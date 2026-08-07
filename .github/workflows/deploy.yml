@@ -35,6 +35,11 @@ jobs:
 
       - name: Build static export
         working-directory: ./next
+        env:
+          # Without this the chat still works, but only from curated answers:
+          # isGenerationEnabled() returns false and the model is never called.
+          # NEXT_PUBLIC_* is baked in at build time, so it has to be here.
+          NEXT_PUBLIC_ASSISTANT_URL: https://assistant.nayeli.in
         run: npm run build
 
       - name: Copy CNAME for custom domain

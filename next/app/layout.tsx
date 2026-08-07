@@ -4,7 +4,6 @@ import { display, body } from './fonts';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import NavigationTracker from '@/components/NavigationTracker';
-import SiteTour from '@/components/SiteTour';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -68,9 +67,6 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        {/* Mounted in the layout rather than a page because it has to survive
-            route changes: the walkthrough navigates between routes as it goes. */}
-        <SiteTour />
       </body>
     </html>
   );

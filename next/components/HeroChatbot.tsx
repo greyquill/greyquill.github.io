@@ -500,33 +500,9 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
           {empty ? (
             <div className="flex flex-col gap-3">
               <p className="text-sm text-brand-ink/55 leading-relaxed">
-                Ask me something, or let me walk you through the site. Either way you choose, I will not start anything on my own.
+                Ask me anything about our work. I answer from what we have published, and I will say so when we have not.
               </p>
 
-              {/* The two things that are not questions get their own row, so a
-                  visitor who does not know what to ask still has a way in. */}
-              <div className="flex flex-col gap-2">
-                <button
-                  onClick={() => {
-                    window.dispatchEvent(new CustomEvent('gq:tour-start'));
-                    setMessages([
-                      {
-                        role: 'bot',
-                        text: 'Starting the walkthrough. I will drive, and you can pause or exit at any point.',
-                      },
-                    ]);
-                  }}
-                  className="group/tour text-left text-[13px] text-brand-blue bg-brand-mist/50 hover:bg-brand-mist border border-brand-blue/15 hover:border-brand-blue/40 rounded-xl px-3.5 py-2.5 transition-all duration-200 ease-out-expo flex items-center justify-between gap-2"
-                >
-                  <span>Show me around the site</span>
-                  <span
-                    aria-hidden
-                    className="text-brand-blue/60 transition-transform duration-200 ease-out-expo group-hover/tour:translate-x-0.5"
-                  >
-                    →
-                  </span>
-                </button>
-              </div>
               <div className="flex flex-col gap-2">
                 {SUGGESTIONS.map((s, i) => (
                   <motion.button
