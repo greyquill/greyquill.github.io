@@ -538,8 +538,8 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
         >
           {empty ? (
             <div className="flex flex-col gap-3">
-              <p className="text-sm text-brand-ink/55 leading-relaxed">
-                Ask me anything about our work. I answer from what we have published, and I will say so when we have not.
+              <p className="text-[13px] text-brand-ink/55 leading-relaxed">
+                Ask me anything about our work. How we build, where your data would live, what an engagement actually costs. Or start with one of these.
               </p>
 
               <div className="flex flex-col gap-2">
