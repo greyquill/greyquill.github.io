@@ -32,7 +32,12 @@ import {
   type Source,
   type Turn,
 } from '@/lib/knowledge/search';
-import { generateAnswer, isGenerationEnabled } from '@/lib/knowledge/generate';
+import {
+  generateAnswer,
+  isGenerationEnabled,
+  lastGenerationProvider,
+} from '@/lib/knowledge/generate';
+import { logTurn } from '@/lib/knowledge/telemetry';
 import { nextStatus, type Phase } from '@/lib/knowledge/status';
 
 
@@ -298,6 +303,22 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
         },
       ]);
 
+      if (!canCompose) {
+        // Logged here rather than after the branch, because the composed path
+        // has a second answer to record and this one is already final.
+        logTurn({
+          route: reply.verbatim ? 'verbatim' : 'index',
+          question: q,
+          answer: reply.text,
+          confidence: reply.confidence,
+          kind: reply.kind,
+          entry: reply.entryId,
+          grounded: reply.confidence !== 'none',
+          ms: Math.round(performance.now() - startedAt),
+          sources: reply.sources.map((s) => s.url),
+        });
+      }
+
       if (canCompose) {
         // The wait is the model writing, which on the self-hosted box takes
         // real seconds. Keep the indicator up until words actually appear.
@@ -355,12 +376,36 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
               : msg,
           ),
         );
+
+        logTurn({
+          // `index` when composition returned nothing: the visitor is reading
+          // the curated text, and a log that called that "composed" would hide
+          // every generation failure behind a row that looks like a success.
+          route: composed ? 'composed' : 'index',
+          question: q,
+          answer: composed ?? reply.text,
+          confidence: reply.confidence,
+          kind: reply.kind,
+          entry: reply.entryId,
+          provider: composed ? lastGenerationProvider() : '',
+          grounded,
+          ms: Math.round(elapsed),
+          sources: reply.sources.map((s) => s.url),
+        });
       }
     } catch {
       setMessages((m) => [
         ...m,
         { role: 'bot', text: ERROR_ANSWER, sources: ERROR_SOURCES },
       ]);
+      // Worth a record precisely because the visitor saw nothing useful. These
+      // rows are the ones to go looking for.
+      logTurn({
+        route: 'error',
+        question: q,
+        answer: ERROR_ANSWER,
+        ms: Math.round(performance.now() - startedAt),
+      });
     } finally {
       setThinking(false);
     }
@@ -382,6 +427,7 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
     setMessages((m) => m.map((msg, i) => (i === index ? { ...msg, expand: undefined } : msg)));
     setPhase('writing');
     setThinking(true);
+    const startedAt = performance.now();
 
     const target = messages.length;
     setMessages((m) => [...m, { role: 'bot', text: '', pending: true }]);
@@ -394,6 +440,16 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
         conversationTurns(messages),
         true,
       );
+      if (more) {
+        logTurn({
+          route: 'expand',
+          question: source.question,
+          answer: more,
+          provider: lastGenerationProvider(),
+          grounded: true,
+          ms: Math.round(performance.now() - startedAt),
+        });
+      }
       setMessages((m) =>
         more
           ? m.map((msg, i) =>
@@ -430,6 +486,18 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
             followUps: reply.followUps,
           },
         ]);
+        // A chip is a question the visitor chose to ask, so it belongs in the
+        // transcript alongside the typed ones. Which chips get taken is also
+        // the only evidence of whether the suggestions are the right ones.
+        logTurn({
+          route: 'followup',
+          question: followUp.question,
+          answer: reply.text,
+          confidence: reply.confidence,
+          entry: reply.entryId,
+          grounded: true,
+          sources: reply.sources.map((s) => s.url),
+        });
       }
     } catch {
       setMessages((m) => [

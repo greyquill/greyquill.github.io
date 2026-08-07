@@ -66,6 +66,19 @@ export function isGenerationEnabled(): boolean {
 }
 
 /**
+ * The provider that served the most recent composition.
+ *
+ * Module state rather than a return value, because the answer is what
+ * `generateAnswer` is for and threading a second value through every call site
+ * would complicate the path that matters to say something only the log reads.
+ */
+let lastProvider = '';
+
+export function lastGenerationProvider(): string {
+  return lastProvider;
+}
+
+/**
  * Number words the model swaps for digits and back, so "three passes" and "3
  * passes" compare equal. Only the small ones: past twenty, prose uses digits.
  */
@@ -179,6 +192,10 @@ export async function generateAnswer(
     });
 
     if (!response.ok || !response.body) return null;
+    // Which provider in the chain actually answered. Recorded for the
+    // transcript log, where a run of Gemini rows is the visible symptom of
+    // Groq being down or rate limited, and the only symptom the browser sees.
+    lastProvider = response.headers.get('X-Provider') ?? '';
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();

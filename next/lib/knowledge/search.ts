@@ -62,6 +62,14 @@ export type Reply = {
    * sure is exactly the case a model reading the passages rescues.
    */
   grounding?: string[];
+  /**
+   * Which curated entry answered, where one did. Absent on a passage match.
+   *
+   * Carried purely for the transcript log. A question and an answer say what
+   * was asked; this says which piece of the bank fired, which is what turns
+   * "visitors keep asking about X" into an entry to write or fix.
+   */
+  entryId?: string;
 };
 
 type Answer = {
@@ -602,6 +610,7 @@ export async function askKnowledge(
       // copy is served as written and nothing is generated at all.
       verbatim,
       grounding,
+      entryId: answer.id,
       topic: answer.questions[0],
     };
   }
@@ -637,6 +646,7 @@ export async function answerById(id: string): Promise<(Reply & { topic: string |
     sources: answer.links ?? [],
     followUps: followUpChips(meta, answer),
     confidence: 'high',
+    entryId: answer.id,
     topic: answer.questions[0],
   };
 }
