@@ -539,7 +539,7 @@ export default function HeroChatbot({ variant = 'card' }: Props = {}) {
           {empty ? (
             <div className="flex flex-col gap-3">
               <p className="text-[13px] text-brand-ink/55 leading-relaxed">
-                Ask me anything. How we build, where your data lives, what it costs.
+                Ask me anything about our work. I answer from what we have published.
               </p>
 
               <div className="flex flex-col gap-2">
