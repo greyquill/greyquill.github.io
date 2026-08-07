@@ -183,7 +183,13 @@
         "How do I book a call?",
         "What does your discovery process look like?",
         "How do we work together?",
-        "Can I talk to someone?"
+        "Can I talk to someone?",
+        "How do I schedule a call?",
+        "How do I schedule?",
+        "Can I schedule a call?",
+        "How do I set up a meeting?",
+        "When can we talk?",
+        "How do I arrange a call?"
       ],
       "answer": "Start with a 30-minute discovery call. Bring your hardest data or policy question and we will tell you honestly whether the bottleneck is data, process, or model. Fuller discovery adds stakeholder interviews, a working session with the team that owns the problem, and a business and technical analysis. We do not write code until everyone agrees on what we are building.",
       "links": [
