@@ -1,0 +1,255 @@
+record_id,name,email,phone,city,pin_code,date_of_birth,source
+R0001,"Patel, Fatima",,+91 92792 45222,Bombay,400020,1998-10-13,call_centre
+R0002,S. Bhat,swathi.bhat49@example.com,09632860866,Hyderabad,500080,19/01/1965,loyalty_app
+R0003,Gurrit Bhat,GURPREET.BHAT5@EXAMPLE.ORG,+91-9537657711,MUMBAI,,22/03/2002,loyalty_app
+R0004,"Hegde, Sureshh",suresh.hegde18@example.org,93704 38649,Hyderabad,500066,1989-08-28,call_centre
+R0005,Gurprit Khan, gurpreet.khan26@example.in ,990-724-6962,kochi,682010,1983-12-23,partner_import
+R0006,shreya fernandes,shreya.fernandes77@example.in,94322 21569,Pune,,29/10/1970,call_centre
+R0007,Ramesh Kumar, ramesh.kumar56@example.com ,+91-9218161756,bengaluru,560109,18.10.87,call_centre
+R0008,Saanjay Patel,sanjay.patel33@example.net,+91-9116181159,Hyderabad,500050,17-Apr-1996,loyalty_app
+R0009,rohan gupta,rohan.gupta91@example.in,+91 94205 05680,Bangalore,560082,28/04/1973,web_signup
+R0010,Depika Patel,DEEPIKA.PATEL2@EXAMPLE.NET,+91-9884814042,kolkata,700064,,call_centre
+R0011,Shreya Kumar,shreya.kumar79@example.net,+91-9405579763,Hyderabad,500101,12-Oct-1981,loyalty_app
+R0012,Deepika Bhat,deepika.bhat87@example.com,96308 68868,Hyd,500038,23-Mar-1971,web_signup
+R0013,AISHWARYA SHETTY,aishwarya.shetty98@example.org,+91 93459 76193,Bombay,,,partner_import
+R0014,Vikram Gupta, vikram.gupta95@example.org ,9395021309,Kochi,682110,18/07/1981,loyalty_app
+R0015,Srinivas Iyer,srinivas.iyer62@example.in,980-810-2940,kochi,,,partner_import
+R0016,Sawti Hegde,SWATHI.HEGDE1@EXAMPLE.COM,,Chennai,600072,13.07.78,call_centre
+R0017,Patel Suresh,suresh.patell93@example.com,953-403-6160,MUMBAI,,12/12/1979,call_centre
+R0018,Karthik Nair,karthik.nair40@example.org,92596 92035,Kolkata,700039,02.12.69,web_signup
+R0019,KARTHIK PATEL,,9320263188,kochi,682108,1986-09-23,loyalty_app
+R0020,Sneha Bhat,sneha.bat87@example.in,+91 97339 82701,Kochi,682055,1977-10-29,loyalty_app
+R0021,FATHIMA PATEL,fatima.patel69@example.in,9279245222,Mumbai,,13.10.98,loyalty_app
+R0022,sneha sharma, sneha.sharma48@example.in ,+91-9484175019,Pune,411031,1987-10-16,partner_import
+R0023,Chatterjee Swathi,swathi.chatterjee33@example.com,9774609969,Kolkata,700028,,call_centre
+R0024,srinivas pillai,srinivas.pillai32@example.com,+919592964987,Hyderabad,500055,,loyalty_app
+R0025,Rohan Gupta, rohan.gupta91@example.in ,94205 05680,Bangalore,560082,1973-04-28,call_centre
+R0026,Bhat Swati,swathi.bhat49@example.com,,Hyderabad,500080,19/01/1965,partner_import
+R0027,K. Das,karthik.das22@example.com,93694 21023,Kolkata,700041,15/07/1988,store_pos
+R0028,navin rao,naveen.rao83@example.in,944-880-1665,Kolkata,,03.11.00,loyalty_app
+R0029,Bhat Deepika,,09630868868,hyderabad,,,partner_import
+R0030,shreya kumar,,+91-9405579763,Hyderabad,500101,1981-10-12,partner_import
+R0031,Kartik Patel,,9320263188,Kochi,,1986-09-23,web_signup
+R0032,Karthik Patel,KARTHIK.PATEL31@EXAMPLE.IN,9320263188,kochi,,23.09.86,loyalty_app
+R0033,shriya fernandes,,943-222-1569,Pune,411016,,store_pos
+R0034,Rmesh Kumar,ramesh.kumar56@example.com,92181 61756,Bengaluru,560109,18-Oct-1987,store_pos
+R0035,"Rao, Naveen",,+91 94488 01665,kolkata,700047,03.11.00,web_signup
+R0036,fathima nair,,09823595456,Bengaluru ,560015,05/12/1993,web_signup
+R0037,Shriya Khan,shreya.khan16@example.org,98975 92873,Hyderabad,,18.11.85,partner_import
+R0038,deepika bhat,deepkia.bhat87@example.com,+91-9630868868,hyderabad,500038,23-Mar-1971,call_centre
+R0039,S. Fernandes,shreya.fernandes77@example.in,943-222-1569,Poona,411016,,call_centre
+R0040,Sureshh Hegde,suresh.hegde18@example.org,9370438649,hyderabad,,1989-08-28,call_centre
+R0041,Divyaa Bhat,,954-578-5654,Hyderabad,,1985-03-16,web_signup
+R0042,Shreya Mehta,shreya.mehta16@example.org,+919898410312,pune,411034,06-May-1980,loyalty_app
+R0043,"Kumar, Rahul",rahul.kumar59@example.com,+919218161756,bengaluru,,11-Oct-2014,store_pos
+R0044,imran joshi, imran.joshi62@example.in ,,Gurugram,122031,21.07.99,web_signup
+R0045,Sharma Sneha,SNEHA.SHARMA48@EXAMPLE.IN,94841 75019,Pune,,16-Oct-1987,store_pos
+R0046,Deepiak Fernandes, deepika.fernandes87@example.in ,93199 70261,gurgaon,122097,25/10/1988,store_pos
+R0047,Harpreet Bhat,harpreet.bhat30@example.com,9112915997,Mumbai,400093,18-Aug-1997,web_signup
+R0048,Patel Fathima,fatima.patel69@example.in,9279245222,Mumbai,400020,13/10/1998,call_centre
+R0049,S. Chatterjee,srinivas.chatterjee80@example.net,+919691085665,Gurgaon,122084,23/11/1994,loyalty_app
+R0050,Nair Aditya,aditya.nar21@example.com,9166936573,kochi,,28/01/1997,call_centre
+R0051,AISHWARYA SHETTY,,+919345976193,Bombay,400085,,loyalty_app
+R0052,Swati Shetty,,,hyderabad,500096,22-Oct-1992,loyalty_app
+R0053,Fathima Patel,fatima.patel69@example.in,,Mumbai,400020,,web_signup
+R0054,Suresh Khan,suesh.khan55@example.net,09460591023,Gurgaon,122072,,loyalty_app
+R0055,Priya Gupta,PRIYA.GUPTA8@EXAMPLE.COM,+91 96946 07565,Pune,411004,,web_signup
+R0056,swati chatterjee,swathi.chatterjee33@example.com,+91 97746 09969,Calcutta,,10/02/1978,web_signup
+R0057,Deepika Fernandes,DEEPIKA.FERNANDES87@EXAMPLE.IN,+91-9319970261,gurgaon,122097,,partner_import
+R0058,Rahul Kumar,,9218161756,Bengaluru,560109,11-Oct-2014,call_centre
+R0059,deepika khan,DEEPIKA.KHAN43@EXAMPLE.COM,925-953-8315,bengaluru,,2001-02-19,loyalty_app
+R0060,GURPREET KHAN, gurpreet.khan26@example.in ,+91-9907246962,Cochin,,23-Dec-1983,partner_import
+R0061,"Gupta, Priya",priya.gupta8@example.com,+91 96946 07565,pune,411004,13/10/1994,loyalty_app
+R0062,deepika khan,deepika.khan43@example.com,+91 92595 38315,Bengaluru ,560109,19/02/2001,web_signup
+R0063,D. Kumar,divya.kumar1@example.com,+91 97591 36996,pune,,06-Jan-1979,call_centre
+R0064,Piya Khan,,+919272488226,kolkata,700098,,store_pos
+R0065,NANDINI SHARMA,nandini.sharma57@example.net,09620723056,Gurugram,122082,1965-01-28,store_pos
+R0066,"Das, Karthik",karthik.das22@example.com,+919369421023,Kolkata,700041,15.07.88,loyalty_app
+R0067,Deeepika Bhat,deepika.bhat87@example.com,+91 96308 68868,Hyderabad,500038,23-Mar-1971,store_pos
+R0068,A. Iyer,aishwarya.iyer26@example.org,+91 93636 34620,Chennai,,,call_centre
+R0069,Karitk Das,karthik.das22@example.com,09369421023,kolkata,700041,1988-07-15,web_signup
+R0070,Swwathi Shetty,swathi.shetty2@example.org,9198611550,Hyd,500096,,partner_import
+R0071,"Shetty, Priya",priya.shetty60@example.net,09257025950,Mumbai,,09.02.92,store_pos
+R0072,Mohammed Gupta,,09974559513,Calcutta,,22/08/1965,loyalty_app
+R0073,Srnivas Iyer,srinivas.iyer62@example.in,98081 02940,kochi,,05/06/1969,loyalty_app
+R0074,venkatesh kumar,venkatesh.kumar76@example.in,+919340823094,Madras,,17/06/1969,web_signup
+R0075,Karthik Nair,karthik.nair40@example.org,09259692035,Kolkata,700039,02.12.69,store_pos
+R0076,Haprit Bhat,harpreet.bhat12@example.org,9865347614,chennai,600101,18-Dec-1995,partner_import
+R0077,Das Divya,divya.das29@example.com,+91-9414170643,kochi,,01/04/1967,partner_import
+R0078,Arjun Reddy,,969-472-3003,pune,411086,,call_centre
+R0079,DIVYA KUMAR,DIVYA.KUMAR1@EXAMPLE.COM,975-913-6996,Poona,411010,06-Jan-1979,call_centre
+R0080,"Iyer, Aishwarya",aishwarya.iyer26@example.org,936-363-4620,Chennai,,26-Mar-1995,partner_import
+R0081,Nair Snehaa,sneha.nair73@example.net,+91-9995101213,Pune,411003,14/06/1993,loyalty_app
+R0082,Swahti Shetty,SWATHI.SHETTY2@EXAMPLE.ORG,9198611550,Hyderabad,,1992-10-22,web_signup
+R0083,Sureshh Hegde,SURESH.HEGDE18@EXAMPLE.ORG,,Hyderabad,500066,28-Aug-1989,loyalty_app
+R0084,Katrhik Das,karthik.das22@example.com,936-942-1023,Kolkata,700041,15-Jul-1988,loyalty_app
+R0085,Sneha Bhat,sneha.bhat87@example.in,+91 97339 82701,kochi,682055,29.10.77,store_pos
+R0086,KARTHIK BHAT,KARTHIK.BHAT8@EXAMPLE.ORG,93422 15142,Bengaluru,560073,05/03/1986,call_centre
+R0087,Nandini Sharma, nandini.sharma24@example.org ,09794394953,gurgaon,122018,2001-04-06,web_signup
+R0088,D. Khan,deepika.khan43@example.com,+91 92595 38315,Bengaluru,560109,,web_signup
+R0089,A. Shetty,arjun.shetty11@example.org,+91 98480 47694,Pune,411070,10/06/1994,store_pos
+R0090,Kartihk Patel,karthik.patel31@example.in,9320263188,Cochin,682108,,store_pos
+R0091,Chatterjee Swathi,,,Kolkata,700028,10-Feb-1978,web_signup
+R0092,ARJUN JOSHI,ARJUN.JOSHI26@EXAMPLE.IN,+919820994725,Gurugram,122022,,call_centre
+R0093,Gupta Lakshmi,lakshmi.gupta8@example.net,,chennai,,,web_signup
+R0094,Surehh Hegde,SURESH.HEGDE18@EXAMPLE.ORG,93704 38649,Hyderabad,,,web_signup
+R0095,VENKATESH KUMAR,venkatesh.kumar76@example.in,,Madras,600054,,web_signup
+R0096,Gurpret Khan,gurpreet.khan26@example.in,9907246962,kochi,682010,23/12/1983,partner_import
+R0097,GURPRIT KHAN, gurpreet.khan26@example.in ,+919907246962,Kochi,682010,1983-12-23,call_centre
+R0098,pria patel,priya.patel81@example.in,976-370-4752,Hyd,500058,20.02.90,partner_import
+R0099,A. Shetty,AISHWARYA.SHETTY98@EXAMPLE.ORG,93459 76193,mumbai,400085,,web_signup
+R0100,"Sharma, Priyaa",PRIYA.SHARMA50@EXAMPLE.IN,+91 94783 48219,Mumbai,400054,31/01/1966,web_signup
+R0101,Aisharya Shetty, aishwarya.shetty98@example.org ,9345976193,mumbai,400085,30.08.69,store_pos
+R0102,Naveen Bhat,naveen.bhat60@example.net,93371 62778,Gurugram,122031,11-Jul-1965,loyalty_app
+R0103,Venkatesh Menon,VENKATESH.MENON27@EXAMPLE.ORG,9935209148,hyderabad,500092,05-Apr-1998,call_centre
+R0104,Priya Khan,priya.khan76@example.com,+91-9272488226,Kolkata,700098,29-Jan-1974,store_pos
+R0105,swathi shetty,swathi.shetty2@example.org,+91 91986 11550,hyderabad,500096,22-Oct-1992,partner_import
+R0106,Khan Priyaa,PRIYA.KHAN76@EXAMPLE.COM,+919272488226,Calcutta,,29/01/1974,store_pos
+R0107,D. Das,divya.das29@example.com,941-417-0643,Kochi,682016,,partner_import
+R0108,swathi bhat,swathib.hat49@example.com,9632860866,Hyderabad,500080,1965-01-19,store_pos
+R0109,Sneha Fernandes,sneha.fernande4s0@example.in,+91 98154 63259,pune,,,loyalty_app
+R0110,Swathhi Shetty,SWATHI.SHETTY2@EXAMPLE.ORG,91986 11550,Hyderabad,,22-Oct-1992,store_pos
+R0111,Joshi Imraan,imran.joshi62@example.in,+91 97573 64687,Gurugram,122031,1999-07-21,loyalty_app
+R0112,SWATHI HEGDE,swath.ihegde1@example.com,09704564590,Chennai,600072,13-Jul-1978,loyalty_app
+R0113,Sannjay Patel,sanjay.patel33@example.net,,Hyderabad,,,store_pos
+R0114,"Fernandes, Sneha",sneha.fernandes40@example.in,09815463259,pune,411041,1995-12-26,store_pos
+R0115,S. Bhat,sneha.bhat87@example.in,,Kochi,,29-Oct-1977,store_pos
+R0116,A. Khan,,931-890-9077,Kochi,682041,1970-05-09,store_pos
+R0117,Karthik Patel, karthik.patel31@example.in ,,Cochin,682108,23.09.86,web_signup
+R0118,R. Gupta,rohan.gupta91@example.in,+91 94205 05680,Bengaluru,560082,28/04/1973,web_signup
+R0119,SRINIVAS CHATTERJEE, srinivas.chatterjee80@example.net ,+91 96910 85665,Gurugram,122084,23/11/1994,store_pos
+R0120,HARPREET MEHTA,harpreet.mehta56@example.net,09201515931,Gurugram,122098,05.11.95,loyalty_app
+R0121,Divya Das,divya.das29@example.com,+919414170643,Kochi,,01-Apr-1967,web_signup
+R0122,ARJUNN KUMAR,arjun.kumar52@example.net,+91 95573 44378,BLR,560109,07/09/2001,loyalty_app
+R0123,deepika fernandes,DEEPIKA.FERNANDES87@EXAMPLE.IN,+91-9319970261,Gurgaon,122097,25/10/1988,partner_import
+R0124,priyaa khan,priya.khan76@example.com,927-248-8226,kolkata,,29.01.74,call_centre
+R0125,mohammed gupta,mohammed.gupta51@example.in,+919974559513,Kolkata,,,call_centre
+R0126,Nandini Sharma,NANDINI.SHARMA57@EXAMPLE.NET,09620723056,gurgaon,122082,28/01/1965,web_signup
+R0127,Hegde Swathi,SWATHI.HEGDE1@EXAMPLE.COM,97045 64590,Chennai,600072,13-Jul-1978,web_signup
+R0128,K. Nair,karthik.nair40@example.org,9259692035,kolkata,700039,1969-12-02,loyalty_app
+R0129,aditya hegde,aditya.hegde86@example.com,93993 65526,Gurugram,122013,03-Dec-1998,loyalty_app
+R0130,Naivn Rao,naveen.rao83@example.in,9448801665,Kolkata,700047,03.11.00,store_pos
+R0131,Lakshmi Joshi,lakshmi.joshi58@example.net,9920984948,kochi,682055,19-Sep-1987,partner_import
+R0132,priya sharma,priya.sharma22@example.com,9937950995,Bombay,400095,08/08/1985,store_pos
+R0133,Sneehaa Nair,sneha.nair73@example.net,+91-9995101213,pune,411003,14.06.93,call_centre
+R0134,sneha sharma,sneha.sharma48@example.in,94841 75019,Pune,411031,16/10/1987,store_pos
+R0135,SRINIVASAN IYER,srinivasan.iyer76@example.com,9816747330,Chennai,600101,09.12.68,store_pos
+R0136,sanjay patel,sanjay.patel33@example.net,,hyderabad,,17/04/1996,call_centre
+R0137,SRINIVAS IYER,,980-810-2940,Kochi,,1969-06-05,web_signup
+R0138,Swathi Chatterjee, swathi.chatterjee33@example.com ,9774609969,kolkata,700028,10/02/1978,call_centre
+R0139,PRIYAA GUPTA,priya.gupta8@example.com,+91-9694607565,Poona,411004,,call_centre
+R0140,Priya Sharma,priya.sharma38@example.in,+919546695571,Pune,411050,06/05/1965,call_centre
+R0141,"Das, Divyaa",,9414170643,kochi,682016,,web_signup
+R0142,S. Bhat,SNEHA.BHAT87@EXAMPLE.IN,9733982701,Cochin,682055,29-Oct-1977,store_pos
+R0143,Das Divya,DIVYA.DAS29@EXAMPLE.COM,+919414170643,kochi,682016,01-Apr-1967,call_centre
+R0144,N. Bhat,naveen.bhat60@example.net,09337162778,gurgaon,,11.07.65,store_pos
+R0145,Swathi Shetty,swathi.shetty2@example.org,+919198611550,hyderabad,,22.10.92,loyalty_app
+R0146,Nandini Sharma,NANDINI.SHARMA57@EXAMPLE.NET,09620723056,Gurugram,122082,,call_centre
+R0147,imran joshi, imran.joshi62@example.in ,975-736-4687,Gurgaon,,21.07.99,partner_import
+R0148,Priyaa Patel,priya.patel81@example.in,9763704752,Hyderabad,,,partner_import
+R0149,Divyaa Kumar,,+91-9759136996,pune,,06/01/1979,loyalty_app
+R0150,sneha bhat,SNEHA.BHAT87@EXAMPLE.IN,+91 97339 82701,Kochi,,29-Oct-1977,web_signup
+R0151,"Patel, Suresh",SURESH.PATEL93@EXAMPLE.COM,95340 36160,mumbai,400100,12/12/1979,web_signup
+R0152,"Das, Anjali",anjali.dass92@example.com,,Bombay,400068,22/05/1991,web_signup
+R0153,VENKATESH KUMAR,venkatesh.kumar76@example.in,09340823094,Chennai,600054,1969-06-17,store_pos
+R0154,A. Hegde,aditya.hegde86@example.com,09399365526,Gurugram,122013,03.12.98,loyalty_app
+R0155,naveen menon,,9315472628,Bengaluru ,560068,1979-11-30,loyalty_app
+R0156,SNEHAA SHARMA,,94841 75019,pune,411031,16-Oct-1987,store_pos
+R0157,DIPIKA FERNANDES,,93199 70261,Gurgaon,122097,25-Oct-1988,store_pos
+R0158,ROHAN PILLAI,,+91-9679135859,Chennai,600109,,web_signup
+R0159,Kumar Ramesh,RAMESH.KUMAR56@EXAMPLE.COM,921-816-1756,Bengaluru,560109,18/10/1987,loyalty_app
+R0160,K. Nair, karthik.nair40@example.org ,+919259692035,Calcutta,700039,1969-12-02,loyalty_app
+R0161,SRINIVASAN IYER,,981-674-7330,Chennai,600101,09-Dec-1968,store_pos
+R0162,R. Gupta,ROHAN.GUPTA91@EXAMPLE.IN,94205 05680,BLR,,28/04/1973,web_signup
+R0163,Snehaa Fernandes, sneha.fernandes40@example.in ,9815463259,Pune,411041,26.12.95,loyalty_app
+R0164,Ramesh Kumar,raesh.kumar56@example.com,921-816-1756,Bengaluru,,18-Oct-1987,partner_import
+R0165,Naveen Rao,naveen.rao83@example.in,+91-9448801665,Calcutta,700047,,partner_import
+R0166,P. Patel,priya.patel81@example.in,+91 97637 04752,Hyderabad,,20.02.90,store_pos
+R0167,Lakshmy Gupta,lakshmi.gupta8@example.net,97308 11403,Chennai,600110,02.03.66,partner_import
+R0168,Gupta Vikaram,vikram.gupta95@example.org,09395021309,Kochi,682110,18.07.81,store_pos
+R0169,H. Bhat,harpreet.bhat30@example.com,9112915997,Mumbai,,,call_centre
+R0170,S. Chatterjee,SWATHI.CHATTERJEE33@EXAMPLE.COM,9774609969,Kolkata,700028,10-Feb-1978,call_centre
+R0171,ASH KHAN,aishwarya.khan55@example.net,931-890-9077,Kochi,,,loyalty_app
+R0172,Sneha Bhat,SNEHA.BHAT87@EXAMPLE.IN,9733982701,Kochi,,29/10/1977,call_centre
+R0173,sureshh khan, suresh.khan55@example.net ,946-059-1023,Gurugram,122072,01/10/1975,web_signup
+R0174,rohan gupta,rohan.gupta91@example.in,+91 94205 05680,Bengaluru,560082,,loyalty_app
+R0175,Aitya Hegde,aditya.hegde86@example.com,09399365526,Gurgaon,122013,1998-12-03,loyalty_app
+R0176,Naven Rao,,944-880-1665,Kolkata,700047,2000-11-03,loyalty_app
+R0177,venkatesan kumar,venkatesh.kumar76@example.in,+91-9340823094,chennai,600054,,loyalty_app
+R0178,"Patel, Sanjay",sanjay.patel33@example.net,,Hyd,,1996-04-17,loyalty_app
+R0179,Prya Sharma,,+91 94783 48219,Mumbai,400054,31-Jan-1966,web_signup
+R0180,"Patel, Priya",priya.patel81@example.in,97637 04752,Hyderabad,500058,20-Feb-1990,web_signup
+R0181,"Gupta, Mohammed",mohammed.gupta51@example.in,9974559513,kolkata,700012,22/08/1965,call_centre
+R0182,S. Fernandes,sneha.fernandes40@example.in,,Poona,411041,26/12/1995,store_pos
+R0183,A. Das,,9892683353,MUMBAI,,22.05.91,call_centre
+R0184,Dipikka Khan,deepika.khan43@example.com,+91-9259538315,Bengaluru,560109,19.02.01,partner_import
+R0185,Priya Sharma,,9546695571,Pune,411050,06-May-1965,web_signup
+R0186,Suresh Khan,suresh.khan5@example.net,+91-9460591023,Gurugram,,,call_centre
+R0187,"Joshi, Imraan",imrran.joshi62@example.in,9757364687,gurgaon,122031,,partner_import
+R0188,Mohhammed Gupta,mohammed.gupta51@example.in,9974559513,Calcutta,700012,22-Aug-1965,web_signup
+R0189,Anjalee Das,,09892683353,Bombay,400068,22.05.91,store_pos
+R0190,Nair Aditya,aditya.nair21@example.com,+91 91669 36573,kochi,682015,28-Jan-1997,store_pos
+R0191,Shetty Aishwarya,aishwarya.shetty98@example.org,,Mumbai,400085,30/08/1969,partner_import
+R0192,Shreya Kumar,SHREYA.KUMAR79@EXAMPLE.NET,,Hyderabad,,12.10.81,store_pos
+R0193,Navin Rao,naveen.rao83@example.in,9448801665,kolkata,700047,03-Nov-2000,loyalty_app
+R0194,Chatterjee Srinivas,,,gurgaon,122084,1994-11-23,loyalty_app
+R0195,Aishwarya Khan,aishwarya.khan55@example.net,09318909077,Kochi,,09/05/1970,call_centre
+R0196,Kartihck Bhat,krathik.bhat8@example.org,+91 93422 15142,Bengaluru,,1986-03-05,call_centre
+R0197,PRIYA SHARMA,priya.sharrma38@example.in,+919546695571,Pune,411050,1965-05-06,web_signup
+R0198,Ash Khan,aishwarya.khan55@example.net,+91-9318909077,kochi,682041,09-May-1970,call_centre
+R0199,"Joshi, Arjunn",arjun.joshi26@example.in,,Gurugram,122022,1989-12-20,store_pos
+R0200,ROHAN GUPTA,rohan.gupta91@example.in,+91 94205 05680,Bangalore,560082,28.04.73,store_pos
+R0201,Iyer Puja,pooja.iyer99@example.net,+919157319118,Gurugram,,,loyalty_app
+R0202,"Hegde, Swathi",SWATHI.HEGDE1@EXAMPLE.COM,+919704564590,Chennai,600072,13/07/1978,web_signup
+R0203,SANJAY PATEL,sanjay.patel33@example.net,+91 91161 81159,Hyderabad,500050,17.04.96,loyalty_app
+R0204,Shriya Fernandes,SHREYA.FERNANDES77@EXAMPLE.IN,943-222-1569,Poona,411016,29-Oct-1970,web_signup
+R0205,deepika khan,DEEPIKA.KHAN43@EXAMPLE.COM,+91-9259538315,BLR,560109,2001-02-19,partner_import
+R0206,Arjunn Kumar, arjun.kumar52@example.net ,955-734-4378,Bangalore,,,loyalty_app
+R0207,"Shetty, Aishwariya",aishwarya.shetty98@example.org,,Mumbai,400085,30.08.69,store_pos
+R0208,Seenu Iyer,srinivas.iyer94@example.in,+91 99676 04606,Madras,600077,22.11.77,partner_import
+R0209,Aditya Hegde,aditya.hegde86@example.com,93993 65526,Gurgaon,122013,,store_pos
+R0210,A. Nair,aditya.nair21@example.com,91669 36573,Kochi,682015,1997-01-28,web_signup
+R0211,"Das, Divya",divya.das29@example.com,09414170643,Kochi,682016,01/04/1967,web_signup
+R0212,"Mehta, Sanjay",sanjay.mehta76@example.org,09281535858,Gurugram,122001,19/12/1973,partner_import
+R0213,A. Kumar,arjun.kumar52@example.net,,Bangalore,560109,,store_pos
+R0214,Deepka Bhat,DEEPIKA.BHAT87@EXAMPLE.COM,+91-9630868868,Hyd,500038,,call_centre
+R0215,DIVYA KUMAR,divya.kumar71@example.net,9228847382,Mumbai,400103,08/09/1998,partner_import
+R0216,venkatesh kumar,,,Chennai,600054,17.06.69,call_centre
+R0217,Srini Hegde,SRINIVAS.HEGDE20@EXAMPLE.ORG,09915936992,Gurugram,122085,16/08/2000,store_pos
+R0218,DIVYAA BHAT,divya.bhat19@example.net,+91-9545785654,Hyd,500056,1985-03-16,loyalty_app
+R0219,S. Khan,SURESH.KHAN55@EXAMPLE.NET,+91 94605 91023,gurgaon,122072,01-Oct-1975,web_signup
+R0220,rahul rao,RAHUL.RAO85@EXAMPLE.NET,,Bangalore,560101,19.02.70,call_centre
+R0221,"Sharma, Priyaa",priya.sharma22@example.com,+91-9937950995,MUMBAI,400095,,loyalty_app
+R0222,priya gupta,priya.gupta8@example.com,+91 96946 07565,Pune,411004,13/10/1994,web_signup
+R0223,Sneha Fernandes,sneha.fernandes40@example.in,+91-9815463259,Pune,411041,26.12.95,store_pos
+R0224,D. Bhat,divya.bhat19@example.net,95457 85654,Hyderabad,500056,1985-03-16,web_signup
+R0225,Deepika Fernandes,deepika.fernandes87@example.in,+91 93199 70261,gurgaon,,25.10.88,loyalty_app
+R0226,Harrpeet Bhat,harpreet.bhat12@example.org,09865347614,Chennai,600101,1995-12-18,store_pos
+R0227,SURESH PATEL,suresh.patel93@example.com,09534036160,Mumbai,400100,12-Dec-1979,web_signup
+R0228,Deepiak Bhat, deepika.bhat87@example.com ,963-086-8868,Hyd,500038,,loyalty_app
+R0229,pooja iyer,pooja.iyer99@example.net,91573 19118,Gurugram,122023,,call_centre
+R0230,"Nair, Kartik",,925-969-2035,Calcutta,700039,02-Dec-1969,store_pos
+R0231,"Joshi, Imran",imran.joshi62@example.in,09757364687,Gurgaon,122031,21/07/1999,loyalty_app
+R0232,S. Patel,sanjay.patel33@example.net,9116181159,Hyderabad,500050,1996-04-17,loyalty_app
+R0233,Lakshmi Joshi,LAKSHMI.JOSHI58@EXAMPLE.NET,09920984948,Kochi,682055,19-Sep-1987,loyalty_app
+R0234,Dipika Khan,deepika.khan43@example.com,925-953-8315,bengaluru,,19-Feb-2001,partner_import
+R0235,"Khan, Suresh",suresh.khan55@example.net,,Gurgaon,122072,01.10.75,partner_import
+R0236,"Khan, Priya",priya.khan76@example.com,+919272488226,Kolkata,700098,29-Jan-1974,web_signup
+R0237,Navin Bhat,naveen.bhat60@example.net,,Gurugram,122031,11-Jul-1965,call_centre
+R0238,rohan pillai,rohan.pillai47@example.com,967-913-5859,chennai,600109,1986-02-07,store_pos
+R0239,D. Kumar,,9228847382,mumbai,,08.09.98,partner_import
+R0240,DIVYA KUMAR, divya.kumar71@example.net ,,Mumbai,,08-Sep-1998,store_pos
+R0241,Bhat Harprit,harpreet.bhat30@example.com,9112915997,MUMBAI,400093,18-Aug-1997,web_signup
+R0242,Sanjay Mehta,sanjay.mehta76@example.org,09281535858,Gurugram,122001,1973-12-19,partner_import
+R0243,KARTIK DAS,,09369421023,kolkata,700041,,loyalty_app
+R0244,Srhiya Fernandes,SHREYA.FERNANDES77@EXAMPLE.IN,943-222-1569,Pune,411016,1970-10-29,web_signup
+R0245,"Gupta, Vikram",VIKRAM.GUPTA95@EXAMPLE.ORG,93950 21309,kochi,682110,18.07.81,call_centre
+R0246,Sanjay Mehta,SANJAY.MEHTA76@EXAMPLE.ORG,09281535858,Gurugram,122001,,store_pos
+R0247,rohan pillai,rohan.pillai47@example.com,967-913-5859,chennai,,1986-02-07,web_signup
+R0248,Snha Sharma,SNEHA.SHARMA48@EXAMPLE.IN,9484175019,Pune,411031,,loyalty_app
+R0249,shreya fernandes,shreya.fernandes77@example.in,+919432221569,Poona,411016,1970-10-29,call_centre
+R0250,K. Das,,+91 93694 21023,Kolkata,,15-Jul-1988,loyalty_app
+R0251,P. Khan,,927-248-8226,Kolkata,700098,29-Jan-1974,call_centre
+R0252,VENKATESH KUMAR,venktaesh.kumar76@example.in,+91 93408 23094,chennai,,17/06/1969,call_centre
+R0253,Pria Sharma,priya.sharma22@example.com,09937950995,mumbai,400095,08-Aug-1985,web_signup
+R0254,Priya Gupta,priya.gupta8@example.com,+919694607565,Pune,411004,1994-10-13,web_signup

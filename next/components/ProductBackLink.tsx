@@ -30,6 +30,7 @@ const PATH_LABELS: Record<string, string> = {
   '/contact':                'contact',
   '/partnerships':           'partnerships',
   '/news':                   'news',
+  '/careers':                'careers',
   '/support':                'support',
 };
 

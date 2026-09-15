@@ -30,6 +30,8 @@ const ROUTES: Entry[] = [
   { path: '/partnerships',              changeFrequency: 'monthly', priority: 0.7 },
   { path: '/about-us',                  changeFrequency: 'monthly', priority: 0.7 },
   { path: '/news',                      changeFrequency: 'weekly',  priority: 0.6 },
+  { path: '/careers',                   changeFrequency: 'weekly',  priority: 0.6 },
+  { path: '/careers/fde-intern',        changeFrequency: 'monthly', priority: 0.5 },
   { path: '/contact',                   changeFrequency: 'yearly',  priority: 0.6 },
   { path: '/support',                   changeFrequency: 'yearly',  priority: 0.5 },
   { path: '/policies',                  changeFrequency: 'yearly',  priority: 0.4 },

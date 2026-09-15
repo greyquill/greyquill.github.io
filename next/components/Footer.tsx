@@ -23,6 +23,7 @@ const COMPANY = [
   { href: '/about-us', label: 'About' },
   { href: '/partnerships', label: 'Partnerships' },
   { href: '/news', label: 'News' },
+  { href: '/careers', label: 'Careers' },
 ];
 
 // Blog lives in the separate `dc` repo, served under /dc/blogs/. Plain
