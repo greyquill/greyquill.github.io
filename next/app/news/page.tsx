@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Award, ScanLine, Bot, Layers } from 'lucide-react';
+import { Award, ScanLine, ScanEye, Bot, Layers } from 'lucide-react';
 import ProductBackLink from '@/components/ProductBackLink';
 import { CALENDLY_URL } from '@/lib/links';
 
@@ -21,6 +21,15 @@ type Milestone = {
 };
 
 const MILESTONES: Milestone[] = [
+  {
+    Icon: ScanEye,
+    category: 'Open source',
+    title: 'MCPsight is out',
+    body: 'Our open-source scanner for MCP servers. It reads the tool descriptions your agent follows, and fails your build if a server changes them after you install it. Free at mcpsight.dev.',
+    // Blog lives in the separate `dc` repo, so it needs a plain anchor.
+    href: '/dc/blogs/mcpsight-launch.html',
+    external: true,
+  },
   {
     Icon: Award,
     category: 'Partnership',
