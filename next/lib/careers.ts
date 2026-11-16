@@ -17,6 +17,6 @@ export const OPENINGS: Opening[] = [
     title: 'Forward deployed engineer intern',
     summary:
       'Write code for our products and spend part of each week helping sell them to companies in regulated industries.',
-    terms: ['Bengaluru, in person', 'Full time', '2 openings'],
+    terms: ['Bengaluru, in person', 'Full time'],
   },
 ];

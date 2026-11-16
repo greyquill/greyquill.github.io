@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { CircleHelp, FileCode2, FileText, Link2, MapPin, Mic, Paperclip, Phone, User } from 'lucide-react';
+import { FileCode2, FileText, Link2, MapPin, Mic, Paperclip, Phone, User } from 'lucide-react';
 import { CAREERS_EMAIL } from '@/lib/careers';
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const TITLE = 'Forward deployed engineer intern';
 
-const META = ['Bengaluru, in person', 'Full time', '2 openings', 'Internship'];
+const META = ['Bengaluru, in person', 'Full time', 'Internship'];
 
 const ENGINEERING = [
   'Pick up real items from our tracker, including data ingestion, entity resolution, product screens, internal tools, tests, and the small agents we use to run the company.',
@@ -46,7 +46,7 @@ const LOOK_FOR = [
 ];
 
 const BEFORE = [
-  'The first three months are unpaid. Decide whether you can manage that before you spend three hours on the task.',
+  'The first three months are unpaid. Decide whether you can manage that before you spend four hours on the task.',
   'Many calls are cold calls, and most of them end in a no.',
   'The team is small, so everyone sees your work.',
   'We tell you directly when your work is wrong, and when it is good.',
@@ -54,24 +54,74 @@ const BEFORE = [
 ];
 
 const RECORDS_FILE = '/careers/fde-intern/customer-records.csv';
+const NIGHT2_FILE = '/careers/fde-intern/customer-records-night2.csv';
+const STARTER_FILE = '/careers/fde-intern/score_pair.py';
 
-const FOUR_THINGS: [string, React.ReactNode][] = [
-  ['A program.', (
-    <>
-      Download the{' '}
-      <a
-        href={RECORDS_FILE}
-        download
-        className="text-brand-blue font-semibold underline decoration-brand-blue/30 underline-offset-2 hover:decoration-brand-blue"
-      >
-        customer records file
-      </a>{' '}
-      (CSV, 254 rows). It is messy, with duplicates, typos, and the same person written several ways. Write a program that groups the records belonging to the same person. Add a short note on the decisions you made and where your approach would fail. Our product solves a larger version of this problem.
-    </>
-  )],
-  ['Under 200 words on a company.', 'Pick any company. Explain how it makes money and one thing you would change.'],
-  ['A 90 second voice note.', 'Pitch us anything, or tell us about a time someone said no to you and what you did next. Do not read from a script.'],
-  ['A question you could not answer.', 'Something you tried to look up recently and could not find.'],
+function FileLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      download
+      className="text-brand-blue font-semibold underline decoration-brand-blue/30 underline-offset-2 hover:decoration-brand-blue"
+    >
+      {children}
+    </a>
+  );
+}
+
+function Code({ children }: { children: React.ReactNode }) {
+  return <code className="text-[14px] bg-brand-mist/60 rounded px-1 py-0.5">{children}</code>;
+}
+
+const PARTS: { title: string; intro: React.ReactNode; send: React.ReactNode[]; after?: React.ReactNode }[] = [
+  {
+    title: 'Score and group the records.',
+    intro: (
+      <>
+        Download the <FileLink href={RECORDS_FILE}>customer records file</FileLink> (CSV, 254 rows) and
+        the <FileLink href={STARTER_FILE}>starter file</FileLink>. The records are messy, with duplicates,
+        typos, and the same person written several ways. Fill in <Code>score_pair</Code> in the starter
+        file. It returns how likely two records belong to the same person, and the file says exactly what
+        each comparison must return. Then use it to group the records. Send:
+      </>
+    ),
+    send: [
+      <>The finished starter file and <Code>groups.csv</Code>, one row per record: <Code>record_id</Code>, <Code>person_id</Code>, <Code>confidence</Code>, and <Code>reason</Code>, the fields that decided it.</>,
+      'At least five tests, each a pair of records and the score range you expect, with one command that runs them.',
+      <><Code>REVIEW.md</Code>, under 300 words: five pairs that look alike but you kept apart, and the three groupings you trust least. Name each by record id and say why.</>,
+      'A README with the commands.',
+    ],
+  },
+  {
+    title: 'Only what changed.',
+    intro: (
+      <>
+        Download the <FileLink href={NIGHT2_FILE}>second night&apos;s file</FileLink> (CSV, 277 rows): the
+        same customers a night later. Some rows are new, some have changed, some are the same and some are
+        gone. Write <Code>peek</Code>, a command that reads both nights and, before anything is saved,
+        reports:
+      </>
+    ),
+    send: [
+      'How many rows are new, changed, unchanged and gone. A row counts as changed when a field differs after trimming spaces and ignoring case.',
+      <>The person each new or changed row belongs to, keeping every <Code>person_id</Code> from night one.</>,
+    ],
+    after: (
+      <>
+        Then, in under 300 words, say what you would store so that a year later an auditor can see why two
+        records were treated as one person, and what happens to that answer when a grouping turns out to
+        be wrong.
+      </>
+    ),
+  },
+  {
+    title: 'Find and write to a buyer.',
+    intro: <>Send:</>,
+    send: [
+      'Three Indian companies in banking, insurance or healthcare that need to show how their data or AI decisions are made. For each: the company, the role you would write to (a name if it is public), why they would care now with a link to your source, and your first email, under 120 words.',
+      'A 90 second voice note. Pitch us anything, or tell us about a time someone said no to you and what you did next. Do not read from a script.',
+    ],
+  },
 ];
 
 const NEXT_STEPS = [
@@ -82,10 +132,10 @@ const NEXT_STEPS = [
 ];
 
 const ATTACHMENTS = [
-  { Icon: FileCode2, name: 'record-grouping.zip', meta: 'Program and notes' },
-  { Icon: FileText, name: 'company.txt', meta: '186 words' },
+  { Icon: FileCode2, name: 'part-1-grouping.zip', meta: 'Code, tests, review' },
+  { Icon: FileCode2, name: 'part-2-peek.zip', meta: 'peek and audit note' },
+  { Icon: FileText, name: 'part-3-buyers.md', meta: '3 companies' },
   { Icon: Mic, name: 'voice-note.m4a', meta: '1:30' },
-  { Icon: CircleHelp, name: 'question.txt', meta: '1 question' },
 ];
 
 /** Illustration of a complete application email. Not a form. */
@@ -222,7 +272,7 @@ export default function FdeInternPage() {
       <H2>About the role</H2>
       <div className="space-y-4">
         <p>
-          We are a small team hiring two people early in their careers. You
+          We are a small team hiring people early in their careers. You
           will split your week between engineering and sales.
         </p>
         <p>
@@ -253,13 +303,19 @@ export default function FdeInternPage() {
 
       <H2>How to apply</H2>
       <p className="mb-4">
-        There is no resume in the first round. Send us these four things. They
-        take about three hours.
+        There is no resume in the first round. The task has three parts, and
+        together they take about four hours.
       </p>
-      <ol className="list-decimal pl-5 space-y-3 marker:text-brand-ink/50">
-        {FOUR_THINGS.map(([title, body]) => (
+      <ol className="list-decimal pl-5 space-y-6 marker:text-brand-ink/50">
+        {PARTS.map(({ title, intro, send, after }) => (
           <li key={title}>
-            <span className="font-semibold text-brand-ink">{title}</span> {body}
+            <span className="font-semibold text-brand-ink">{title}</span> {intro}
+            <ul className="list-disc pl-5 mt-2 space-y-1.5 marker:text-brand-ink/35">
+              {send.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+            {after && <p className="mt-2">{after}</p>}
           </li>
         ))}
       </ol>
@@ -276,7 +332,8 @@ export default function FdeInternPage() {
       <SampleEmail />
       <p className="text-[14.5px] text-brand-ink/60">
         We keep your application so we can contact you about this role or a
-        later one. Ask us to delete it and we will.
+        later one. Ask us to delete it and we will. We may build on what you
+        send, and we will credit you if we do. Ask us not to and we will not.
       </p>
 
       <H2>What happens next</H2>
