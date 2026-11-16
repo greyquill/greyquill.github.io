@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { FileCode2, Link2, MapPin, Mic, Paperclip, Phone, User } from 'lucide-react';
+import { Link2, MapPin, Mic, Paperclip, Phone, User } from 'lucide-react';
 import { CAREERS_EMAIL } from '@/lib/careers';
 
 export const metadata: Metadata = {
@@ -84,8 +84,8 @@ const STEPS: { title: string; body: React.ReactNode }[] = [
         Download the <FileLink href={RECORDS_FILE}>customer records file</FileLink> (CSV, 254 rows) and
         the <FileLink href={STARTER_FILE}>starter file</FileLink>. The records are messy, with duplicates,
         typos, and the same person written several ways. Fill in <Code>score_pair</Code> so that it does
-        what the starter file describes. Send the file back with one command that runs it on two records of
-        your choice.
+        what the starter file describes. Put your code in a public GitHub repository with a README that
+        gives the one command to run it on two records of your choice.
       </>
     ),
   },
@@ -100,14 +100,13 @@ const STEPS: { title: string; body: React.ReactNode }[] = [
 ];
 
 const NEXT_STEPS = [
-  'Someone on the team reads your task. You hear back either way.',
+  'Someone on the team reads your task. You hear back within three working days, either way.',
   'Within a week, a 30 minute call about your code, your reasoning, and what you want from the internship.',
   'A half day with us, working on one real item and sitting in on calls.',
   'Within two days of that, a yes or no, with the reason.',
 ];
 
 const ATTACHMENTS = [
-  { Icon: FileCode2, name: 'score_pair.py', meta: 'With the command to run it' },
   { Icon: Mic, name: 'voice-note.m4a', meta: '1:00' },
 ];
 
@@ -117,7 +116,7 @@ function SampleEmail() {
     <figure className="my-8">
       <div
         role="img"
-        aria-label={`Example application email to ${CAREERS_EMAIL}, with your name, phone number, city, links, your answers, and two attachments`}
+        aria-label={`Example application email to ${CAREERS_EMAIL}, with your name, phone number, city, links, your answers, and a voice note attached`}
         className="rounded-xl ring-1 ring-black/[0.08] bg-white shadow-xl shadow-brand-blue/[0.06] overflow-hidden text-[14px] leading-normal"
       >
         <div aria-hidden className="flex items-center gap-1.5 px-4 py-2.5 bg-brand-mist/60 border-b border-black/[0.06]">
@@ -139,7 +138,7 @@ function SampleEmail() {
 
           <div className="px-4 md:px-5 py-4 space-y-3 text-brand-ink/80">
             <p>Hi Greyquill,</p>
-            <p>My application is attached. I can start on 1 December and I graduate in 2027. The two records I picked are R0xxx and R0yyy, because...</p>
+            <p>My code is at the GitHub link below and the voice note is attached. I can start on 1 December and I graduate in 2027. The two records I picked are R0xxx and R0yyy, because...</p>
             <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5">
               <dt className="flex items-center gap-2 text-brand-ink/45"><User className="h-3.5 w-3.5" />Name</dt>
               <dd>Your name</dd>
@@ -149,7 +148,7 @@ function SampleEmail() {
               <dd>Your city</dd>
               <dt className="flex items-center gap-2 self-start text-brand-ink/45"><Link2 className="h-3.5 w-3.5" />Links</dt>
               <dd className="text-brand-blue break-all">
-                github.com/you
+                github.com/you/score-pair
                 <br />
                 linkedin.com/in/you
                 <br />
@@ -160,7 +159,7 @@ function SampleEmail() {
 
           <div className="px-4 md:px-5 pb-5">
             <div className="flex items-center gap-1.5 text-xs text-brand-ink/50 mb-2">
-              <Paperclip className="h-3.5 w-3.5" />2 attachments
+              <Paperclip className="h-3.5 w-3.5" />1 attachment
             </div>
             <div className="grid sm:grid-cols-2 gap-2">
               {ATTACHMENTS.map(({ Icon, name, meta }) => (
@@ -293,9 +292,10 @@ export default function FdeInternPage() {
         part of it while we watch. Send something you can explain line by line.
       </p>
       <p className="mt-4">
-        Include your name, phone number, the city you live in, and any links
-        you want us to see, such as GitHub, LinkedIn, or something you have
-        built that is live.
+        Write your answers and the two record ids in the email itself, add the
+        link to your GitHub repository, and attach the voice note. Include your
+        name, phone number, the city you live in, and any other links you want
+        us to see, such as LinkedIn or something you have built that is live.
       </p>
       <SampleEmail />
       <p className="text-[14.5px] text-brand-ink/60">
